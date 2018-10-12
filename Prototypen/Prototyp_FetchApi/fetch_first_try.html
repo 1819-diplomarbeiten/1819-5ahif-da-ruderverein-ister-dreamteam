@@ -1,0 +1,129 @@
+<p>Testmail 1: scarlett.gelleszun@nomail.com</p>
+<p>Testmail 2: birgit.neuwirth@nomail.com</p>
+<h1>Authors</h2>
+<div>
+	<p>Email eingeben</p>
+	<input type="text" id="mail"/>
+	<button onclick="getBestFourDistances()">Suchen</button>
+</div>
+
+<div>
+	<button onclick="getAllBestFourDistances()">Alle einlesen</button>
+</div>
+<div>
+<ul id="authors">
+	
+</ul>
+
+<table class="table table-hover">
+	<tbody id="distancesTable">
+
+	</tbody>
+</table>
+</div>
+
+<script>
+function getBestFourDistances(){
+	const ul = document.getElementById('authors');
+	const url = 'http://localhost:8080/testclienttest/rs/sql/bestFourDistances/' + document.getElementById('mail').value;
+	fetch(url)
+		.then((resp) => resp.json())
+		.then(function(data){
+				let li = document.createElement('li');
+				li.innerHTML = data.name + ' ' + data.bestFourDistances;
+				ul.appendChild(li);
+			}
+		)
+		.catch(function(error){
+			
+		})
+}
+/*function getAllBestFourDistances2(){
+	const table = document.getElementById('distancesTable');
+	const url = 'http://localhost:8080/testclienttest/rs/sql/bestFourDistances';
+	fetch(url)
+		.then((resp) => resp.json())
+		.then(function(data){ //.then(data => )
+				//Table Header
+				let header = document.createElement('tr');
+
+				let headerName = document.createElement('th');
+				headerName.innerHTML = 'Name';
+				header.appendChild(headerName);
+				let headerBestFour = document.createElement('th');
+				headerBestFour.innerHTML = 'BestFour';
+				header.appendChild(headerBestFour);
+				let headerOne = document.createElement('th');
+				headerOne.innerHTML = 'One';
+				header.appendChild(headerOne);
+				let headerTwo = document.createElement('th');
+				headerTwo.innerHTML = 'Two';
+				header.appendChild(headerTwo);
+				let headerThree = document.createElement('th');
+				headerThree.innerHTML = 'Three';
+				header.appendChild(headerThree);
+				let headerFour = document.createElement('th');
+				headerFour.innerHTML = 'Four';
+				header.appendChild(headerFour);
+				let headerFive = document.createElement('th');
+				headerFive.innerHTML = 'Five';
+				header.appendChild(headerFive);
+				let headerSix = document.createElement('th');
+				headerSix.innerHTML = 'Six';
+				header.appendChild(headerSix);
+				table.appendChild(header);
+
+				//Table Data
+				for(var i = 0; i < data.length;i++)
+				{
+					let tr = document.createElement('tr');
+					li.innerHTML = data[i].name + ' ' + data[i].bestFourDistances + ' ' + data[i].allSixDistances.roundOne + '  ' + data[i].allSixDistances.roundTwo + '  ' + data[i].allSixDistances.roundFour + '  ' + data[i].allSixDistances.roundFive + '  ' + data[i].allSixDistances.roundSix;
+					ul.appendChild(li);
+				}
+			}
+		)
+		.catch(function(error){
+			
+		})
+}
+*/
+function getAllBestFourDistances(){
+	const ul = document.getElementById('authors');
+	const url = 'http://localhost:8080/testclienttest/rs/sql/bestFourDistances';
+	fetch(url)
+		.then((resp) => resp.json())
+		.then(function(data){ //.then(data => )
+				let li = document.createElement('li');
+				li.innerHTML = "Name    BestFour   One Two Three Four Five Six";
+				ul.appendChild(li);
+				for(var i = 0; i < data.length;i++)
+				{
+					let li = document.createElement('li');
+					li.innerHTML = data[i].name + ' ' + data[i].bestFourDistances + ' ' + data[i].allSixDistances.roundOne + '  ' + data[i].allSixDistances.roundTwo + '  ' + data[i].allSixDistances.roundFour + '  ' + data[i].allSixDistances.roundFive + '  ' + data[i].allSixDistances.roundSix;
+					console.log(li);
+					ul.appendChild(li);
+				}
+			}
+		)
+		.catch(function(error){
+			
+		})
+}
+</script>
+
+
+
+<!--<script>
+    var myList = document.getElementById('authors');
+    fetch('products.json')
+    .then(function(response) { return response.json(); })
+    .then(function(json) {
+      for(var i = 0; i < json.products.length; i++) {
+        var listItem = document.createElement('li');
+        listItem.innerHTML = '<strong>' + json.products[i].Name + '</strong>';
+        listItem.innerHTML +=' can be found in ' + json.products[i].Location + '.';
+        listItem.innerHTML +=' Cost: <strong>£' + json.products[i].Price + '</strong>';
+        myList.appendChild(listItem);
+      }
+    });
+  </script>-->

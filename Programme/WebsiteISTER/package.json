@@ -1,0 +1,24 @@
+{
+  "name": "index-file.js",
+  "main": "index-file.js.js",
+  "dependencies": {
+    "@polymer/lit-element": "^0.6.1",
+    "@polymer/paper-dropdown-menu": "^3.0.1",
+    "@polymer/paper-item": "^3.0.1",
+    "@polymer/polymer": "^3.0.0",
+    "bootstrap": "^4.1.3",
+    "browser-sync": "^2.26.0",
+    "jquery": "^3.3.1",
+    "nodejs": "0.0.0"
+  },
+  "devDependencies": {
+    "@polymer/iron-demo-helpers": "^3.0.0-pre.19",
+    "@webcomponents/webcomponentsjs": "^2.0.0",
+    "wct-browser-legacy": "^1.0.0"
+  },
+  "scripts": {
+    "start": "npm run serve | npm run watch",
+    "serve": "polymer serve --port 8082",
+    "watch": "browser-sync start --proxy localhost:8082 --open \"src/components\" --files \"**/*.js\""
+  }
+}
