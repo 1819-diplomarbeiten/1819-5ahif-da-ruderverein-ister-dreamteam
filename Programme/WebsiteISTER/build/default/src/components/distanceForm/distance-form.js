@@ -9,14 +9,10 @@ class DistanceForm extends LitElement {
     };
   }
 
-  handleClick() {
-    let selectItem = this.shadowRoot.getElementById('distance');
-    console.log(selectItem);
-    console.log(selectItem.value);
-  }
-
   postPeriod() {
     this.distance = this.shadowRoot.getElementById('distance').value;
+    this.evidencePic = this.shadowRoot.getElementById('evidencePic').toDataURL('image/png').replace(/data\:image\/png;base64,/, '');
+    ;
     console.log(this.distance);
     fetch(this.path + 'post', {
       headers: {

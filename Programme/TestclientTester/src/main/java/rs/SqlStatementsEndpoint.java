@@ -11,9 +11,10 @@ import java.util.*;
 public class SqlStatementsEndpoint {
 
     @POST
-    @Path("/post")
+    @Path("/postMethod")
     @Consumes(MediaType.APPLICATION_JSON)
     public void postTest(final Message msg){
+        System.out.println("===========\nPost Method\n==========");
         Message m = new Message(msg.getDistance(), msg.getImg());
         System.out.println();
     }

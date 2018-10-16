@@ -4,13 +4,12 @@ import java.awt.image.BufferedImage;
 
 public class Message {
     private int distance;
-    private BufferedImage img;
+    private String img;
 
-    public Message(int distance, BufferedImage img){
+    public Message(int distance, String img){
         this.distance = distance;
         this.img = img;
     }
-
 
     public int getDistance() {
         return distance;
@@ -20,11 +19,11 @@ public class Message {
         this.distance = distance;
     }
 
-    public BufferedImage getImg() {
+    public String getImg() {
         return img;
     }
 
-    public void setImg(BufferedImage img) {
+    public void setImg(String img) {
         this.img = img;
     }
 }
