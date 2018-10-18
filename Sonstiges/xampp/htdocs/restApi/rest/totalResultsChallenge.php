@@ -10,17 +10,30 @@ include_once '../queries/Query.php';
 // instantiate database and product object
 $database = new Database();
 $db = $database->getConnection();
-$challenge = $_GET['challenge'];
 
-$sql = $db->prepare("select sum(r.distance) 
+if (!(isset($_GET['challenge']))) {
+    $sql = $db->prepare("select challenge_id, sum(r.distance) 
+        from result r 
+        group by r.challenge_id");
+
+
+// initialize object
+    $query = new Query($db);
+    echo $query->buildJson("sum(r.distance)", "totalResultsChallenge", $sql);
+} else {
+    $challenge = $_GET['challenge'];
+
+
+    $sql = $db->prepare("select sum(r.distance) 
         from result r 
         where r.challenge_id = :challenge");
 
-$sql->bindValue(':challenge', $challenge, PDO::PARAM_INT);
+    $sql->bindValue(':challenge', $challenge, PDO::PARAM_INT);
 
 // initialize object
-$query = new Query($db);
+    $query = new Query($db);
 
-echo $query->buildJson("sum(r.distance)", "totalResultsChallenge", $sql);
+    echo $query->buildJson("sum(r.distance)", "totalResultsChallenge", $sql);
+}
 
 ?>

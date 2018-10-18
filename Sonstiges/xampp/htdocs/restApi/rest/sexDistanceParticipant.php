@@ -10,18 +10,31 @@ include_once '../queries/Query.php';
 // instantiate database and product object
 $database = new Database();
 $db = $database->getConnection();
-$gender = $_GET['gender'];
 
-$sql = $db->prepare("select sum(r.distance)
+if (!(isset($_GET['gender']))) {
+    $sql = $db->prepare("select p.gender, sum(r.distance)
+                          from participant 
+                          as p join result as r on r.participant_email = p.email 
+                          GROUP BY p.gender");
+
+
+// initialize object
+    $query = new Query($db);
+    echo $query->buildJson("sum(r.distance)", "sexDistanceParticipant", $sql);
+} else {
+    $gender = $_GET['gender'];
+
+    $sql = $db->prepare("select sum(r.distance)
         from participant as p
         join result as r on r.participant_email = p.email
         where p.gender = :gender");
 
-$sql->bindValue(':gender', $gender, PDO::PARAM_STR);
+    $sql->bindValue(':gender', $gender, PDO::PARAM_STR);
 
 // initialize object
-$query = new Query($db);
+    $query = new Query($db);
 
-echo $query->buildJson("sum(r.distance)", "sexDistanceParticipant", $sql);
+    echo $query->buildJson("sum(r.distance)", "sexDistanceParticipant", $sql);
+}
 
 ?>

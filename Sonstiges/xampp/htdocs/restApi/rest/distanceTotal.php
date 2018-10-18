@@ -12,17 +12,14 @@ $database = new Database();
 $db = $database->getConnection();
 
 
-if(!(isset($_GET['email']))){
+if (!(isset($_GET['email']))) {
     $sql = $db->prepare("SELECT participant_email, sum(distance) from result group by participant_email");
-
 
 
 // initialize object
     $query = new Query($db);
     echo $query->buildJson("sum(distance)", "distanceTotal", $sql);
-}
-
-else {
+} else {
     $sql = $db->prepare("select sum(distances.distance)
                   from (select distance
                   from result
