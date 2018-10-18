@@ -27,3 +27,9 @@ div.background{
     height: 7%;
     background-color: rgb(55, 164, 201); 
 }
+div.mainPos {
+    position: absolute;
+    top: 19%;
+    background-color: lightgoldenrodyellow;
+    width: 40%
+}

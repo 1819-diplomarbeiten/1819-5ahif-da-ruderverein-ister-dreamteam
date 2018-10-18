@@ -1,4 +1,5 @@
 import {LitElement, html} from '@polymer/lit-element'
+import '../../rest/dataService.js'
 class PersonRanking extends LitElement{
     static get properties(){
         return {
@@ -79,6 +80,8 @@ class PersonRanking extends LitElement{
             method: 'GET',
             mode: 'no-cors'
         }).then((resp) => resp.json())
+        /*let vare = new dataService()
+        vare.get()*/
     }
 
     render(){

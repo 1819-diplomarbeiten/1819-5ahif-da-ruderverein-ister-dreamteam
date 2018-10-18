@@ -1,4 +1,4 @@
-package at.htl.simpleserver.data;
+/*package at.htl.simpleserver.data;
 
 import javax.inject.Singleton;
 import javax.json.Json;
@@ -21,4 +21,14 @@ public class Repository {
         }
         return INSTANCE;
     }
+}
+*/
+class DataService {
+  constructor() {//super();
+  }
+
+  get() {
+    console.log('entered dataservice');
+  }
+
 }

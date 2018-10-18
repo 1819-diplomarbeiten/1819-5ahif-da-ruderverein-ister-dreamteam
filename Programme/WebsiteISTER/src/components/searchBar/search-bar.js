@@ -20,7 +20,13 @@ class SearchBar extends LitElement{
         let elem = null
         console.log('entered changeContent: ' + content)
         let mainComp = this.shadowRoot.getElementById('components')
-        mainComp.removeChild(mainComp.childNodes[0])
+
+        //removes all children
+        while (mainComp.firstChild) {
+            mainComp.removeChild(mainComp.firstChild);
+        }
+
+        //Set the next "main" component
         switch(content){
             case 'person':
                 elem = document.createElement('person-ranking')
@@ -83,6 +89,7 @@ class SearchBar extends LitElement{
                 </div>
             </div>
             <div id="components">
+                <home-view></home-view>
             </div>
             `
     }

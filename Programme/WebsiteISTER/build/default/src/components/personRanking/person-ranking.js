@@ -71,7 +71,12 @@ class PersonRanking extends LitElement {
 
   pdf() {
     this.dropDownYear = this.shadowRoot.getElementById('dropDownYear').value;
-    console.log('year: ' + this.dropDownYear);
+    this.dropDownResult = this.shadowRoot.getElementById('dropDownResult').value;
+    this.dropDownSequence = this.shadowRoot.getElementById('dropDownSequence').value;
+    fetch(this.path + 'bestFourDistances', {
+      method: 'GET',
+      mode: 'no-cors'
+    }).then(resp => resp.json());
   }
 
   render() {
@@ -80,15 +85,9 @@ class PersonRanking extends LitElement {
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link rel="stylesheet" type="text/css" href=/src/components/personRanking/styles.css></link>
-
-        <p>Table below:</p>
         <div class="mainPos">
-            <!--<table id="tableId" class="table table-hover table-dark">
-            </table>-->
-            <br>
-            <h1>asdfsadfsdfsafsdfsd</h1>
             <h1>30K Person Ranking List:</h1>
-            <h2>Wählen Sie ihre gewünschten Filteroptionen</h2>
+            <h3>Wählen Sie ihre gewünschten Filteroptionen</h3>
             <div class="dropdown">
                 <form>
                     <div class="form-group">
