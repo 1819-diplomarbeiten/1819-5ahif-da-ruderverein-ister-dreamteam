@@ -29,7 +29,6 @@ div.background{
 }
 div.mainPos {
     position: absolute;
-    /*visibility: hidden;*/
     top: 19%;
     background-color: lightgoldenrodyellow;
     width: 40%

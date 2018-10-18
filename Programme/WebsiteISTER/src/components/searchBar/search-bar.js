@@ -20,18 +20,34 @@ class SearchBar extends LitElement{
         let elem = null
         console.log('entered changeContent: ' + content)
         let mainPos = this.shadowRoot.getElementById('components')
+        mainPos.removeChild(mainPos.childNodes[0])
         switch(content){
             case 'person':
                 elem = document.createElement('person-ranking')
                 mainPos.appendChild(elem)
                 break
             case 'club':
-
+                elem = document.createElement('club-ranking')
+                mainPos.appendChild(elem)
+                break
+            case 'distance':
+                elem = document.createElement('distance-form')
+                mainPos.appendChild(elem)
+                break
+            case 'home':
+                elem = document.createElement('home-view')
+                mainPos.appendChild(elem)
+                break
+            case 'ergo':
+                elem = document.createElement('ergo-challenge')
+                mainPos.appendChild(elem)
+                break
+            case 'login':
+                break
             default:
-                break;
+                break
         }
-        let person = this.shadowRoot.getElementById('personRanking')
-        console.log(person)
+        console.log(mainPos)
     }
 
     render(){
