@@ -1,13 +1,13 @@
 import {LitElement, html} from '@polymer/lit-element'
-//import ''
-//import 'jquery'
-
 class PersonRanking extends LitElement{
     static get properties(){
         return {
             email: String,
             path: String,
-            tableHeaders: Array
+            tableHeaders: Array,
+            dropDownYear: String,
+            dropDownResult: String,
+            dropDownSequence: String
         }
     }
     constructor(){
@@ -72,7 +72,13 @@ class PersonRanking extends LitElement{
     }
 
     pdf(){
-        
+        this.dropDownYear = this.shadowRoot.getElementById('dropDownYear').value
+        this.dropDownResult = this.shadowRoot.getElementById('dropDownResult').value
+        this.dropDownSequence = this.shadowRoot.getElementById('dropDownSequence').value
+        fetch(this.path + 'bestFourDistances', {
+            method: 'GET',
+            mode: 'no-cors'
+        }).then((resp) => resp.json())
     }
 
     render(){
@@ -80,21 +86,15 @@ class PersonRanking extends LitElement{
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
         <link rel="stylesheet" type="text/css" href=/src/components/personRanking/styles.css></link>
-
-        <p>Table below:</p>
         <div class="mainPos">
-            <!--<table id="tableId" class="table table-hover table-dark">
-            </table>-->
-            <br>
             <h1>30K Person Ranking List:</h1>
-            <h2>Wählen Sie ihre gewünschten Filteroptionen</h2>
+            <h3>Wählen Sie ihre gewünschten Filteroptionen</h3>
             <div class="dropdown">
                 <form>
                     <div class="form-group">
                         <p>Year</p>
-                        <select id="dropdownmenu" class="form-control">
+                        <select id="dropDownYear" class="form-control">
                             <option value="2017">2017 / 2018</option>
                             <option value="2016">2016 / 2017</option>
                             <option value="2015">2015 / 2016</option>
@@ -103,7 +103,7 @@ class PersonRanking extends LitElement{
                     <br>
                     <div class="form-group">
                         <p>Result</p>
-                        <select id="dropdownmenu" class="form-control">
+                        <select id="dropDownResult" class="form-control">
                             <option value="total">Total</option>
                             <option value="1">1st Session</option>
                             <option value="2">2nd Session</option>
@@ -116,7 +116,7 @@ class PersonRanking extends LitElement{
                     <br>
                     <div class="form-group">
                         <p>Sequence</p>
-                        <select id="dropdownmenu" class="form-control">
+                        <select id="dropDownSequence" class="form-control">
                             <option value="Alphabetic">Alphabetic</option>
                             <option value="TopDown">TopDown</option>
                             <option value="Categories">Categories</option>

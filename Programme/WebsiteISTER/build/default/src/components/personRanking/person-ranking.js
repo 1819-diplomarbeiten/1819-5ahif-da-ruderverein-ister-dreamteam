@@ -1,12 +1,14 @@
-import { LitElement, html } from "../../../node_modules/@polymer/lit-element/lit-element.js"; //import ''
-//import 'jquery'
+import { LitElement, html } from "../../../node_modules/@polymer/lit-element/lit-element.js";
 
 class PersonRanking extends LitElement {
   static get properties() {
     return {
       email: String,
       path: String,
-      tableHeaders: Array
+      tableHeaders: Array,
+      dropDownYear: String,
+      dropDownResult: String,
+      dropDownSequence: String
     };
   }
 
@@ -68,42 +70,8 @@ class PersonRanking extends LitElement {
   }
 
   pdf() {
-    return html`
-            <link rel="stylesheet" type="text/css" href="/src/components/personRanking/styles.css"></link>
-            <div class="mainPos">
-                <h1>30K Person Ranking List</h1>
-                <h2>Select your choices and submit to downlaod pdf</h2>
-                <paper-dropdown-menu label="Year">
-                    <paper-listbox slot="dropdown-content">
-                        <paper-item>2017/2018</paper-item>
-                        <paper-item>2016/2017</paper-item>
-                        <paper-item>2015/2016</paper-item>
-                    </paper-listbox>
-                </paper-dropdown-menu>
-                <br>
-                <paper-dropdown-menu label="Result">
-                    <paper-listbox slot="dropdown-content">
-                        <paper-item>Total</paper-item>
-                        <paper-item>1st Session</paper-item>
-                        <paper-item>2nd Session</paper-item>
-                        <paper-item>3rd Session</paper-item>
-                        <paper-item>4th Session</paper-item>
-                        <paper-item>5th Session</paper-item>
-                        <paper-item>6th Session</paper-item>
-                    </paper-listbox>
-                </paper-dropdown-menu>
-                <br>
-                <paper-dropdown-menu label="Sequence">
-                    <paper-listbox slot="dropdown-content">
-                        <paper-item>Alphabetic</paper-item>
-                        <paper-item>TopDown</paper-item>
-                        <paper-item>Categories</paper-item>
-                    </paper-listbox>
-                </paper-dropdown-menu>
-                <br><br>
-                <button>Download pdf</button>
-            </div>
-        `;
+    this.dropDownYear = this.shadowRoot.getElementById('dropDownYear').value;
+    console.log('year: ' + this.dropDownYear);
   }
 
   render() {
@@ -111,7 +79,6 @@ class PersonRanking extends LitElement {
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
         <link rel="stylesheet" type="text/css" href=/src/components/personRanking/styles.css></link>
 
         <p>Table below:</p>
@@ -119,22 +86,45 @@ class PersonRanking extends LitElement {
             <!--<table id="tableId" class="table table-hover table-dark">
             </table>-->
             <br>
+            <h1>asdfsadfsdfsafsdfsd</h1>
             <h1>30K Person Ranking List:</h1>
             <h2>Wählen Sie ihre gewünschten Filteroptionen</h2>
             <div class="dropdown">
-                <select id="dropdownmenu" value="chose it man">
-                    <option>Choose ...</option>
-                    <option value='JavaVALUE' >JavaTEXT</option>
-                    <option value='JavaScriptVALUE' >JavaScriptTEXT</option>
-                    <option value='HTMLVALUE' >HTMLTEXT</option>
-                    <option value='CSSVALUE' >CSSTEXT</option>
-                    <option value='SQLVALUE' >SQLTEXT</option>
-                    <option value='Database TutorialVALUE' >Database TutorialTEXT</option>
-                    <option value='Web Hosting TutorialVALUE' >Web Hosting TutorialTEXT</option>
-                </select>
+                <form>
+                    <div class="form-group">
+                        <p>Year</p>
+                        <select id="dropDownYear" class="form-control">
+                            <option value="2017">2017 / 2018</option>
+                            <option value="2016">2016 / 2017</option>
+                            <option value="2015">2015 / 2016</option>
+                        </select>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <p>Result</p>
+                        <select id="dropDownResult" class="form-control">
+                            <option value="total">Total</option>
+                            <option value="1">1st Session</option>
+                            <option value="2">2nd Session</option>
+                            <option value="3">3rd Session</option>
+                            <option value="4">4th Session</option>
+                            <option value="5">5th Session</option>
+                            <option value="6">6th Session</option>
+                        </select>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <p>Sequence</p>
+                        <select id="dropDownSequence" class="form-control">
+                            <option value="Alphabetic">Alphabetic</option>
+                            <option value="TopDown">TopDown</option>
+                            <option value="Categories">Categories</option>
+                        </select>
+                    </div>
+                </form>
 			</div>
             <br>
-            <input type ="button" value="click it" @click="${() => this.allBestFourDistances()}"></input>
+            <input type ="button" value="Download pdf" class="btn btn-primary" @click="${() => this.pdf()}"></input>
         </div>
         `;
   }
