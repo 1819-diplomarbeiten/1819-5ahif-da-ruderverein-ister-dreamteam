@@ -6,14 +6,12 @@ class PersonRanking extends LitElement {
     return {
       email: String,
       path: String,
-      tableHeaders: Array,
-      count: Number
+      tableHeaders: Array
     };
   }
 
   constructor() {
     super();
-    this.count = 1;
     this.path = 'http://localhost:8080/testclienttest/rs/sql/';
     this.email = 'E Mail';
     this.tableHeaders = ['First Name', 'Last Name', 'Best Four', 'Round One', 'Round Two', 'Round Three', 'Round Four', 'Round Five', 'Round Six'];
@@ -48,60 +46,25 @@ class PersonRanking extends LitElement {
   }
 
   allBestFourDistances() {
+    let t_table = this.shadowRoot.getElementById('distanceTable');
     let t_thead = document.createElement('thead');
     let t_tbody = document.createElement('tbody');
-    fetch(this.path + 'bestFourDistances').then(resp => resp.json()).then(data => {
+    fetch(this.path + 'bestFourDistances', {
+      method: 'GET',
+      mode: 'no-cors'
+    }).then(resp => resp.json()).then(data => {
       //Header Declaration
       t_thead.appendChild(this.createNewRow('th', null)); //Body Declaration
 
       for (var i = 0; i < data.length; i++) {
         t_tbody.appendChild(this.createNewRow('td', data[i]));
       }
+
+      t_table.appendChild(t_thead);
+      t_table.appendChild(t_tbody);
     }).catch(function (error) {
       console.log('Error loading data');
-      return html``;
     });
-    return html`
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-        <link rel="stylesheet" type="text/css" href=/src/components/personRanking/styles.css></link>
-
-        <p>Table below:</p>
-        <div class="mainPos">
-            <table class="table table-hover table-dark">
-                ${t_thead}
-                ${t_tbody}
-            </table>
-
-
-            <br>
-            <p>DropDown:</p>
-            <div class="dropdown">
-				<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					Dropdown button
-				</button>
-				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-					<a class="dropdown-item" href="#">Action</a>
-					<a class="dropdown-item" href="#">Another action</a>
-					<a class="dropdown-item" href="#">Something else here</a>
-				</div>
-			</div>
-          <br>
-          <div>
-          <p>Button:</p>
-          <input type ="button" value="click it" @click="${() => console.log(this.doSth())}"></input>
-          </div>
-        </div>
-
-        
-        `;
-  }
-
-  doSth() {
-    console.log('Method called for ' + this.count + ' time');
-    this.count = this.count + 1;
   }
 
   pdf() {
@@ -144,14 +107,38 @@ class PersonRanking extends LitElement {
   }
 
   render() {
-    return this.allBestFourDistances(); //return this.allBestFourDistances();
+    return html`
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    /*return html`
-        <input type="text" value ="${this.email}"></input> 
-        <input type ="button" value="click it boi" onClick="console.log('${this.getBestFourDistances()}')"></input>
-    `*/
+        <link rel="stylesheet" type="text/css" href=/src/components/personRanking/styles.css></link>
+
+        <p>Table below:</p>
+        <div class="mainPos">
+            <!--<table id="tableId" class="table table-hover table-dark">
+            </table>-->
+            <br>
+            <h1>30K Person Ranking List:</h1>
+            <h2>Wählen Sie ihre gewünschten Filteroptionen</h2>
+            <div class="dropdown">
+                <select id="dropdownmenu" value="chose it man">
+                    <option>Choose ...</option>
+                    <option value='JavaVALUE' >JavaTEXT</option>
+                    <option value='JavaScriptVALUE' >JavaScriptTEXT</option>
+                    <option value='HTMLVALUE' >HTMLTEXT</option>
+                    <option value='CSSVALUE' >CSSTEXT</option>
+                    <option value='SQLVALUE' >SQLTEXT</option>
+                    <option value='Database TutorialVALUE' >Database TutorialTEXT</option>
+                    <option value='Web Hosting TutorialVALUE' >Web Hosting TutorialTEXT</option>
+                </select>
+			</div>
+            <br>
+            <input type ="button" value="click it" @click="${() => this.allBestFourDistances()}"></input>
+        </div>
+        `;
   }
 
 }
 
-window.customElements.define('person-ranking', PersonRanking); //window.location.replace('new url')
+window.customElements.define('person-ranking', PersonRanking);
