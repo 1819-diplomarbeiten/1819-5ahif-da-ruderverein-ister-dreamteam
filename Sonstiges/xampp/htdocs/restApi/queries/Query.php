@@ -18,31 +18,49 @@ class Query
 
 // query products
         $sql->execute();
-        $num = $sql->rowCount();
 
-// check if more than 0 record found
-        if($num>0){
-
-
-
-            $row = $sql->fetch(PDO::FETCH_ASSOC);
-            extract($row);
-
+        while ($row = $sql->fetch(PDO::FETCH_ASSOC)) {
             $row[$newName] = $row[$oldName];
             unset($row[$oldName]);
-
-
-            return json_encode($row);
-
+            $data[] = $row;
         }
 
-        else{
-            echo json_encode(
-                array("message" => $num)
-            );
+        /*    checking if data has no rows */
+        if(isset($data)){
+            /*    convert data to json */
+            $json = json_encode($data);
+        }else{
+            /*    set nothing to return */
+            $json = null;
         }
 
+        /* return the json result */
+        return $json;
     }
+
+// check if more than 0 record found
+//        if($num>0){
+//
+//
+//
+//            $row = $sql->fetch(PDO::FETCH_ASSOC);
+//            extract($row);
+//
+//            $row[$newName] = $row[$oldName];
+//            unset($row[$oldName]);
+//
+//
+//            return json_encode($row);
+//
+//        }
+//
+//        else{
+//            echo json_encode(
+//                array("message" => $num)
+//            );
+//        }
+
+
 
     public function __construct($db)
     {
