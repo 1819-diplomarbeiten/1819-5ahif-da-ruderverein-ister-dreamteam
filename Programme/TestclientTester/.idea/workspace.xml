@@ -7,20 +7,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0a138268-c6f7-4c84-9ae0-fbb8ce227c4b" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/../../Organisatorisches/Arbeitszeiten.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Organisatorisches/Arbeitszeiten.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../WebsiteISTER/build/default/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../WebsiteISTER/build/default/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebsiteISTER/build/default/src/components/clubRanking/club-ranking.js" beforeDir="false" afterPath="$PROJECT_DIR$/../WebsiteISTER/build/default/src/components/clubRanking/club-ranking.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebsiteISTER/build/default/src/components/clubRanking/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/../WebsiteISTER/build/default/src/components/clubRanking/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebsiteISTER/build/default/src/components/distanceForm/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/../WebsiteISTER/build/default/src/components/distanceForm/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebsiteISTER/build/default/src/components/ergoChallenge/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/../WebsiteISTER/build/default/src/components/ergoChallenge/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebsiteISTER/build/default/src/components/homeView/home-view.js" beforeDir="false" afterPath="$PROJECT_DIR$/../WebsiteISTER/build/default/src/components/homeView/home-view.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebsiteISTER/build/default/src/components/homeView/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/../WebsiteISTER/build/default/src/components/homeView/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebsiteISTER/build/default/src/components/distanceForm/distance-form.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebsiteISTER/build/default/src/components/distanceForm/styles.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../WebsiteISTER/build/default/src/components/personRanking/person-ranking.js" beforeDir="false" afterPath="$PROJECT_DIR$/../WebsiteISTER/build/default/src/components/personRanking/person-ranking.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebsiteISTER/build/default/src/components/personRanking/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/../WebsiteISTER/build/default/src/components/personRanking/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../WebsiteISTER/build/default/src/components/searchBar/search-bar.js" beforeDir="false" afterPath="$PROJECT_DIR$/../WebsiteISTER/build/default/src/components/searchBar/search-bar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebsiteISTER/build/default/src/components/searchBar/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/../WebsiteISTER/build/default/src/components/searchBar/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebsiteISTER/build/default/src/rest/DataService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../WebsiteISTER/src/components/personRanking/person-ranking.js" beforeDir="false" afterPath="$PROJECT_DIR$/../WebsiteISTER/src/components/personRanking/person-ranking.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebsiteISTER/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../WebsiteISTER/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebsiteISTER/src/components/distanceForm/distance-form.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../WebsiteISTER/src/components/distanceForm/styles.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../WebsiteISTER/src/components/searchBar/search-bar.js" beforeDir="false" afterPath="$PROJECT_DIR$/../WebsiteISTER/src/components/searchBar/search-bar.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -78,10 +74,12 @@
     <session id="1730584013">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
+          <entry key="project.closed" value="4" />
+          <entry key="project.open.time.21" value="1" />
           <entry key="project.open.time.22" value="1" />
+          <entry key="project.open.time.24" value="1" />
           <entry key="project.open.time.8" value="1" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.opened" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
@@ -122,8 +120,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/rs/SqlStatementsEndpoint.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="13" column="22" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
+            <state relative-caret-position="304">
+              <caret line="21" selection-start-line="21" selection-end-line="21" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -190,7 +188,7 @@
       </MavenImportingSettings>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-10" />
     <option name="width" value="980" />
     <option name="height" value="1040" />
@@ -201,6 +199,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -252,15 +252,13 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1538750698787" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../../4.Klasse/NVS/Stuetz/Java/16.EntityRelations/MazanekNfl" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -405,18 +403,19 @@
       <workItem from="1538739150828" duration="662000" />
       <workItem from="1538750056432" duration="672000" />
       <workItem from="1539690220109" duration="3444000" />
-      <workItem from="1539843242958" duration="1917000" />
+      <workItem from="1539843242958" duration="2348000" />
+      <workItem from="1539936461018" duration="603000" />
+      <workItem from="1539938716233" duration="641000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="48187000" />
+    <option name="totallyTimeSpent" value="49862000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25503355" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26174498" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -426,7 +425,7 @@
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.329429" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.329429" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.38213763" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -458,18 +457,6 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/rs/SqlStatementsEndpoint.java</url>
-          <line>18</line>
-          <properties />
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_161/src.zip!/java/lang/Thread.java">
@@ -518,8 +505,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/rs/SqlStatementsEndpoint.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="13" column="22" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
+        <state relative-caret-position="304">
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

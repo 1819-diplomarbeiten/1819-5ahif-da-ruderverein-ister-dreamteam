@@ -1,6 +1,6 @@
 import {LitElement, html, property} from '@polymer/lit-element'
 
-class DistanceForm extends LitElement{
+class DistanceFormParticipant extends LitElement{
     static get properties(){
         return{
             path:String,
@@ -74,7 +74,7 @@ class DistanceForm extends LitElement{
     //zu späterer Zeit: Überprüfung ob gerade eine Challenge!
     render(){
         return html`
-            <link rel="stylesheet" type="text/css" href=/src/components/distanceForm/styles.css>
+            <link rel="stylesheet" type="text/css" href=/src/components/distanceFormParticipant/styles.css>
             <div class="mainPos">
                 <h1>Enter Your Distance</h1>
                 <input id="distance" type="text" placeholder="Enter Distance" value="1234"/><br><br>
@@ -84,4 +84,4 @@ class DistanceForm extends LitElement{
         `
     }
 }
-window.customElements.define('distance-form', DistanceForm);
+window.customElements.define('distance-form-participant', DistanceFormParticipant);

@@ -37,7 +37,7 @@ class SearchBar extends LitElement{
                 mainComp.appendChild(elem)
                 break
             case 'distance':
-                elem = document.createElement('distance-form')
+                elem = document.createElement('distance-form-participant')
                 mainComp.appendChild(elem)
                 break
             case 'home':
