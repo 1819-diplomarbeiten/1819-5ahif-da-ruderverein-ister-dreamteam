@@ -46,24 +46,24 @@ class DistanceFormParticipant extends LitElement{
             const myJson = await response.json();
           })();*/
         var jsonObj = {
-            "distance": this.distance,
-            "evidencePic": this.evidencePic
+            'distance': this.distance,
+            'evidencePic': 'asds'
         };
         
         var data = new FormData();
-        data.append( "json", JSON.stringify( jsonObj ) );
+        data.append( 'json', JSON.stringify(jsonObj));
         
-        fetch(this.path + "postMethod",
+        fetch(this.path + 'postMethod',
         {
-            method: "POST",
-            body: JSON.stringify({"distance": this.distance, "img": this.evidencePic}),
+            method: 'POST',
+            body: data,
             headers: {
-                'Accept': 'application/json, text/plain, */*',
+                //'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
               }
-        }).then(res=> res.json())
+        })/*.then(res=> res.json())
         .then(res => console.log(res))
-        /*.then(function(res){ return res.json(); })
+        .then(function(res){ return res.json(); })
         .then(function(data){ alert( JSON.stringify( data ) ) })*/
     }
 
