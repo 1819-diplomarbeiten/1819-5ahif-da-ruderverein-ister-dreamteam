@@ -15,6 +15,7 @@ public class SqlStatementsEndpoint {
     @Consumes(MediaType.APPLICATION_JSON)
     public void postTest(final JsonObject msg){
         System.out.println("===========\nPost Method\n==========");
+        System.out.println(msg.getInt("distance") + msg.getString("evidencePic"));
         //Message m = new Message(msg.getDistance(), msg.getImg());
         System.out.println();
     }

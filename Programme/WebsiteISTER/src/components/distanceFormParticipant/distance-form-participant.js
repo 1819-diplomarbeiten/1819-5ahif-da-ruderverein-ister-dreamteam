@@ -5,11 +5,11 @@ class DistanceFormParticipant extends LitElement{
         return{
             path:String,
             distance: Number,
-            evidencePic: Image
+            evidencePic: Number
         }
     }
 
-    postPeriodTwo(){
+    /*postPeriodTwo(){
         console.log('entered postPeriodTwo')
         this.distance = this.shadowRoot.getElementById('distance').value;
         this.evidencePic = this.shadowRoot.getElementById('evidencePic')
@@ -23,48 +23,23 @@ class DistanceFormParticipant extends LitElement{
             }
             });
         }
-    }
+    }*/
 
     postPeriod(){
-        console.log('entered postPeriod')
         this.distance = this.shadowRoot.getElementById('distance').value;
-        this.evidencePic = this.shadowRoot.getElementById('evidencePic').getBase64
-        console.log(this.distance);
-         /* (async() => {
-              console.log('entered async')
-            const response = await fetch(this.path + 'postMethod', {
-              method: 'POST',
-              //credentials: 'include',
-              cache: 'no-cache',
-              mode:'cors',
-              body: JSON.stringify({"distance": this.distance, "img": this.evidencePic}),
-              headers:{
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-              }
-            });
-            const myJson = await response.json();
-          })();*/
-        var jsonObj = {
-            'distance': this.distance,
-            'evidencePic': 'asds'
-        };
-        
-        var data = new FormData();
-        data.append( 'json', JSON.stringify(jsonObj));
+        //this.evidencePic = this.shadowRoot.getElementById('evidencePic').value//.webkitRelativePath//.target//.value//.getBase64
+        this.evidencePic = 6787656789876
+
+        var msgJson = "{\"distance\":" + this.distance + ",\"evidencePic\":\"" + this.evidencePic + "\"}";
         
         fetch(this.path + 'postMethod',
         {
-            method: 'POST',
-            body: data,
+            method: "POST",
+            body: msgJson,
             headers: {
-                //'Accept': 'application/json, text/plain, */*',
-                'Content-Type': 'application/json'
+                "Content-Type": "application/json"
               }
-        })/*.then(res=> res.json())
-        .then(res => console.log(res))
-        .then(function(res){ return res.json(); })
-        .then(function(data){ alert( JSON.stringify( data ) ) })*/
+        })
     }
 
     constructor(){
