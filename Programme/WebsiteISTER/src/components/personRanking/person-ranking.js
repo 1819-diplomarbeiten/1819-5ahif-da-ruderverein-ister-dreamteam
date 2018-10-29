@@ -3,9 +3,9 @@ import {LitElement, html} from '@polymer/lit-element'
 class PersonRanking extends LitElement{
     static get properties(){
         return {
-            email: String,
+            //email: String,
             path: String,
-            tableHeaders: Array,
+            //tableHeaders: Array,
             dropDownYear: Number,
             dropDownResult: Number,
             dropDownSequence: String
@@ -14,8 +14,8 @@ class PersonRanking extends LitElement{
     constructor(){
         super();
         this.path = 'http://localhost:8080/testclienttest/rs/sql/';
-        this.email = 'E Mail';
-        this.tableHeaders = ['First Name', 'Last Name', 'Best Four', 'Round One', 'Round Two', 'Round Three', 'Round Four', 'Round Five', 'Round Six'];
+        //this.email = 'E Mail';
+        //this.tableHeaders = ['First Name', 'Last Name', 'Best Four', 'Round One', 'Round Two', 'Round Three', 'Round Four', 'Round Five', 'Round Six'];
     }
 
     /*createNewElement(elementType, content){
@@ -77,7 +77,7 @@ class PersonRanking extends LitElement{
         this.dropDownResult = this.shadowRoot.getElementById('dropDownResult').value
         this.dropDownSequence = this.shadowRoot.getElementById('dropDownSequence').value
 
-        fetch(this.path + "bestFourDistances/" + this.dropDownYear + "/" + this.dropDownResult + "/" + this.dropDownSequence, {
+        fetch(this.path + "bestFourDistancesParticipants/" + this.dropDownYear + "/" + this.dropDownResult + "/" + this.dropDownSequence, {
             method: "GET"
         })
         .then((resp) => resp.json())

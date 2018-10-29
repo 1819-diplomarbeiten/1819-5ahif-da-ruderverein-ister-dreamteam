@@ -1,11 +1,8 @@
 package rs;
 
-import entities.Message;
-
 import javax.json.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.*;
 
 @Path("/sql")
 public class SqlStatementsEndpoint {
@@ -31,12 +28,21 @@ public class SqlStatementsEndpoint {
     }
 
     @GET
-    @Path("/bestFourDistances/{year}/{result}/{sequence}")
+    @Path("/bestFourDistancesParticipants/{year}/{result}/{sequence}")
     @Produces(MediaType.APPLICATION_JSON)
-    public JsonArray bestFourDistances(@PathParam("year")String year, @PathParam("result")String result, @PathParam("sequence")String sequence){
-        System.out.println("===========\nGet Distances Table\n==========");
+    public JsonArray bestFourDistancesParticipants(@PathParam("year")String year, @PathParam("result")String result, @PathParam("sequence")String sequence){
+        System.out.println("===========\nGet Distances Table Participants\n==========");
         System.out.println(year + "  " + result + "  " + sequence);
-        JsonArray jsonValues = new JsonArrayCreator().GetJsonArray();
+        JsonArray jsonValues = new JsonArrayCreator().GetJsonArrayParticipants();
+        return jsonValues;
+    }
+    @GET
+    @Path("/bestFourDistancesClubs/{year}/{result}/{sequence}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public JsonArray bestFourDistancesClub(@PathParam("year")String year, @PathParam("result")String result, @PathParam("sequence")String sequence){
+        System.out.println("===========\nGet Distances Table Clubs\n==========");
+        System.out.println(year + "  " + result + "  " + sequence);
+        JsonArray jsonValues = new JsonArrayCreator().GetJsonArrayClubs();
         return jsonValues;
     }
 

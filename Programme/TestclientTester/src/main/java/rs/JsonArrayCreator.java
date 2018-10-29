@@ -20,14 +20,26 @@ public class JsonArrayCreator {
     List<String> gender = new ArrayList<>();
     List<String> category = new ArrayList<>();
     List<String> club = new ArrayList<>();
+    List<String> clubLong = new ArrayList<>();
+    List<Integer> clubMembers = new ArrayList<>();
 
-    public JsonArray GetJsonArray(){
+    public JsonArray GetJsonArrayParticipants(){
         JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
         fillData();
         for(int i = 0; i < bestFour.size();i++){
             JsonObjectBuilder allSixDistances = Json.createObjectBuilder();
             allSixDistances.add("roundOne", one.get(i)).add("roundTwo", two.get(i)).add("roundThree", three.get(i)).add("roundFour", four.get(i)).add("roundFive", five.get(i)).add("roundSix", six.get(i));
             jsonArrayBuilder.add(Json.createObjectBuilder().add("bestFourDistances", bestFour.get(i)).add("firstName", names.get(i)).add("lastName", lastNames.get(i)).add("allSixDistances", allSixDistances).add("gender", gender.get(i)).add("pClass", category.get(i)).add("club", club.get(i)));
+        }
+        return jsonArrayBuilder.build();
+    }
+    public JsonArray GetJsonArrayClubs(){
+        JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
+        fillData();
+        for(int i = 0; i < bestFour.size();i++){
+            JsonObjectBuilder allSixDistances = Json.createObjectBuilder();
+            allSixDistances.add("roundOne", one.get(i)*10).add("roundTwo", two.get(i)*10).add("roundThree", three.get(i)*10).add("roundFour", four.get(i)*10).add("roundFive", five.get(i)*10).add("roundSix", six.get(i)*10);
+            jsonArrayBuilder.add(Json.createObjectBuilder().add("clubLong", clubLong.get(i)).add("club", club.get(i)).add("allSixDistances", allSixDistances).add("clubParticipantCount", clubMembers.get(i)));
         }
         return jsonArrayBuilder.build();
     }
@@ -69,5 +81,11 @@ public class JsonArrayCreator {
         club.add("LIA");
         club.add("LIA");
         club.add("LIA");
+        clubLong.add("LIA Wien");
+        clubLong.add("Donau Wien");
+        clubLong.add("Donau Wien");
+        clubMembers.add(193);
+        clubMembers.add(104);
+        clubMembers.add(104);
     }
 }

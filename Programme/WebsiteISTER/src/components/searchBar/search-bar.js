@@ -16,7 +16,7 @@ class SearchBar extends LitElement{
 
     changeContent(content){
         let elem = null
-        console.log('entered changeContent: ' + content)
+        //console.log('entered changeContent: ' + content)
         let mainComp = this.shadowRoot.getElementById('components')
 
         //removes all children
