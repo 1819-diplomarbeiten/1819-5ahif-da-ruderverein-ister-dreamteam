@@ -17,6 +17,9 @@ public class JsonArrayCreator {
     List<Integer> four = new ArrayList<Integer>();
     List<Integer> five = new ArrayList<Integer>();
     List<Integer> six = new ArrayList<Integer>();
+    List<String> gender = new ArrayList<>();
+    List<String> category = new ArrayList<>();
+    List<String> club = new ArrayList<>();
 
     public JsonArray GetJsonArray(){
         JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
@@ -24,7 +27,7 @@ public class JsonArrayCreator {
         for(int i = 0; i < bestFour.size();i++){
             JsonObjectBuilder allSixDistances = Json.createObjectBuilder();
             allSixDistances.add("roundOne", one.get(i)).add("roundTwo", two.get(i)).add("roundThree", three.get(i)).add("roundFour", four.get(i)).add("roundFive", five.get(i)).add("roundSix", six.get(i));
-            jsonArrayBuilder.add(Json.createObjectBuilder().add("bestFourDistances", bestFour.get(i)).add("firstName", names.get(i)).add("lastName", lastNames.get(i)).add("allSixDistances", allSixDistances));
+            jsonArrayBuilder.add(Json.createObjectBuilder().add("bestFourDistances", bestFour.get(i)).add("firstName", names.get(i)).add("lastName", lastNames.get(i)).add("allSixDistances", allSixDistances).add("gender", gender.get(i)).add("pClass", category.get(i)).add("club", club.get(i)));
         }
         return jsonArrayBuilder.build();
     }
@@ -57,6 +60,14 @@ public class JsonArrayCreator {
         six.add(7894);
         six.add(8734);
         six.add(2345);
-
+        gender.add("F");
+        gender.add("M");
+        gender.add("M");
+        category.add("U23");
+        category.add("A");
+        category.add("C");
+        club.add("LIA");
+        club.add("LIA");
+        club.add("LIA");
     }
 }

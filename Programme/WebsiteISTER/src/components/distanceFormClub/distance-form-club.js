@@ -44,16 +44,10 @@ class DistanceFormClub extends LitElement{
                         "Content-Type": "application/json"
                     }
                 })
-                //postPeriods(jsonObj)
-                //console.log(this.clubTable);
               })
         });
         fileReader.readAsArrayBuffer(file)
     }
-
-    /*postPeriods(jsonObj){
-        console.log(jsonObj)
-    }*/
 
     //zu späterer Zeit: Überprüfung ob gerade eine Challenge!
     render(){
