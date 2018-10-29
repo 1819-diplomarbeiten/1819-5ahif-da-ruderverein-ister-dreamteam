@@ -51,7 +51,6 @@ class DistanceFormClub extends LitElement{
 
     //zu späterer Zeit: Überprüfung ob gerade eine Challenge!
     render(){
-        console.log('entered render')
         return html`
             <!--Bootstrap and Node js-->
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -69,8 +68,8 @@ class DistanceFormClub extends LitElement{
             <div class="mainPos">
                 <h1>Enter Your Distance</h1>
                 <h3>This is how the Excel should look like (.xlsx Format):</h3>
-                <table class="table table-hover">
-                    <thead width="300">
+                <table class="table table-dark">
+                    <thead width="300" class="thead-dark">
                         <tr>
                             <th></th>
                             <th>A</th>

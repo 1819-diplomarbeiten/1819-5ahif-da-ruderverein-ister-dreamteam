@@ -34,7 +34,7 @@ public class SqlStatementsEndpoint {
         System.out.println("===========\nGet Distances Table Participants\n==========");
         System.out.println(year + "  " + result + "  " + sequence);
         JsonArray jsonValues;
-        if(Integer.parseInt(year) == 0)
+        if(Integer.parseInt(result) == 0)
             jsonValues = new JsonArrayCreator().GetJsonArrayParticipants();
         else
             jsonValues = new JsonArrayCreator().GetJsonArrayParticipantsParticular();
