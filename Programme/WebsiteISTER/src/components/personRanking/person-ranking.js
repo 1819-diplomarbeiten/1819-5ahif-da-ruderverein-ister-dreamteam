@@ -1,13 +1,13 @@
 import {LitElement, html} from '@polymer/lit-element'
-import '../../rest/dataService.js'
+//import '../../rest/dataService.js'
 class PersonRanking extends LitElement{
     static get properties(){
         return {
             email: String,
             path: String,
             tableHeaders: Array,
-            dropDownYear: String,
-            dropDownResult: String,
+            dropDownYear: Number,
+            dropDownResult: Number,
             dropDownSequence: String
         }
     }
@@ -18,7 +18,7 @@ class PersonRanking extends LitElement{
         this.tableHeaders = ['First Name', 'Last Name', 'Best Four', 'Round One', 'Round Two', 'Round Three', 'Round Four', 'Round Five', 'Round Six'];
     }
 
-    createNewElement(elementType, content){
+    /*createNewElement(elementType, content){
         var temp = document.createElement(elementType);
         temp.innerText = content;
         return temp;
@@ -70,22 +70,42 @@ class PersonRanking extends LitElement{
 		.catch(function(error){
             console.log('Error loading data')
         })
-    }
+    }*/
 
-    pdf(){
+    getDistances(){
         this.dropDownYear = this.shadowRoot.getElementById('dropDownYear').value
         this.dropDownResult = this.shadowRoot.getElementById('dropDownResult').value
         this.dropDownSequence = this.shadowRoot.getElementById('dropDownSequence').value
-        fetch(this.path + 'bestFourDistances', {
-            method: 'GET',
-            mode: 'no-cors'
-        }).then((resp) => resp.json())
-        /*let vare = new dataService()
-        vare.get()*/
+
+        //var msgJson = "{\"Year\":" + this.dropDownYear + ",\"Result\":" + this.evidencePic + ",\"Sequence\":\"" + this.dropDownSequence + "\"}";
+
+        fetch(this.path + "bestFourDistances/" + this.dropDownYear + "/" + this.dropDownResult + "/" + this.dropDownSequence, {
+            method: "GET",
+            //mode: "no-cors",
+        })
+        .then((resp) => resp.json())
+        .then(data => {
+            this.createPdf(data)
+        })
+    }
+
+    createPdf(result){
+        console.log(result[0].bestFourDistances)
+        var doc = new jsPDF()
+        doc.setFontSize(18)
+        doc.setFontType('bold')
+        doc.text('First Name   Last Name   BestFour  AllSixDistances', 20, 15)
+        doc.setFontSize(12)
+        doc.setFontType('slim')
+        for(var i = 0; i < result.length; i++){
+            doc.text(result[i].firstName + '      ' + result[i].lastName + '   ' + result[i].bestFourDistances + ' ' + result[i].allSixDistances.roundOne, 20, 15 + (10 * (i+1)))
+        }
+        doc.save('PersonChallenge.pdf')
     }
 
     render(){
         return html`
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -107,7 +127,7 @@ class PersonRanking extends LitElement{
                     <div class="form-group">
                         <p>Result</p>
                         <select id="dropDownResult" class="form-control">
-                            <option value="total">Total</option>
+                            <option value="0">Total</option>
                             <option value="1">1st Session</option>
                             <option value="2">2nd Session</option>
                             <option value="3">3rd Session</option>
@@ -128,7 +148,7 @@ class PersonRanking extends LitElement{
                 </form>
 			</div>
             <br>
-            <input type ="button" value="Download pdf" class="btn btn-primary" @click="${() => this.pdf()}"></input>
+            <input type ="button" value="Download pdf" class="btn btn-primary" @click="${() => this.getDistances()}"></input>
         </div>
         `
     }

@@ -1,6 +1,4 @@
 import {LitElement, html} from '@polymer/lit-element'
-import  '@polymer/paper-dropdown-menu/paper-dropdown-menu.js'
-import '@polymer/paper-item/paper-item.js'
 
 class SearchBar extends LitElement{
     static get properties(){

@@ -11,21 +11,31 @@ import java.util.*;
 public class SqlStatementsEndpoint {
 
     @POST
-    @Path("/postMethod")
+    @Path("/postPeriod")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void postTest(final JsonObject msg){
-        System.out.println("===========\nPost Method\n==========");
-        System.out.println(msg.getInt("distance") + msg.getString("evidencePic"));
-        //Message m = new Message(msg.getDistance(), msg.getImg());
-        System.out.println();
+    public void postPeriod(final JsonObject msg){
+        System.out.println("===========\nPost Period\n==========");
+        System.out.println(msg.getInt("distance") + "  " + msg.getString("evidencePic"));
     }
 
 
+    @POST
+    @Path("/postPeriods")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void postPeriods(final JsonArray periods){
+        System.out.println("===========\nPost Periods\n==========");
+        for (int i = 0; i < periods.size(); i++) {
+            JsonObject period = periods.getJsonObject(i);
+            System.out.println(period.getInt("Distance") + "  " + period.getString("Email"));
+        }
+    }
+
     @GET
-    @Path("/bestFourDistances")
+    @Path("/bestFourDistances/{year}/{result}/{sequence}")
     @Produces(MediaType.APPLICATION_JSON)
-    public JsonArray bestFourDistances(){
+    public JsonArray bestFourDistances(@PathParam("year")String year, @PathParam("result")String result, @PathParam("sequence")String sequence){
         System.out.println("===========\nGet Distances Table\n==========");
+        System.out.println(year + "  " + result + "  " + sequence);
         JsonArray jsonValues = new JsonArrayCreator().GetJsonArray();
         return jsonValues;
     }

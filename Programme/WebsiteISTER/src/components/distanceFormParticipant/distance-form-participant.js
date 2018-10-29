@@ -1,5 +1,5 @@
 import {LitElement, html, property} from '@polymer/lit-element'
-
+//import {LeBla} from '../../rest'
 class DistanceFormParticipant extends LitElement{
     static get properties(){
         return{
@@ -29,10 +29,17 @@ class DistanceFormParticipant extends LitElement{
         this.distance = this.shadowRoot.getElementById('distance').value;
         //this.evidencePic = this.shadowRoot.getElementById('evidencePic').value//.webkitRelativePath//.target//.value//.getBase64
         this.evidencePic = 6787656789876
+        /*this.shadowRoot.appendChild(this.shadowRoot.cre)
+        var myClass = Java.type("../../rest/dataService")
+        let myClass = new LeBla();
+        myClass.post();
+        let dataService = new DataService()
+        dataService.get()
+        */
 
         var msgJson = "{\"distance\":" + this.distance + ",\"evidencePic\":\"" + this.evidencePic + "\"}";
         
-        fetch(this.path + 'postMethod',
+        fetch(this.path + 'postPeriod',
         {
             method: "POST",
             body: msgJson,
