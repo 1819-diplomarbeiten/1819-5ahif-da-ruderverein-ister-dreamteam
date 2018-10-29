@@ -22,6 +22,9 @@ public class JsonArrayCreator {
     List<String> club = new ArrayList<>();
     List<String> clubLong = new ArrayList<>();
     List<Integer> clubMembers = new ArrayList<>();
+    List<String> fiveHoundred = new ArrayList<>();
+    List<Double> watt = new ArrayList<>();
+    List<Double> wattKg = new ArrayList<>();
 
     public JsonArray GetJsonArrayParticipants(){
         JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
@@ -33,6 +36,17 @@ public class JsonArrayCreator {
         }
         return jsonArrayBuilder.build();
     }
+
+    public JsonArray GetJsonArrayParticipantsParticular(){
+        JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
+        fillData();
+        for(int i = 0; i < bestFour.size();i++){
+            JsonObjectBuilder allSixDistances = Json.createObjectBuilder();
+            jsonArrayBuilder.add(Json.createObjectBuilder().add("firstName", names.get(i)).add("lastName", lastNames.get(i)).add("round", one.get(i)).add("gender", gender.get(i)).add("pClass", category.get(i)).add("club", club.get(i)).add("fiveHoundred", fiveHoundred.get(i)).add("watt", watt.get(i)).add("wattKg", wattKg.get(i)));
+        }
+        return jsonArrayBuilder.build();
+    }
+
     public JsonArray GetJsonArrayClubs(){
         JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
         fillData();
@@ -87,5 +101,14 @@ public class JsonArrayCreator {
         clubMembers.add(193);
         clubMembers.add(104);
         clubMembers.add(104);
+        fiveHoundred.add("01:55,2");
+        fiveHoundred.add("02:04,4");
+        fiveHoundred.add("01:50,9");
+        watt.add(200.2);
+        watt.add(197.8);
+        watt.add(210.7);
+        wattKg.add(14.09);
+        wattKg.add(10.38);
+        wattKg.add(17.14);
     }
 }

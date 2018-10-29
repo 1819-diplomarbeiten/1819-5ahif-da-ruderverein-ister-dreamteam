@@ -33,7 +33,11 @@ public class SqlStatementsEndpoint {
     public JsonArray bestFourDistancesParticipants(@PathParam("year")String year, @PathParam("result")String result, @PathParam("sequence")String sequence){
         System.out.println("===========\nGet Distances Table Participants\n==========");
         System.out.println(year + "  " + result + "  " + sequence);
-        JsonArray jsonValues = new JsonArrayCreator().GetJsonArrayParticipants();
+        JsonArray jsonValues;
+        if(Integer.parseInt(year) == 0)
+            jsonValues = new JsonArrayCreator().GetJsonArrayParticipants();
+        else
+            jsonValues = new JsonArrayCreator().GetJsonArrayParticipantsParticular();
         return jsonValues;
     }
     @GET
