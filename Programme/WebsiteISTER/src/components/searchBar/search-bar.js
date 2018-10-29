@@ -50,6 +50,10 @@ class SearchBar extends LitElement{
                 elem = document.createElement('login-form')
                 mainComp.appendChild(elem)
                 break
+            case 'challengeCreator':
+                elem = document.createElement('challenge-creator')
+                mainComp.appendChild(elem)
+                break
             default:
                 break
         }
@@ -83,6 +87,9 @@ class SearchBar extends LitElement{
                     </div>
                     <div class="singleComponent">
                         <p @click="${() => this.changeContent('login')}">Login</p>
+                    </div>
+                    <div class="singleComponent">
+                        <p @click="${() => this.changeContent('challengeCreator')}">Create Challenge</p>
                     </div>
                 </div>
             </div>
