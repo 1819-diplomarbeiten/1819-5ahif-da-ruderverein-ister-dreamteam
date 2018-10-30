@@ -67,10 +67,10 @@ class OverviewSelector extends LitElement{
 
     render(){
         return html`
-            <link rel="stylesheet" type="text/css" href=/src/components/overViewSelector/styles.css>
+            <link rel="stylesheet" type="text/css" href="/src/components/overviewSelector/styles.css"></link>
+            <script lang="javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+            <script lang="javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
             <div class ="background">
                 <div class="banner">
                     <p>Ergo Challenge ISTER Linz</p>

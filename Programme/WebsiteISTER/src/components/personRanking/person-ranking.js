@@ -187,12 +187,16 @@ class PersonRanking extends LitElement{
 
     render(){
         return html`
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
+        <!--bootstrap and node js-->
+        <script lang="javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script lang="javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <!--jspsf-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
         <script lang="javascript" src="/node_modules/jspdf/dist/jspdf.min.js"></script>
         <script lang="javascript" src="/node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js"></script>
+        <script lang="javascript" src="/node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.min.js"></script>
+        <!--styling-->
         <link rel="stylesheet" type="text/css" href=/src/components/personRanking/styles.css></link>
         <div class="mainPos">
             <h1>30K Person Ranking List:</h1>

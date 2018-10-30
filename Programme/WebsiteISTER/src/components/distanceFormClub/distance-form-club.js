@@ -53,15 +53,13 @@ class DistanceFormClub extends LitElement{
     render(){
         return html`
             <!--Bootstrap and Node js-->
+            <script lang="javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+            <script lang="javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
             <!--Read excel-->
-            <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.7.7/xlsx.core.min.js"></script>-->
-            <script lang="javascript" src="/node_modules/xlsx/dist/jszip.js"></script>
-            <script lang="javascript" src="/node_modules/xlsx/dist/shim.min.js"></script>
-            <script lang="javascript" src="/node_modules/xlsx/dist/xlsx.full.min.js"></script>
+            <script type="text/javascript" src="/node_modules/xlsx/dist/jszip.js"></script>
+            <script type="text/javascript" src="/node_modules/xlsx/dist/shim.min.js"></script>
+            <script type="text/javascript" src="/node_modules/xlsx/dist/xlsx.full.min.js"></script>
             <!--Styling-->
             <link rel="stylesheet" type="text/css" href=/src/components/distanceFormClub/styles.css>
 
@@ -95,7 +93,7 @@ class DistanceFormClub extends LitElement{
                     </tbody>
                 </table>
                 <input id="excelFile" type="file" name="Excel auswählen" accept=".xlsx"/></br><br>
-                <button type="submit" @click="${() => this.postPeriods()}">Submit</button>
+                <button type="submit" class="btn btn-primary" @click="${() => this.postPeriods()}">Submit</button>
             </div>
         `
     }

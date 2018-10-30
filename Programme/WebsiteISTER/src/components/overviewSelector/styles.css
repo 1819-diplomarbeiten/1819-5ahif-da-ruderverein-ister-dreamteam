@@ -1,5 +1,5 @@
 div.banner{
-    position: fixed;
+    position: absolute;
     /*top: 8%;*/
     font-size: 25px;
     float: left;
