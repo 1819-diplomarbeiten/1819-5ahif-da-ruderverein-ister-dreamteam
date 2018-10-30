@@ -55,42 +55,24 @@ class DistanceFormParticipant extends LitElement {
 
   render() {
     return html`
-            <!--bootstrap-->
             <script lang="javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-            <script lang="javascript" src="/node_modules/bootstrap/dist/css/bootstrap.min.css"></script>
             <script lang="javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
-            <link rel="stylesheet" type="text/css" href="/src/components/overviewContent/distance/club/styles.css">
-                <!--<div style="margin-top:80%">
-                    <div class="input-group input-group-sm mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-sm">Small</span>
-                        </div>
-                        <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                    </div>
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">Upload</span>
-                        </div>
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="inputGroupFile01">
-                            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                        </div>
-                    </div>
-                    <div class="input-group mb-3">
-  <div class="input-group-prepend">
-    <span class="input-group-text" id="basic-addon1">@</span>
-  </div>
-  <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-</div>
-                </div>-->
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+            <link rel="stylesheet" type="text/css" href="/src/components/overviewContent/distance/participant/styles.css">
             <div class="mainPos">
                 <h1>Enter Your Distance</h1>
-
-
-
-
-                <input id="distance" type="text" placeholder="Enter Distance"/><br><br>
-                <input id="evidencePic" type="file" name="Beweisbild auswählen" accept=".png, .jpg, .jpeg"/></br><br>
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Distance</span>
+                    </div>
+                    <input id="distance" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="exampleFormControlFile1">Evidence Picture</label>
+                    <input id="evidencePic" accept=".png, .jpg, .jpeg" type="file" class="form-control-file" id="exampleFormControlFile1">
+                </div>
+                <br>
                 <button type="submit" class="btn btn-primary" @click="${() => this.postPeriod()}">Submit</button>
             </div>
         `;

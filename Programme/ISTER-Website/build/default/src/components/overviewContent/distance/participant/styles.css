@@ -3,5 +3,5 @@ div.mainPos{
     top: 17%;
     background-color: #a3ffec;
     /*left:0%; removed*/
-    margin-left: 50%; /*added*/
+    left: 60%; /*added*/
 }

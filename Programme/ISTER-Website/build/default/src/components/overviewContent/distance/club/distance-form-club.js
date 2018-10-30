@@ -58,15 +58,9 @@ class DistanceFormClub extends LitElement {
 
   render() {
     return html`
-            <!--Bootstrap-->
             <script lang="javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
             <script lang="javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-            <!--Read excel-->
-            <script type="text/javascript" src="/node_modules/xlsx/dist/jszip.js"></script>
-            <script type="text/javascript" src="/node_modules/xlsx/dist/shim.min.js"></script>
-            <script type="text/javascript" src="/node_modules/xlsx/dist/xlsx.full.min.js"></script>
-            <!--Styling-->
             <link rel="stylesheet" type="text/css" href=/src/components/overviewContent/distance/club/styles.css>
 
             <div class="mainPos">
@@ -98,7 +92,11 @@ class DistanceFormClub extends LitElement {
                         </tr>
                     </tbody>
                 </table>
-                <input id="excelFile" type="file" name="Excel auswählen" accept=".xlsx"/></br><br>
+                <div class="form-group">
+                    <label for="exampleFormControlFile1">Select Excel File</label>
+                    <input id="excelFile" accept=".xlsx" type="file" class="form-control-file" id="exampleFormControlFile1">
+                </div>
+                <br>
                 <button type="submit" class="btn btn-primary" @click="${() => this.postPeriods()}">Submit</button>
             </div>
         `;

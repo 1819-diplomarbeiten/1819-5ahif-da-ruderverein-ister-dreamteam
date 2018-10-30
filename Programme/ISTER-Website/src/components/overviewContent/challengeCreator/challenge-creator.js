@@ -17,7 +17,13 @@ class ChallengeCreator extends LitElement{
     loadDatePicker(){
         console.log('entered datePicker')
         console.log(this.shadowRoot.getElementById('roundOne'))
-        const picker = datepicker(this.shadowRoot.getElementById('roundOne'));
+        //const picker = datepicker(this.shadowRoot.getElementById('roundOne'));
+        /*this.shadowRoot.getElementById('roundOne').datepicker({
+            format: 'mm/dd/yyyy',
+            startDate: '-3d'
+        });*/
+        //$( "#datepicker" ).datepicker();
+        const picker = datepicker(this.shadowRoot.getElementById('roundOne'), {dateSelected: new Date(2099, 0, 5)});
     }
 
     render(){

@@ -15,20 +15,24 @@ class ChallengeCreator extends LitElement {
 
   loadDatePicker() {
     console.log('entered datePicker');
-    console.log(this.shadowRoot.getElementById('roundOne'));
-    const picker = datepicker(this.shadowRoot.getElementById('roundOne'));
+    console.log(this.shadowRoot.getElementById('roundOne')); //const picker = datepicker(this.shadowRoot.getElementById('roundOne'));
+
+    /*this.shadowRoot.getElementById('roundOne').datepicker({
+        format: 'mm/dd/yyyy',
+        startDate: '-3d'
+    });*/
+    //$( "#datepicker" ).datepicker();
+
+    const picker = datepicker(this.shadowRoot.getElementById('roundOne'), {
+      dateSelected: new Date(2099, 0, 5)
+    });
   }
 
   render() {
     return html`
-        <!--Bootstrap-->
         <script lang="javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
         <script lang="javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <!--datepicker-->
-        <script rel="stylesheet" href="/node_modules/js-datepicker/datepicker.css"></script>
-        <script src="/node_modules/js-datepicker/datepicker.min.js"></script> 
-        <!--styling-->
         <link rel="stylesheet" type="text/css" href=/src/components/overviewContent/challengeCreator/styles.css>
         <div class="mainPos">
             <h1>Create a new Challenge</h1><br>

@@ -1,7 +1,9 @@
 <!DOCTYPE html><html><head>
     <meta charset="utf-8">
-    <title>countdown-header</title>
+    <title>ISTER</title>
+    <!--needed to be able to start-->
     <script src="node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <!--all components-->
     <script type="module" src="/src/components/websiteHeader/header.js"></script>
     <script type="module" src="/src/components/overviewSelector/overview-selector.js"></script>
     <script type="module" src="/src/components/overviewContent/challengeCreator/challenge-creator.js"></script>
@@ -12,6 +14,25 @@
     <script type="module" src="/src/components/overviewContent/loginForm/login.js"></script>
     <script type="module" src="/src/components/overviewContent/ranking/club/club-ranking.js"></script>
     <script type="module" src="/src/components/overviewContent/ranking/person/person-ranking.js"></script>
+    <!--creating pdf-->
+    <script lang="javascript" src="/node_modules/jspdf/dist/jspdf.min.js"></script>
+    <script lang="javascript" src="/node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js"></script>
+    <script lang="javascript" src="/node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.min.js"></script>
+    <!--bootstrap-->
+    <script lang="javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script lang="javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!--xlsx reading-->
+    <script type="text/javascript" src="/node_modules/xlsx/dist/jszip.js"></script>
+    <script type="text/javascript" src="/node_modules/xlsx/dist/shim.min.js"></script>
+    <script type="text/javascript" src="/node_modules/xlsx/dist/xlsx.full.min.js"></script>
+    <!--datepicker-->
+    <link rel="stylesheet" href="/node_modules/js-datepicker/datepicker.css">
+    <script type="text/javascript" src="/node_modules/js-datepicker/datepicker.min.js"></script>
+    <script type="text/javascript" src="/node_modules/js-datepicker/datepicker.css"></script>
+    <!--jquery ui-->
+    <script type="text/javascript" src="/node_modules/jqueryui/jquery-ui.min.js"></script>
+    <link href="/node_modules/jqueryui/jquery-ui.css" rel="stylesheet" type="text/css">
   </head>
   <body>
     <website-header></website-header>

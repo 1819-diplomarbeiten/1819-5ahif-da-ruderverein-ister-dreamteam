@@ -235,16 +235,9 @@ class PersonRanking extends LitElement {
 
   render() {
     return html`
-        <!--bootstrap-->
         <script lang="javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
         <script lang="javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <!--jspdf-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
-        <script lang="javascript" src="/node_modules/jspdf/dist/jspdf.min.js"></script>
-        <script lang="javascript" src="/node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js"></script>
-        <script lang="javascript" src="/node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.min.js"></script>
-        <!--styling-->
         <link rel="stylesheet" type="text/css" href=/src/components/overviewContent/ranking/person/styles.css></link>
         <div class="mainPos">
             <h1>30K Person Ranking List:</h1>

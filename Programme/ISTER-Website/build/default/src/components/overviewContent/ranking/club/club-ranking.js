@@ -106,15 +106,9 @@ class ClubRanking extends LitElement {
 
   render() {
     return html`
-        <!--bootstrap and node js-->
         <script lang="javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
         <script lang="javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
-        <!--jspdf-->
-        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>-->
-        <script lang="javascript" src="/node_modules/jspdf/dist/jspdf.min.js"></script>
-        <script lang="javascript" src="/node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js"></script>
-        <!--styling-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href=/src/components/overviewContent/ranking/club/styles.css></link>
         <div class="mainPos">
             <h1>30K Club Ranking List:</h1>
