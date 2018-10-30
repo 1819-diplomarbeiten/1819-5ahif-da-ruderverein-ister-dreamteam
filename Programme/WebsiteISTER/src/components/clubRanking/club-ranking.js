@@ -66,7 +66,7 @@ class ClubRanking extends LitElement{
             "total": this.calculateTotal(result[j].allSixDistances)}
         }
         doc.autoTable(columns, rows, {
-            margin: {top:45},
+            margin: {top:35},
             columnStyles: {
                 fontSize:5 //funzt ned
             },

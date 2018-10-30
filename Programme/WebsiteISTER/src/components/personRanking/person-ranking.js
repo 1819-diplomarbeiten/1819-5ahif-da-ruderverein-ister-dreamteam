@@ -102,7 +102,7 @@ class PersonRanking extends LitElement{
             {title: "Gender", dataKey:"gender"},
             {title: "Class", dataKey:"pClass"},
             {title: "Club", dataKey:"club"},
-            {title: "Round", dataKey:"round"},
+            {title: "Round " + this.dropDownResult, dataKey:"round"},
             {title: "", dataKey:"empty"},
             {title: "500m", dataKey:"fiveHoundred"},
             {title: "Watt", dataKey:"watt"},
@@ -122,7 +122,7 @@ class PersonRanking extends LitElement{
             }
         }
         doc.autoTable(columns, rows, {
-            margin: {top:45},
+            margin: {top:35},
             columnStyles: {
                 fontSize:5 //funzt ned
             },
@@ -172,7 +172,7 @@ class PersonRanking extends LitElement{
             "total": this.calculateTotal(result[j].allSixDistances)}
         }
         doc.autoTable(columns, rows, {
-            margin: {top:45},
+            margin: {top:35},
             columnStyles: {
                 fontSize:5 //funzt ned
             },
