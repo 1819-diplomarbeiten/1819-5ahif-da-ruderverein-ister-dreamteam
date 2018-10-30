@@ -11,7 +11,8 @@ public class SqlStatementsEndpoint {
     @Path("/postPeriod")
     @Consumes(MediaType.APPLICATION_JSON)
     public void postPeriod(final JsonObject msg){
-        System.out.println("===========\nPost Period==========");
+        System.out.println("================================");
+        System.out.println("===========Post Period==========");
         System.out.println(msg.getInt("distance") + "  " + msg.getString("evidencePic"));
     }
 
@@ -20,7 +21,8 @@ public class SqlStatementsEndpoint {
     @Path("/postPeriods")
     @Consumes(MediaType.APPLICATION_JSON)
     public void postPeriods(final JsonArray periods){
-        System.out.println("===========\nPost Periods==========");
+        System.out.println("================================");
+        System.out.println("===========Post Periods=========");
         for (int i = 0; i < periods.size(); i++) {
             JsonObject period = periods.getJsonObject(i);
             System.out.println(period.getInt("Distance") + "  " + period.getString("Email"));
@@ -31,7 +33,8 @@ public class SqlStatementsEndpoint {
     @Path("/bestFourDistancesParticipants/{year}/{result}/{sequence}")
     @Produces(MediaType.APPLICATION_JSON)
     public JsonArray bestFourDistancesParticipants(@PathParam("year")String year, @PathParam("result")String result, @PathParam("sequence")String sequence){
-        System.out.println("===========\nGet Distances Table Participants\n==========");
+        System.out.println("================================");
+        System.out.println("Get Distances Table Participants");
         System.out.println("Year:\n" + year + "\nResult:  " + result + "  " + sequence);
         JsonArray jsonValues;
         if(Integer.parseInt(result) == 0)
@@ -44,7 +47,8 @@ public class SqlStatementsEndpoint {
     @Path("/bestFourDistancesClubs/{year}/{result}/{sequence}")
     @Produces(MediaType.APPLICATION_JSON)
     public JsonArray bestFourDistancesClub(@PathParam("year")String year, @PathParam("result")String result, @PathParam("sequence")String sequence){
-        System.out.println("===========\nGet Distances Table Clubs\n==========");
+        System.out.println("================================");
+        System.out.println("====Get Distances Table Clubs===");
         System.out.println(year + "  " + result + "  " + sequence);
         JsonArray jsonValues = new JsonArrayCreator().GetJsonArrayClubs();
         return jsonValues;
@@ -54,7 +58,9 @@ public class SqlStatementsEndpoint {
     @Path("/bestFourDistances/{mail}")
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject bestFourDistances(@PathParam("mail") String mail){
-        System.out.println("===========\nE-Mail: " + mail + "\n==========");
+        System.out.println("================================");
+        System.out.println("=============Email==============");
+        System.out.println(mail);
         return Json.createObjectBuilder().add("bestFourDistances", 323900).add("name", "Hansi").build();
         //return Json.createObjectBuilder().add("bestFourDistances", 323900).add("bestFourDistances", 3222).build();
     }
@@ -63,7 +69,9 @@ public class SqlStatementsEndpoint {
     @Path("/totalDistances/{mail}")
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject totalDistances(@PathParam("mail") String mail){
-        System.out.println("===========\nE-Mail: " + mail + "\n==========");
+        System.out.println("================================");
+        System.out.println("=============Email==============");
+        System.out.println(mail);
         return Json.createObjectBuilder().add("totalDistances", 46130).build();
     }
 
@@ -71,7 +79,9 @@ public class SqlStatementsEndpoint {
     @Path("/clubCount/{name}")
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject clubCount(@PathParam("name") String clubname){
-        System.out.println("===========\nClubname: " + clubname + "\n==========");
+        System.out.println("================================");
+        System.out.println("============Clubname============");
+        System.out.println(clubname);
         return Json.createObjectBuilder().add("clubCount", 193).build();
     }
 
@@ -79,7 +89,8 @@ public class SqlStatementsEndpoint {
     @Path("/totalResults")
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject totalResult(){
-        System.out.println("===========\nTotalResult\n==========");
+        System.out.println("================================");
+        System.out.println("=========Total Result===========");
         return Json.createObjectBuilder().add("totalResults", 11609355).build();
     }
 
@@ -87,7 +98,8 @@ public class SqlStatementsEndpoint {
     @Path("/totalResultsClub")
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject totalResultClub(){
-        System.out.println("===========\nTotalResultClub\n==========");
+        System.out.println("================================");
+        System.out.println("=======Total Result Club========");
         return Json.createObjectBuilder().add("totalResultsClub", 4087611).build();
     }
 
@@ -95,7 +107,9 @@ public class SqlStatementsEndpoint {
     @Path("/sexCountParticipant/{sex}")
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject sexCountParticipant(@PathParam("sex")String sex){
-        System.out.println("===========\nSexCountParticipant: " + sex + "\n==========");
+        System.out.println("================================");
+        System.out.println("====Sex Count Participant=======");
+        System.out.println(sex);
         return Json.createObjectBuilder().add("sexCountParticipant", 327).build();
     }
 
@@ -103,7 +117,9 @@ public class SqlStatementsEndpoint {
     @Path("/sexDistanceParticipant/{sex}")
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject sexDistanceParticipant(@PathParam("sex")String sex){
-        System.out.println("===========\nSexDistanceParticipant: " + sex + "\n==========");
+        System.out.println("================================");
+        System.out.println("===Sex Distance Participant=====");
+        System.out.println(sex);
         return Json.createObjectBuilder().add("sexDistanceParticipant", 7781748).build();
     }
 
@@ -111,7 +127,9 @@ public class SqlStatementsEndpoint {
     @Path("/totalResultsChallenge/{challenge}")
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject totalResultsChallenge(@PathParam("challenge")String challenge){
-        System.out.println("===========\ntotalResultsChallenge: " + challenge + "\n==========");
+        System.out.println("================================");
+        System.out.println("====Total Result Challenge======");
+        System.out.println(challenge);
         return Json.createObjectBuilder().add("totalResultsChallenge", 1414325).build();
     }
 
@@ -119,7 +137,10 @@ public class SqlStatementsEndpoint {
     @Path("/totalDistanceRange/{sex}/{distance}")
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject totalDistanceRange(@PathParam("sex")String sex, @PathParam("distance")String distance){
-        System.out.println("===========\ntotalDistanceRange: " + sex + ", " + distance + "\n==========");
+        System.out.println("================================");
+        System.out.println("====Total Distance Range========");
+        System.out.println(sex);
+        System.out.println(distance);
         return Json.createObjectBuilder().add("totalDistanceRange", 750).build();
     }
 
@@ -127,7 +148,10 @@ public class SqlStatementsEndpoint {
     @Path("/fiveHoundredMeterTime/{mail}/{challenge}")
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject fiveHoundredMeterTime(@PathParam("mail")String mail, @PathParam("challenge")String challenge){
-        System.out.println("===========\nfiveHoundredMeterTime: " + mail + ", " + challenge + "\n==========");
+        System.out.println("================================");
+        System.out.println("====Fivehoundred Meter Time=====");
+        System.out.println(mail);
+        System.out.println(challenge);
         return Json.createObjectBuilder().add("fiveHoundredMeterTime", 284100000).build();
     }
 
@@ -135,7 +159,10 @@ public class SqlStatementsEndpoint {
     @Path("/wattParticipant/{mail}/{challenge}")
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject wattParticipant(@PathParam("mail")String mail, @PathParam("challenge")String challenge){
-        System.out.println("===========\nwattParticipant: " + mail + ", " + challenge + "\n==========");
+        System.out.println("================================");
+        System.out.println("=======Watt Participant=========");
+        System.out.println(mail);
+        System.out.println(challenge);
         return Json.createObjectBuilder().add("wattParticipant", "208.77").build();
     }
 
@@ -143,7 +170,10 @@ public class SqlStatementsEndpoint {
     @Path("/wattPerKgParticipant/{mail}/{challenge}")
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject wattPerKgParticipant(@PathParam("mail")String mail, @PathParam("challenge")String challenge){
-        System.out.println("===========\nwattPerKgParticipant: " + mail + ", " + challenge + "\n==========");
+        System.out.println("================================");
+        System.out.println("======Watt kg Participant=======");
+        System.out.println(mail);
+        System.out.println(challenge);
         return Json.createObjectBuilder().add("wattPerKgParticipant", "13.58").build();
     }
 
@@ -151,7 +181,9 @@ public class SqlStatementsEndpoint {
     @Path("/getClass/{mail}")
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject getClass(@PathParam("mail")String mail){
-        System.out.println("===========\ngetClass: " + mail + "\n==========");
+        System.out.println("================================");
+        System.out.println("============Get Class===========");
+        System.out.println(mail);
         return Json.createObjectBuilder().add("getClass", "A").build();
     }
 }
