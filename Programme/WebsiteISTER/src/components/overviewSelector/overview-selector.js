@@ -70,7 +70,7 @@ class OverviewSelector extends LitElement{
                     <p>Ergo Challenge ISTER Linz</p>
                 </div>
                 <div class="componentSelection">
-                    <div class="singleComponentTwo">
+                    <div class="singleComponent">
                         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                             <div class="btn-group mr-2" role="group" aria-label="First group">
                                 <button type="button" class="btn btn-primary" @click="${() => this.changeContent('home')}">Home</button>

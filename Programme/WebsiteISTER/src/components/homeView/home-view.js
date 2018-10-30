@@ -15,7 +15,7 @@ class HomeView extends LitElement{
         return html`
             <link rel="stylesheet" type="text/css" href="/src/components/homeView/styles.css"></link>
             <div class="mainPos">
-                <img src="src/components/homeView/homeView.jpg" width="500" height="333">
+                <img src="images/homeView.jpg" width="500" height="333">
                 <h1>Willkommen zur ERGO-Challenge Seite des Linzer Rudervereins ISTER</h1>
                 <p>Breitensport und Rennsport bestehen schon lange nebeneinander, oft jedoch teilt dieser Umstand die Mitglieder im Verein.  Bei einer Challenge kann jeder, unabhängig von dieser Zuordnung teilnehmen.  Bei den Reihungen in den Ergebnislisten findet man sich in bekannter Gesellschaft von Freunden, Bekannten oder auch Neueinsteigern verschiedenster Vereine.</p>
                 <br>

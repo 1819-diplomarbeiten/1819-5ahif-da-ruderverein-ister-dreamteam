@@ -4,6 +4,7 @@ div.banner{
     font-size: 25px;
     float: left;
     margin-top: 1%;
+    margin-left: 3%;
     color: white;
 }
 div.componentSelection{
@@ -11,18 +12,11 @@ div.componentSelection{
     margin-left: 25%;
     float: left;
 }
-div.singleComponentTwo{
-    width: relative;
-    text-align: center;
-    float: left;
-    margin-top: 1.4%;
-    font-size: 20px;
-}
 div.singleComponent{
     width: relative;
-    border: 0.15px solid white;
     text-align: center;
     float: left;
+    margin-top: 1.2%;
     font-size: 20px;
 }
 div.background{

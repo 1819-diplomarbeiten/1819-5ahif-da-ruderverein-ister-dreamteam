@@ -10,5 +10,9 @@ h1.header{
     position: absolute;
     align-content: center;
     color: #ffa8a8;
-    left: 15%;
+    margin-left: 10%;
+}
+div.languages{
+    margin-left: 88%;
+    margin-top: 1.4%
 }

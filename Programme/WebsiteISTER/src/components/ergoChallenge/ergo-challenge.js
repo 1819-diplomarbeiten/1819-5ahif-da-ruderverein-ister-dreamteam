@@ -15,7 +15,7 @@ class ErgoChallenge extends LitElement{
             <link rel="stylesheet" type="text/css" href="/src/components/ergoChallenge/styles.css"></link>
             <div class="mainPos">
                 <h1>30 (dirty) K Ergo Challenge</h1>
-                <img src="src/components/ergoChallenge/ergo_challenge.jpg" width="500" height="333">
+                <img src="images/ergo_challenge.jpg" width="500" height="333">
                 <h2>Allgmeines:</h2>
                 <p>Bei diesem Bewerb gibt es weder etwas zu gewinnen, noch erhält man eine Medaille.  Alle Ruderer, weiblich und männlich aus Vereinen oder privat, sind startberechtigt und als Administrator vertrauen wir auf die Richtigkeit der gelieferten Daten.</p>
                 <h2>Bewerb:</h2>
