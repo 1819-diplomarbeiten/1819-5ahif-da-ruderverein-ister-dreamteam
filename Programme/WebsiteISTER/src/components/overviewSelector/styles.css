@@ -3,13 +3,20 @@ div.banner{
     /*top: 8%;*/
     font-size: 25px;
     float: left;
+    margin-top: 1%;
     color: white;
 }
 div.componentSelection{
     position: absolute;
-    left: 30%;
-    /*top: 9%;*/
+    margin-left: 25%;
     float: left;
+}
+div.singleComponentTwo{
+    width: relative;
+    text-align: center;
+    float: left;
+    margin-top: 1.4%;
+    font-size: 20px;
 }
 div.singleComponent{
     width: relative;
@@ -32,4 +39,7 @@ div.mainPos {
     top: 19%;
     background-color: lightgoldenrodyellow;
     width: 40%
+}
+div.selectors{
+    margin-top: 20%
 }
