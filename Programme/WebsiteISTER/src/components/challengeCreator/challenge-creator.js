@@ -14,17 +14,24 @@ class ChallengeCreator extends LitElement{
         console.log('entered createNewChallenge')
     }
 
+    loadDatePicker(){
+        console.log('entered datePicker')
+        console.log(this.shadowRoot.getElementById('roundOne'))
+        const picker = datepicker(this.shadowRoot.getElementById('roundOne'));
+    }
+
     render(){
         return html`
-        <link rel="stylesheet" type="text/css" href=/src/components/challengeCreator/styles.css>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script rel="stylesheet" href="/node_modules/js-datepicker/datepicker.css"></script>
+        <script src="/node_modules/js-datepicker/datepicker.min.js"></script> 
+        <link rel="stylesheet" type="text/css" href=/src/components/challengeCreator/styles.css>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <div class="mainPos">
             <h1>Create a new Challenge</h1><br>
             <h2>(Dieses Ding schlussendlich nur für Hr. Schramm zugänglich)</h2>
-            <input data-provide="datepicker">
-            <input class="datepicker" data-date-format="mm/dd/yyyy">
+            <input id="roundOne" @click="${() => this.loadDatePicker()}">
             <div class="dropdown">
                 <form>
                     <div class="form-group">
