@@ -22,6 +22,7 @@ class ChallengeCreator extends LitElement{
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <div class="mainPos">
             <h1>Create a new Challenge</h1><br>
+            <h2>(Dieses Ding schlussendlich nur für Hr. Schramm zugänglich)</h2>
             <input data-provide="datepicker">
             <input class="datepicker" data-date-format="mm/dd/yyyy">
             <div class="dropdown">

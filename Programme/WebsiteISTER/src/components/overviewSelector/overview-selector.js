@@ -37,6 +37,12 @@ class OverviewSelector extends LitElement{
             case 'distance':
                 elem = document.createElement('distance-form-club')
                 mainComp.appendChild(elem)
+                elem = document.createElement('distance-form-participant')      //added
+                mainComp.appendChild(elem)                                      //added
+                elem = document.createElement('p')                              //added
+                elem.setAttribute('style','margin-top:45%')                     //added
+                elem.innerHTML = '(Normalerweise nur eines von beiden sichbar)' //added
+                mainComp.appendChild(elem)                                      //added
                 break
             case 'home':
                 elem = document.createElement('home-view')

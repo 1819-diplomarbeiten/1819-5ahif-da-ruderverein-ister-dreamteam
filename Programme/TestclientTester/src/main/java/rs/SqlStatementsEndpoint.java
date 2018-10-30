@@ -11,7 +11,7 @@ public class SqlStatementsEndpoint {
     @Path("/postPeriod")
     @Consumes(MediaType.APPLICATION_JSON)
     public void postPeriod(final JsonObject msg){
-        System.out.println("===========\nPost Period\n==========");
+        System.out.println("===========\nPost Period==========");
         System.out.println(msg.getInt("distance") + "  " + msg.getString("evidencePic"));
     }
 
@@ -20,7 +20,7 @@ public class SqlStatementsEndpoint {
     @Path("/postPeriods")
     @Consumes(MediaType.APPLICATION_JSON)
     public void postPeriods(final JsonArray periods){
-        System.out.println("===========\nPost Periods\n==========");
+        System.out.println("===========\nPost Periods==========");
         for (int i = 0; i < periods.size(); i++) {
             JsonObject period = periods.getJsonObject(i);
             System.out.println(period.getInt("Distance") + "  " + period.getString("Email"));
@@ -32,7 +32,7 @@ public class SqlStatementsEndpoint {
     @Produces(MediaType.APPLICATION_JSON)
     public JsonArray bestFourDistancesParticipants(@PathParam("year")String year, @PathParam("result")String result, @PathParam("sequence")String sequence){
         System.out.println("===========\nGet Distances Table Participants\n==========");
-        System.out.println(year + "  " + result + "  " + sequence);
+        System.out.println("Year:\n" + year + "\nResult:  " + result + "  " + sequence);
         JsonArray jsonValues;
         if(Integer.parseInt(result) == 0)
             jsonValues = new JsonArrayCreator().GetJsonArrayParticipants();
