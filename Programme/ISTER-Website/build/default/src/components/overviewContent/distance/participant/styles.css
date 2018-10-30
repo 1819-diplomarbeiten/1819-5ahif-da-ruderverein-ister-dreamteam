@@ -1,0 +1,7 @@
+div.mainPos{
+    position: absolute;
+    top: 17%;
+    background-color: #a3ffec;
+    /*left:0%; removed*/
+    margin-left: 50%; /*added*/
+}

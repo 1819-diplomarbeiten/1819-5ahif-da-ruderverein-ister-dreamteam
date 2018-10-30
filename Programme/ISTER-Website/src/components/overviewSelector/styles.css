@@ -1,0 +1,39 @@
+div.banner{
+    position: absolute;
+    /*top: 8%;*/
+    font-size: 25px;
+    float: left;
+    margin-top: 1%;
+    margin-left: 3%;
+    color: white;
+}
+div.componentSelection{
+    position: absolute;
+    margin-left: 25%;
+    float: left;
+}
+div.singleComponent{
+    width: relative;
+    text-align: center;
+    float: left;
+    margin-top: 1.2%;
+    font-size: 20px;
+}
+div.background{
+    margin: 0 auto;
+    position: absolute;
+    top: 10%;
+    left: 0;
+    width: 100%;
+    height: 7%;
+    background-color: rgb(55, 164, 201); 
+}
+div.mainPos {
+    position: absolute;
+    top: 17%;
+    background-color: lightgoldenrodyellow;
+    width: 40%
+}
+div.selectors{
+    margin-top: 20%
+}
