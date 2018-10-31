@@ -6,18 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0a138268-c6f7-4c84-9ae0-fbb8ce227c4b" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../ISTER-Website/build/default/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/src/components/overviewContent/challengeCreator/challenge-creator.js" beforeDir="false" afterPath="$PROJECT_DIR$/../ISTER-Website/build/default/src/components/overviewContent/challengeCreator/challenge-creator.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/src/components/overviewContent/challengeCreator/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/../ISTER-Website/build/default/src/components/overviewContent/challengeCreator/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../ISTER-Website/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../ISTER-Website/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../ISTER-Website/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/src/components/overviewContent/challengeCreator/challenge-creator.js" beforeDir="false" afterPath="$PROJECT_DIR$/../ISTER-Website/src/components/overviewContent/challengeCreator/challenge-creator.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/src/components/overviewContent/challengeCreator/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/../ISTER-Website/src/components/overviewContent/challengeCreator/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/rs/SqlStatementsEndpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rs/SqlStatementsEndpoint.java" afterDir="false" />
-    </list>
+    <list default="true" id="0a138268-c6f7-4c84-9ae0-fbb8ce227c4b" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -127,7 +116,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/rs/SqlStatementsEndpoint.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="318">
-              <caret line="24" column="229" selection-start-line="24" selection-start-column="229" selection-end-line="24" selection-end-column="229" />
+              <caret line="24" column="34" lean-forward="true" selection-start-line="24" selection-start-column="34" selection-end-line="24" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -194,7 +183,7 @@
       </MavenImportingSettings>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-10" />
     <option name="width" value="980" />
     <option name="height" value="1040" />
@@ -436,12 +425,12 @@
       <workItem from="1540807120294" duration="12358000" />
       <workItem from="1540854515661" duration="891000" />
       <workItem from="1540860155861" duration="1741000" />
-      <workItem from="1540906134959" duration="5037000" />
+      <workItem from="1540906134959" duration="5781000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="76860000" />
+    <option name="totallyTimeSpent" value="77604000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -546,7 +535,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/rs/SqlStatementsEndpoint.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="318">
-          <caret line="24" column="229" selection-start-line="24" selection-start-column="229" selection-end-line="24" selection-end-column="229" />
+          <caret line="24" column="34" lean-forward="true" selection-start-line="24" selection-start-column="34" selection-end-line="24" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

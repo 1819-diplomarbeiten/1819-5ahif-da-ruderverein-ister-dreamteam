@@ -38,7 +38,6 @@ class ChallengeCreator extends LitElement{
         <link rel="stylesheet" type="text/css" href=/src/components/overviewContent/challengeCreator/styles.css>
         <div class="mainPos">
             <h1>Create a new Challenge</h1><br>
-            <h2>(Dieses Ding schlussendlich nur für Hr. Schramm zugänglich)</h2>
             <div>
                 <div class="datePickPositionOne">
                     <div class="form-group">
