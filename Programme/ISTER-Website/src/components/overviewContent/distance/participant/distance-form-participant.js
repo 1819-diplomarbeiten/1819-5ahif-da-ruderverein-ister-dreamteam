@@ -37,7 +37,7 @@ class DistanceFormParticipant extends LitElement{
         dataService.get()
         */
 
-        //var msgJson = "{\"distance\":" + this.distance + ",\"evidencePic\":\"" + this.evidencePic + "\"}";
+        var msgJson = "{\"distance\":" + this.distance + ",\"evidencePic\":\"" + this.evidencePic + "\"}";
         
         fetch(this.path + 'postPeriod',
         {

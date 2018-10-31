@@ -13,19 +13,9 @@ class ChallengeCreator extends LitElement {
     console.log('entered createNewChallenge');
   }
 
-  loadDatePicker() {
-    console.log('entered datePicker');
-    console.log(this.shadowRoot.getElementById('roundOne')); //const picker = datepicker(this.shadowRoot.getElementById('roundOne'));
-
-    /*this.shadowRoot.getElementById('roundOne').datepicker({
-        format: 'mm/dd/yyyy',
-        startDate: '-3d'
-    });*/
-    //$( "#datepicker" ).datepicker();
-
-    const picker = datepicker(this.shadowRoot.getElementById('roundOne'), {
-      dateSelected: new Date(2099, 0, 5)
-    });
+  loadDatePicker(round) {
+    console.log('entered datePicker at ' + round);
+    $(this.shadowRoot.getElementById(round)).datepicker(); //const picker = datepicker(this.shadowRoot.getElementById(round))
   }
 
   render() {
@@ -37,39 +27,44 @@ class ChallengeCreator extends LitElement {
         <div class="mainPos">
             <h1>Create a new Challenge</h1><br>
             <h2>(Dieses Ding schlussendlich nur für Hr. Schramm zugänglich)</h2>
-            <input id="roundOne" @click="${() => this.loadDatePicker()}">
-            <div class="dropdown">
-                <form>
+            <div>
+                <div class="datePickPosition">
                     <div class="form-group">
-                        <p>Year</p>
-                        <input id="year" type="text" placeholder="year start">
+                        <p for="roundOne">Date of Round 1</p>
+                        <input class="form-control-text "id="roundOne" @click="${() => this.loadDatePicker('roundOne')}">
                     </div>
                     <br>
                     <div class="form-group">
-                        <p>1. Session</p>
-                        <select id="dropDownResult" class="form-control">
-                            <option value="0">Total</option>
-                            <option value="1">1st Session</option>
-                            <option value="2">2nd Session</option>
-                            <option value="3">3rd Session</option>
-                            <option value="4">4th Session</option>
-                            <option value="5">5th Session</option>
-                            <option value="6">6th Session</option>
-                        </select>
+                        <p for="roundFour">Date of Round 4</p>
+                        <input class="form-control-text "id="roundFour" @click="${() => this.loadDatePicker('roundFour')}">
+                    </div>
+                </div>
+                <div class="datePickPosition">
+                    <div class="form-group">
+                        <p for="roundTwo">Date of Round 2</p>
+                        <input class="form-control-text "id="roundTwo" @click="${() => this.loadDatePicker('roundTwo')}">
                     </div>
                     <br>
                     <div class="form-group">
-                        <p>Sequence</p>
-                        <select id="dropDownSequence" class="form-control">
-                            <option value="Alphabetic">Alphabetic</option>
-                            <option value="TopDown">TopDown</option>
-                            <option value="Categories">Categories</option>
-                        </select>
+                        <p for="roundFive">Date of Round 5</p>
+                        <input class="form-control-text "id="roundFive" @click="${() => this.loadDatePicker('roundFive')}">
                     </div>
-                </form>
-			</div>
+
+                </div>
+                <div class="datePickPosition">
+                    <div class="form-group">
+                        <p for="roundThree">Date of Round 3</p>
+                        <input class="form-control-text "id="roundThree" @click="${() => this.loadDatePicker('roundThree')}">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <p for="roundSix">Date of Round 6</p>
+                        <input class="form-control-text "id="roundSix" @click="${() => this.loadDatePicker('roundSix')}">
+                    </div>
+                </div>
+            </div>
             <br>
-            <input type ="button" value="Create Challenge" class="btn btn-primary" @click="${() => this.createNewChallenge()}"></input>
+            <input style="margin-top:3.5%;margin-left:5%" type ="button" value="Create Challenge" class="btn btn-primary" @click="${() => this.createNewChallenge()}"></input>
         </div>
         `;
   }

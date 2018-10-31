@@ -16,6 +16,14 @@ public class SqlStatementsEndpoint {
         System.out.println(msg.getInt("distance") + "  " + msg.getString("evidencePic"));
     }
 
+    @POST
+    @Path("/postChallenge")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void postChallenge(final JsonObject msg){
+        System.out.println("================================");
+        System.out.println("===========Post Challenge==========");
+        System.out.println(msg.getString("roundOne") + "  " + msg.getString("roundTwo") + "  " + msg.getString("roundThree") + "  " + msg.getString("roundFour") + "  " + msg.getString("roundFive") + "  " + msg.getString("roundSix"));
+    }
 
     @POST
     @Path("/postPeriods")

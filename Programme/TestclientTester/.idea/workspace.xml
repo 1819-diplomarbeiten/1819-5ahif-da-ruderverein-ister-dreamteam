@@ -7,49 +7,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0a138268-c6f7-4c84-9ae0-fbb8ce227c4b" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/node_modules/@polymer/lit-element/lib/decorators.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/node_modules/@polymer/lit-element/lib/updating-element.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/node_modules/@polymer/lit-element/lit-element.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/node_modules/bootstrap/dist/js/bootstrap.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/node_modules/jquery/dist/jquery.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/node_modules/js-datepicker/datepicker.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/node_modules/jspdf-autotable/dist/jspdf.plugin.autotable.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/node_modules/jspdf/dist/jspdf.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/node_modules/lit-html/lib/default-template-processor.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/node_modules/lit-html/lib/directive.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/node_modules/lit-html/lib/dom.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/node_modules/lit-html/lib/modify-template.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/node_modules/lit-html/lib/part.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/node_modules/lit-html/lib/parts.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/node_modules/lit-html/lib/render.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/node_modules/lit-html/lib/shady-render.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/node_modules/lit-html/lib/template-factory.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/node_modules/lit-html/lib/template-instance.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/node_modules/lit-html/lib/template-result.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/node_modules/lit-html/lib/template.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/node_modules/lit-html/lit-html.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/node_modules/xlsx/dist/jszip.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/node_modules/xlsx/dist/shim.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/node_modules/xlsx/dist/xlsx.full.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/src/components/overviewContent/challengeCreator/styles.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/src/components/overviewContent/distance/club/distance-form-club.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/src/components/overviewContent/distance/club/styles.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/src/components/overviewContent/distance/participant/distance-form-participant.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/src/components/overviewContent/distance/participant/styles.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/src/components/overviewContent/ergoChallenge/ergo-challenge.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/src/components/overviewContent/ergoChallenge/styles.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/src/components/overviewContent/homeView/home-view.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/src/components/overviewContent/homeView/styles.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/src/components/overviewContent/loginForm/login.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/src/components/overviewContent/loginForm/styles.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/src/components/overviewContent/ranking/club/club-ranking.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/src/components/overviewContent/ranking/club/styles.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/src/components/overviewContent/ranking/person/person-ranking.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/src/components/overviewContent/ranking/person/styles.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../ISTER-Website/build/default/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/src/components/overviewContent/challengeCreator/challenge-creator.js" beforeDir="false" afterPath="$PROJECT_DIR$/../ISTER-Website/build/default/src/components/overviewContent/challengeCreator/challenge-creator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ISTER-Website/build/default/src/components/overviewContent/challengeCreator/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/../ISTER-Website/build/default/src/components/overviewContent/challengeCreator/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ISTER-Website/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../ISTER-Website/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ISTER-Website/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../ISTER-Website/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ISTER-Website/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../ISTER-Website/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ISTER-Website/src/components/overviewContent/challengeCreator/challenge-creator.js" beforeDir="false" afterPath="$PROJECT_DIR$/../ISTER-Website/src/components/overviewContent/challengeCreator/challenge-creator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ISTER-Website/src/components/overviewContent/challengeCreator/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/../ISTER-Website/src/components/overviewContent/challengeCreator/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/rs/SqlStatementsEndpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/rs/SqlStatementsEndpoint.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -123,12 +90,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="1766" />
+          <entry key="java" value="1893" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="1766" />
+          <entry key="JAVA" value="1893" />
         </counts>
       </usages-collector>
     </session>
@@ -159,8 +126,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/rs/SqlStatementsEndpoint.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2960">
-              <caret line="185" column="33" selection-start-line="185" selection-start-column="33" selection-end-line="185" selection-end-column="33" />
+            <state relative-caret-position="318">
+              <caret line="24" column="229" selection-start-line="24" selection-start-column="229" selection-end-line="24" selection-end-column="229" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -469,12 +436,12 @@
       <workItem from="1540807120294" duration="12358000" />
       <workItem from="1540854515661" duration="891000" />
       <workItem from="1540860155861" duration="1741000" />
-      <workItem from="1540906134959" duration="3681000" />
+      <workItem from="1540906134959" duration="5037000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="75504000" />
+    <option name="totallyTimeSpent" value="76860000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -578,8 +545,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/rs/SqlStatementsEndpoint.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2960">
-          <caret line="185" column="33" selection-start-line="185" selection-start-column="33" selection-end-line="185" selection-end-column="33" />
+        <state relative-caret-position="318">
+          <caret line="24" column="229" selection-start-line="24" selection-start-column="229" selection-end-line="24" selection-end-column="229" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
