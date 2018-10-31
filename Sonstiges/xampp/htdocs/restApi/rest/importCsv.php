@@ -17,10 +17,10 @@ if(isset($_POST["Import"])){
         {
 
 
-            $sql = "INSERT into result (result_id, challenge_id, participant_email, distance) 
-                   values ('".$getData[0]."','".$getData[1]."','".$getData[2]."','".$getData[3]."')";
+            $sql = "INSERT into result (challenge_id, participant_email, distance) 
+                   values ('".$getData[0]."','".$getData[1]."','".$getData[2]."')";
             $result = $con->query($sql);
-            $result = $result->execute();
+//            $result = $result->execute();
             if(!isset($result))
             {
                 echo "<script type=\"text/javascript\">
