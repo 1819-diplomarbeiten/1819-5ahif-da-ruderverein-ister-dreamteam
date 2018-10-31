@@ -4,3 +4,7 @@ div.mainPos{
     background-color: #a3ffec;
     left:0%;
 }
+div.datePickPosition{
+    float: left;
+    margin-left: 5%;
+}
