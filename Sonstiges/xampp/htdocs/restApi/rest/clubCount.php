@@ -23,7 +23,6 @@ if(!(isset($_GET['club']))){
 
 
 // initialize object
-    $query = new Query($db);
     echo $query->buildJson("count(*)", "clubCount", $sql);
 }
 
@@ -37,7 +36,6 @@ else{
     $sql->bindValue(':club', $club, PDO::PARAM_STR);
 
 // initialize object
-    $query = new Query($db);
     echo $query->buildJson("count(*)", "clubCount", $sql);
 }
 

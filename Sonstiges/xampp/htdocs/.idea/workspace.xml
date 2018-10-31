@@ -28,92 +28,92 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="sexCountParticipant.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/restApi/rest/sexCountParticipant.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" selection-start-line="14" selection-end-line="24" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sexDistanceParticipant.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/restApi/rest/sexDistanceParticipant.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="28" column="57" lean-forward="true" selection-start-line="28" selection-start-column="57" selection-end-line="28" selection-end-column="57" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="totalDistanceRange.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/restApi/rest/totalDistanceRange.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="38" selection-start-line="17" selection-start-column="38" selection-end-line="17" selection-end-column="38" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="totalResults.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/restApi/rest/totalResults.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="totalResultsChallenge.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/restApi/rest/totalResultsChallenge.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="13" selection-start-line="13" selection-end-line="22" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="createResult.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/restApi/rest/createResult.php">
           <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="391">
+              <caret line="23" column="12" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="uploadCsv.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/restApi/rest/uploadCsv.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="16" lean-forward="true" selection-start-line="1" selection-start-column="16" selection-end-line="1" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="importCsv.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/restApi/rest/importCsv.php">
+          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="340">
-              <caret line="20" column="31" lean-forward="true" selection-start-line="20" selection-start-column="31" selection-end-line="20" selection-end-column="31" />
+              <caret line="20" column="81" selection-start-line="20" selection-start-column="81" selection-end-line="20" selection-end-column="81" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="wattParticipant.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/restApi/rest/wattParticipant.php">
+      <file leaf-file-name="clubCount.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/restApi/rest/clubCount.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="629">
+              <caret line="37" column="20" selection-start-line="37" selection-start-column="20" selection-end-line="37" selection-end-column="20" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="createChallenge.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/restApi/rest/createChallenge.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="9" selection-start-line="9" selection-end-line="9" selection-end-column="38" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Query.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/restApi/queries/Query.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="238">
-              <caret line="14" selection-start-line="14" selection-end-line="23" selection-end-column="1" />
+              <caret line="19" column="24" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="wattPerKgParticipant.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/restApi/rest/wattPerKgParticipant.php">
+      <file leaf-file-name="createClub.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/restApi/rest/createClub.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="13" column="25" selection-start-line="13" selection-start-column="25" selection-end-line="16" selection-end-column="52" />
+            <state relative-caret-position="255">
+              <caret line="15" column="33" lean-forward="true" selection-start-line="14" selection-end-line="15" selection-end-column="33" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="distanceTotal.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/restApi/rest/distanceTotal.php">
+      <file leaf-file-name="deleteChallenge.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/restApi/rest/deleteChallenge.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" selection-start-line="14" selection-end-line="21" selection-end-column="1" />
+            <state relative-caret-position="306">
+              <caret line="18" column="32" lean-forward="true" selection-start-line="18" selection-start-column="32" selection-end-line="18" selection-end-column="32" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="totalResultsPerClub.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/restApi/rest/totalResultsPerClub.php">
+      <file leaf-file-name="deleteClub.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/restApi/rest/deleteClub.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="13" selection-start-line="13" selection-end-line="23" selection-end-column="1" />
+            <state relative-caret-position="391">
+              <caret line="23" column="18" selection-start-line="23" selection-start-column="18" selection-end-line="23" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="participantsPerClub.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/restApi/rest/participantsPerClub.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="391">
+              <caret line="23" column="63" selection-start-line="23" selection-start-column="63" selection-end-line="23" selection-end-column="63" />
             </state>
           </provider>
         </entry>
@@ -147,7 +147,6 @@
         <option value="$PROJECT_DIR$/restApi/model/Challenge.php" />
         <option value="$PROJECT_DIR$/restApi/rest/deleteChallenge.php" />
         <option value="$PROJECT_DIR$/restApi/rest/getAllClubs.php" />
-        <option value="$PROJECT_DIR$/restApi/rest/clubCount.php" />
         <option value="$PROJECT_DIR$/restApi/queries/Query.php" />
         <option value="$PROJECT_DIR$/restApi/rest/bestfourdistances.php" />
         <option value="$PROJECT_DIR$/restApi/rest/sexCountParticipant.php" />
@@ -157,6 +156,9 @@
         <option value="$PROJECT_DIR$/restApi/rest/totalResultsPerClub.php" />
         <option value="$PROJECT_DIR$/restApi/rest/wattParticipant.php" />
         <option value="$PROJECT_DIR$/restApi/rest/wattPerKgParticipant.php" />
+        <option value="$PROJECT_DIR$/restApi/rest/uploadCsv.php" />
+        <option value="$PROJECT_DIR$/restApi/rest/importCsv.php" />
+        <option value="$PROJECT_DIR$/restApi/rest/clubCount.php" />
       </list>
     </option>
   </component>
@@ -189,7 +191,7 @@
       <path value="$PROJECT_DIR$/vendor/phpseclib/phpseclib" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="54" />
     <option name="y" value="9" />
     <option name="width" value="1400" />
@@ -200,6 +202,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -234,7 +237,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -271,18 +273,19 @@
       <workItem from="1538123002726" duration="1255000" />
       <workItem from="1538372559374" duration="23046000" />
       <workItem from="1538935666644" duration="4092000" />
-      <workItem from="1539868011594" duration="7439000" />
+      <workItem from="1539868011594" duration="9076000" />
+      <workItem from="1540981964823" duration="2884000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38018000" />
+    <option name="totallyTimeSpent" value="42539000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="54" y="9" width="1400" height="1000" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21820809" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15729167" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
@@ -311,20 +314,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/restApi/rest/distanceTotal.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="21" lean-forward="true" selection-start-line="14" selection-start-column="21" selection-end-line="17" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/restApi/rest/participantsPerClub.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="48" lean-forward="true" selection-start-line="18" selection-start-column="48" selection-end-line="18" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/restApi/rest/deleteClub.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
@@ -434,13 +423,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/restApi/rest/createClub.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="41" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/restApi/rest/createParticipant.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
@@ -504,20 +486,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/restApi/rest/deleteChallenge.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="109">
-          <caret line="18" column="32" lean-forward="true" selection-start-line="18" selection-start-column="32" selection-end-line="18" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/restApi/rest/deleteClub.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="18" selection-start-line="23" selection-start-column="18" selection-end-line="23" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/restApi/rest/deleteParticipant.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -526,24 +494,10 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/restApi/rest/getAllClubs.php" />
-    <entry file="file://$PROJECT_DIR$/restApi/queries/Query.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="122">
-          <caret line="19" column="24" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/restApi/rest/deleteResult.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="663">
           <caret line="39" column="2" lean-forward="true" selection-start-line="39" selection-start-column="2" selection-end-line="39" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/restApi/rest/createChallenge.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="31" column="17" selection-start-line="31" selection-start-column="17" selection-end-line="31" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -554,31 +508,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/restApi/rest/participantsPerClub.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="63" selection-start-line="23" selection-start-column="63" selection-end-line="23" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/restApi/rest/clubCount.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" selection-start-line="16" selection-end-line="27" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/restApi/rest/sexCountParticipant.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="14" selection-start-line="14" selection-end-line="24" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/restApi/rest/createResult.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="31" lean-forward="true" selection-start-line="20" selection-start-column="31" selection-end-line="20" selection-end-column="31" />
         </state>
       </provider>
     </entry>
@@ -592,7 +525,7 @@
     <entry file="file://$PROJECT_DIR$/restApi/rest/sexDistanceParticipant.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
-          <caret line="28" column="57" lean-forward="true" selection-start-line="28" selection-start-column="57" selection-end-line="28" selection-end-column="57" />
+          <caret line="28" column="57" selection-start-line="28" selection-start-column="57" selection-end-line="28" selection-end-column="57" />
         </state>
       </provider>
     </entry>
@@ -606,7 +539,7 @@
     <entry file="file://$PROJECT_DIR$/restApi/rest/totalResults.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
-          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
         </state>
       </provider>
     </entry>
@@ -633,8 +566,78 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/restApi/rest/wattPerKgParticipant.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="25" selection-start-line="13" selection-start-column="25" selection-end-line="16" selection-end-column="52" />
+        <state relative-caret-position="374">
+          <caret line="22" column="1" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/restApi/rest/participantsPerClub.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="63" selection-start-line="23" selection-start-column="63" selection-end-line="23" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/restApi/rest/createResult.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="12" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/restApi/queries/Query.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="19" column="24" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/restApi/rest/clubCount.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="629">
+          <caret line="37" column="20" selection-start-line="37" selection-start-column="20" selection-end-line="37" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/restApi/rest/createChallenge.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" selection-start-line="9" selection-end-line="9" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/restApi/rest/deleteChallenge.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="32" lean-forward="true" selection-start-line="18" selection-start-column="32" selection-end-line="18" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/restApi/rest/deleteClub.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="18" selection-start-line="23" selection-start-column="18" selection-end-line="23" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/restApi/rest/createClub.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="33" lean-forward="true" selection-start-line="14" selection-end-line="15" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/restApi/rest/uploadCsv.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="16" lean-forward="true" selection-start-line="1" selection-start-column="16" selection-end-line="1" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/restApi/rest/importCsv.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="81" selection-start-line="20" selection-start-column="81" selection-end-line="20" selection-end-column="81" />
         </state>
       </provider>
     </entry>
