@@ -15,7 +15,7 @@ class ChallengeCreator extends LitElement{
         var datepicker = this.shadowRoot.getElementById('roundOne').value
         console.log(datepicker);
 
-        var msgJson = "{\"roundOne\":\"" + this.shadowRoot.getElementById('roundOne').value + "\",\"roundTwo\":\"" + this.shadowRoot.getElementById('roundTwo').value + "\",\"roundThree\":\"" + this.shadowRoot.getElementById('roundThree').value + "\",\"roundFour\":\"" + this.shadowRoot.getElementById('roundFour').value + "\",\"roundFive\":\"" + this.shadowRoot.getElementById('roundFive').value + "\",\"roundSix\":\"" + this.shadowRoot.getElementById('roundSix').value + "\"}";
+        var msgJson = "{\"roundOne\":\"" + this.shadowRoot.getElementById('roundOne').value + "\",\"roundTwo\":\"" + this.shadowRoot.getElementById('roundTwo').value + "\",\"roundThree\":\"" + this.shadowRoot.getElementById('roundThree').value + "\",\"roundFour\":\"" + this.shadowRoot.getElementById('roundFour').value + "\",\"roundFive\":\"" + this.shadowRoot.getElementById('roundFive').value + "\",\"roundSix\":\"" + this.shadowRoot.getElementById('roundSix').value + "\",\"year\":\"" + this.shadowRoot.getElementById('dropDown').value + "\"}";
         fetch(this.path + 'postChallenge',
         {
             method: "POST",
@@ -30,6 +30,20 @@ class ChallengeCreator extends LitElement{
         $(this.shadowRoot.getElementById(round)).Zebra_DatePicker({direction: 1});
     }
 
+    setYears(){
+        if(this.shadowRoot.getElementById('dropDown').length == 0)
+        {
+            let startYear = new Date().getFullYear()
+            let dropDown = this.shadowRoot.getElementById('dropDown')
+            for(var i = startYear; i < startYear + 3;i++){
+                let option = document.createElement('option')
+                option.value = i
+                option.innerHTML = i + " / " + (i+1)
+                dropDown.appendChild(option)
+            }
+        }
+    }
+
     render(){
         return html`
         <script lang="javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -37,7 +51,12 @@ class ChallengeCreator extends LitElement{
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href=/src/components/overviewContent/challengeCreator/styles.css>
         <div class="mainPos">
-            <h1>Create a new Challenge</h1><br>
+            <h1 style="margin-left:2%">Create a new Challenge</h1><br>
+            <div class="form-group" style="margin-left:2%">
+                <p>Year</p>
+                <select id="dropDown" style="width:250px" class="form-control" @click="${() => this.setYears()}">
+                </select>
+            </div>
             <div>
                 <div class="datePickPositionOne">
                     <div class="form-group">

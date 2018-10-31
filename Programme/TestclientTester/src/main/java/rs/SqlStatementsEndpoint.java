@@ -22,7 +22,7 @@ public class SqlStatementsEndpoint {
     public void postChallenge(final JsonObject msg){
         System.out.println("================================");
         System.out.println("===========Post Challenge==========");
-        System.out.println(msg.getString("roundOne") + "  " + msg.getString("roundTwo") + "  " + msg.getString("roundThree") + "  " + msg.getString("roundFour") + "  " + msg.getString("roundFive") + "  " + msg.getString("roundSix"));
+        System.out.println(msg.getString("year") + "  " + msg.getString("roundOne") + "  " + msg.getString("roundTwo") + "  " + msg.getString("roundThree") + "  " + msg.getString("roundFour") + "  " + msg.getString("roundFive") + "  " + msg.getString("roundSix"));
     }
 
     @POST
