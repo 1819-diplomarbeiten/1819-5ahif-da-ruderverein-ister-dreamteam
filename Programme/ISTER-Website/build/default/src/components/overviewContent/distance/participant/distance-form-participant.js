@@ -36,14 +36,22 @@ class DistanceFormParticipant extends LitElement {
     let dataService = new DataService()
     dataService.get()
     */
-    //var msgJson = "{\"distance\":" + this.distance + ",\"evidencePic\":\"" + this.evidencePic + "\"}";
 
+    var msgJson = "{\"distance\":" + this.distance + ",\"evidencePic\":\"" + this.evidencePic + "\"}";
     fetch(this.path + 'postPeriod', {
       method: "POST",
       body: msgJson,
       headers: {
         "Content-Type": "application/json"
       }
+    }).then(() => {
+      let successText = document.createElement('p');
+      successText.innerHTML = 'Succesfully sent';
+      this.shadowRoot.getElementById('mainPos').appendChild(successText);
+    }).catch(err => {
+      let failText = document.createElement('p');
+      failText.innerHTML = 'Failed sending data';
+      this.shadowRoot.getElementById('mainPos').appendChild(failText);
     });
   }
 
@@ -59,7 +67,7 @@ class DistanceFormParticipant extends LitElement {
             <script lang="javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
             <link rel="stylesheet" type="text/css" href="/src/components/overviewContent/distance/participant/styles.css">
-            <div class="mainPos">
+            <div id="mainPos" class="mainPos">
                 <h1>Enter Your Distance</h1>
                 <div class="input-group input-group-sm mb-3">
                     <div class="input-group-prepend">

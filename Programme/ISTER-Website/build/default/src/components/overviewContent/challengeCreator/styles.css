@@ -3,8 +3,13 @@ div.mainPos{
     top: 17%;
     background-color: #a3ffec;
     left:0%;
+    width: 100%;
 }
-div.datePickPosition{
+div.datePickPositionOne{
     float: left;
-    margin-left: 5%;
+    margin-left: 2%;
+}
+div.datePickPositionOther{
+    float: left;
+    margin-left: 15%;
 }

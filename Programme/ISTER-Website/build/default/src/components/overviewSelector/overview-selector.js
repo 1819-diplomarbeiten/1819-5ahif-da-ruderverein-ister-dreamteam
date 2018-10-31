@@ -45,7 +45,7 @@ class OverviewSelector extends LitElement {
 
         elem.setAttribute('style', 'margin-top:45%'); //added
 
-        elem.innerHTML = '(Normalerweise nur eines von beiden sichbar)'; //added
+        elem.innerHTML = '(Normalerweise nur eines von beiden sichbar, je nachdem wer eingeloggt)'; //added
 
         mainComp.appendChild(elem); //added
 
@@ -68,6 +68,13 @@ class OverviewSelector extends LitElement {
 
       case 'challengeCreator':
         elem = document.createElement('challenge-creator');
+        mainComp.appendChild(elem);
+        elem = document.createElement('p'); //added
+
+        elem.setAttribute('style', 'margin-top:45%'); //added
+
+        elem.innerHTML = '(Schlussendlich nur für Hr. Schramm zugänglich)'; //added
+
         mainComp.appendChild(elem);
         break;
 

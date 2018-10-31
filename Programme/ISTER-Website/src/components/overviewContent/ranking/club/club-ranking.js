@@ -102,7 +102,7 @@ class ClubRanking extends LitElement{
                     <div class="form-group">
                         <p>Result</p>
                         <select id="dropDownResult" class="form-control">
-                            <option value="total">Total</option>
+                            <option value="0">Total</option>
                             <option value="1">1st Session</option>
                             <option value="2">2nd Session</option>
                             <option value="3">3rd Session</option>

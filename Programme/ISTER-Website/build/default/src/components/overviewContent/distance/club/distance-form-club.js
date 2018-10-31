@@ -13,15 +13,12 @@ class DistanceFormClub extends LitElement {
   }
 
   postPeriods() {
-    console.log('entered postPeriods');
-    var f = this.shadowRoot.getElementById('excelFile').files[0];
-    console.log(f);
-    var file = f;
+    var file = this.shadowRoot.getElementById('excelFile').files[0];
     var fileReader = new FileReader();
 
     fileReader.onload = e => {
-      var filename = file.name; // pre-process data
-
+      //var filename = file.name;
+      // pre-process data
       var binary = "";
       var bytes = new Uint8Array(e.target.result);
       var length = bytes.byteLength;
@@ -36,7 +33,6 @@ class DistanceFormClub extends LitElement {
         cellDates: true,
         cellStyles: true
       });
-      console.log(workbook);
       workbook.SheetNames.forEach(sheetName => {
         // Here is your object
         var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
@@ -48,6 +44,14 @@ class DistanceFormClub extends LitElement {
           headers: {
             "Content-Type": "application/json"
           }
+        }).then(() => {
+          let successText = document.createElement('p');
+          successText.innerHTML = 'Succesfully sent';
+          this.shadowRoot.getElementById('mainPos').appendChild(successText);
+        }).catch(() => {
+          let failText = document.createElement('p');
+          failText.innerHTML = 'Failed sending data';
+          this.shadowRoot.getElementById('mainPos').appendChild(failText);
         });
       });
     };
@@ -63,7 +67,7 @@ class DistanceFormClub extends LitElement {
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
             <link rel="stylesheet" type="text/css" href=/src/components/overviewContent/distance/club/styles.css>
 
-            <div class="mainPos">
+            <div id="mainPos" class="mainPos">
                 <h1>Enter Your Distance</h1>
                 <h3>This is how the Excel should look like (.xlsx Format):</h3>
                 <table class="table table-dark">
