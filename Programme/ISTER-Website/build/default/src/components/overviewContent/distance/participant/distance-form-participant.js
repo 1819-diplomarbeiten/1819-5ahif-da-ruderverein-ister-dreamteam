@@ -1,83 +1,39 @@
-import { LitElement, html, property } from "../../../../../node_modules/@polymer/lit-element/lit-element.js"; //import {LeBla} from '../../rest'
+import { LitElement, html } from "../../../../../node_modules/@polymer/lit-element/lit-element.js";
 
 class DistanceFormParticipant extends LitElement {
   static get properties() {
     return {
       path: String,
       distance: Number,
-      evidencePic: Number
+      evidencePic: String
     };
   }
-  /*postPeriodTwo(){
-      console.log('entered postPeriodTwo')
-      this.distance = this.shadowRoot.getElementById('distance').value;
-      this.evidencePic = this.shadowRoot.getElementById('evidencePic')
-      this.shadowRoot.getElementById('evidencePic').getBase64;
-      async() => {
-          await fetch(this.path + 'post', {
-          method: 'POST',
-          body: JSON.stringify({"distance": this.distance, "img": this.evidencePic}),
-          headers:{
-            'Content-Type': 'application/json'
-          }
-          });
-      }
-  }*/
-
 
   postPeriod() {
-    this.distance = this.shadowRoot.getElementById('distance').value; //this.evidencePic = this.shadowRoot.getElementById('evidencePic').value//.webkitRelativePath//.target//.value//.getBase64
+    this.distance = this.shadowRoot.getElementById('distance').value;
+    if (isNaN(this.distance) == true) this.distance = "";
+    if (this.distance == "" || this.shadowRoot.getElementById('evidencePic').files[0] == undefined) this.shadowRoot.getElementById('notification').innerHTML = 'invalid distance or no pic selected';else {
+      var fileReader = new FileReader();
 
-    this.evidencePic = 6787656789876;
-    var fileInput = this.shadowRoot.getElementById('evidencePic'); // files is a FileList object (similar to NodeList)
+      fileReader.onload = event => {
+        this.evidencePic = event.target.result;
+        var msgJson = "{\"distance\":" + this.distance + ",\"evidencePic\":\"" + this.evidencePic + "\"}";
+        fetch(this.path + 'postPeriod', {
+          method: "POST",
+          body: msgJson,
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }).then(() => {
+          this.shadowRoot.getElementById('notification').innerHTML = 'Succesfully sent';
+        }).catch(err => {
+          this.shadowRoot.getElementById('notification').innerHTML = 'Failed sending data';
+          console.log(err.target.value);
+        });
+      };
 
-    var files = fileInput.files; // object for allowed media types
-
-    var accept = {
-      binary: ["image/png", "image/jpeg"],
-      text: ["text/plain", "text/css", "application/xml", "text/html"]
-    };
-    var file;
-
-    for (var i = 0; i < files.length; i++) {
-      file = files[i]; // if file type could be detected
-
-      if (file !== null) {
-        if (accept.binary.indexOf(file.type) > -1) {
-          // file is a binary, which we accept
-          var data = file.getAsBinary();
-        } else if (accept.text.indexOf(file.type) > -1) {
-          // file is of type text, which we accept
-          var data = file.getAsText(); // modify data with string methods
-        }
-      }
+      fileReader.readAsDataURL(this.shadowRoot.getElementById('evidencePic').files[0]);
     }
-
-    console.log(data);
-    /*this.shadowRoot.appendChild(this.shadowRoot.cre)
-    var myClass = Java.type("../../rest/dataService")
-    let myClass = new LeBla();
-    myClass.post();
-    let dataService = new DataService()
-    dataService.get()
-    */
-
-    var msgJson = "{\"distance\":" + this.distance + ",\"evidencePic\":\"" + this.evidencePic + "\"}";
-    fetch(this.path + 'postPeriod', {
-      method: "POST",
-      body: msgJson,
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }).then(() => {
-      let successText = document.createElement('p');
-      successText.innerHTML = 'Succesfully sent';
-      this.shadowRoot.getElementById('mainPos').appendChild(successText);
-    }).catch(err => {
-      let failText = document.createElement('p');
-      failText.innerHTML = 'Failed sending data';
-      this.shadowRoot.getElementById('mainPos').appendChild(failText);
-    });
   }
 
   constructor() {
@@ -107,6 +63,7 @@ class DistanceFormParticipant extends LitElement {
                 </div>
                 <br>
                 <button type="submit" class="btn btn-primary" @click="${() => this.postPeriod()}">Submit</button>
+                <p id="notification"></p>
             </div>
         `;
   }

@@ -11,8 +11,10 @@ class DistanceFormParticipant extends LitElement{
 
     postPeriod(){
         this.distance = this.shadowRoot.getElementById('distance').value;
+        if(isNaN(this.distance) == true)
+            this.distance = ""
         if(this.distance == "" || this.shadowRoot.getElementById('evidencePic').files[0] == undefined)
-            this.shadowRoot.getElementById('notification').innerHTML = 'invalid data'
+            this.shadowRoot.getElementById('notification').innerHTML = 'invalid distance or no pic selected'
         
         else{
             var fileReader = new FileReader();
@@ -44,7 +46,6 @@ class DistanceFormParticipant extends LitElement{
     constructor(){
         super();
         this.path = 'http://localhost:8080/testclienttest/rs/sql/';
-        this.distance = 0;
     }
 
     //zu späterer Zeit: Überprüfung ob gerade eine Challenge!

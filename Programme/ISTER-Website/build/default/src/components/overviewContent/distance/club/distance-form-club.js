@@ -15,18 +15,16 @@ class DistanceFormClub extends LitElement {
   postPeriods() {
     var file = this.shadowRoot.getElementById('excelFile').files[0];
     var fileReader = new FileReader();
+    if (this.distance == "" || this.shadowRoot.getElementById('excelFile').files[0] == undefined) this.shadowRoot.getElementById('notification').innerHTML = 'no Excel selected';
 
     fileReader.onload = e => {
-      //var filename = file.name;
-      // pre-process data
       var binary = "";
       var bytes = new Uint8Array(e.target.result);
       var length = bytes.byteLength;
 
       for (var i = 0; i < length; i++) {
         binary += String.fromCharCode(bytes[i]);
-      } // call 'xlsx' to read the file
-
+      }
 
       var workbook = XLSX.read(binary, {
         type: 'binary',
@@ -34,29 +32,43 @@ class DistanceFormClub extends LitElement {
         cellStyles: true
       });
       workbook.SheetNames.forEach(sheetName => {
-        // Here is your object
         var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
         var jsonObj = JSON.stringify(XL_row_object);
-        console.log(jsonObj);
-        fetch(this.path + 'postPeriods', {
-          method: "POST",
-          body: jsonObj,
-          headers: {
-            "Content-Type": "application/json"
-          }
-        }).then(() => {
-          let successText = document.createElement('p');
-          successText.innerHTML = 'Succesfully sent';
-          this.shadowRoot.getElementById('mainPos').appendChild(successText);
-        }).catch(() => {
-          let failText = document.createElement('p');
-          failText.innerHTML = 'Failed sending data';
-          this.shadowRoot.getElementById('mainPos').appendChild(failText);
-        });
+        if (this.excelIsValid(XL_row_object) == false) this.shadowRoot.getElementById('notification').innerHTML = 'Excel data invalid';else {
+          fetch(this.path + 'postPeriods', {
+            method: "POST",
+            body: jsonObj,
+            headers: {
+              "Content-Type": "application/json"
+            }
+          }).then(() => {
+            this.shadowRoot.getElementById('notification').innerHTML = 'Succesfully sent';
+          }).catch(err => {
+            this.shadowRoot.getElementById('notification').innerHTML = 'Failed sending data';
+            console.log(err.target.value);
+          });
+        }
       });
     };
 
     fileReader.readAsArrayBuffer(file);
+  }
+
+  excelIsValid(jsonObj) {
+    if (jsonObj[0].Distance == undefined || jsonObj[0].Email == undefined) {
+      return false;
+    }
+
+    for (var i = 0; i < jsonObj.length; i++) {
+      if (this.validateEmail(jsonObj[i].Email) == false || isNaN(jsonObj[i].Distance) == true) return false;
+    }
+
+    return true;
+  }
+
+  validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
   } //zu späterer Zeit: Überprüfung ob gerade eine Challenge!
 
 
@@ -102,6 +114,7 @@ class DistanceFormClub extends LitElement {
                 </div>
                 <br>
                 <button type="submit" class="btn btn-primary" @click="${() => this.postPeriods()}">Submit</button>
+                <p id="notification"></p>
             </div>
         `;
   }
