@@ -13,7 +13,6 @@ class ChallengeCreator extends LitElement{
 
     createNewChallenge(){
         var datepicker = this.shadowRoot.getElementById('roundOne').value
-        console.log(datepicker);
 
         var msgJson = "{\"roundOne\":\"" + this.shadowRoot.getElementById('roundOne').value + "\",\"roundTwo\":\"" + this.shadowRoot.getElementById('roundTwo').value + "\",\"roundThree\":\"" + this.shadowRoot.getElementById('roundThree').value + "\",\"roundFour\":\"" + this.shadowRoot.getElementById('roundFour').value + "\",\"roundFive\":\"" + this.shadowRoot.getElementById('roundFive').value + "\",\"roundSix\":\"" + this.shadowRoot.getElementById('roundSix').value + "\",\"year\":\"" + this.shadowRoot.getElementById('dropDown').value + "\"}";
         fetch(this.path + 'postChallenge',
@@ -94,7 +93,7 @@ class ChallengeCreator extends LitElement{
                 </div>
             </div>
             <br>
-            <input style="margin-top:10%;margin-left:-47%" type ="button" style="width:160px;text-align:right" value="Create Challenge" class="btn btn-primary" @click="${() => this.createNewChallenge()}"></input>
+            <input style="left:2%;position:fixed; margin-top:10%" type ="button" value="Create Challenge" class="btn btn-primary" @click="${() => this.createNewChallenge()}"></input>
         </div>
         `
     }

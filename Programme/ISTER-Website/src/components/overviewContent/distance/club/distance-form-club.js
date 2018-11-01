@@ -81,41 +81,43 @@ class DistanceFormClub extends LitElement{
             <link rel="stylesheet" type="text/css" href=/src/components/overviewContent/distance/club/styles.css>
 
             <div id="mainPos" class="mainPos">
-                <h1>Enter Your Distance</h1>
-                <h3>This is how the Excel should look like (.xlsx Format):</h3>
-                <table class="table table-dark" style="width:400px">
-                    <thead width="300" class="thead-dark">
-                        <tr>
-                            <th></th>
-                            <th>A</th>
-                            <th>B</th>
-                        </tr>
-                    </thead>
-                    <tbody width="300">
-                        <tr>
-                            <td>1</td>
-                            <td>Email</td>
-                            <td>Distance</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>your.email@gmail.com</td>
-                            <td>6789</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>another.email@gmx.at</td>
-                            <td>7870</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="form-group">
-                    <label for="exampleFormControlFile1">Select Excel File</label>
-                    <input id="excelFile" accept=".xlsx" type="file" class="form-control-file" id="exampleFormControlFile1">
+                <div style="margin-left:2%">
+                    <h1>Enter Your Distance</h1>
+                    <h3>This is how the Excel should look like (.xlsx Format):</h3>
+                    <table class="table table-dark" style="width:400px">
+                        <thead width="300" class="thead-dark">
+                            <tr>
+                                <th></th>
+                                <th>A</th>
+                                <th>B</th>
+                            </tr>
+                        </thead>
+                        <tbody width="300">
+                            <tr>
+                                <td>1</td>
+                                <td>Email</td>
+                                <td>Distance</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>your.email@gmail.com</td>
+                                <td>6789</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>another.email@gmx.at</td>
+                                <td>7870</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="form-group">
+                        <label for="exampleFormControlFile1">Select Excel File</label>
+                        <input id="excelFile" accept=".xlsx" type="file" class="form-control-file" id="exampleFormControlFile1">
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary" @click="${() => this.postPeriods()}">Submit</button>
+                    <p id="notification"></p>
                 </div>
-                <br>
-                <button type="submit" class="btn btn-primary" @click="${() => this.postPeriods()}">Submit</button>
-                <p id="notification"></p>
             </div>
         `
     }
