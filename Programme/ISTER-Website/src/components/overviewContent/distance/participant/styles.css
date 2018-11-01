@@ -1,7 +1,8 @@
 div.mainPos{
     position: absolute;
     top: 17%;
-    background-color: #a3ffec;
+    background-color: #E7B239;
     /*left:0%; removed*/
     left: 60%; /*added*/
+    width:100%
 }

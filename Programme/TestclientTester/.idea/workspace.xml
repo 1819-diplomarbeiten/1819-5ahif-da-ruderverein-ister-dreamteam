@@ -7,7 +7,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0a138268-c6f7-4c84-9ae0-fbb8ce227c4b" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/../ISTER-Website/src/components/overviewContent/distance/participant/distance-form-participant.js" beforeDir="false" afterPath="$PROJECT_DIR$/../ISTER-Website/src/components/overviewContent/distance/participant/distance-form-participant.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ISTER-Website/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../ISTER-Website/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ISTER-Website/src/components/overviewContent/challengeCreator/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/../ISTER-Website/src/components/overviewContent/challengeCreator/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ISTER-Website/src/components/overviewContent/distance/club/distance-form-club.js" beforeDir="false" afterPath="$PROJECT_DIR$/../ISTER-Website/src/components/overviewContent/distance/club/distance-form-club.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ISTER-Website/src/components/overviewContent/distance/club/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/../ISTER-Website/src/components/overviewContent/distance/club/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ISTER-Website/src/components/overviewContent/distance/participant/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/../ISTER-Website/src/components/overviewContent/distance/participant/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ISTER-Website/src/components/overviewContent/ergoChallenge/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/../ISTER-Website/src/components/overviewContent/ergoChallenge/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ISTER-Website/src/components/overviewContent/homeView/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/../ISTER-Website/src/components/overviewContent/homeView/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ISTER-Website/src/components/overviewContent/loginForm/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/../ISTER-Website/src/components/overviewContent/loginForm/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ISTER-Website/src/components/overviewContent/ranking/club/club-ranking.js" beforeDir="false" afterPath="$PROJECT_DIR$/../ISTER-Website/src/components/overviewContent/ranking/club/club-ranking.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ISTER-Website/src/components/overviewContent/ranking/club/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/../ISTER-Website/src/components/overviewContent/ranking/club/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ISTER-Website/src/components/overviewContent/ranking/person/person-ranking.js" beforeDir="false" afterPath="$PROJECT_DIR$/../ISTER-Website/src/components/overviewContent/ranking/person/person-ranking.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ISTER-Website/src/components/overviewContent/ranking/person/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/../ISTER-Website/src/components/overviewContent/ranking/person/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ISTER-Website/src/components/overviewSelector/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/../ISTER-Website/src/components/overviewSelector/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -118,7 +131,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/rs/SqlStatementsEndpoint.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="262">
+            <state relative-caret-position="304">
               <caret line="19" column="27" lean-forward="true" selection-start-line="19" selection-start-column="27" selection-end-line="19" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -186,7 +199,7 @@
       </MavenImportingSettings>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-10" />
     <option name="width" value="980" />
     <option name="height" value="1040" />
@@ -430,12 +443,12 @@
       <workItem from="1540860155861" duration="1741000" />
       <workItem from="1540906134959" duration="6965000" />
       <workItem from="1540995649262" duration="330000" />
-      <workItem from="1541100460715" duration="2796000" />
+      <workItem from="1541100460715" duration="3997000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="81914000" />
+    <option name="totallyTimeSpent" value="83115000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -539,7 +552,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/rs/SqlStatementsEndpoint.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
+        <state relative-caret-position="304">
           <caret line="19" column="27" lean-forward="true" selection-start-line="19" selection-start-column="27" selection-end-line="19" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />

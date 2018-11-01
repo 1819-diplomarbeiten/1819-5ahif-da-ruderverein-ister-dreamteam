@@ -92,7 +92,7 @@ class ClubRanking extends LitElement{
                 <form>
                     <div class="form-group">
                         <p>Year</p>
-                        <select id="dropDownYear" class="form-control">
+                        <select id="dropDownYear" class="form-control" style="width:170px">
                             <option value="2017">2017 / 2018</option>
                             <option value="2016">2016 / 2017</option>
                             <option value="2015">2015 / 2016</option>
@@ -101,7 +101,7 @@ class ClubRanking extends LitElement{
                     <br>
                     <div class="form-group">
                         <p>Result</p>
-                        <select id="dropDownResult" class="form-control">
+                        <select id="dropDownResult" class="form-control" style="width:170px">
                             <option value="0">Total</option>
                             <option value="1">1st Session</option>
                             <option value="2">2nd Session</option>
@@ -114,7 +114,7 @@ class ClubRanking extends LitElement{
                     <br>
                     <div class="form-group">
                         <p>Sequence</p>
-                        <select id="dropDownSequence" class="form-control">
+                        <select id="dropDownSequence" class="form-control" style="width:170px">
                             <option value="Alphabetic">Alphabetic</option>
                             <option value="TopDown">TopDown</option>
                         </select>
