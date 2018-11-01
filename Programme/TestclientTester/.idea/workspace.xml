@@ -128,7 +128,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/rs/SqlStatementsEndpoint.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
+            <state relative-caret-position="64">
               <caret line="19" column="27" lean-forward="true" selection-start-line="19" selection-start-column="27" selection-end-line="19" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -196,7 +196,7 @@
       </MavenImportingSettings>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-10" />
     <option name="width" value="980" />
     <option name="height" value="1040" />
@@ -440,12 +440,12 @@
       <workItem from="1540860155861" duration="1741000" />
       <workItem from="1540906134959" duration="6965000" />
       <workItem from="1540995649262" duration="330000" />
-      <workItem from="1541100460715" duration="3997000" />
+      <workItem from="1541100460715" duration="4601000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="83115000" />
+    <option name="totallyTimeSpent" value="83719000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -549,7 +549,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/rs/SqlStatementsEndpoint.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
+        <state relative-caret-position="64">
           <caret line="19" column="27" lean-forward="true" selection-start-line="19" selection-start-column="27" selection-end-line="19" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />

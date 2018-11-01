@@ -12,17 +12,30 @@ class ChallengeCreator extends LitElement{
     }
 
     createNewChallenge(){
-        var datepicker = this.shadowRoot.getElementById('roundOne').value
+        if(this.allValuesSelected() == false)
+            this.shadowRoot.getElementById('notification').innerHTML = 'not all values selected'
+        else {
+            var msgJson = "{\"roundOne\":\"" + this.shadowRoot.getElementById('roundOne').value + "\",\"roundTwo\":\"" + this.shadowRoot.getElementById('roundTwo').value + "\",\"roundThree\":\"" + this.shadowRoot.getElementById('roundThree').value + "\",\"roundFour\":\"" + this.shadowRoot.getElementById('roundFour').value + "\",\"roundFive\":\"" + this.shadowRoot.getElementById('roundFive').value + "\",\"roundSix\":\"" + this.shadowRoot.getElementById('roundSix').value + "\",\"year\":\"" + this.shadowRoot.getElementById('dropDown').value + "\"}";
+            fetch(this.path + 'postChallenge',
+            {
+                method: "POST",
+                body: msgJson,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            .then(() => {
+                this.shadowRoot.getElementById('notification').innerHTML = 'Succesfully sent'
+            })
+            .catch((err) => {
+                this.shadowRoot.getElementById('notification').innerHTML = 'Failed sending data'
+                console.log(err.target.value)
+            })
+        }
+    }
 
-        var msgJson = "{\"roundOne\":\"" + this.shadowRoot.getElementById('roundOne').value + "\",\"roundTwo\":\"" + this.shadowRoot.getElementById('roundTwo').value + "\",\"roundThree\":\"" + this.shadowRoot.getElementById('roundThree').value + "\",\"roundFour\":\"" + this.shadowRoot.getElementById('roundFour').value + "\",\"roundFive\":\"" + this.shadowRoot.getElementById('roundFive').value + "\",\"roundSix\":\"" + this.shadowRoot.getElementById('roundSix').value + "\",\"year\":\"" + this.shadowRoot.getElementById('dropDown').value + "\"}";
-        fetch(this.path + 'postChallenge',
-        {
-            method: "POST",
-            body: msgJson,
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
+    allValuesSelected(){
+        return this.shadowRoot.getElementById('roundOne').value != "" && this.shadowRoot.getElementById('roundTwo').value != "" && this.shadowRoot.getElementById('roundThree').value != "" && this.shadowRoot.getElementById('roundFour').value != "" && this.shadowRoot.getElementById('roundFive').value != "" && this.shadowRoot.getElementById('roundSix').value != "" && this.shadowRoot.getElementById('dropDown').value != ""
     }
 
     loadDatePicker(round){
@@ -93,7 +106,10 @@ class ChallengeCreator extends LitElement{
                 </div>
             </div>
             <br>
-            <input style="left:2%;position:fixed; margin-top:10%" type ="button" value="Create Challenge" class="btn btn-primary" @click="${() => this.createNewChallenge()}"></input>
+            <div style="left:2%;position:fixed;margin-top:10%">
+                <input type ="button" value="Create Challenge" class="btn btn-primary" @click="${() => this.createNewChallenge()}"></input>
+                <p id="notification"></p>
+            </div>
         </div>
         `
     }
