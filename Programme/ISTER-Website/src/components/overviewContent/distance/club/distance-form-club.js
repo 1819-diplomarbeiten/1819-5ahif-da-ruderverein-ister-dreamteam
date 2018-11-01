@@ -15,22 +15,18 @@ class DistanceFormClub extends LitElement{
         var file = this.shadowRoot.getElementById('excelFile').files[0]
         var fileReader = new FileReader();
         fileReader.onload = (e => {
-            //var filename = file.name;
-            // pre-process data
             var binary = "";
             var bytes = new Uint8Array(e.target.result);
             var length = bytes.byteLength;
+
             for (var i = 0; i < length; i++) {
               binary += String.fromCharCode(bytes[i]);
             }
-            // call 'xlsx' to read the file
+
             var workbook = XLSX.read(binary, {type: 'binary', cellDates:true, cellStyles:true});
             workbook.SheetNames.forEach(sheetName => {
-                // Here is your object
                 var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
                 var jsonObj = JSON.stringify(XL_row_object);
-
-                console.log(jsonObj)
 
                 fetch(this.path + 'postPeriods',
                 {

@@ -1,68 +1,52 @@
-import {LitElement, html, property} from '@polymer/lit-element'
-//import {LeBla} from '../../rest'
+import {LitElement, html} from '@polymer/lit-element'
+
 class DistanceFormParticipant extends LitElement{
     static get properties(){
         return{
             path:String,
             distance: Number,
-            evidencePic: Number
+            evidencePic: String
         }
     }
 
-    /*postPeriodTwo(){
-        console.log('entered postPeriodTwo')
-        this.distance = this.shadowRoot.getElementById('distance').value;
-        this.evidencePic = this.shadowRoot.getElementById('evidencePic')
-        this.shadowRoot.getElementById('evidencePic').getBase64;
-        async() => {
-            await fetch(this.path + 'post', {
-            method: 'POST',
-            body: JSON.stringify({"distance": this.distance, "img": this.evidencePic}),
-            headers:{
-              'Content-Type': 'application/json'
-            }
-            });
-        }
-    }*/
-
     postPeriod(){
         this.distance = this.shadowRoot.getElementById('distance').value;
-        //this.evidencePic = this.shadowRoot.getElementById('evidencePic').value//.webkitRelativePath//.target//.value//.getBase64
-        this.evidencePic = 6787656789876
-        /*this.shadowRoot.appendChild(this.shadowRoot.cre)
-        var myClass = Java.type("../../rest/dataService")
-        let myClass = new LeBla();
-        myClass.post();
-        let dataService = new DataService()
-        dataService.get()
-        */
-
-        var msgJson = "{\"distance\":" + this.distance + ",\"evidencePic\":\"" + this.evidencePic + "\"}";
+        if(this.distance == "" || this.shadowRoot.getElementById('evidencePic').files[0] == undefined)
+            this.shadowRoot.getElementById('notification').innerHTML = 'invalid data'
         
-        fetch(this.path + 'postPeriod',
-        {
-            method: "POST",
-            body: msgJson,
-            headers: {
-                "Content-Type": "application/json"
-              }
-        })
-        .then(() => {
-            let successText = document.createElement('p')
-            successText.innerHTML = 'Succesfully sent'
-            this.shadowRoot.getElementById('mainPos').appendChild(successText)
-        })
-        .catch(err => {
-            let failText = document.createElement('p')
-            failText.innerHTML = 'Failed sending data'
-            this.shadowRoot.getElementById('mainPos').appendChild(failText)
-        })
+        else{
+            var fileReader = new FileReader();
+            fileReader.onload = event => {
+                this.evidencePic = event.target.result
+                var msgJson = "{\"distance\":" + this.distance + ",\"evidencePic\":\"" + this.evidencePic + "\"}";
+            
+                fetch(this.path + 'postPeriod',
+                {
+                    method: "POST",
+                    body: msgJson,
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                })
+                .then(() => {
+                    this.shadowRoot.getElementById('notification').innerHTML = 'Succesfully sent'
+                })
+                .catch(err => {
+                    this.shadowRoot.getElementById('notification').innerHTML = 'Failed sending data'
+                    console.log(err.target.value)
+                })
+            };
+
+            fileReader.readAsDataURL(this.shadowRoot.getElementById('evidencePic').files[0]);
+        }
     }
 
     constructor(){
         super();
         this.path = 'http://localhost:8080/testclienttest/rs/sql/';
+        this.distance = 0;
     }
+
     //zu späterer Zeit: Überprüfung ob gerade eine Challenge!
     render(){
             return html`
@@ -85,6 +69,7 @@ class DistanceFormParticipant extends LitElement{
                 </div>
                 <br>
                 <button type="submit" class="btn btn-primary" @click="${() => this.postPeriod()}">Submit</button>
+                <p id="notification"></p>
             </div>
         `
     }

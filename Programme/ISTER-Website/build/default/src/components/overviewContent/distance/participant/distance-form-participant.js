@@ -29,6 +29,31 @@ class DistanceFormParticipant extends LitElement {
     this.distance = this.shadowRoot.getElementById('distance').value; //this.evidencePic = this.shadowRoot.getElementById('evidencePic').value//.webkitRelativePath//.target//.value//.getBase64
 
     this.evidencePic = 6787656789876;
+    var fileInput = this.shadowRoot.getElementById('evidencePic'); // files is a FileList object (similar to NodeList)
+
+    var files = fileInput.files; // object for allowed media types
+
+    var accept = {
+      binary: ["image/png", "image/jpeg"],
+      text: ["text/plain", "text/css", "application/xml", "text/html"]
+    };
+    var file;
+
+    for (var i = 0; i < files.length; i++) {
+      file = files[i]; // if file type could be detected
+
+      if (file !== null) {
+        if (accept.binary.indexOf(file.type) > -1) {
+          // file is a binary, which we accept
+          var data = file.getAsBinary();
+        } else if (accept.text.indexOf(file.type) > -1) {
+          // file is of type text, which we accept
+          var data = file.getAsText(); // modify data with string methods
+        }
+      }
+    }
+
+    console.log(data);
     /*this.shadowRoot.appendChild(this.shadowRoot.cre)
     var myClass = Java.type("../../rest/dataService")
     let myClass = new LeBla();

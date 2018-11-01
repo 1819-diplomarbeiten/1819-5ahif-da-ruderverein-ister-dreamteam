@@ -13,7 +13,7 @@ public class SqlStatementsEndpoint {
     public void postPeriod(final JsonObject msg){
         System.out.println("================================");
         System.out.println("===========Post Period==========");
-        System.out.println(msg.getInt("distance") + "  " + msg.getString("evidencePic"));
+        System.out.println(msg.getInt("distance") + "  " + msg.getJsonString("evidencePic").getString());
     }
 
     @POST
