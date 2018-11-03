@@ -10,7 +10,13 @@ div.datePickPositionOne{
     float: left;
     margin-left: 2%;
 }
-div.datePickPositionOther{
+div.datePickPositionTwo{
     float: left;
-    margin-left: 15%;
+    margin-left: 20%;
+    position: fixed;
+}
+div.datePickPositionThree{
+    float: left;
+    margin-left: 38%;
+    position: fixed;
 }

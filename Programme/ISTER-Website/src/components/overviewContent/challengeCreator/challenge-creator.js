@@ -81,7 +81,7 @@ class ChallengeCreator extends LitElement{
                         <input class="form-control-text "id="roundFour" style="width:160px;text-align:right" @click="${() => this.loadDatePicker('roundFour')}">
                     </div>
                 </div>
-                <div class="datePickPositionOther">
+                <div class="datePickPositionTwo">
                     <div class="form-group">
                         <p for="roundTwo">Date of Round 2</p>
                         <input class="form-control-text "id="roundTwo" style="width:160px;text-align:right" @click="${() => this.loadDatePicker('roundTwo')}">
@@ -93,7 +93,7 @@ class ChallengeCreator extends LitElement{
                     </div>
 
                 </div>
-                <div class="datePickPositionOther">
+                <div class="datePickPositionThree">
                     <div class="form-group">
                         <p for="roundThree">Date of Round 3</p>
                         <input class="form-control-text "id="roundThree" style="width:160px;text-align:right" @click="${() => this.loadDatePicker('roundThree')}">

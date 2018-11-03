@@ -42,7 +42,7 @@ public class JsonArrayCreator {
         fillData();
         for(int i = 0; i < bestFour.size();i++){
             JsonObjectBuilder allSixDistances = Json.createObjectBuilder();
-            jsonArrayBuilder.add(Json.createObjectBuilder().add("firstName", names.get(i)).add("lastName", lastNames.get(i)).add("round", one.get(i)).add("gender", gender.get(i)).add("pClass", category.get(i)).add("club", club.get(i)).add("fiveHoundred", fiveHoundred.get(i)).add("watt", watt.get(i)).add("wattKg", wattKg.get(i)));
+            jsonArrayBuilder.add(Json.createObjectBuilder().add("firstName", names.get(i)).add("lastName", lastNames.get(i)).add("round", one.get(i)).add("gender", gender.get(i)).add("pClass", category.get(i)).add("club", club.get(i)).add("fiveHundred", fiveHoundred.get(i)).add("watt", watt.get(i)).add("wattKg", wattKg.get(i)));
         }
         return jsonArrayBuilder.build();
     }

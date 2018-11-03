@@ -104,7 +104,7 @@ class PersonRanking extends LitElement{
             {title: "Club", dataKey:"club"},
             {title: "Round " + this.dropDownResult, dataKey:"round"},
             {title: "", dataKey:"empty"},
-            {title: "500m", dataKey:"fiveHoundred"},
+            {title: "500m", dataKey:"fiveHundred"},
             {title: "Watt", dataKey:"watt"},
             {title: "Watt/kg", dataKey:"wattKg"},
         ]
@@ -116,7 +116,7 @@ class PersonRanking extends LitElement{
             "pClass": result[j].pClass,
             "club": result[j].club,
             "round": result[j].round,
-            "fiveHoundred": result[j].fiveHoundred,
+            "fiveHundred": result[j].fiveHundred,
             "watt": result[j].watt,
             "wattKg": result[j].wattKg
             }

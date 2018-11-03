@@ -62,7 +62,6 @@ class DistanceFormClub extends LitElement{
         for(var i = 0; i < jsonObj.length; i ++){
             if(this.validateEmail(jsonObj[i].Email) == false || isNaN(jsonObj[i].Distance) == true)
                 return false
-            
         }
         return true
     }
