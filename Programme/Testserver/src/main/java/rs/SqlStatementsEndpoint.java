@@ -3,9 +3,23 @@ package rs;
 import javax.json.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 @Path("/sql")
 public class SqlStatementsEndpoint {
+    @GET
+    @Path("/actualChallengeTime")
+    @Produces(MediaType.APPLICATION_JSON)
+    public JsonObject getActualChallengeTime(){
+        System.out.println("================================");
+        System.out.println("====Get Actual Challenge Time===");
+        Date date = new GregorianCalendar(2018, Calendar.DECEMBER, 11).getTime();
+        System.out.println(date);
+        JsonObject jsonValues = Json.createObjectBuilder().add("time", date.getTime()).add("state", "STARTS").build();
+        return jsonValues;
+    }
 
     @POST
     @Path("/postPeriod")
@@ -45,10 +59,16 @@ public class SqlStatementsEndpoint {
         System.out.println("Get Distances Table Participants");
         System.out.println("Year:\n" + year + "\nResult:  " + result + "  " + sequence);
         JsonArray jsonValues;
-        if(Integer.parseInt(result) == 0)
+        if(result.equals("0") && !sequence.equals("Categories"))
             jsonValues = new JsonArrayCreator().GetJsonArrayParticipants();
-        else
+        else if(!result.equals("0") && !sequence.equals("Categories"))
             jsonValues = new JsonArrayCreator().GetJsonArrayParticipantsParticular();
+        else if(result.equals("0") && sequence.equals("Categories"))
+            jsonValues = new JsonArrayCreator().GetJsonArrayParticipantsSequence();
+        else if(!result.equals("0") && sequence.equals("Categories"))
+            jsonValues = new JsonArrayCreator().GetJsonArrayParticipantsParticularSequence();
+        else
+            jsonValues = null;
         return jsonValues;
     }
     @GET

@@ -42,7 +42,6 @@ public class JsonArrayCreator {
         JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
         fillData();
         for(int i = 0; i < bestFour.size();i++){
-            JsonObjectBuilder allSixDistances = Json.createObjectBuilder();
             jsonArrayBuilder.add(Json.createObjectBuilder().add("firstName", names.get(i)).add("lastName", lastNames.get(i)).add("round", one.get(i)).add("gender", gender.get(i)).add("pClass", category.get(i)).add("club", club.get(i)).add("fiveHundred", fiveHoundred.get(i)).add("watt", watt.get(i)).add("wattKg", wattKg.get(i)));
         }
         return jsonArrayBuilder.build();
@@ -95,8 +94,8 @@ public class JsonArrayCreator {
             category.add("A");
             category.add("C");
             club.add("LIA");
-            club.add("LIA");
-            club.add("LIA");
+            club.add("KAI");
+            club.add("VIE");
             clubLong.add("LIA Wien");
             clubLong.add("Donau Wien");
             clubLong.add("Donau Wien");
@@ -113,5 +112,33 @@ public class JsonArrayCreator {
             wattKg.add(10.38);
             wattKg.add(17.14);
         }
+    }
+
+    public JsonArray GetJsonArrayParticipantsParticularSequence() {
+        JsonArrayBuilder jsonArrayCategory = Json.createArrayBuilder();
+        JsonArrayBuilder jsonArrayParticipants = Json.createArrayBuilder();
+        fillData();
+        for(int j = 0; j < 5;j++){
+            for(int i = 0; i < 11;i++){
+                jsonArrayParticipants.add(Json.createObjectBuilder().add("firstName", names.get(i)).add("lastName", lastNames.get(i)).add("round", one.get(i)).add("gender", gender.get(i)).add("pClass", category.get(i)).add("club", club.get(i)).add("fiveHundred", fiveHoundred.get(i)).add("watt", watt.get(i)).add("wattKg", wattKg.get(i)));
+            }
+            jsonArrayCategory.add(Json.createArrayBuilder().add(category.get(j)).add(jsonArrayParticipants));
+        }
+        return jsonArrayCategory.build();
+    }
+
+    public JsonArray GetJsonArrayParticipantsSequence() {
+        JsonArrayBuilder jsonArrayCategory = Json.createArrayBuilder();
+        JsonArrayBuilder jsonArrayParticipants = Json.createArrayBuilder();
+        fillData();
+        for(int j = 0; j < 5;j++){
+            for(int i = 0; i < 11;i++){
+                JsonObjectBuilder allSixDistances = Json.createObjectBuilder();
+                allSixDistances.add("roundOne", one.get(i)).add("roundTwo", two.get(i)).add("roundThree", three.get(i)).add("roundFour", four.get(i)).add("roundFive", five.get(i)).add("roundSix", six.get(i));
+                jsonArrayParticipants.add(Json.createObjectBuilder().add("bestFourDistances", bestFour.get(i)).add("firstName", names.get(i)).add("lastName", lastNames.get(i)).add("allSixDistances", allSixDistances).add("gender", gender.get(i)).add("club", club.get(i)));
+            }
+            jsonArrayCategory.add(Json.createArrayBuilder().add(category.get(j)).add(jsonArrayParticipants));
+        }
+        return jsonArrayCategory.build();
     }
 }

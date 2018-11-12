@@ -8,7 +8,7 @@ class ChallengeCreator extends LitElement{
     }
     constructor(){
         super();
-        this.path = 'http://localhost:8080/testclienttest/rs/sql/'
+        this.path = 'http://localhost:8080/testserver/rs/sql/'
     }
 
     createNewChallenge(){
@@ -57,6 +57,14 @@ class ChallengeCreator extends LitElement{
     }
 
     render(){
+        window.onload = _ => {
+            this.loadDatePicker('roundOne')
+            this.loadDatePicker('roundTwo')
+            this.loadDatePicker('roundThree')
+            this.loadDatePicker('roundFour')
+            this.loadDatePicker('roundFive')
+            this.loadDatePicker('roundSix')
+        }
         return html`
         <script lang="javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
         <script lang="javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>

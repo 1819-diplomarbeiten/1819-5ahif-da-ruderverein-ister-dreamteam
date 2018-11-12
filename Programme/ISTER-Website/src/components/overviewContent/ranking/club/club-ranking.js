@@ -12,7 +12,7 @@ class ClubRanking extends LitElement{
 
     constructor(){
         super();
-        this.path = 'http://localhost/restApi/rest/';
+        this.path = 'http://localhost:8080/testserver/rs/sql/';
     }
 
     getDistances(){
