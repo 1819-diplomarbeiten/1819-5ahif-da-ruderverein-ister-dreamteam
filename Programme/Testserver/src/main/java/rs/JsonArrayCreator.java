@@ -34,6 +34,7 @@ public class JsonArrayCreator {
             allSixDistances.add("roundOne", one.get(i)).add("roundTwo", two.get(i)).add("roundThree", three.get(i)).add("roundFour", four.get(i)).add("roundFive", five.get(i)).add("roundSix", six.get(i));
             jsonArrayBuilder.add(Json.createObjectBuilder().add("bestFourDistances", bestFour.get(i)).add("firstName", names.get(i)).add("lastName", lastNames.get(i)).add("allSixDistances", allSixDistances).add("gender", gender.get(i)).add("pClass", category.get(i)).add("club", club.get(i)));
         }
+        System.out.println(jsonArrayBuilder.build());
         return jsonArrayBuilder.build();
     }
 
