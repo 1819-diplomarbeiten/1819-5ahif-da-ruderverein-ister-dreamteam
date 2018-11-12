@@ -12,7 +12,7 @@ class ClubRanking extends LitElement{
 
     constructor(){
         super();
-        this.path = 'http://localhost:8080/testclienttest/rs/sql/';
+        this.path = 'http://localhost/restApi/rest/';
     }
 
     getDistances(){
@@ -20,7 +20,7 @@ class ClubRanking extends LitElement{
         this.dropDownResult = this.shadowRoot.getElementById('dropDownResult').value
         this.dropDownSequence = this.shadowRoot.getElementById('dropDownSequence').value
 
-        fetch(this.path + "bestFourDistancesClubs/" + this.dropDownYear + "/" + this.dropDownResult + "/" + this.dropDownSequence, {
+        fetch(this.path + "bestFourDistancesClubs.php?year=" + this.dropDownYear, {
             method: "GET"
         })
         .then((resp) => resp.json())
