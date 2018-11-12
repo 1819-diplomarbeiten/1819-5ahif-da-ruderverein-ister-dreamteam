@@ -58,7 +58,7 @@ public class JsonArrayCreator {
     }
 
     private void fillData(){
-        for(int i = 0; i < 14; i ++){
+        for(int i = 0; i < 40; i ++){
             bestFour.add(329000);
             bestFour.add(12345);
             bestFour.add(63789);
@@ -118,7 +118,7 @@ public class JsonArrayCreator {
         JsonArrayBuilder jsonArrayParticipants = Json.createArrayBuilder();
         fillData();
         for(int j = 0; j < 5;j++){
-            for(int i = 0; i < 11;i++){
+            for(int i = 0; i < 18;i++){
                 jsonArrayParticipants.add(Json.createObjectBuilder().add("firstName", names.get(i)).add("lastName", lastNames.get(i)).add("round", one.get(i)).add("gender", gender.get(i)).add("pClass", category.get(i)).add("club", club.get(i)).add("fiveHundred", fiveHoundred.get(i)).add("watt", watt.get(i)).add("wattKg", wattKg.get(i)));
             }
             jsonArrayCategory.add(Json.createArrayBuilder().add(category.get(j)).add(jsonArrayParticipants));
@@ -131,7 +131,7 @@ public class JsonArrayCreator {
         JsonArrayBuilder jsonArrayParticipants = Json.createArrayBuilder();
         fillData();
         for(int j = 0; j < 5;j++){
-            for(int i = 0; i < 11;i++){
+            for(int i = 0; i < 18;i++){
                 JsonObjectBuilder allSixDistances = Json.createObjectBuilder();
                 allSixDistances.add("roundOne", one.get(i)).add("roundTwo", two.get(i)).add("roundThree", three.get(i)).add("roundFour", four.get(i)).add("roundFive", five.get(i)).add("roundSix", six.get(i));
                 jsonArrayParticipants.add(Json.createObjectBuilder().add("bestFourDistances", bestFour.get(i)).add("firstName", names.get(i)).add("lastName", lastNames.get(i)).add("allSixDistances", allSixDistances).add("gender", gender.get(i)).add("club", club.get(i)));
