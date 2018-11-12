@@ -22,7 +22,6 @@ class WebSiteHeader extends LitElement{
         .then((resp) => resp.json())
         .then(data => {
             var x = setInterval(_ => {
-                console.log(data)
                 var distance = data.time - new Date().getTime();
                 
                 // Time calculations for days, hours, minutes and seconds
