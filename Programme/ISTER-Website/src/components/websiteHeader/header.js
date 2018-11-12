@@ -15,22 +15,6 @@ class WebSiteHeader extends LitElement{
         console.log(language + ' selected as language')
     }
 
-    getCountdownStanding(){
-        fetch(this.path + 'actualChallengeTime', {
-            method: 'GET'
-        })
-        .then((resp) => resp.json())
-        .then(data => {
-            var json = {
-                "time": data.time,
-                "state": "STARTS"
-            }
-            console.log(json)
-            console.log(json.time)
-            return json;
-        })
-    }
-
     countdown(){
         fetch(this.path + 'actualChallengeTime', {
             method: 'GET'
