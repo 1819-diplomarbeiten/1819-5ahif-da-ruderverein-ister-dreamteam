@@ -142,8 +142,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/rs/JsonArrayCreator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="119" column="28" selection-start-line="119" selection-start-column="28" selection-end-line="119" selection-end-column="28" />
+            <state relative-caret-position="217">
+              <caret line="132" column="28" selection-start-line="132" selection-start-column="28" selection-end-line="132" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#fillData#0;class#JsonArrayCreator#0" />
@@ -473,7 +473,7 @@
       <window_info anchor="bottom" id="Application Servers" order="7" sideWeight="0.49798658" weight="0.329429" />
       <window_info anchor="bottom" id="Terminal" order="8" sideWeight="0.49798658" weight="0.329429" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5087248" side_tool="true" visible="true" weight="0.08345535" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.12080537" side_tool="true" visible="true" weight="0.43923867" />
       <window_info anchor="bottom" id="Messages" order="11" sideWeight="0.49798658" weight="0.329429" />
       <window_info anchor="bottom" id="Java Enterprise" order="12" sideWeight="0.49932885" weight="0.329429" />
       <window_info anchor="bottom" id="Database Changes" order="13" show_stripe_button="false" />
@@ -544,8 +544,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/rs/JsonArrayCreator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="119" column="28" selection-start-line="119" selection-start-column="28" selection-end-line="119" selection-end-column="28" />
+        <state relative-caret-position="217">
+          <caret line="132" column="28" selection-start-line="132" selection-start-column="28" selection-end-line="132" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#fillData#0;class#JsonArrayCreator#0" />
