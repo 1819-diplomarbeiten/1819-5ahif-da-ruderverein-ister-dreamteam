@@ -45,10 +45,16 @@ public class SqlStatementsEndpoint {
         System.out.println("Get Distances Table Participants");
         System.out.println("Year:\n" + year + "\nResult:  " + result + "  " + sequence);
         JsonArray jsonValues;
-        if(Integer.parseInt(result) == 0)
+        if(result.equals("0") && !sequence.equals("Categories"))
             jsonValues = new JsonArrayCreator().GetJsonArrayParticipants();
-        else
+        else if(!result.equals("0") && !sequence.equals("Categories"))
             jsonValues = new JsonArrayCreator().GetJsonArrayParticipantsParticular();
+        else if(result.equals("0") && sequence.equals("Categories"))
+            jsonValues = new JsonArrayCreator().GetJsonArrayParticipantsSequence();
+        else if(!result.equals("0") && sequence.equals("Categories"))
+            jsonValues = new JsonArrayCreator().GetJsonArrayParticipantsParticularSequence();
+        else
+            jsonValues = null;
         return jsonValues;
     }
     @GET
