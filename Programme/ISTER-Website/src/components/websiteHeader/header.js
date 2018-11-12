@@ -1,8 +1,14 @@
 import {LitElement, html} from '@polymer/lit-element'
 
 class WebSiteHeader extends LitElement{
+    static get properties(){
+        return {
+            path: String
+        }
+    }
     constructor(){
         super();
+        this.path = 'http://localhost:8080/testclienttest/rs/sql/'
     }
 
     changeLanguage(language){
@@ -10,28 +16,40 @@ class WebSiteHeader extends LitElement{
     }
 
     getCountdownStanding(){
-        var countDownDate = new Date("Dec 5, 2018 15:37:25")
-        return {
-            "time": countDownDate,
-            "state": "STARTS"
-        }
+        fetch(this.path + 'actualChallengeTime', {
+            method: 'GET'
+        })
+        .then((resp) => resp.json())
+        .then(data => {
+            var json = {
+                "time": data.time,
+                "state": "STARTS"
+            }
+            console.log(json)
+            console.log(json.time)
+            return json;
+        })
     }
 
     countdown(){
-        var countDownDate = this.getCountdownStanding();
-
-        var x = setInterval(() => {
-
-            var distance = countDownDate.time.getTime() - new Date().getTime();
-            
-            // Time calculations for days, hours, minutes and seconds
-            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            
-            this.shadowRoot.getElementById('demo').innerHTML = 'THE CHALLENGE ' + countDownDate.state + ' ==> ' + days + ' Days ' + hours + ' Hours ' + minutes + ' Minutes ' + seconds + ' Seconds'
-        }, 1000);
+        fetch(this.path + 'actualChallengeTime', {
+            method: 'GET'
+        })
+        .then((resp) => resp.json())
+        .then(data => {
+            var x = setInterval(_ => {
+                console.log(data)
+                var distance = data.time - new Date().getTime();
+                
+                // Time calculations for days, hours, minutes and seconds
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                this.shadowRoot.getElementById('demo').innerHTML = 'THE CHALLENGE ' + data.state + ' ==> ' + days + ' Days ' + hours + ' Hours ' + minutes + ' Minutes ' + seconds + ' Seconds'
+            }, 1000);
+        })
     }
 
     render(){

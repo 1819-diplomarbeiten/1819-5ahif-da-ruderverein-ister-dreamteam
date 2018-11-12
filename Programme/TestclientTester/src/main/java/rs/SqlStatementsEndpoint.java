@@ -3,9 +3,23 @@ package rs;
 import javax.json.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 @Path("/sql")
 public class SqlStatementsEndpoint {
+    @GET
+    @Path("/actualChallengeTime")
+    @Produces(MediaType.APPLICATION_JSON)
+    public JsonObject getActualChallengeTime(){
+        System.out.println("================================");
+        System.out.println("====Get Actual Challenge Time===");
+        Date date = new GregorianCalendar(2018, Calendar.DECEMBER, 11).getTime();
+        System.out.println(date);
+        JsonObject jsonValues = Json.createObjectBuilder().add("time", date.getTime()).add("state", "STARTS").build();
+        return jsonValues;
+    }
 
     @POST
     @Path("/postPeriod")
