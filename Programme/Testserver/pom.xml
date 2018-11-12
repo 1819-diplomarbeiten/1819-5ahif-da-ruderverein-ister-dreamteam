@@ -37,7 +37,7 @@
     </dependencies>
 
     <build>
-        <finalName>testclienttest</finalName>
+        <finalName>testserver</finalName>
     </build>
 
 

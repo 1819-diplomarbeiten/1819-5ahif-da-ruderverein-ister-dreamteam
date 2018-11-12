@@ -8,7 +8,7 @@ class ChallengeCreator extends LitElement{
     }
     constructor(){
         super();
-        this.path = 'http://localhost:8080/testclienttest/rs/sql/'
+        this.path = 'http://localhost:8080/testserver/rs/sql/'
     }
 
     createNewChallenge(){
