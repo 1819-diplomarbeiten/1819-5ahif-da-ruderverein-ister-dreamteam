@@ -1,6 +1,7 @@
 import {LitElement, html} from '@polymer/lit-element'
-//import '../../rest/dataService.js'
-class PersonRanking extends LitElement{
+import DataService from '../../../../rest/dataService.js'
+
+export default class PersonRanking extends LitElement{
     static get properties(){
         return {
             path: String,
@@ -15,6 +16,8 @@ class PersonRanking extends LitElement{
     }
 
     getDistances(){
+        DataService.postM()
+        
         this.dropDownYear = this.shadowRoot.getElementById('dropDownYear').value
         this.dropDownResult = this.shadowRoot.getElementById('dropDownResult').value
         this.dropDownSequence = this.shadowRoot.getElementById('dropDownSequence').value

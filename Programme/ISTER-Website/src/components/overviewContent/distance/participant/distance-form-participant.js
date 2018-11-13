@@ -1,4 +1,5 @@
 import {LitElement, html} from '@polymer/lit-element'
+import DataService from '../../../../rest/dataService.js'
 
 class DistanceFormParticipant extends LitElement{
     static get properties(){
@@ -10,6 +11,7 @@ class DistanceFormParticipant extends LitElement{
     }
 
     postPeriod(){
+        DataService.postPeriod()
         this.distance = this.shadowRoot.getElementById('distance').value;
         if(isNaN(this.distance) == true)
             this.distance = ""
