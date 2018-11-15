@@ -29,9 +29,9 @@ export default class PersonRanking extends LitElement{
         .then((resp) => resp.json())
         .then(data => {
             if(this.dropDownResult == '0' && this.dropDownSequence != 'Categories')
-                PdfCreator.createPdfTotal(data)
+                PdfCreator.createPdfTotal(data, this.dropDownYear)
             else if(this.dropDownResult != '0' && this.dropDownSequence != 'Categories')
-                PdfCreator.createPdfPerSession(data)
+                PdfCreator.createPdfPerSession(data, this.dropDownYear)
             else if(this.dropDownResult == '0' && this.dropDownSequence == 'Categories')
                 PdfCreator.createPdfTotalPerCategories(data, this.dropDownYear)
             else

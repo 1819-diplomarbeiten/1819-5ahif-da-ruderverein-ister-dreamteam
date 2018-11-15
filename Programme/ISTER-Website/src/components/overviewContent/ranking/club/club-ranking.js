@@ -27,7 +27,7 @@ export default class ClubRanking extends LitElement{
         })
         .then((resp) => resp.json())
         .then(data => {
-            PdfCreator.createPdfClub(data)
+            PdfCreator.createPdfClub(data, this.dropDownYear)
         })
     }
 
