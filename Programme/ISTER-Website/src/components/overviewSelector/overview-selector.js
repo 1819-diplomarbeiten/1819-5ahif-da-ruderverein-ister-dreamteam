@@ -39,10 +39,10 @@ export default class OverviewSelector extends LitElement{
                 mainComp.appendChild(elem)
                 elem = document.createElement('distance-form-participant')      //added
                 mainComp.appendChild(elem)                                      //added
-                elem = document.createElement('p')                              //added
+                /*elem = document.createElement('p')                              //added
                 elem.setAttribute('style','margin-top:45%')                     //added
                 elem.innerHTML = '(Normalerweise nur eines von beiden sichbar, je nachdem wer eingeloggt)' //added
-                mainComp.appendChild(elem)                                      //added
+                mainComp.appendChild(elem)  */                                    //added
                 break
             case 'home':
                 elem = document.createElement('home-view')
@@ -59,14 +59,20 @@ export default class OverviewSelector extends LitElement{
             case 'challengeCreator':
                 elem = document.createElement('challenge-creator')
                 mainComp.appendChild(elem)
-                elem = document.createElement('p')                              //added
+                /*elem = document.createElement('p')                              //added
                 elem.setAttribute('style','margin-top:45%')                     //added
                 elem.innerHTML = '(Schlussendlich nur für Hr. Schramm zugänglich)' //added
-                mainComp.appendChild(elem)  
+                mainComp.appendChild(elem)  */
                 break
             default:
                 break
         }
+        /*if(content == '')
+        console.log('inserted ' + content)
+        console.log('deleted ' + mainComp.childNodes[0])
+        console.log(mainComp.childNodes)
+        mainComp.removeChild(mainComp.childNodes[0])
+        console.log(mainComp.childNodes)*/
     }
 
     render(){
@@ -102,7 +108,7 @@ export default class OverviewSelector extends LitElement{
                     </div>
                 </div>
             </div>
-            <div id="components">
+            <div id="components" class="componentss">
                 <home-view></home-view>
             </div>
             `

@@ -38,3 +38,10 @@ div.mainPos {
 div.selectors{
     margin-top: 20%
 }
+div.componentss{
+    position: absolute;
+    top: 17%;
+    background-color: #F09830;
+    width: 100%;
+    height: 83%;
+}

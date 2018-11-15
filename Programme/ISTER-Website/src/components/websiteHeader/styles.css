@@ -19,3 +19,6 @@ div.languages{
 span.highlight{
     color: #35424A;
 }
+img{
+    border-radius: 15%;
+}

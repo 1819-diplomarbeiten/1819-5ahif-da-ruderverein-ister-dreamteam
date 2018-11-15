@@ -40,14 +40,6 @@ export default class WebSiteHeader extends LitElement{
     zeroChecker(nr, mode){
         if(nr.toString().length == 1)
             return "0" + nr.toString();
-        /*switch(mode){
-            case 'hour':
-                break;
-            case 'minute':
-                break;
-            case 'second':
-                break;
-        }*/
         else 
             return nr;
     }
