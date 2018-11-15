@@ -39,9 +39,9 @@ export default class DataService{
             })
     }
 
-    static getPersonRanking(dropDownYear, dropDownResult, dropDownSequence){
+    static getPersonRanking(year, result, sequence){
 
-        fetch(path + "bestFourDistancesParticipants/" + dropDownYear + "/" + dropDownResult + "/" + dropDownSequence, {
+        fetch(path + "bestFourDistancesParticipants/" + year + "/" + result + "/" + sequence, {
             method: "GET"
         })
         .then((resp) => resp.json())

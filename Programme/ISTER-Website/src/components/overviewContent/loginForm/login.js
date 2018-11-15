@@ -1,6 +1,6 @@
 import {LitElement, html} from '@polymer/lit-element'
 
-class LoginForm extends LitElement{
+export default class LoginForm extends LitElement{
     constructor(){
         super();
     }

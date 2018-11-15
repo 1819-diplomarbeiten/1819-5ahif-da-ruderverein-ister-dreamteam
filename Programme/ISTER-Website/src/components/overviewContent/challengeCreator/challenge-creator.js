@@ -1,15 +1,10 @@
 import {LitElement, html} from '@polymer/lit-element'
 import DataService from '../../../rest/dataService';
 
-class ChallengeCreator extends LitElement{
-    static get properties(){
-        return {
-            path: String
-        }
-    }
+export default class ChallengeCreator extends LitElement{
+
     constructor(){
         super();
-        this.path = 'http://localhost:8080/testserver/rs/sql/'
     }
 
     createNewChallenge(){
@@ -44,15 +39,15 @@ class ChallengeCreator extends LitElement{
     }
 
     render(){
-        this.shadowRoot.onload = _ => {
-            console.log('entered onload')
+        $(document).ready(() => { 
+            this.setYears()
             this.loadDatePicker('roundOne')
             this.loadDatePicker('roundTwo')
             this.loadDatePicker('roundThree')
             this.loadDatePicker('roundFour')
             this.loadDatePicker('roundFive')
             this.loadDatePicker('roundSix')
-        }
+        }) 
         return html`
         <script lang="javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
         <script lang="javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
@@ -62,42 +57,42 @@ class ChallengeCreator extends LitElement{
             <h1 style="margin-left:2%">Create a new Challenge</h1><br>
             <div class="form-group" style="margin-left:2%">
                 <p>Year</p>
-                <select id="dropDown" style="width:250px" class="form-control" @click="${() => this.setYears()}">
+                <select id="dropDown" style="width:250px" class="form-control">
                 </select>
             </div>
             <div>
                 <div class="datePickPositionOne">
                     <div class="form-group">
                         <p for="roundOne">Date of Round 1</p>
-                        <input class="form-control-text "id="roundOne" style="width:160px;text-align:right" @click="${() => this.loadDatePicker('roundOne')}">
+                        <input class="form-control-text "id="roundOne" style="width:160px;text-align:right">
                     </div>
                     <br>
                     <div class="form-group">
                         <p for="roundFour">Date of Round 4</p>
-                        <input class="form-control-text "id="roundFour" style="width:160px;text-align:right" @click="${() => this.loadDatePicker('roundFour')}">
+                        <input class="form-control-text "id="roundFour" style="width:160px;text-align:right">
                     </div>
                 </div>
                 <div class="datePickPositionTwo">
                     <div class="form-group">
                         <p for="roundTwo">Date of Round 2</p>
-                        <input class="form-control-text "id="roundTwo" style="width:160px;text-align:right" @click="${() => this.loadDatePicker('roundTwo')}">
+                        <input class="form-control-text "id="roundTwo" style="width:160px;text-align:right">
                     </div>
                     <br>
                     <div class="form-group">
                         <p for="roundFive">Date of Round 5</p>
-                        <input class="form-control-text "id="roundFive" style="width:160px;text-align:right" @click="${() => this.loadDatePicker('roundFive')}">
+                        <input class="form-control-text "id="roundFive" style="width:160px;text-align:right">
                     </div>
 
                 </div>
                 <div class="datePickPositionThree">
                     <div class="form-group">
                         <p for="roundThree">Date of Round 3</p>
-                        <input class="form-control-text "id="roundThree" style="width:160px;text-align:right" @click="${() => this.loadDatePicker('roundThree')}">
+                        <input class="form-control-text "id="roundThree" style="width:160px;text-align:right">
                     </div>
                     <br>
                     <div class="form-group">
                         <p for="roundSix">Date of Round 6</p>
-                        <input class="form-control-text "id="roundSix" style="width:160px;text-align:right" @click="${() => this.loadDatePicker('roundSix')}">
+                        <input class="form-control-text "id="roundSix" style="width:160px;text-align:right">
                     </div>
                 </div>
             </div>

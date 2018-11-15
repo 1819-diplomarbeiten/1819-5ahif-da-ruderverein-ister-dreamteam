@@ -1,6 +1,6 @@
 import {LitElement, html} from '@polymer/lit-element'
 
-class ErgoChallenge extends LitElement{
+export default class ErgoChallenge extends LitElement{
     static get properties(){
         return{
             sth: String

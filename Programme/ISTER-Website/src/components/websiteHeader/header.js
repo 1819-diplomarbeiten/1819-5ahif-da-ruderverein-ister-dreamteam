@@ -1,6 +1,6 @@
 import {LitElement, html} from '@polymer/lit-element'
 
-class WebSiteHeader extends LitElement{
+export default class WebSiteHeader extends LitElement{
     static get properties(){
         return {
             path: String
@@ -30,8 +30,8 @@ class WebSiteHeader extends LitElement{
                 var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 var seconds = Math.floor((distance % (1000 * 60)) / 1000);
                 
-                this.shadowRoot.getElementById('demo').innerHTML = 'THE CHALLENGE ' + data.state + ' ==> ' + days + ' Days ' + hours + ' Hours ' + minutes + ' Minutes ' + seconds + ' Seconds'
-            }, 1000);
+                this.shadowRoot.getElementById('countdown').innerHTML = 'THE CHALLENGE ' + data.state + ' ==> ' + days + ' Days ' + hours + ' Hours ' + minutes + ' Minutes ' + seconds + ' Seconds'
+            }, 994);
         })
     }
 
@@ -42,7 +42,7 @@ class WebSiteHeader extends LitElement{
         return html`
             <div class="background">
                 <link rel="stylesheet" type="text/css" href=/src/components/websiteHeader/styles.css>
-                <h1 class="header" id="demo" @click="${() => this.countdown()}"></h1>
+                <h1 class="header" id="countdown"></h1>
                 <div class="languages">
                     <img src="images/germanFlag.png" width="70" height="35" @click="${() => this.changeLanguage('german')}">
                     <img src="images/englishFlag.png" width="70" height="35" @click="${() => this.changeLanguage('english')}">

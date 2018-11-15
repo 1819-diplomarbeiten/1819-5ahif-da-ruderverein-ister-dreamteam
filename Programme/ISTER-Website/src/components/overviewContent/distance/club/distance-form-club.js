@@ -1,15 +1,10 @@
 import {LitElement, html} from '@polymer/lit-element'
 import DataService from '../../../../rest/dataService.js'
 
-class DistanceFormClub extends LitElement{
-    static get properties(){
-        return {
-            path: String
-        }
-    }
+export default class DistanceFormClub extends LitElement{
+
     constructor(){
         super();
-        this.path = 'http://localhost:8080/testserver/rs/sql/'
     }
 
     postPeriods(){

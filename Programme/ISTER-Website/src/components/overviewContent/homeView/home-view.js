@@ -1,11 +1,6 @@
 import {LitElement, html} from '@polymer/lit-element'
 
-class HomeView extends LitElement{
-    static get properties(){
-        return{
-
-        }
-    }
+export default class HomeView extends LitElement{
 
     constructor(){
         super()

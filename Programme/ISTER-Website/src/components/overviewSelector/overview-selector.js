@@ -1,6 +1,6 @@
 import {LitElement, html} from '@polymer/lit-element'
 
-class OverviewSelector extends LitElement{
+export default class OverviewSelector extends LitElement{
     static get properties(){
         return {
             

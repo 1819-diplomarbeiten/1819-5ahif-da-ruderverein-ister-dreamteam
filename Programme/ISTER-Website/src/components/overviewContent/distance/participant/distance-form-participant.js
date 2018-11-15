@@ -1,10 +1,9 @@
 import {LitElement, html} from '@polymer/lit-element'
 import DataService from '../../../../rest/dataService.js'
 
-class DistanceFormParticipant extends LitElement{
+export default class DistanceFormParticipant extends LitElement{
     static get properties(){
         return{
-            path:String,
             distance: Number,
             evidencePic: String
         }
@@ -32,7 +31,6 @@ class DistanceFormParticipant extends LitElement{
 
     constructor(){
         super();
-        this.path = 'http://localhost:8080/testserver/rs/sql/';
     }
 
     //zu späterer Zeit: Überprüfung ob gerade eine Challenge!
