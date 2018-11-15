@@ -1,4 +1,5 @@
 import {LitElement, html} from '@polymer/lit-element'
+import DataService from '../../../../rest/dataService.js'
 
 class ClubRanking extends LitElement{
     static get properties(){

@@ -11,7 +11,6 @@ class DistanceFormParticipant extends LitElement{
     }
 
     postPeriod(){
-        DataService.postPeriod()
         this.distance = this.shadowRoot.getElementById('distance').value;
         if(isNaN(this.distance) == true)
             this.distance = ""
@@ -23,22 +22,8 @@ class DistanceFormParticipant extends LitElement{
             fileReader.onload = event => {
                 this.evidencePic = event.target.result
                 var msgJson = "{\"distance\":" + this.distance + ",\"evidencePic\":\"" + this.evidencePic + "\"}";
-            
-                fetch(this.path + 'postPeriod',
-                {
-                    method: "POST",
-                    body: msgJson,
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                })
-                .then(() => {
-                    this.shadowRoot.getElementById('notification').innerHTML = 'Succesfully sent'
-                })
-                .catch(err => {
-                    this.shadowRoot.getElementById('notification').innerHTML = 'Failed sending data'
-                    console.log(err.target.value)
-                })
+                DataService.postPeriod(this.distance, this.evidencePic)
+                this.shadowRoot.getElementById('notification').innerHTML = 'Succesfully sent'
             };
 
             fileReader.readAsDataURL(this.shadowRoot.getElementById('evidencePic').files[0]);

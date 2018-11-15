@@ -1,5 +1,6 @@
 import {LitElement, html} from '@polymer/lit-element'
-//import { xlsx } from 'xlsx'
+import DataService from '../../../../rest/dataService.js'
+
 class DistanceFormClub extends LitElement{
     static get properties(){
         return {
@@ -33,21 +34,8 @@ class DistanceFormClub extends LitElement{
                 if(this.excelIsValid(XL_row_object) == false)
                     this.shadowRoot.getElementById('notification').innerHTML = 'Excel data invalid'
                 else {
-                    fetch(this.path + 'postPeriods',
-                    {
-                        method: "POST",
-                        body: jsonObj,
-                        headers: {
-                            "Content-Type": "application/json"
-                        }
-                    })
-                    .then(() => {
-                        this.shadowRoot.getElementById('notification').innerHTML = 'Succesfully sent'
-                    })
-                    .catch((err) => {
-                        this.shadowRoot.getElementById('notification').innerHTML = 'Failed sending data'
-                        console.log(err.target.value)
-                    })
+                    DataService.postPeriods(jsonObj)
+                    this.shadowRoot.getElementById('notification').innerHTML = 'Succesfully sent'
                 }
             })
         }

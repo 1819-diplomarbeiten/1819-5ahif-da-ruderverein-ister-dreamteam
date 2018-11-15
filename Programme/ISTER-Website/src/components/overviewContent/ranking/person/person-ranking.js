@@ -16,13 +16,13 @@ export default class PersonRanking extends LitElement{
     }
 
     getDistances(){
-        DataService.postM()
         
         this.dropDownYear = this.shadowRoot.getElementById('dropDownYear').value
         this.dropDownResult = this.shadowRoot.getElementById('dropDownResult').value
         this.dropDownSequence = this.shadowRoot.getElementById('dropDownSequence').value
-
-        fetch(this.path + "bestFourDistancesParticipants/" + this.dropDownYear + "/" + this.dropDownResult + "/" + this.dropDownSequence, {
+        var testit = DataService.getPersonRanking(this.dropDownYear, this.dropDownResult, this.dropDownSequence)
+        console.log('testit ' + testit)
+        /*fetch(this.path + "bestFourDistancesParticipants/" + this.dropDownYear + "/" + this.dropDownResult + "/" + this.dropDownSequence, {
             method: "GET"
         })
         .then((resp) => resp.json())
@@ -35,7 +35,7 @@ export default class PersonRanking extends LitElement{
                 this.createPdfTotalCategories(data)
             else
                 this.createPdfParticularCategories(data)
-        })
+        })*/
     }
 
     createPdfParticular(result){
