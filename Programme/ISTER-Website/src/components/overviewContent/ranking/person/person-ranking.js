@@ -47,8 +47,8 @@ export default class PersonRanking extends LitElement{
         <link rel="stylesheet" type="text/css" href=/src/components/overviewContent/ranking/person/styles.css></link>
         <div class="mainPos">
             <div style="margin-left:2%">
-                <h1>30K Person Ranking List:</h1>
-                <h3>Wählen Sie ihre gewünschten Filteroptionen</h3>
+            <h1><em><strong>30K Person Ranking List:</strong></em></h1>
+            <h3><em>Wählen Sie ihre gewünschten Filteroptionen</em></h3>
                 <div class="dropdown">
                     <form>
                         <div class="form-group">

@@ -64,8 +64,8 @@ export default class DistanceFormClub extends LitElement{
 
             <div id="mainPos" class="mainPos">
                 <div style="margin-left:2%">
-                    <h1>Enter Your Distance</h1>
-                    <h3>This is how the Excel should look like (.xlsx Format):</h3>
+                    <h1><em><strong>Enter Your Distance</strong></em></h1>
+                    <h3><em>This is how the Excel should look like (.xlsx Format):</em></h3>
                     <table class="table table-dark" style="width:400px">
                         <thead width="300" class="thead-dark">
                             <tr>

@@ -41,7 +41,7 @@ export default class DistanceFormParticipant extends LitElement{
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
             <link rel="stylesheet" type="text/css" href="/src/components/overviewContent/distance/participant/styles.css">
             <div id="mainPos" class="mainPos">
-                <h1>Enter Your Distance</h1>
+                <h1><em><strong>Enter Your Distance</em></strong></h1>
                 <div class="input-group input-group-sm mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-sm">Distance</span>

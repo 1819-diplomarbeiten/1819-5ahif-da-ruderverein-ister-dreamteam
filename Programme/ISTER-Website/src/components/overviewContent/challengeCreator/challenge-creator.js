@@ -54,7 +54,8 @@ export default class ChallengeCreator extends LitElement{
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href=/src/components/overviewContent/challengeCreator/styles.css>
         <div class="mainPos">
-            <h1 style="margin-left:2%">Create a new Challenge</h1><br>
+            <h1 style="margin-left:2%"><em><strong>Create a new Challenge</strong></em></h1>
+            <br>
             <div class="form-group" style="margin-left:2%">
                 <p>Year</p>
                 <select id="dropDown" style="width:250px" class="form-control">
