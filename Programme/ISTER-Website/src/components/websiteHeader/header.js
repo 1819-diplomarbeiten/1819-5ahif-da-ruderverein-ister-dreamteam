@@ -29,10 +29,27 @@ export default class WebSiteHeader extends LitElement{
                 var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                
-                this.shadowRoot.getElementById('countdown').innerHTML = 'THE CHALLENGE ' + data.state + ' ==> ' + days + ' Days ' + hours + ' Hours ' + minutes + ' Minutes ' + seconds + ' Seconds'
+                hours = this.zeroChecker(hours, 'hour')
+                minutes = this.zeroChecker(minutes, 'minute')
+                seconds = this.zeroChecker(seconds, 'second')
+                this.shadowRoot.getElementById('countdown').innerHTML = '<span class="highlight">THE CHALLENGE ' + data.state + ' ==></span>  ' + days + ' Days ' + hours + ' Hours ' + minutes + ' Minutes ' + seconds + ' Seconds'
             }, 994);
         })
+    }
+
+    zeroChecker(nr, mode){
+        if(nr.toString().length == 1)
+            return "0" + nr.toString();
+        /*switch(mode){
+            case 'hour':
+                break;
+            case 'minute':
+                break;
+            case 'second':
+                break;
+        }*/
+        else 
+            return nr;
     }
 
     render(){
