@@ -57,12 +57,12 @@ export default class ChallengeCreator extends LitElement{
             <h1 style="margin-left:2%"><em><strong>Create a new Challenge</strong></em></h1>
             <br>
             <div class="form-group" style="margin-left:2%">
-                <p>Year</p>
+                <p><em>Year</em></p>
                 <select id="dropDown" style="width:250px" class="form-control">
                 </select>
             </div>
             <div>
-                <div class="datePickPositionOne">
+                <em><div class="datePickPositionOne">
                     <div class="form-group">
                         <p for="roundOne">Date of Round 1</p>
                         <input class="form-control-text "id="roundOne" style="width:160px;text-align:right">
@@ -95,7 +95,7 @@ export default class ChallengeCreator extends LitElement{
                         <p for="roundSix">Date of Round 6</p>
                         <input class="form-control-text "id="roundSix" style="width:160px;text-align:right">
                     </div>
-                </div>
+                </em></div>
             </div>
             <br>
             <div style="left:2%;position:fixed;margin-top:10%">

@@ -66,7 +66,7 @@ export default class DistanceFormClub extends LitElement{
                 <div style="margin-left:2%">
                     <h1><em><strong>Enter Your Distance</strong></em></h1>
                     <h3><em>This is how the Excel should look like (.xlsx Format):</em></h3>
-                    <table class="table table-dark" style="width:400px">
+                    <table class="table table-dark" style="width:400px"><em>
                         <thead width="300" class="thead-dark">
                             <tr>
                                 <th></th>
@@ -91,11 +91,11 @@ export default class DistanceFormClub extends LitElement{
                                 <td>7870</td>
                             </tr>
                         </tbody>
-                    </table>
-                    <div class="form-group">
+                    </em></table>
+                    <div class="form-group"><em>
                         <label for="exampleFormControlFile1">Select Excel File</label>
                         <input id="excelFile" accept=".xlsx" type="file" class="form-control-file" id="exampleFormControlFile1">
-                    </div>
+                    </em></div>
                     <br>
                     <button type="submit" class="btn btn-primary" @click="${() => this.postPeriods()}">Submit</button>
                     <p id="notification"></p>

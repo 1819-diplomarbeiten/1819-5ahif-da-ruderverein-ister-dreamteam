@@ -32,7 +32,7 @@ export default class WebSiteHeader extends LitElement{
                 hours = this.zeroChecker(hours, 'hour')
                 minutes = this.zeroChecker(minutes, 'minute')
                 seconds = this.zeroChecker(seconds, 'second')
-                this.shadowRoot.getElementById('countdown').innerHTML = '<span class="highlight">THE CHALLENGE ' + data.state + ' ==></span>  ' + days + ' Days ' + hours + ' Hours ' + minutes + ' Minutes ' + seconds + ' Seconds'
+                this.shadowRoot.getElementById('countdown').innerHTML = '<span class="highlight"><strong>THE CHALLENGE ' + data.state + ' ==></strong></span>  ' + days + ' Days ' + hours + ' Hours ' + minutes + ' Minutes ' + seconds + ' Seconds'
             }, 994);
         })
     }
@@ -51,7 +51,7 @@ export default class WebSiteHeader extends LitElement{
         return html`
             <div class="background">
                 <link rel="stylesheet" type="text/css" href=/src/components/websiteHeader/styles.css>
-                <h1 class="header" id="countdown"></h1>
+                <em><h1 class="header" id="countdown"></h1></em>
                 <div class="languages">
                     <img src="images/germanFlag.png" width="70" height="35" @click="${() => this.changeLanguage('german')}">
                     <img src="images/englishFlag.png" width="70" height="35" @click="${() => this.changeLanguage('english')}">

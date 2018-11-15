@@ -52,7 +52,7 @@ export default class PersonRanking extends LitElement{
                 <div class="dropdown">
                     <form>
                         <div class="form-group">
-                            <p>Year</p>
+                            <p><em>Year</em></p>
                             <select id="dropDownYear" class="form-control" style="width:170px">
                                 <option value="2017">2017 / 2018</option>
                                 <option value="2016">2016 / 2017</option>
@@ -61,7 +61,7 @@ export default class PersonRanking extends LitElement{
                         </div>
                         <br>
                         <div class="form-group">
-                            <p>Result</p>
+                            <p><em>Result</em></p>
                             <select id="dropDownResult" class="form-control" style="width:170px">
                                 <option value="0">Total</option>
                                 <option value="1">1st Session</option>
@@ -74,7 +74,7 @@ export default class PersonRanking extends LitElement{
                         </div>
                         <br>
                         <div class="form-group">
-                            <p>Sequence</p>
+                            <p><em>Sequence</em></p>
                             <select id="dropDownSequence" class="form-control" style="width:170px">
                                 <option value="Alphabetic">Alphabetic</option>
                                 <option value="TopDown">TopDown</option>

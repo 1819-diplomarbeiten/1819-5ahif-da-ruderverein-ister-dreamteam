@@ -44,15 +44,15 @@ export default class DistanceFormParticipant extends LitElement{
                 <h1><em><strong>Enter Your Distance</em></strong></h1>
                 <div class="input-group input-group-sm mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-sm">Distance</span>
+                        <span class="input-group-text" id="inputGroup-sizing-sm"><em>Distance</em></span>
                     </div>
                     <input id="distance" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
                 </div>
                 <br>
-                <div class="form-group">
-                    <label for="exampleFormControlFile1">Evidence Picture</label>
+                <div class="form-group"><em>
+                    <label for="exampleFormControlFile1">Select Evidence Picture</label>
                     <input id="evidencePic" accept=".png, .jpg, .jpeg" type="file" class="form-control-file" id="exampleFormControlFile1">
-                </div>
+                </em></div>
                 <br>
                 <button type="submit" class="btn btn-primary" @click="${() => this.postPeriod()}">Submit</button>
                 <p id="notification"></p>
