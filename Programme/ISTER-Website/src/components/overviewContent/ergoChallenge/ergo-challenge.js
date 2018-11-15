@@ -33,7 +33,7 @@ export default class ErgoChallenge extends LitElement{
                         </em></ul>
                         
                     </div>
-                    
+
                     <h2><em>Ziel:</em></h2>
                     <p><em>Bei vier Termine zusammengerechnet, mindestens 30 000 Meter (Männer) oder 26 000 (Frauen) zu rudern und dabei mit Ruderkollegen aus Österreich und der Welt messen.</em></p>
                         <h2><em>Daten:</em></h2>
