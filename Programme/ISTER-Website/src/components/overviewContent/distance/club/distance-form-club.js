@@ -93,8 +93,9 @@ export default class DistanceFormClub extends LitElement{
                         </tbody>
                     </em></table>
                     <div class="form-group"><em>
-                        <label for="exampleFormControlFile1">Select Excel File</label>
-                        <input id="excelFile" accept=".xlsx" type="file" class="form-control-file" id="exampleFormControlFile1">
+                        <label class="btn btn-default btn-file">
+                            Select Excel File <input id="excelFile" accept=".xlsx" class="form-control-file" type="file" style="display: none;">
+                        </label>
                     </em></div>
                     <br>
                     <button type="submit" class="btn btn-primary" @click="${() => this.postPeriods()}">Submit</button>

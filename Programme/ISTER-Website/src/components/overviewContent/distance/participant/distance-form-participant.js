@@ -50,8 +50,11 @@ export default class DistanceFormParticipant extends LitElement{
                 </div>
                 <br>
                 <div class="form-group"><em>
-                    <label for="exampleFormControlFile1">Select Evidence Picture</label>
-                    <input id="evidencePic" accept=".png, .jpg, .jpeg" type="file" class="form-control-file" id="exampleFormControlFile1">
+                    <!--<label for="exampleFormControlFile1">Select Evidence Picture</label>
+                    <input id="evidencePic" accept=".png, .jpg, .jpeg" type="file" class="form-control-file" id="exampleFormControlFile1">-->
+                    <label class="btn btn-default btn-file">
+                        Select Evidence Pic <input id="evidencePic" accept=".png, .jpg, .jpeg" class="form-control-file" type="file" style="display: none;">
+                    </label>
                 </em></div>
                 <br>
                 <button type="submit" class="btn btn-primary" @click="${() => this.postPeriod()}">Submit</button>

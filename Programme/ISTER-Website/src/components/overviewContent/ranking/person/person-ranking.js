@@ -1,6 +1,6 @@
 import {LitElement, html} from '@polymer/lit-element'
 import DataService from '../../../../rest/dataService.js'
-import PdfCreator from '../../../../pdf/pdfCreator.js'
+import PdfWorker from '../../../../worker/pdf/pdfWorker.js'
 
 export default class PersonRanking extends LitElement{
     static get properties(){
@@ -17,7 +17,6 @@ export default class PersonRanking extends LitElement{
     }
 
     getDistances(){
-        
         this.dropDownYear = this.shadowRoot.getElementById('dropDownYear').value
         this.dropDownResult = this.shadowRoot.getElementById('dropDownResult').value
         this.dropDownSequence = this.shadowRoot.getElementById('dropDownSequence').value
@@ -29,13 +28,13 @@ export default class PersonRanking extends LitElement{
         .then((resp) => resp.json())
         .then(data => {
             if(this.dropDownResult == '0' && this.dropDownSequence != 'Categories')
-                PdfCreator.createPdfTotal(data, this.dropDownYear)
+                PdfWorker.createPdfTotal(data, this.dropDownYear)
             else if(this.dropDownResult != '0' && this.dropDownSequence != 'Categories')
-                PdfCreator.createPdfPerSession(data, this.dropDownYear)
+                PdfWorker.createPdfPerSession(data, this.dropDownYear)
             else if(this.dropDownResult == '0' && this.dropDownSequence == 'Categories')
-                PdfCreator.createPdfTotalPerCategories(data, this.dropDownYear)
+                PdfWorker.createPdfTotalPerCategories(data, this.dropDownYear)
             else
-                PdfCreator.createPdfPerSessionPerCategories(data, this.dropDownYear, this.dropDownResult)
+                PdfWorker.createPdfPerSessionPerCategories(data, this.dropDownYear, this.dropDownResult)
         })
     }
 

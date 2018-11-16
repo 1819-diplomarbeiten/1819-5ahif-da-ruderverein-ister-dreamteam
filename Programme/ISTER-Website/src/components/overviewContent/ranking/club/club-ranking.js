@@ -1,6 +1,6 @@
 import {LitElement, html} from '@polymer/lit-element'
 import DataService from '../../../../rest/dataService.js'
-import PdfCreator from '../../../../pdf/pdfCreator.js';
+import PdfWorker from '../../../../worker/pdf/pdfWorker.js';
 
 export default class ClubRanking extends LitElement{
     static get properties(){
@@ -27,7 +27,7 @@ export default class ClubRanking extends LitElement{
         })
         .then((resp) => resp.json())
         .then(data => {
-            PdfCreator.createPdfClub(data, this.dropDownYear)
+            PdfWorker.createPdfClub(data, this.dropDownYear)
         })
     }
 
