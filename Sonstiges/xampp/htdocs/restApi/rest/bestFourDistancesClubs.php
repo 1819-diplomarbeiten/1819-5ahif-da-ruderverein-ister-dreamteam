@@ -18,12 +18,14 @@ $zeroDistance['roundSix'] = 0;
 
 $database = new Database();
 $db = $database->getConnection();
+$query = new Query($db);
 
 $year = $_GET['year'];
 //$sequence = $_GET['sequence'];
 //$result = $_GET['result'];
 
-$sqlSessionResults = $db->prepare("SELECT club.name, sum(distance) AS distance, club, challenge_id 
+
+$sqlSessionResults = $db->prepare("SELECT club.name AS clubLong, sum(distance) AS distance, club, challenge_id 
                                     from result inner join participant on result.participant_email = participant.email 
                                     inner join club on participant.club = club.contraction 
                                     group by participant.club, challenge_id");
@@ -35,71 +37,138 @@ $sqlSessionResults->execute();
 while ($row = $sqlSessionResults->fetch(PDO::FETCH_ASSOC)) {
     $data[] = $row;
 }
+
 $newData = array();
-for ($i = 0; $i < count($data); $i++) {
+$i = 1;
+while ($i < count($data) - 1) {
     if (count($newData) == 0) {
-        $newData[] = $data[$i];
+        $newData[] = $data[$i - 1];
     }
     if (!isset($distance)) {
         $distance = $zeroDistance;
     }
-    for ($j = 0; $j < count($newData); $j++) {
-
-        $helper1 = $newData[$j]['club'];
-        $helper2 = $data[$i]['club'];
-        if ($helper1 == $helper2) {
-
-            switch ($data[$i]['challenge_id'] - $year) {
-                case 10000:
-                    $distance['roundOne'] = $data[$i]['distance'];
-                    break;
-                case 20000:
-                    $distance['roundTwo'] = $data[$i]['distance'];
-                    break;
-                case 30000:
-                    $distance['roundThree'] = $data[$i]['distance'];
-                    break;
-                case 40000:
-                    $distance['roundFour'] = $data[$i]['distance'];
-                    break;
-                case 50000:
-                    $distance['roundFive'] = $data[$i]['distance'];
-                    break;
-                case 60000:
-                    $distance['roundSix'] = $data[$i]['distance'];
-                    break;
-            }
-            $newData[count($newData)-1]['allSixDistances'] = $distance;
-
-        } else {
-            $distance = $zeroDistance;
-            switch ($data[$i]['challenge_id'] - $year) {
-                case 10000:
-                    $distance['roundOne'] = $data[$i]['distance'];
-                    break;
-                case 20000:
-                    $distance['roundTwo'] = $data[$i]['distance'];
-                    break;
-                case 30000:
-                    $distance['roundThree'] = $data[$i]['distance'];
-                    break;
-                case 40000:
-                    $distance['roundFour'] = $data[$i]['distance'];
-                    break;
-                case 50000:
-                    $distance['roundFive'] = $data[$i]['distance'];
-                    break;
-                case 60000:
-                    $distance['roundSix'] = $data[$i]['distance'];
-                    break;
-            }
-            $newData[] = $data[$i];
-            $newData[$j+1]['allSixDistances'] = $distance;
+    do {
+        switch ($data[$i - 1]['challenge_id'] - $year) {
+            case 10000:
+                $distance['roundOne'] = intval($data[$i - 1]['distance']);
+                break;
+            case 20000:
+                $distance['roundTwo'] = intval($data[$i - 1]['distance']);
+                break;
+            case 30000:
+                $distance['roundThree'] = intval($data[$i - 1]['distance']);
+                break;
+            case 40000:
+                $distance['roundFour'] = intval($data[$i - 1]['distance']);
+                break;
+            case 50000:
+                $distance['roundFive'] = intval($data[$i - 1]['distance']);
+                break;
+            case 60000:
+                $distance['roundSix'] = intval($data[$i - 1]['distance']);
+                break;
 
         }
 
+        if ($i < count($data) - 1) {
+            $i++;
+        } else {
+            $i++;
+            break;
+        }
+
+
+    } while ($data[$i]['club'] == $data[$i - 1]['club']);
+    switch ($data[$i - 1]['challenge_id'] - $year) {
+        case 10000:
+            $distance['roundOne'] = intval($data[$i - 1]['distance']);
+            break;
+        case 20000:
+            $distance['roundTwo'] = intval($data[$i - 1]['distance']);
+            break;
+        case 30000:
+            $distance['roundThree'] = intval($data[$i - 1]['distance']);
+            break;
+        case 40000:
+            $distance['roundFour'] = intval($data[$i - 1]['distance']);
+            break;
+        case 50000:
+            $distance['roundFive'] = intval($data[$i - 1]['distance']);
+            break;
+        case 60000:
+            $distance['roundSix'] = intval($data[$i - 1]['distance']);
+            break;
 
     }
+    $newData[count($newData) - 1]['allSixDistances'] = $distance;
+    $clubCount =  json_decode($query->getClubCount($data[$i-1]['club']), true);
+    $newData[count($newData) - 1]['clubParticipantCount'] = $clubCount[0]['clubCount'];
+    $distance = $zeroDistance;
+    if ($i < count($data)) {
+        $newData[] = $data[$i];
+    }
+    $i++;
+
+//    for ($j = 0; $j < count($newData); $j++) {
+//
+//        $helper1 = $newData[$j]['club'];
+//        $helper2 = $data[$i]['club'];
+//        if ($helper1 == $helper2) {
+//
+//            switch ($data[$i]['challenge_id'] - $year) {
+//                case 10000:
+//                    $distance['roundOne'] = $data[$i]['distance'];
+//                    break;
+//                case 20000:
+//                    $distance['roundTwo'] = $data[$i]['distance'];
+//                    break;
+//                case 30000:
+//                    $distance['roundThree'] = $data[$i]['distance'];
+//                    break;
+//                case 40000:
+//                    $distance['roundFour'] = $data[$i]['distance'];
+//                    break;
+//                case 50000:
+//                    $distance['roundFive'] = $data[$i]['distance'];
+//                    break;
+//                case 60000:
+//                    $distance['roundSix'] = $data[$i]['distance'];
+//                    break;
+//            }
+//            $newData[$j]['allSixDistances'] = $distance;
+//
+//        }
+
+//        else {
+//            $distance = $zeroDistance;
+//            switch ($data[$i]['challenge_id'] - $year) {
+//                case 10000:
+//                    $distance['roundOne'] = $data[$i]['distance'];
+//                    break;
+//                case 20000:
+//                    $distance['roundTwo'] = $data[$i]['distance'];
+//                    break;
+//                case 30000:
+//                    $distance['roundThree'] = $data[$i]['distance'];
+//                    break;
+//                case 40000:
+//                    $distance['roundFour'] = $data[$i]['distance'];
+//                    break;
+//                case 50000:
+//                    $distance['roundFive'] = $data[$i]['distance'];
+//                    break;
+//                case 60000:
+//                    $distance['roundSix'] = $data[$i]['distance'];
+//                    break;
+//            }
+//            $newData[] = $data[$i];
+//            $newData[$j+1]['allSixDistances'] = $distance;
+//        }
+//        print memory_get_usage();
+//        print "   ";
+
+
+//    }
 
 }
 

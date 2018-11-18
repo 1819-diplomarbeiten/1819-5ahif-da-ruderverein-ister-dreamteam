@@ -28,14 +28,10 @@ if(!(isset($_GET['club']))){
 
 
 else{
-    $sql = $db->prepare("select count(*)
-                     from participant p
-                      where p.club = :club");
     $club = $_GET['club'];
+    echo $query->getClubCount($club);
 
-    $sql->bindValue(':club', $club, PDO::PARAM_STR);
-
-// initialize object
-    echo $query->buildJson("count(*)", "clubCount", $sql);
 }
+
+
 
