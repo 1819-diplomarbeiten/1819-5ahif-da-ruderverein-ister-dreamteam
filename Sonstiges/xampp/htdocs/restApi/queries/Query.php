@@ -173,6 +173,16 @@ class Query
         return json_decode($query->buildJson("category", "pClass", $sql), true);
     }
 
+    function getCurrentChallengeId(){
+        global $db;
+        global $query;
+
+        $sql = $db->prepare("SELECT challenge_id from challenge where start_date <= curdate() and end_date >= curdate()");
+        $test =  json_decode($query->buildJson("challenge_id", "id", $sql), true);
+        return $test[0]['id'];
+
+    }
+
     public function __construct($db)
     {
         $this->conn = $db;

@@ -24,12 +24,17 @@ class Result
 
         $query = "INSERT INTO " . $this->table_name . "
         SET
-            result_id=:result_id, challenge_id=:challenge_id, participant_email=:participant_email, distance=:distance";
+            challenge_id=:challenge_id, participant_email=:participant_email, distance=:distance";
 
 
 
         $this->sanitize();
-        $stmt=$this->bind($query);
+
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(":challenge_id", $this->challenge_id);
+        $stmt->bindParam(":participant_email", $this->participant_email);
+        $stmt->bindParam(":distance", $this->distance);
 
 
         if($stmt->execute()){
@@ -41,7 +46,6 @@ class Result
     }
 
     function sanitize(){
-        $this->result_id=htmlspecialchars(strip_tags($this->result_id));
         $this->challenge_id=htmlspecialchars(strip_tags($this->challenge_id));
         $this->participant_email=htmlspecialchars(strip_tags($this->participant_email));
         $this->distance=htmlspecialchars(strip_tags($this->distance));

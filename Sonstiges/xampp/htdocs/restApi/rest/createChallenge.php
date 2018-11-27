@@ -20,7 +20,8 @@ $challenge = new Challenge($db);
 // get posted data
 $data = json_decode(file_get_contents("php://input"));
 
-// set product property values
+
+ //set product property values
 $challenge->challenge_id = $data->challenge_id;
 $challenge->start_date = $data->start_date;
 $challenge->end_date = $data->end_date;

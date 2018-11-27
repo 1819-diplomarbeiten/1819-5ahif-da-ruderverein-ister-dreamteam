@@ -32,7 +32,7 @@ if ($result == 0 && $sequence == 'Categories') {
 
 }
 
-if($result > 0 && $sequence != 'Categories'){
+if ($result > 0 && $sequence == 'Categories') {
     $data = generateAdvancedJson();
     $data = generateClassArrays($data);
 }
@@ -62,7 +62,8 @@ function generateBasicJson()
     return $data;
 }
 
-function generateAdvancedJson(){
+function generateAdvancedJson()
+{
     global $query;
     global $year;
     global $sequence;
@@ -85,7 +86,8 @@ function generateAdvancedJson(){
 
 }
 
-function generateClassArrays($data){
+function generateClassArrays($data)
+{
     global $query;
     global $year;
     global $sequence;
@@ -139,7 +141,23 @@ function generateClassArrays($data){
     return $data;
 }
 
+if ($sequence == 'Alphabetic') {
+    usort($data, "sort_by_name");
 
+}
+
+function sort_by_name($a, $b)
+{
+    return strcmp($a["lastName"],$b["lastName"]);
+}
+
+if($sequence == "topDown"){
+    usort($data, "sort_by_result");
+}
+function sort_by_result($a, $b)
+{
+    return $a["bestFourDistances"] < $b["bestFourDistances"];
+}
 
 
 if (isset($data)) {

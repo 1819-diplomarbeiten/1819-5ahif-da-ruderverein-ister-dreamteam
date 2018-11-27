@@ -3,6 +3,7 @@ export default class PdfWorker{
 
     static createPdfPerSession(result, year, round){
         var doc = new jsPDF()
+        console.log(result.length)
         var pageCount = 1
         doc.setFontSize(18)
         doc.setFontType('bold')
@@ -25,6 +26,7 @@ export default class PdfWorker{
         ]
         var rows = []
         for(var j = 0; j < result.length;j++){
+            
             rows[j] = {"position": j + 1,
             "name": result[j].lastName + " " + result[j].firstName, 
             "gender": result[j].gender,
@@ -35,6 +37,7 @@ export default class PdfWorker{
             "watt": result[j].watt,
             "wattKg": result[j].wattKg
             }
+            console.log(result[j].lastName)
         }
         doc.autoTable(columns, rows, {
             margin: {top:35},
@@ -127,7 +130,8 @@ export default class PdfWorker{
         doc.text(pageCount.toString(), 170, 285)
         for(var i = 0; i < result.length; i ++)
         {
-            var pClass = result[i][0]
+            console.log("hallo")
+            var pClass = result[i].pClass
             var columns = [
                 {title: pClass, dataKey:"position"},
                 {title: "Name", dataKey:"name"},
@@ -143,23 +147,24 @@ export default class PdfWorker{
                 {title: "Total", dataKey:"total"},
             ]
             var rows = []
-            for(var j = 0; j < result[i][1].length;j++){
+            for(var j = 0; j < result[i].results.length;j++){
+                console.log("hallo2")
                 rows[j] = {"position": j + 1,
-                "name": result[i][1][j].lastName + " " + result[i][1][j].firstName, 
-                "gender": result[i][1][j].gender,
-                "club": result[i][1][j].club,
-                "roundOne": result[i][1][j].allSixDistances.roundOne,
-                "roundTwo": result[i][1][j].allSixDistances.roundTwo,
-                "roundThree": result[i][1][j].allSixDistances.roundThree,
-                "roundFour": result[i][1][j].allSixDistances.roundFour,
-                "roundFive": result[i][1][j].allSixDistances.roundFive,
-                "roundSix": result[i][1][j].allSixDistances.roundSix,
-                "bestFour": result[i][1][j].bestFourDistances,
-                "total": this.calculateTotal(result[i][1][j].allSixDistances)}
+                "name": result[i].results[j].lastName + " " + result[i].results[j].firstName, 
+                "gender": result[i].results[j].gender,
+                "club": result[i].results[j].club,
+                "roundOne": result[i].results[j].allSixDistances.roundOne,
+                "roundTwo": result[i].results[j].allSixDistances.roundTwo,
+                "roundThree": result[i].results[j].allSixDistances.roundThree,
+                "roundFour": result[i].results[j].allSixDistances.roundFour,
+                "roundFive": result[i].results[j].allSixDistances.roundFive,
+                "roundSix": result[i].results[j].allSixDistances.roundSix,
+                "bestFour": result[i].results[j].bestFourDistances,
+                "total": this.calculateTotal(result[i].results[j].allSixDistances)}
             }
             var tableLengthBefore = 0
             if(i != 0)
-                tableLengthBefore = 9 * result[i - 1][1].length * (i - count)
+                tableLengthBefore = 9 * result[i - 1].results.length * (i - count)
             tableLengthBefore += 5
             if(tableLengthBefore > pageHeight){
                 doc.addPage();
@@ -201,7 +206,7 @@ export default class PdfWorker{
         doc.text(pageCount.toString(), 170, 285)
         for(var i = 0; i < result.length; i ++)
         {
-            var pClass = result[i][0]
+            var pClass = result[i].pClass
             var columns = [
                 {title: pClass, dataKey:"position"},
                 {title: "Name", dataKey:"name"},
@@ -215,21 +220,21 @@ export default class PdfWorker{
                 {title: "Watt/kg", dataKey:"wattKg"},
             ]
             var rows = []
-            for(var j = 0; j < result[i][1].length;j++){
+            for(var j = 0; j < result[i].results.length;j++){
                 rows[j] = {"position": j + 1,
-                "name": result[i][1][j].lastName + " " + result[i][1][j].firstName, 
-                "gender": result[i][1][j].gender,
-                "pClass": result[i][1][j].pClass,
-                "club": result[i][1][j].club,
-                "round": result[i][1][j].round,
-                "fiveHundred": result[i][1][j].fiveHundred,
-                "watt": result[i][1][j].watt,
-                "wattKg": result[i][1][j].wattKg
+                "name": result[i].results[j].lastName + " " + result[i].results[j].firstName, 
+                "gender": result[i].results[j].gender,
+                "pClass": result[i].results[j].pClass,
+                "club": result[i].results[j].club,
+                "round": result[i].results[j].round,
+                "fiveHundred": result[i].results[j].fiveHundred,
+                "watt": result[i].results[j].watt,
+                "wattKg": result[i].results[j].wattKg
                 }
             }
             var tableLengthBefore = 0
             if(i != 0)
-                tableLengthBefore = 9 * result[i - 1][1].length * (i - count)
+                tableLengthBefore = 9 * result[i - 1].results.length * (i - count)
             tableLengthBefore += 5
             if(tableLengthBefore > pageHeight){
                 doc.addPage();
@@ -285,6 +290,7 @@ export default class PdfWorker{
         ]
         var rows = []
         for(var j = 0; j < result.length;j++){
+            console.log('row: ' + result[j])
             rows[j] = {"position": j + 1,
             "club": result[j].club,
             "clubLong": result[j].clubLong,

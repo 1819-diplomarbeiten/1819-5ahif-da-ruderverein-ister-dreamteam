@@ -13,7 +13,7 @@ export default class PersonRanking extends LitElement{
     }
     constructor(){
         super();
-        this.path = 'http://localhost:8080/testserver/rs/sql/';
+        this.path = 'http://localhost/restApi/rest/';
     }
 
     getDistances(){
@@ -22,7 +22,8 @@ export default class PersonRanking extends LitElement{
         this.dropDownSequence = this.shadowRoot.getElementById('dropDownSequence').value
         /*var testit = DataService.getPersonRanking(this.dropDownYear, this.dropDownResult, this.dropDownSequence)
         console.log('testit ' + testit)*/
-        fetch(this.path + "bestFourDistancesParticipants/" + this.dropDownYear + "/" + this.dropDownResult + "/" + this.dropDownSequence, {
+        console.log(this.path + "bestFourDistancesParticipants.php?year=" + this.dropDownYear + "&result=" + this.dropDownResult + "&sequence=" + this.dropDownSequence)
+        fetch(this.path + "bestFourDistancesParticipants.php?year=" + this.dropDownYear + "&result=" + this.dropDownResult + "&sequence=" + this.dropDownSequence, {
             method: "GET"
         })
         .then((resp) => resp.json())
