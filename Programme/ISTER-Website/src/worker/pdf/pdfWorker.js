@@ -3,7 +3,6 @@ export default class PdfWorker{
 
     static createPdfPerSession(result, year, round){
         var doc = new jsPDF()
-        console.log(result.length)
         var pageCount = 1
         doc.setFontSize(18)
         doc.setFontType('bold')
@@ -37,7 +36,6 @@ export default class PdfWorker{
             "watt": result[j].watt,
             "wattKg": result[j].wattKg
             }
-            console.log(result[j].lastName)
         }
         doc.autoTable(columns, rows, {
             margin: {top:35},

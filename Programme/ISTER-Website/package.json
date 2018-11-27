@@ -1,6 +1,10 @@
 {
   "name": "countdown-header",
   "main": "countdown-header.js",
+  "scripts": {
+    "start": "polymer build",
+    "serve": "polymer serve"
+  },
   "dependencies": {
     "@polymer/lit-element": "^0.6.3",
     "@polymer/polymer": "^3.0.0",

@@ -22,7 +22,7 @@ export default class PersonRanking extends LitElement{
         this.dropDownSequence = this.shadowRoot.getElementById('dropDownSequence').value
         /*var testit = DataService.getPersonRanking(this.dropDownYear, this.dropDownResult, this.dropDownSequence)
         console.log('testit ' + testit)*/
-        console.log(this.path + "bestFourDistancesParticipants.php?year=" + this.dropDownYear + "&result=" + this.dropDownResult + "&sequence=" + this.dropDownSequence)
+        
         fetch(this.path + "bestFourDistancesParticipants.php?year=" + this.dropDownYear + "&result=" + this.dropDownResult + "&sequence=" + this.dropDownSequence, {
             method: "GET"
         })
@@ -31,7 +31,7 @@ export default class PersonRanking extends LitElement{
             if(this.dropDownResult == '0' && this.dropDownSequence != 'Categories')
                 PdfWorker.createPdfTotal(data, this.dropDownYear)
             else if(this.dropDownResult != '0' && this.dropDownSequence != 'Categories')
-                PdfWorker.createPdfPerSession(data, this.dropDownYear)
+                PdfWorker.createPdfPerSession(data, this.dropDownYear, this.dropDownResult)
             else if(this.dropDownResult == '0' && this.dropDownSequence == 'Categories')
                 PdfWorker.createPdfTotalPerCategories(data, this.dropDownYear)
             else

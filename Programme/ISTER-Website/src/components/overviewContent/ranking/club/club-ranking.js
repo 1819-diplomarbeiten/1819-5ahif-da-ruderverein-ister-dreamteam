@@ -22,13 +22,11 @@ export default class ClubRanking extends LitElement{
         this.dropDownResult = this.shadowRoot.getElementById('dropDownResult').value
         this.dropDownSequence = this.shadowRoot.getElementById('dropDownSequence').value
         
-        console.log('asdf ' + this.path + "bestfourdistancesclubs.php?year=" + this.dropDownYear + "&result=" + this.dropDownResult + "&sequence=" + this.dropDownSequence)
         fetch(this.path + "bestfourdistancesclubs.php?year=" + this.dropDownYear + "&result=" + this.dropDownResult + "&sequence=" + this.dropDownSequence, {
             method: "GET"
         })
         .then((resp) => resp.json())
         .then(data => {
-            console.log(data)
             PdfWorker.createPdfClub(data, this.dropDownYear)
         })
     }

@@ -20,7 +20,6 @@ export default class DistanceFormParticipant extends LitElement{
             var fileReader = new FileReader();
             fileReader.onload = event => {
                 this.evidencePic = event.target.result
-                var msgJson = "{\"distance\":" + this.distance + ",\"evidencePic\":\"" + this.evidencePic + "\"}";
                 DataService.postPeriod(this.distance, this.evidencePic)
                 this.shadowRoot.getElementById('notification').innerHTML = 'Succesfully sent'
             };
