@@ -1,4 +1,4 @@
-var path = 'http://localhost:8080/testserver/rs/sql/'
+var path = 'http://localhost/restApi/rest/'
 var returnV = []
 var msgJson = []
 export default class DataService{
@@ -17,7 +17,7 @@ export default class DataService{
     }
 
     static postPeriods(jsonObj){
-        fetch(path + 'postPeriods',
+        fetch(path + 'createResults.php',
                     {
                         method: "POST",
                         body: jsonObj,
@@ -29,7 +29,7 @@ export default class DataService{
 
     static postChallenge(year, roundOne, roundTwo, roundThree, roundFour, roundFive, roundSix){
         msgJson = "{\"roundOne\":\"" + roundOne + "\",\"roundTwo\":\"" + roundTwo + "\",\"roundThree\":\"" + roundThree + "\",\"roundFour\":\"" + roundFour + "\",\"roundFive\":\"" + roundFive + "\",\"roundSix\":\"" + roundSix + "\",\"year\":\"" + year + "\"}";
-            fetch(path + 'postChallenge',
+            fetch(path + 'createChallenges.php',
             {
                 method: "POST",
                 body: msgJson,

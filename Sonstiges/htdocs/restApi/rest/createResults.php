@@ -19,13 +19,13 @@ $database = new Database();
 $db = $database->getConnection();
 $query = new Query($db);
 
-$data = json_decode(file_get_contents("php://input"));
+$data = json_decode(file_get_contents("php://input"), true);
 
 foreach ($data as &$d){
     $result = new Result($db);
     $result->challenge_id = $query->getCurrentChallengeId();
-    $result->distance = $d->distance;
-    $result->participant_email = $d->email;
+    $result->distance = $d['Distance'];
+    $result->participant_email = $d['Email'];
 
     if($result->create()){
         echo '{';

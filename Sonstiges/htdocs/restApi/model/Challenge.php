@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: David
- * Date: 16.09.2018
- * Time: 22:02
- */
+header("Access-Control-Allow-Origin: *");
 
 class Challenge
 {
@@ -27,7 +22,7 @@ class Challenge
 
         $query = "INSERT INTO " . $this->table_name . "
         SET
-            challenge_id=:challenge_id, start_date=:start_date, end_date=:end_date";
+            challenge_id=:challenge_id, start_date=:start_date,end_date = (SELECT DATE_ADD(:start_date, INTERVAL 4 DAY ))";
 
 
         $this->sanitize();
@@ -42,7 +37,6 @@ class Challenge
     }
 
     function sanitize(){
-        $this->end_date=htmlspecialchars(strip_tags($this->end_date));
         $this->start_date=htmlspecialchars(strip_tags($this->start_date));
         $this->challenge_id=htmlspecialchars(strip_tags($this->challenge_id));
     }
@@ -51,7 +45,6 @@ class Challenge
         $stmt = $this->conn->prepare($query);
 
         $stmt->bindParam(":start_date", $this->start_date);
-        $stmt->bindParam(":end_date", $this->end_date);
         $stmt->bindParam(":challenge_id", $this->challenge_id);
 
 
