@@ -47,12 +47,12 @@ export default class PersonRanking extends LitElement{
         <link rel="stylesheet" type="text/css" href=/src/components/overviewContent/ranking/person/styles.css></link>
         <div class="mainPos">
             <div style="margin-left:2%">
-            <h1><em><strong>30K Person Ranking List:</strong></em></h1>
-            <h3><em>Wählen Sie ihre gewünschten Filteroptionen</em></h3>
+            <h1><strong>30K Person Ranking List:</strong></h1>
+            <h3>Wählen Sie ihre gewünschten Filteroptionen</h3>
                 <div class="dropdown">
                     <form>
                         <div class="form-group">
-                            <p><em>Year</em></p>
+                            <p>Year</p>
                             <select id="dropDownYear" class="form-control" style="width:170px">
                                 <option value="2017">2017 / 2018</option>
                                 <option value="2016">2016 / 2017</option>
@@ -61,7 +61,7 @@ export default class PersonRanking extends LitElement{
                         </div>
                         <br>
                         <div class="form-group">
-                            <p><em>Result</em></p>
+                            <p>Result</p>
                             <select id="dropDownResult" class="form-control" style="width:170px">
                                 <option value="0">Total</option>
                                 <option value="1">1st Session</option>
@@ -74,7 +74,7 @@ export default class PersonRanking extends LitElement{
                         </div>
                         <br>
                         <div class="form-group">
-                            <p><em>Sequence</em></p>
+                            <p>Sequence</p>
                             <select id="dropDownSequence" class="form-control" style="width:170px">
                                 <option value="Alphabetic">Alphabetic</option>
                                 <option value="TopDown">TopDown</option>
@@ -84,7 +84,7 @@ export default class PersonRanking extends LitElement{
                     </form>
                 </div>
                 <br>
-                <input type ="button" value="Download pdf" class="btn btn-primary" @click="${() => this.getDistances()}"></input>
+                <input type ="button" value="Download pdf" class="btn btn-primary custom-color" @click="${() => this.getDistances()}"></input>
             </div>
         </div>
         `

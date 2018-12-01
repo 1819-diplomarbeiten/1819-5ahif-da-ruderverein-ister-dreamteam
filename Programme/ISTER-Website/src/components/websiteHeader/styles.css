@@ -4,22 +4,22 @@ div.background{
     left: 0;
     width: 100%;
     height: 10%;
-    background-color: #337ab7; 
+    background-color: #35424A; 
 }
 h1.header{
     position: absolute;
     align-content: center;
-    color: #F09830;
-    margin-left: 6%;
-    margin-top: 1%;
+    color: #FAFAFA;
+    margin-left: 7%;
+    margin-top: 0.7%;
     font-size: 35px;
 }
 div.languages{
-    margin-left: 88%;
-    margin-top: 1.4%
+    margin-left: 94%;
+    margin-top: 1.2%
 }
 span.highlight{
-    color: #35424A;
+    color: #939393;
 }
 img{
     border-radius: 15%;

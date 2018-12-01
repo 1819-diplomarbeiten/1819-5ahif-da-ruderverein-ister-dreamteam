@@ -40,23 +40,21 @@ export default class DistanceFormParticipant extends LitElement{
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
             <link rel="stylesheet" type="text/css" href="/src/components/overviewContent/distance/participant/styles.css">
             <div id="mainPos" class="mainPos">
-                <h1><em><strong>Enter Your Distance</em></strong></h1>
+                <h1><strong>Enter Your Distance</strong></h1>
                 <div class="input-group input-group-sm mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-sm"><em>Distance</em></span>
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Distance</span>
                     </div>
                     <input id="distance" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
                 </div>
                 <br>
-                <div class="form-group"><em>
-                    <!--<label for="exampleFormControlFile1">Select Evidence Picture</label>
-                    <input id="evidencePic" accept=".png, .jpg, .jpeg" type="file" class="form-control-file" id="exampleFormControlFile1">-->
+                <div class="form-group">
                     <label class="btn btn-default btn-file">
                         Select Evidence Pic <input id="evidencePic" accept=".png, .jpg, .jpeg" class="form-control-file" type="file" style="display: none;">
                     </label>
-                </em></div>
+                </div>
                 <br>
-                <button type="submit" class="btn btn-primary" @click="${() => this.postPeriod()}">Submit</button>
+                <button type="submit" class="btn btn-primary custom-color" @click="${() => this.postPeriod()}">Submit</button>
                 <p id="notification"></p>
             </div>
         `

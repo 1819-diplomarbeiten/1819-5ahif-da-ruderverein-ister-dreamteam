@@ -54,15 +54,15 @@ export default class ChallengeCreator extends LitElement{
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href=/src/components/overviewContent/challengeCreator/styles.css>
         <div class="mainPos">
-            <h1 style="margin-left:2%"><em><strong>Create a new Challenge</strong></em></h1>
-            <br>
+            <h1 style="margin-left:2%"><strong>Create a new Challenge</strong></h1>
+            <br><br>
             <div class="form-group" style="margin-left:2%">
-                <p><em>Year</em></p>
+                <p>Year</p>
                 <select id="dropDown" style="width:250px" class="form-control">
                 </select>
             </div>
             <div>
-                <em><div class="datePickPositionOne">
+                <div class="datePickPositionOne">
                     <div class="form-group">
                         <p for="roundOne">Date of Round 1</p>
                         <input class="form-control-text "id="roundOne" style="width:160px;text-align:right">
@@ -93,13 +93,13 @@ export default class ChallengeCreator extends LitElement{
                     <br>
                     <div class="form-group">
                         <p for="roundSix">Date of Round 6</p>
-                        <input class="form-control-text "id="roundSix" style="width:160px;text-align:right">
+                        <input class="form-control-text" id="roundSix" style="width:160px;text-align:right">
                     </div>
-                </em></div>
+                </div>
             </div>
             <br>
             <div style="left:2%;position:fixed;margin-top:10%">
-                <input type ="button" value="Create Challenge" class="btn btn-primary" @click="${() => this.createNewChallenge()}"></input>
+                <input type ="button" value="Create Challenge" class="btn btn-primary custom-color" @click="${() => this.createNewChallenge()}"></input>
                 <p id="notification"></p>
             </div>
         </div>

@@ -77,35 +77,35 @@ export default class OverviewSelector extends LitElement{
 
     render(){
         return html`
-            <link rel="stylesheet" type="text/css" href="/src/components/overviewSelector/styles.css"></link>
             <script lang="javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
             <script lang="javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+            <link rel="stylesheet" type="text/css" href="/src/components/overviewSelector/styles.css"></link>
             <div class ="background">
                 <div class="banner">
-                    <p>Ergo Challenge ISTER Linz</p>
+                    <p><strong>Ergo Challenge ISTER Linz</strong></p>
                 </div>
                 <div class="componentSelection">
                     <div class="singleComponent">
                         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                             <div class="btn-group mr-2" role="group" aria-label="First group">
-                                <button type="button" class="btn btn-primary" @click="${() => this.changeContent('home')}">Home</button>
-                                <button type="button" class="btn btn-primary" @click="${() => this.changeContent('ergo')}">30K Ergo Challenge</button>
+                                <button type="button" class="btn btn-primary custom-color" style="height:40px" @click="${() => this.changeContent('home')}"><p class="text">Home</p></button>
+                                <button type="button" class="btn btn-primary custom-color" style="height:40px" @click="${() => this.changeContent('ergo')}"><p class="text">Ergo Challenge</p></button>
                             </div>
                             <div class="btn-group mr-2" role="group" aria-label="Second group">
-                                <button type="button" class="btn btn-primary" @click="${() => this.changeContent('club')}">30K Club Ranking</button>
-                                <button type="button" class="btn btn-primary" @click="${() => this.changeContent('person')}">30K Person Ranking</button>
+                                <button type="button" class="btn btn-primary custom-color" style="height:40px" @click="${() => this.changeContent('club')}"><p class="text">30K Club Ranking</p></button>
+                                <button type="button" class="btn btn-primary custom-color" style="height:40px" @click="${() => this.changeContent('person')}"><p class="text">30K Person Ranking</p></button>
                             </div>
                             <div class="btn-group mr-2" role="group" aria-label="Third group">
-                                <button type="button" class="btn btn-primary" @click="${() => this.changeContent('distance')}">Add Distance</button>
-                                <button type="button" class="btn btn-primary" @click="${() => this.changeWebsite()}">LRV Ister</button>
+                                <button type="button" class="btn btn-primary custom-color" style="height:40px" @click="${() => this.changeContent('distance')}"><p class="text">Distance</p></button>
+                                <button type="button" class="btn btn-primary custom-color" style="height:40px" @click="${() => this.changeWebsite()}"><p class="text">LRV Ister</p></button>
                             </div>
                             <div class="btn-group mr-2" role="group" aria-label="Fourth group">
-                                <button type="button" class="btn btn-primary" @click="${() => this.changeContent('login')}">Login</button>
-                                <button type="button" class="btn btn-primary" @click="${() => this.changeContent('challengeCreator')}">Create Challenge</button>
+                                <button type="button" class="btn btn-primary custom-color" style="height:40px" @click="${() => this.changeContent('challengeCreator')}"><p class="text">Create New Challenge</p></button>
                             </div>
                         </div>
                     </div>
+                    <button type="button" class="btn btn-primary custom-color login" style="height:40px" @click="${() => this.changeContent('login')}"><p class="text">Login</p></button>
                 </div>
             </div>
             <div id="components" class="componentss">

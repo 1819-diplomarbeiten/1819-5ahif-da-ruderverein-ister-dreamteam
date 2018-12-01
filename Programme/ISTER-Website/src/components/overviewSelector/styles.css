@@ -1,41 +1,35 @@
 div.banner{
     position: absolute;
-    /*top: 8%;*/
-    font-size: 25px;
+    font-size: 35px;
     float: left;
-    margin-top: 0.6%;
-    margin-left: 3%;
+    margin-top: 0.7%;
+    margin-left: 2%;
     color: #f4f4f4;
-    /*border: 2px;
-    border-style: solid;
-    border-color: #f4f4f4;
-    border-radius: 5%;*/
 }
 div.componentSelection{
     position: absolute;
-    margin-left: 25%;
+    margin-left: 2%;
     float: left;
 }
 div.singleComponent{
     width: relative;
     text-align: center;
     float: left;
-    margin-top: 1.2%;
+    margin-top: 5.6%;
     font-size: 20px;
 }
 div.background{
     margin: 0 auto;
     position: absolute;
-    top: 10%;
+    top: 8%;
     left: 0;
     width: 100%;
-    height: 7%;
-    /*background-color: rgb(55, 164, 201); */
-    background-color: #35424A;
+    height: 16%;
+    background-color: #939393;
 }
 div.mainPos {
     position: absolute;
-    top: 17%;
+    top: 26%;
     background-color: lightgoldenrodyellow;
     width: 40%
 }
@@ -44,10 +38,27 @@ div.selectors{
 }
 div.componentss{
     position: absolute;
-    top: 17%;
-    background-color: #F09830;
+    top: 26%;
+    background-color: #FAFAFA;
     background-repeat: no-repeat;
     background-attachment: scroll;
     width: 100%;
     height: 83%;
+}
+p.text{
+    font-size: 20px;
+}
+.custom-color{
+  color: #FAFAFA;
+  background-color: #35424A;
+  border-color: #35424A;
+}
+.login{
+    margin-top: -15%;
+    margin-left: 120%
+}
+.btn-primary:hover{
+    color:#35424A;
+    background-color: #FAFAFA;
+    border-color: #35424A;
 }
