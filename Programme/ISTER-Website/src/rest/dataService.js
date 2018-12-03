@@ -48,10 +48,10 @@ export default class DataService{
         .then(data => {
             console.log('data ' + data)
             returnV = data
-            console.log(returnV)
+            console.log('returnv: ' + returnV)
             return returnV
         })
-        /*console.log('returnV')
-        return returnV*/
+        console.log('returnV2' + returnV)
+        return returnV
     }
 }

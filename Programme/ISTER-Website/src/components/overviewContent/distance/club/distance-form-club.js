@@ -62,7 +62,7 @@ export default class DistanceFormClub extends LitElement{
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
             <link rel="stylesheet" type="text/css" href=/src/components/overviewContent/distance/club/styles.css>
 
-            <div id="mainPos" class="mainPos">
+            <div>
                 <div style="margin-left:2%">
                     <h1><strong>Enter Your Distance</strong></h1>
                     <h3>This is how the Excel should look like (.xlsx Format):</h3>

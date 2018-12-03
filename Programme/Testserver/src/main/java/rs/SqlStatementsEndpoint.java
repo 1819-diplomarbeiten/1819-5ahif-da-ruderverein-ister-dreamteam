@@ -71,6 +71,7 @@ public class SqlStatementsEndpoint {
             jsonValues = null;
         return jsonValues;
     }
+    
     @GET
     @Path("/bestFourDistancesClubs/{year}/{result}/{sequence}")
     @Produces(MediaType.APPLICATION_JSON)
