@@ -15,7 +15,7 @@ public class SqlStatementsEndpoint {
     public JsonObject getActualChallengeTime(){
         System.out.println("================================");
         System.out.println("====Get Actual Challenge Time===");
-        Date date = new GregorianCalendar(2018, Calendar.DECEMBER, 11).getTime();
+        Date date = new GregorianCalendar(2019, Calendar.JANUARY, 11).getTime();
         System.out.println(date);
         JsonObject jsonValues = Json.createObjectBuilder().add("time", date.getTime()).add("state", "STARTS").build();
         return jsonValues;
@@ -71,7 +71,7 @@ public class SqlStatementsEndpoint {
             jsonValues = null;
         return jsonValues;
     }
-    
+
     @GET
     @Path("/bestFourDistancesClubs/{year}/{result}/{sequence}")
     @Produces(MediaType.APPLICATION_JSON)
