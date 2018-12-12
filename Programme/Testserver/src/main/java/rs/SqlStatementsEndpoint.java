@@ -215,4 +215,13 @@ public class SqlStatementsEndpoint {
         System.out.println(mail);
         return Json.createObjectBuilder().add("getClass", "A").build();
     }
+
+    @GET
+    @Path("/challengeStatus")
+    @Produces(MediaType.APPLICATION_JSON)
+    public JsonObject getChallengeStatus(){
+        System.out.println("================================");
+        System.out.println("======Get Challenge Status======");
+        return Json.createObjectBuilder().add("status", "true").build();
+    }   
 }

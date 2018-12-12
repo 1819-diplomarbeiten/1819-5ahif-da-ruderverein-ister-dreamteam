@@ -17,9 +17,14 @@
     cursor: inherit;
     display: block;
 }
-.btn-primary:hover{
+.custom-color:hover{
     color:#35424A;
     background-color: #FAFAFA;
+    border-color: #35424A;
+}
+.custom-color-reverse:hover{
+    color:#FAFAFA;
+    background-color: #35424A;
     border-color: #35424A;
 }
 .custom-color{
@@ -29,4 +34,24 @@
 }
 .pipe{
     border-width: 90px solid #35424A;
+}
+div.horizontal-line{
+    width: 100%;
+    height: 2px;
+    background-color: #35424A;
+}
+.number-design{
+    font-size: 30px;
+    border-radius: 50%;
+    border: 2px solid #35424A;
+    width: 50px;
+    text-align: center;
+}
+#button1,#button2{
+    display: inline-block;
+}
+.custom-color-reverse{
+    color: #35424A;
+    background-color: #FAFAFA;
+    border-color: #35424A;
 }

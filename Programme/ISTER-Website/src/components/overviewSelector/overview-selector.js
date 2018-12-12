@@ -1,4 +1,5 @@
 import {LitElement, html} from '@polymer/lit-element'
+import DataService from '../../rest/dataService.js'
 
 export default class OverviewSelector extends LitElement{
     static get properties(){
@@ -16,7 +17,6 @@ export default class OverviewSelector extends LitElement{
 
     changeContent(content){
         let elem = null
-        //console.log('entered changeContent: ' + content)
         let mainComp = this.shadowRoot.getElementById('components')
 
         //removes all children
@@ -65,7 +65,21 @@ export default class OverviewSelector extends LitElement{
         console.log(mainComp.childNodes)*/
     }
 
+    checkForDistanceBtn(){
+        fetch('http://localhost:8080/testserver/rs/sql/challengeStatus', {
+                method: "GET"
+            })
+            .then((resp) => resp.json())
+            .then(data => {
+                if(data.status == "true")
+                    this.shadowRoot.getElementById('distanceBtn').style.display = 'initial'
+            })
+    }
+
     render(){
+        $(document).ready(() => { 
+            this.checkForDistanceBtn()  
+        }) 
         return html`
             <script lang="javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
             <script lang="javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
@@ -87,7 +101,7 @@ export default class OverviewSelector extends LitElement{
                                 <button type="button" class="btn btn-primary custom-color" style="height:40px" @click="${() => this.changeContent('person')}"><p class="text">30K Person Ranking</p></button>
                             </div>
                             <div class="btn-group mr-2" role="group" aria-label="Third group">
-                                <button type="button" class="btn btn-primary custom-color" style="height:40px" @click="${() => this.changeContent('distance')}"><p class="text">Distance</p></button>
+                                <button id="distanceBtn" type="button" class="btn btn-primary custom-color" style="height:40px;display:none" @click="${() => this.changeContent('distance')}"><p class="text">Distance</p></button>
                                 <button type="button" class="btn btn-primary custom-color" style="height:40px" @click="${() => this.changeWebsite()}"><p class="text">LRV Ister</p></button>
                             </div>
                             <div class="btn-group mr-2" role="group" aria-label="Fourth group">
