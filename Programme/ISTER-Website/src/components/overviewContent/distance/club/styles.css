@@ -47,9 +47,6 @@ div.horizontal-line{
     width: 50px;
     text-align: center;
 }
-#button1,#button2{
-    display: inline-block;
-}
 .custom-color-reverse{
     color: #35424A;
     background-color: #FAFAFA;

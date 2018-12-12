@@ -71,9 +71,9 @@ export default class DistanceFormClub extends LitElement{
 
     activate(toActivate){
         if(!this.uploaded) {
-            console.log(this.shadowRoot.getElementById('contentTwo'))
             switch(toActivate){
                 case '1':
+                    this.shadowRoot.getElementById('excelFile').onchange = () => {this.setFileName()}
                     this.shadowRoot.getElementById('contentOne').style.display = 'initial'
                     this.shadowRoot.getElementById('contentTwo').style.display = 'none'
                     this.shadowRoot.getElementById('contentThree').style.display = 'none'
@@ -93,6 +93,10 @@ export default class DistanceFormClub extends LitElement{
             }
         }
     }
+    setFileName(){
+        this.shadowRoot.getElementById('excelNotification').innerHTML = this.shadowRoot.getElementById('excelFile').files[0].name
+        this.shadowRoot.getElementById('doneTwo').disabled = false
+    }
 
     render(){
         return html`
@@ -104,7 +108,7 @@ export default class DistanceFormClub extends LitElement{
             <div style="margin-top:2%">
                 <div style="margin-left:2%">
                     <div>
-                        <p class="number-design">1</p>
+                        <p class="number-design" @click="${() => this.activate('1')}">1</p>
                         <h2 style="margin-top:-3%;margin-left:4%" @click="${() => this.activate('1')}"><strong>Check the structure</strong></h2>
                     </div>
                     <div class="horizontal-line"></div><br>
@@ -150,8 +154,9 @@ export default class DistanceFormClub extends LitElement{
                                 Select Excel File <input id="excelFile" accept=".xlsx" class="form-control-file" type="file" style="display: none;">
                             </label>
                         </div>
+                        <p id ="excelNotification"></p>
                         <div class="btn-group" role="group">
-                            <button type="submit" class="btn btn-primary custom-color" @click="${() => this.activate('3')}">Done</button>
+                            <button id="doneTwo" type="submit" class="btn btn-primary custom-color" @click="${() => this.activate('3')}" disabled>Done</button>
                             <button type="submit" class="btn btn-primary custom-color-reverse" @click="${() => this.activate('1')}">Step Back</button><br><br>
                         </div>
                     </div>
