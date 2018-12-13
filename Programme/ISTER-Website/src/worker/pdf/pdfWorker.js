@@ -11,7 +11,7 @@ export default class PdfWorker{
         doc.addImage(img, 'PNG', 150, 15)
         doc.setFontSize(12)
         doc.setFontType('slim')
-        doc.text(pageCount.toString(), 170, 285)
+        //doc.text(pageCount.toString(), 170, 285)
         var columns = [
             {title: "", dataKey:"position"},
             {title: "Name", dataKey:"name"},
@@ -49,12 +49,12 @@ export default class PdfWorker{
             tableWidth: 'auto',
             theme: 'striped',
             showHeader: 'firstPage',
-            addPageContent: event => {
+            /*addPageContent: event => {
                     if(event.pageCount != 1){
                     pageCount++
                     doc.text(pageCount.toString(), 170, 285)
                 }
-            }
+            }*/
         });
         doc.save('PersonChallenge.pdf')
     }
@@ -68,7 +68,7 @@ export default class PdfWorker{
         doc.addImage(img, 'PNG', 150, 15)
         doc.setFontSize(12)
         doc.setFontType('slim')
-        doc.text(pageCount.toString(), 170, 285)
+        //doc.text(pageCount.toString(), 170, 285)
         var columns = [
             {title: "", dataKey:"position"},
             {title: "Name", dataKey:"name"},
@@ -119,12 +119,12 @@ export default class PdfWorker{
             tableWidth: 'auto',
             theme: 'striped',
             showHeader: 'firstPage',
-            addPageContent: event => {
+            /*addPageContent: event => {
                     if(event.pageCount != 1){
                     pageCount++
                     doc.text(pageCount.toString(), 170, 285)
                 }
-            }
+            }*/
         });
         doc.save('PersonChallenge.pdf')
     }
@@ -138,7 +138,7 @@ export default class PdfWorker{
         doc.addImage(img, 'PNG', 150, 15)
         doc.setFontSize(12)
         doc.setFontType('slim')
-        doc.text(pageCount.toString(), 170, 285)
+        //doc.text(pageCount.toString(), 170, 285)
         for(var i = 0; i < result.length; i ++)
         {
             var pClass = result[i].pClass
@@ -191,12 +191,12 @@ export default class PdfWorker{
                 tableWidth: 'auto',
                 theme: 'striped',
                 showHeader: 'firstPage',
-                addPageContent: event => {
+                /*addPageContent: event => {
                         if(event.pageCount != 1){
                         pageCount++
                         doc.text(pageCount.toString(), 170, 285)
                     }
-                }
+                }*/
             });
         }
         doc.save('PersonChallenge.pdf')
@@ -205,15 +205,17 @@ export default class PdfWorker{
     static createPdfPerSessionPerCategories(result, year, round){
         var doc = new jsPDF()
         var pageCount = 1;
+        var tablesDrawnSinceLastPageNumbering = 0
+        var pageCountSet = false;
         doc.setFontSize(18)
         doc.setFontType('bold')
         doc.text('30 (dirty) K Ergo Winter Challenge ' + year, 20, 25)
         doc.addImage(img, 'PNG', 150, 15)
         doc.setFontSize(12)
         doc.setFontType('slim')
-        doc.text(pageCount.toString(), 170, 285)
         for(var i = 0; i < result.length; i ++)
         {
+            tablesDrawnSinceLastPageNumbering++
             var pClass = result[i].pClass
             var columns = [
                 {title: pClass, dataKey:"position"},
@@ -252,12 +254,22 @@ export default class PdfWorker{
                 tableWidth: 'auto',
                 theme: 'striped',
                 showHeader: 'firstPage',
-                addPageContent: event => {
-                        if(event.pageCount != 1){
-                        pageCount++
-                        doc.text(pageCount.toString(), 170, 288)
+                /*addPageContent: event => {
+                   if(event.pageCount != 1)
+                        pageCountSet = false
+                    else
+                        tablesDrawnSinceLastPageNumbering++
+                    if(tablesDrawnSinceLastPageNumbering == 2){
+                        pageCountSet = false
+                        tablesDrawnSinceLastPageNumbering = 0
                     }
-                },
+                    if(!pageCountSet && tablesDrawnSinceLastPageNumbering < 3){
+                        doc.text(pageCount.toString(), 170, 285)
+                        pageCount++
+                        pageCountSet = true
+                        tablesDrawnSinceLastPageNumbering = 0
+                    }
+                }*/
             });
         }
         doc.save('PersonChallenge.pdf')
@@ -273,7 +285,7 @@ export default class PdfWorker{
         doc.addImage(img, 'PNG', 150, 15)
         doc.setFontSize(12)
         doc.setFontType('slim')
-        doc.text(pageCount.toString(), 170, 285)
+        //doc.text(pageCount.toString(), 170, 285)
         
         var columns = [
             {title: "", dataKey:"position"},
@@ -314,12 +326,12 @@ export default class PdfWorker{
             tableWidth: 'auto',
             theme: 'striped',
             showHeader: 'firstPage',
-            addPageContent: event => {
+            /*addPageContent: event => {
                     if(event.pageCount != 1){
                     pageCount++
                     doc.text(pageCount.toString(), 170, 285)
                 }
-            }
+            }*/
         });
         doc.save('ClubChallenge.pdf')
     }
