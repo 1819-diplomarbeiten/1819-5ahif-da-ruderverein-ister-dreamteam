@@ -83,7 +83,6 @@ export default class ChallengeCreator extends LitElement{
                         <p for="roundFive">Date of Round 5</p>
                         <input class="form-control-text "id="roundFive" style="width:160px;text-align:right">
                     </div>
-
                 </div>
                 <div class="datePickPositionThree">
                     <div class="form-group">
@@ -98,7 +97,7 @@ export default class ChallengeCreator extends LitElement{
                 </div>
             </div>
             <br>
-            <div style="left:2%;position:fixed;margin-top:10%">
+            <div style="left:2%;margin-top:10%;margin-left:2%">
                 <input type ="button" value="Create Challenge" class="btn btn-primary custom-color" @click="${() => this.createNewChallenge()}"></input>
                 <p id="notification"></p>
             </div>

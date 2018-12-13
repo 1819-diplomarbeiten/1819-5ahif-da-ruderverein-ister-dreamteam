@@ -22,7 +22,6 @@ export default class DistanceFormClub extends LitElement{
             this.shadowRoot.getElementById('stepBackThree').style.display = 'initial'
             return
         }
-        console.log('asdf' + this.shadowRoot.getElementById('excelFile').files[0].name)
 
         fileReader.onload = e => {
             var binary = "";

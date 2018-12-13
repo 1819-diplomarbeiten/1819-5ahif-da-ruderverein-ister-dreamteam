@@ -57,7 +57,7 @@ p.text{
     margin-top: -15%;
     margin-left: 120%
 }
-.btn-primary:hover{
+.btn-primary:active,.btn-primary:hover,.btn-primary:focus,.btn-primary:visited{
     color:#35424A;
     background-color: #FAFAFA;
     border-color: #35424A;

@@ -9,6 +9,7 @@
     "@polymer/lit-element": "^0.6.3",
     "@polymer/polymer": "^3.0.0",
     "bootstrap": "^4.1.3",
+    "dropzone": "^5.5.1",
     "graceful-fs": "^4.1.15",
     "grunt-cli": "^1.3.2",
     "image-file-to-base64-exif": "^1.0.3",

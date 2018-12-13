@@ -20,7 +20,7 @@ export default class DistanceFormParticipant extends LitElement{
         fileReader.onload = event => {
             this.evidencePic = event.target.result
             DataService.postPeriod(this.distance, this.evidencePic)
-            this.shadowRoot.getElementById('waiting').innerHTML = 'Your Excel File is successfully uploaded!'
+            this.shadowRoot.getElementById('waiting').innerHTML = 'Your distance is successfully uploaded!'
             this.shadowRoot.getElementById('notification').innerHTML = ''
             this.uploaded = true
         };
@@ -29,8 +29,8 @@ export default class DistanceFormParticipant extends LitElement{
 
     validDistance(){
         this.distance = this.shadowRoot.getElementById('distance').value;
-        if(isNaN(this.distance) == true){
-            this.shadowRoot.getElementById('distanceNotification').innerHTML = 'Invalid Distance'
+        if(isNaN(this.distance) == true || this.distance == ""){
+            this.shadowRoot.getElementById('distanceNotification').innerHTML = '<span class="error">Invalid Distance<span>'
             return false
         }
         else{
@@ -54,7 +54,6 @@ export default class DistanceFormParticipant extends LitElement{
                     break
                 case '2':
                     if(this.validDistance()){
-                        this.shadowRoot.getElementById('evidencePic').onchange = () => {this.setFileName()}
                         this.shadowRoot.getElementById('contentOne').style.display = 'none'
                         this.shadowRoot.getElementById('contentTwo').style.display = 'initial'
                         this.shadowRoot.getElementById('contentThree').style.display = 'none'
@@ -73,11 +72,36 @@ export default class DistanceFormParticipant extends LitElement{
 
     //zu späterer Zeit: Überprüfung ob gerade eine Challenge!
     render(){
+        $(document).ready(() => { 
+            this.shadowRoot.getElementById('evidencePic').onchange = () => {this.setFileName()}
+            /*var dropzone = new Dropzone(this.shadowRoot.getElementById('demo-upload'), {
+                previewTemplate: document.querySelector('#preview-template').innerHTML,
+                parallelUploads: 2,
+                thumbnailHeight: 120,
+                thumbnailWidth: 120,
+                maxFilesize: 3,
+                filesizeBase: 1000,
+                thumbnail: function(file, dataUrl) {
+                  if (file.previewElement) {
+                    file.previewElement.classList.remove("dz-file-preview");
+                    var images = file.previewElement.querySelectorAll("[data-dz-thumbnail]");
+                    for (var i = 0; i < images.length; i++) {
+                      var thumbnailElement = images[i];
+                      thumbnailElement.alt = file.name;
+                      thumbnailElement.src = dataUrl;
+                    }
+                    setTimeout(function() { file.previewElement.classList.add("dz-image-preview"); }, 1);
+                  }
+                }
+              });*/
+        }) 
         return html`
         <script lang="javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
         <script lang="javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="/src/components/overviewContent/distance/participant/styles.css">
+        <script src="/node_modules/dropzone/dist/dropzone.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="/node_modules/dropzone/dist/min/dropzone.min.css" type="text/css">
         <div style="margin-top:2%;margin-left: 2%">
             <div>
                 <p class="number-design" @click="${() => this.activate('1')}">1</p>
@@ -87,7 +111,7 @@ export default class DistanceFormParticipant extends LitElement{
             <div id="contentOne" style="display:none">
                 <div class="input-group input-group-sm mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-sm">Distance</span>
+                        <span class="input-group-text" id="inputGroup-sizing-sm"><strong>Distance</strong></span>
                     </div>
                     <input id="distance" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
                 </div>
@@ -108,6 +132,16 @@ export default class DistanceFormParticipant extends LitElement{
                         Select Evidence Pic <input id="evidencePic" accept=".png, .jpg, .jpeg" class="form-control-file" type="file" style="display: none;">
                     </label>
                 </div>
+                <!--<div class="dropzone">
+                    <FORM class="dropzone needsclick" id="demo-upload" action="/upload">
+                        <DIV class="dz-message needsclick">    
+                            Drop files here or click to upload.<BR>
+                            <SPAN class="note needsclick">(This is just a demo dropzone. Selected 
+                            files are <STRONG>not</STRONG> actually uploaded.)</SPAN>
+                        </DIV>
+                    </FORM>
+                </div>-->
+                
                 <p id="picNotification"></p>
                 <div class="btn-group" role="group">
                     <button id="doneTwo" type="submit" class="btn btn-primary custom-color" @click="${() => this.activate('3')}" disabled>Done</button>

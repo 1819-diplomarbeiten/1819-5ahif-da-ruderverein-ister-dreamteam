@@ -223,5 +223,5 @@ public class SqlStatementsEndpoint {
         System.out.println("================================");
         System.out.println("======Get Challenge Status======");
         return Json.createObjectBuilder().add("status", "true").build();
-    }   
+    }
 }

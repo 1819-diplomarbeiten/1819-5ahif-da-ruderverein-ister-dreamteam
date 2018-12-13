@@ -40,7 +40,7 @@ export default class ClubRanking extends LitElement{
         <div class="mainPos">
             <div style="margin-left:2%">
                 <h1><strong>30K Club Ranking List:</strong></h1>
-                <h3>Wählen Sie ihre gewünschten Filteroptionen</h3>
+                <h3>Select your favourite filter options</h3>
                 <div class="dropdown">
                     <form>
                         <div class="form-group">
