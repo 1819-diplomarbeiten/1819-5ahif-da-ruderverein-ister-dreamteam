@@ -140,4 +140,12 @@ public class JsonArrayCreator {
         }
         return jsonArrayCategory.build();
     }
+
+    public JsonArray getAllChallenges() {
+        JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
+        for(int i = 2015; i < 2018; i++){
+            jsonArrayBuilder.add(Json.createObjectBuilder().add("year", String.valueOf(i)).add("roundOne", i + "-11-25").add("roundTwo", i + "-12-13").add("roundThree", (i +1) + "-01-14").add("roundFour", (i +1) + "-02-16").add("roundFive", (i +1) + "-03-29").add("roundSix", (i +1) + "-04-17"));
+        }
+        return jsonArrayBuilder.build();
+    }
 }

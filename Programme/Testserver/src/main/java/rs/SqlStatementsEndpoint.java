@@ -21,6 +21,15 @@ public class SqlStatementsEndpoint {
         return jsonValues;
     }
 
+    @GET
+    @Path("/getAllChallenges")
+    @Produces(MediaType.APPLICATION_JSON)
+    public JsonArray getAllChallenges(){
+        System.out.println("================================");
+        System.out.println("=======Get All Challenges=======");
+        return new JsonArrayCreator().getAllChallenges();
+    }
+
     @POST
     @Path("/postPeriod")
     @Consumes(MediaType.APPLICATION_JSON)

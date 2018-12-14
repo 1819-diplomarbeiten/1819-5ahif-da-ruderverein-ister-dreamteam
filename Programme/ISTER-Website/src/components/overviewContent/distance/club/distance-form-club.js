@@ -96,7 +96,6 @@ export default class DistanceFormClub extends LitElement{
         }
     }
     setFileName(){
-        console.log('entered setFileName')
         this.shadowRoot.getElementById('excelNotification').innerHTML = this.shadowRoot.getElementById('excelFile').files[0].name
         this.shadowRoot.getElementById('doneTwo').disabled = false
     }

@@ -1,18 +1,17 @@
 div.datePickPositionOne{
     float: left;
-    margin-left: 2%;
 }
-div.datePickPositionTwo{
+div.datePickPositionTwoThree{
     float: left;
-    margin-left: 10%;
-    /*position: fixed;*/
-}
-div.datePickPositionThree{
-    float: left;
-    margin-left: 10%;
-    /*position: fixed;*/
+    margin-left: 4%;
 }
 .custom-color{
+    color: #FAFAFA;
+    background-color: #35424A;
+    border-color: #35424A;
+    font-size:14px
+}
+.custom-size{
     color: #FAFAFA;
     background-color: #35424A;
     border-color: #35424A;
@@ -45,4 +44,14 @@ div.datePickPositionThree{
     background: white;
     cursor: inherit;
     display: block;
+}
+.table-validate{
+    font-size: 15px
+}
+.header-border{
+    border: 4px solid #35424A; 
+    width: 340px;
+    border-collapse: separate;
+    border-spacing: 400px;
+    border-radius: 5%
 }

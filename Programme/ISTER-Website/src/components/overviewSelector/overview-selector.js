@@ -50,8 +50,8 @@ export default class OverviewSelector extends LitElement{
                 elem = document.createElement('login-form')
                 mainComp.appendChild(elem)
                 break
-            case 'challengeCreator':
-                elem = document.createElement('challenge-creator')
+            case 'challenge-manager':
+                elem = document.createElement('challenge-manager')
                 mainComp.appendChild(elem)
                 break
             default:
@@ -105,7 +105,7 @@ export default class OverviewSelector extends LitElement{
                                 <button type="button" class="btn btn-primary custom-color" style="height:40px" @click="${() => this.changeWebsite()}"><p class="text">LRV Ister</p></button>
                             </div>
                             <div class="btn-group mr-2" role="group" aria-label="Fourth group">
-                                <button type="button" class="btn btn-primary custom-color" style="height:40px" @click="${() => this.changeContent('challengeCreator')}"><p class="text">Create New Challenge</p></button>
+                                <button type="button" class="btn btn-primary custom-color" style="height:40px" @click="${() => this.changeContent('challenge-manager')}"><p class="text">Create New Challenge</p></button>
                             </div>
                         </div>
                     </div>
