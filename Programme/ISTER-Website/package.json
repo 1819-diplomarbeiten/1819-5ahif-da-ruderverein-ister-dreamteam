@@ -24,6 +24,7 @@
     "npm": "^6.4.1",
     "polymer-cli": "^1.9.1",
     "popper.js": "^1.14.5",
+    "select2": "^3.5.1",
     "xlsx": "^0.14.1",
     "zebra_datepicker": "^1.9.12"
   },

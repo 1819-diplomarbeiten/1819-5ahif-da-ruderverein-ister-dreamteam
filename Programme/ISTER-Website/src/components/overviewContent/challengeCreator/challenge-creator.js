@@ -25,6 +25,8 @@ export default class ChallengeCreator extends LitElement{
     }
 
     setYears(){
+        /*if(this.shadowRoot.getElementById('dropDown') == null)
+            return*/
         if(this.shadowRoot.getElementById('dropDown').length == 0)
         {
             let startYear = new Date().getFullYear()

@@ -44,27 +44,47 @@ export default class WebSiteHeader extends LitElement{
             return nr;
     }
 
+    formatState () {
+          var $state = $(
+            '<span><img src="images/germanFlag.png" class="img-flag" /> ' + 'seas' + '</span>'
+          );
+          return $state;
+    }
+
     render(){
         window.onload = () => {
             this.countdown()
+            
         }
+        $(document).ready(() => { 
+            /*console.log(this.shadowRoot.getElementById('social'))
+            console.log(window.Select2)
+            $(this.shadowRoot.getElementById('social')).select2({
+                templateResult: $(this.formatState())
+               });*/
+        }) 
         return html`
             <script lang="javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
             <script lang="javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+            <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>-->
             <div class="background">
                 <link rel="stylesheet" type="text/css" href=/src/components/websiteHeader/styles.css>
                 <h1 class="header" id="countdown"></h1>
                 <div class="languages">
-                    <select id="dropDownSequence" class="form-control" style="width:60px">
-                        <!--<option value="german"><img src="images/germanFlag.png"></option>-->
+                    <!--<select id="dropDownSequence" class="form-control" style="width:60px">
                         <option value="english"><img src="images/englishFlag.png"></option>
                         <option value="german"><a style="background-image:url(images/germanFlag.png);height:10px;width:10px" class="img-thumbnail" href=""> </a></option>
-                    </select>
-                    <!--<img src="images/germanFlag.png" width="70" height="35" @click="${() => this.changeLanguage('german')}">
-                    <img src="images/englishFlag.png" width="70" height="35" @click="${() => this.changeLanguage('english')}">-->
-                </div>
-                
+                    </select>-->
+                    <img src="images/germanFlag.png" width="70" height="35" @click="${() => this.changeLanguage('german')}">
+                    <img src="images/englishFlag.png" width="70" <!--style="margin-top:-60%;margin-left:-80%"--> height="35" @click="${() => this.changeLanguage('english')}">
+                    <!--<select id="social" class="form-control" style="width:60px">
+                        <option value='german'>Deutsch</option>
+                        <option value='english'>English</option>
+                    </select>-->
+                </div> 
             <div>
         `
     }

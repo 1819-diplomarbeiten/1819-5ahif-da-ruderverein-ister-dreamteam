@@ -108,7 +108,7 @@ export default class DistanceFormParticipant extends LitElement{
                 <h2 style="margin-top:-3%;margin-left:4%" @click="${() => this.activate('1')}"><strong>Enter your reached distance</strong></h2>
             </div>
             <div class="horizontal-line"></div><br>
-            <div id="contentOne" style="display:none">
+            <div id="contentOne">
                 <div class="input-group input-group-sm mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-sm"><strong>Distance</strong></span>

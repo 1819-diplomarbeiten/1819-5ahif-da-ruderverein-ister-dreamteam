@@ -57,7 +57,7 @@ export default class DistanceFormClub extends LitElement{
         }
 
         for(var i = 0; i < jsonObj.length; i ++){
-            if(this.validateEmail(jsonObj[i].Email) == false || isNaN(jsonObj[i].Distance) == true)
+            if(this.validateEmail(jsonObj[i].Email) == false || isNaN(jsonObj[i].Distance) == true || jsonObj[i].Distance == "")
                 return false
         }
         return true
@@ -72,16 +72,19 @@ export default class DistanceFormClub extends LitElement{
         if(!this.uploaded) {
             switch(toActivate){
                 case '1':
-                    this.shadowRoot.getElementById('excelFile').onchange = () => {this.setFileName()}
                     this.shadowRoot.getElementById('contentOne').style.display = 'initial'
                     this.shadowRoot.getElementById('contentTwo').style.display = 'none'
                     this.shadowRoot.getElementById('contentThree').style.display = 'none'
                     break
                 case '2':
+                    this.shadowRoot.getElementById('excelFile').value = null
+                    this.shadowRoot.getElementById('excelFile').onchange = () => {this.setFileName()}
                     this.shadowRoot.getElementById('contentOne').style.display = 'none'
                     this.shadowRoot.getElementById('contentTwo').style.display = 'initial'
                     this.shadowRoot.getElementById('contentThree').style.display = 'none'
                     this.shadowRoot.getElementById('stepBackThree').style.display = 'none'
+                    this.shadowRoot.getElementById('excelNotification').innerHTML = ''
+                    this.shadowRoot.getElementById('doneTwo').disabled = true
                     break
                 case '3':
                     this.shadowRoot.getElementById('contentOne').style.display = 'none'
@@ -93,6 +96,7 @@ export default class DistanceFormClub extends LitElement{
         }
     }
     setFileName(){
+        console.log('entered setFileName')
         this.shadowRoot.getElementById('excelNotification').innerHTML = this.shadowRoot.getElementById('excelFile').files[0].name
         this.shadowRoot.getElementById('doneTwo').disabled = false
     }
@@ -111,7 +115,7 @@ export default class DistanceFormClub extends LitElement{
                         <h2 style="margin-top:-3%;margin-left:4%" @click="${() => this.activate('1')}"><strong>Check the structure</strong></h2>
                     </div>
                     <div class="horizontal-line"></div><br>
-                    <div id="contentOne" style="display:none">
+                    <div id="contentOne">
                         <br><h4><strong>This is how the Excel should look like (.xlsx File)</strong><h4>
                         <table class="table table-dark" style="width:400px">
                             <thead width="300" class="thead-dark">
@@ -150,7 +154,7 @@ export default class DistanceFormClub extends LitElement{
                     <div id="contentTwo" style="display:none">
                         <div class="form-group">
                             <label class="btn btn-default btn-file">
-                                Select Excel File <input id="excelFile" accept=".xlsx" class="form-control-file" type="file" style="display: none;">
+                                Select Excel File <input id="excelFile" accept=".xlsx" class="form-control-file" type="file" style="display:none">
                             </label>
                         </div>
                         <p id ="excelNotification"></p>
