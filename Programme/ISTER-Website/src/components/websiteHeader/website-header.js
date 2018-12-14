@@ -79,7 +79,7 @@ export default class WebSiteHeader extends LitElement{
                         <option value="german"><a style="background-image:url(images/germanFlag.png);height:10px;width:10px" class="img-thumbnail" href=""> </a></option>
                     </select>-->
                     <img src="images/germanFlag.png" width="70" height="35" @click="${() => this.changeLanguage('german')}">
-                    <img src="images/englishFlag.png" width="70" <!--style="margin-top:-60%;margin-left:-80%"--> height="35" @click="${() => this.changeLanguage('english')}">
+                    <img src="images/englishFlag.png" width="70" height="35" @click="${() => this.changeLanguage('english')}">
                     <!--<select id="social" class="form-control" style="width:60px">
                         <option value='german'>Deutsch</option>
                         <option value='english'>English</option>
