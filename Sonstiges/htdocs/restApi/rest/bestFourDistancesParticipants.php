@@ -162,6 +162,6 @@ function sort_by_result($a, $b)
 
 if (isset($data)) {
     /*    convert data to json */
-    $json = json_encode($data);
+    $json = json_encode($data, JSON_UNESCAPED_UNICODE);
 }
 echo $json;

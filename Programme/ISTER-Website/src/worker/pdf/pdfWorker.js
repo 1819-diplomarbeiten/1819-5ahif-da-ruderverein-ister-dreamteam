@@ -337,7 +337,7 @@ export default class PdfWorker{
     }
     
     static calculateTotal(allSix){
-        return allSix.roundOne + allSix.roundOne + allSix.roundThree + allSix.roundFour + allSix.roundFive + allSix.roundSix;
+        return allSix.roundOne + allSix.roundTwo + allSix.roundThree + allSix.roundFour + allSix.roundFive + allSix.roundSix;
     }
 
     static nullChecker(distance){

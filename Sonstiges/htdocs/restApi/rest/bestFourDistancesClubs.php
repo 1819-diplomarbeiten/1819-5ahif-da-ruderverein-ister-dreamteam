@@ -136,7 +136,7 @@ function sort_by_distance($a,$b){
 
 if (isset($newData)) {
     /*    convert data to json */
-    $json = json_encode($newData);
+    $json = json_encode($newData, JSON_UNESCAPED_UNICODE);
 }
 echo $json;
 
