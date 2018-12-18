@@ -27,6 +27,8 @@ export default class PersonRanking extends LitElement{
         })
         .then((resp) => resp.json())
         .then(data => {
+            this.shadowRoot.getElementById('notification').innerHTML = 'Please wait, you pdf is being created ...'
+
             if(this.dropDownResult == '0' && this.dropDownSequence != 'Categories')
                 PdfWorker.createPdfTotal(data, this.dropDownYear)
             else if(this.dropDownResult != '0' && this.dropDownSequence != 'Categories')
@@ -35,6 +37,8 @@ export default class PersonRanking extends LitElement{
                 PdfWorker.createPdfTotalPerCategories(data, this.dropDownYear)
             else
                 PdfWorker.createPdfPerSessionPerCategories(data, this.dropDownYear, this.dropDownResult)
+
+            this.shadowRoot.getElementById('notification').innerHTML = ''
         })
     }
 
@@ -47,7 +51,7 @@ export default class PersonRanking extends LitElement{
         <div class="mainPos">
             <div style="margin-left:2%">
             <h1><strong>30K Person Ranking List:</strong></h1>
-            <h3>Select your favourite filter options</h3>
+            <h3>Select your filter options</h3>
                 <div class="dropdown">
                     <form>
                         <div class="form-group">
@@ -84,6 +88,7 @@ export default class PersonRanking extends LitElement{
                 </div>
                 <br>
                 <input type ="button" value="Download pdf" class="btn btn-primary custom-color" @click="${() => this.getDistances()}"></input>
+                <p id="notification"></p>
             </div>
         </div>
         `

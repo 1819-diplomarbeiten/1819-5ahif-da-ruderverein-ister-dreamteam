@@ -25,12 +25,10 @@ export default class ChallengeManager extends LitElement{
     }
 
     loadDatePicker(round){
-        $(this.shadowRoot.getElementById(round)).Zebra_DatePicker({direction: 1});
+        $(this.shadowRoot.getElementById(round)).Zebra_DatePicker({direction: 1, disabled_dates:['* * * 0,1,2,3,5,6']});
     }
 
     setYears(){
-        /*if(this.shadowRoot.getElementById('dropDown') == null)
-            return*/
         if(this.shadowRoot.getElementById('dropDown').length == 0)
         {
             let startYear = new Date().getFullYear()
@@ -111,7 +109,6 @@ export default class ChallengeManager extends LitElement{
     }
 
     dateIsInPast(date){
-        console.log(date)
         var today = new Date()
         var dd = today.getDate();
         var mm = today.getMonth()+1;
@@ -136,7 +133,7 @@ export default class ChallengeManager extends LitElement{
         }
     }
 
-    changeStatus(idToGet, idToSet){
+    changeStatus(idToSet){
         var elem = this.shadowRoot.getElementById(idToSet)
         if(elem.style.display == 'none')
             this.shadowRoot.getElementById(idToSet).style.display = 'initial'
@@ -161,14 +158,14 @@ export default class ChallengeManager extends LitElement{
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href=/src/components/overviewContent/challengeManager/styles.css>
         <div style="margin-left:2%">
-            <h2 id="manageChallenge" class="header-border" @click="${() => this.changeStatus('manageChallenge', 'manageTable')}"><strong>Manage the challenges</strong></h2>
+            <h2 id="manageChallenge" class="header-border" @click="${() => this.changeStatus('manageTable')}"><strong>Manage the challenges</strong></h2>
             <div id="manageDiv">
                 <table id="manageTable" class="table table-bordered table-validate" style="display:none">
 
                 </table>
             </div>
             <!--<div style="margin-left:2%">-->
-                <h2 id="createChallenge" class="header-border" @click="${() => this.changeStatus('createChallenge', 'createEnvironment')}"><strong>Create a new challenge</strong></h2>
+                <h2 id="createChallenge" class="header-border" @click="${() => this.changeStatus('createEnvironment')}"><strong>Create a new challenge</strong></h2>
                 <div id="createEnvironment" style="display:none">
                     <div class="form-group">
                         <p>Year</p>
