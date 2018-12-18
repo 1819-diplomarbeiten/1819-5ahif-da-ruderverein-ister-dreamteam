@@ -57,6 +57,9 @@ function generateBasicJson()
         $bestFour = (json_decode($query->getBestFourDistances($e['email']), true))[0]['bestFourDistances'];
         $data[count($data) - 1]['bestFourDistances'] = $bestFour;
         $data[count($data) - 1]['pClass'] = json_decode($query->getPClass($e['email'], $year), true)[0]['pClass'];
+        if($distance['roundOne'] == 0 && $distance['roundTwo'] == 0 && $distance['roundThree'] == 0 && $distance['roundFour'] == 0 && $distance['roundFive'] == 0 && $distance['roundSix'] == 0){
+            array_pop($data);
+        }
 
     }
     return $data;

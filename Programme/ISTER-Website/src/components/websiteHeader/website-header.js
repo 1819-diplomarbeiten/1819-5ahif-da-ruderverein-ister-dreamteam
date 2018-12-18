@@ -8,7 +8,7 @@ export default class WebSiteHeader extends LitElement{
     }
     constructor(){
         super();
-        this.path = 'http://localhost:8080/testserver/rs/sql/'
+        this.path = 'http://localhost/restApi/rest'
     }
 
     changeLanguage(language){
@@ -16,7 +16,7 @@ export default class WebSiteHeader extends LitElement{
     }
 
     countdown(){
-        fetch(this.path + 'actualChallengeTime', {
+        fetch(this.path + '/actualchallengetime.php', {
             method: 'GET'
         })
         .then((resp) => resp.json())

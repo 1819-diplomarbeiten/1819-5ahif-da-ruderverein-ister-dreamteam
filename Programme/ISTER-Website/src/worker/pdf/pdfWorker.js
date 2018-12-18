@@ -302,6 +302,7 @@ export default class PdfWorker{
         ]
         var rows = []
         for(var j = 0; j < result.length;j++){
+            console.log(result[j].allSixDistances)
             console.log('row: ' + result[j])
             rows[j] = {"position": j + 1,
             "club": result[j].club,

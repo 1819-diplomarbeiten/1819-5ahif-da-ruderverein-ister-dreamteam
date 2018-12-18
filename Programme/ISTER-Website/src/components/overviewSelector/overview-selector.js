@@ -66,7 +66,7 @@ export default class OverviewSelector extends LitElement{
     }
 
     checkForDistanceBtn(){
-        fetch('http://localhost:8080/testserver/rs/sql/challengeStatus', {
+        fetch('http://localhost/restApi/rest/challengestatus.php', {
                 method: "GET"
             })
             .then((resp) => resp.json())

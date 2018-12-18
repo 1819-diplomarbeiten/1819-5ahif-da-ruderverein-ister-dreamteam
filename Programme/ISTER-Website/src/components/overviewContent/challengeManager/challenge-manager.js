@@ -58,7 +58,7 @@ export default class ChallengeManager extends LitElement{
     }
 
     fillManageTable(){
-        fetch('http://localhost:8080/testserver/rs/sql/getAllChallenges', {
+        fetch('http://localhost/restApi/rest/getallchallenges.php', {
             method: "GET"
         })
         .then((resp) => resp.json())
@@ -111,6 +111,7 @@ export default class ChallengeManager extends LitElement{
     }
 
     dateIsInPast(date){
+        console.log(date)
         var today = new Date()
         var dd = today.getDate();
         var mm = today.getMonth()+1;

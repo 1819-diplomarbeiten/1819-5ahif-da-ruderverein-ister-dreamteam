@@ -80,6 +80,14 @@ class Query
         return $query->buildJson("last_name", "lastName", $sql);
     }
 
+    function getAllChallenges(){
+        global $db;
+        global $query;
+
+        $sql = $db->prepare("SELECT * FROM CHALLENGE");
+        return $query->buildJson("challenge_id", "challengeId", $sql);
+    }
+
     function getParticipantDistance($email, $challengeId){
         global $db;
         global $query;
@@ -181,6 +189,25 @@ class Query
         $test =  json_decode($query->buildJson("challenge_id", "id", $sql), true);
         return $test[0]['id'];
 
+    }
+
+    function nextStartDate(){
+        global $db;
+        global $query;
+
+        $sql = $db->prepare("SELECT (UNIX_TIMESTAMP(MIN(start_date))*1000) FROM challenge WHERE start_date > curdate()");
+        $test = json_decode($query->buildJson("(UNIX_TIMESTAMP(MIN(start_date))*1000)", "milliseconds", $sql), true);
+        return $test[0]['milliseconds'];
+
+    }
+
+    function nextEndDate(){
+        global $db;
+        global $query;
+
+        $sql = $db->prepare("SELECT (UNIX_TIMESTAMP(MIN(end_date))*1000) FROM challenge WHERE end_date > curdate()");
+        $test = json_decode($query->buildJson("(UNIX_TIMESTAMP(MIN(end_date))*1000)", "milliseconds", $sql), true);
+        return $test[0]['milliseconds'];
     }
 
     public function __construct($db)

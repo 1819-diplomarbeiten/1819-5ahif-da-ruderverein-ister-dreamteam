@@ -40,7 +40,7 @@ while ($row = $sqlSessionResults->fetch(PDO::FETCH_ASSOC)) {
 
 $newData = array();
 $i = 1;
-while ($i < count($data) - 1) {
+while ($i < count($data)  ) {
     if (count($newData) == 0) {
         $newData[] = $data[$i - 1];
     }
@@ -105,11 +105,18 @@ while ($i < count($data) - 1) {
     $total = array_sum($distance);
     $newData[count($newData) - 1]['clubParticipantCount'] = $clubCount[0]['clubCount'];
     $newData[count($newData) - 1]['total'] = $total;
+    if($distance['roundOne'] == 0 && $distance['roundTwo'] == 0 && $distance['roundThree'] == 0 && $distance['roundFour'] == 0 && $distance['roundFive'] == 0 && $distance['roundSix'] == 0){
+        array_pop($newData);
+    }
     $distance = $zeroDistance;
-    if ($i < count($data)) {
+    if($clubCount == "0"){
+        array_pop($newData);
+    }
+    if ($i < count($data) -1) {
         $newData[] = $data[$i];
     }
     $i++;
+
 
 
 }
