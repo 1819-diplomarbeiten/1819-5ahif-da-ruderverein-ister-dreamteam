@@ -174,7 +174,7 @@ export default class PdfWorker{
 
             doc.autoTable(columns, rows, {
                 startY: doc.autoTableEndPosY() + 35,
-                marginTop: 35,
+                //marginTop: 35,
                 styles: {
                     fontSize:8
                 },
@@ -246,7 +246,7 @@ export default class PdfWorker{
             }
             doc.autoTable(columns, rows, {
                 startY: doc.autoTableEndPosY() + 35,
-                marginTop: 35,
+                //marginTop: 35,
                 styles: {
                     fontSize:8
                 },

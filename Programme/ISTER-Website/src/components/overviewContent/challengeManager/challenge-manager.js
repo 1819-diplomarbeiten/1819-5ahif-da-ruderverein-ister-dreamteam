@@ -13,7 +13,7 @@ export default class ChallengeManager extends LitElement{
 
     createNewChallenge(){
         if(this.allValuesSelected() == false)
-            this.shadowRoot.getElementById('notification').innerHTML = 'not all values selected'
+            this.shadowRoot.getElementById('notification').innerHTML = '<span class="error">Not all values selected<span>'
         else {
             DataService.postChallenge(this.shadowRoot.getElementById('dropDown').value, this.shadowRoot.getElementById('roundOne').value, this.shadowRoot.getElementById('roundTwo').value, this.shadowRoot.getElementById('roundThree').value, this.shadowRoot.getElementById('roundFour').value, this.shadowRoot.getElementById('roundFive').value, this.shadowRoot.getElementById('roundSix').value)
             this.shadowRoot.getElementById('notification').innerHTML = 'Succesfully sent'

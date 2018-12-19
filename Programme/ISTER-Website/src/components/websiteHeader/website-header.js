@@ -16,7 +16,8 @@ export default class WebSiteHeader extends LitElement{
     }
 
     countdown(){
-        fetch(this.path + '/actualchallengetime.php', {
+        //fetch(this.path + '/actualchallengetime.php', {
+        fetch('http://localhost:8080/testserver/rs/sql/actualChallengeTime', {
             method: 'GET'
         })
         .then((resp) => resp.json())
