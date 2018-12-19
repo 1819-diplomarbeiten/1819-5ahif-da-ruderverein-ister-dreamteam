@@ -48,7 +48,7 @@ export default class PdfWorker{
             },
             tableWidth: 'auto',
             theme: 'striped',
-            showHeader: 'firstPage',
+            showHeader: 'everyPage',
             /*addPageContent: event => {
                     if(event.pageCount != 1){
                     pageCount++
@@ -118,7 +118,7 @@ export default class PdfWorker{
             },
             tableWidth: 'auto',
             theme: 'striped',
-            showHeader: 'firstPage',
+            showHeader: 'everyPage',
             /*addPageContent: event => {
                     if(event.pageCount != 1){
                     pageCount++
@@ -174,6 +174,7 @@ export default class PdfWorker{
 
             doc.autoTable(columns, rows, {
                 startY: doc.autoTableEndPosY() + 35,
+                marginTop: 35,
                 styles: {
                     fontSize:8
                 },
@@ -190,7 +191,7 @@ export default class PdfWorker{
                 },
                 tableWidth: 'auto',
                 theme: 'striped',
-                showHeader: 'firstPage',
+                showHeader: 'everyPage',
                 /*addPageContent: event => {
                         if(event.pageCount != 1){
                         pageCount++
@@ -245,6 +246,7 @@ export default class PdfWorker{
             }
             doc.autoTable(columns, rows, {
                 startY: doc.autoTableEndPosY() + 35,
+                marginTop: 35,
                 styles: {
                     fontSize:8
                 },
@@ -253,7 +255,7 @@ export default class PdfWorker{
                 },
                 tableWidth: 'auto',
                 theme: 'striped',
-                showHeader: 'firstPage',
+                showHeader: 'everyPage',
                 /*addPageContent: event => {
                    if(event.pageCount != 1)
                         pageCountSet = false
@@ -326,7 +328,7 @@ export default class PdfWorker{
             },
             tableWidth: 'auto',
             theme: 'striped',
-            showHeader: 'firstPage',
+            showHeader: 'everyPage',
             /*addPageContent: event => {
                     if(event.pageCount != 1){
                     pageCount++
