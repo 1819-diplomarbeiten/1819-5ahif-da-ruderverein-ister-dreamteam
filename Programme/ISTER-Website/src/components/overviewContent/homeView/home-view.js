@@ -12,9 +12,9 @@ export default class HomeView extends LitElement{
             <div class="mainPos">
                 <div style="margin-left:2%">
                     <h1><strong>Willkommen zur ERGO-Challenge Seite des Linzer Rudervereins ISTER</strong></h1>
-                    <div>
-                        <img src="images/homeView.jpg" width="650" height="433">
-                        <div style="margin-top:-30%;margin-left:45%;font-size:15px">
+                    <div class="body-container">
+                        <img src="images/homeView.jpg" width="650" height="433" class="image">
+                        <div class="text-container">
                             <p>Breitensport und Rennsport bestehen schon lange nebeneinander, oft jedoch teilt dieser Umstand</p>  
                             <p>die Mitglieder im Verein. Bei einer Challenge kann jeder, unabhängig von dieser Zuordnung</p>
                             <p>teilnehmen.  Bei den Reihungen in den Ergebnislisten findet man sich in bekannter Gesellschaft</p>
@@ -25,7 +25,7 @@ export default class HomeView extends LitElement{
                             <br>
                             <p>Als veranstaltender Verein „Linzer Ruderverein ISTER“ haben diese Veranstaltungen natürlich</p>
                             <p>Bezug zum Rudern, insbesondere die Winterchallenge an den Concept2 Ergometern wird auch an die Fitness Clubs getragen.</p>
-                            <br>
+                            
                             <p>Wenn du dabei sein willst, eine E-Mail Nachricht reicht aus.</p>
                             <p><strong>ERGO - Challenge</strong></p>
                         </div>
@@ -36,3 +36,4 @@ export default class HomeView extends LitElement{
     }
 }
 window.customElements.define('home-view', HomeView)
+//style="margin-top:-30%;margin-left:45%;font-size:15px"

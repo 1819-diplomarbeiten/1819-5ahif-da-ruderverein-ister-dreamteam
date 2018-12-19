@@ -1,0 +1,20 @@
+.body-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -2%;
+}
+
+@media only screen and (max-width: 990px){
+    .body-container{
+        flex-direction: column
+    }
+    .text-container{
+        margin: 0;
+        text-align: center;
+    }
+}
+.text-container{
+    font-size: 15px;
+    margin: 2rem;
+}
