@@ -39,6 +39,15 @@ public class SqlStatementsEndpoint {
         return new JsonArrayCreator().getChallengeById();
     }
 
+    @GET
+    @Path("/getEmailDistanceReference")
+    @Produces(MediaType.APPLICATION_JSON)
+    public JsonArray getEmailDistanceReference(){
+        System.out.println("================================");
+        System.out.println("========EmailDistance Ref=======");
+        return new JsonArrayCreator().getEmailDistanceReference();
+    }
+
     @POST
     @Path("/postPeriod")
     @Consumes(MediaType.APPLICATION_JSON)

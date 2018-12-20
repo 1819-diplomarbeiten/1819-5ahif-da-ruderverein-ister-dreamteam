@@ -33,7 +33,26 @@ export default class ClubRanking extends LitElement{
         })
     }
 
+    getEmailNameList(){
+        fetch('http://localhost:8080/testserver/rs/sql/getEmailDistanceReference', {
+            method: 'GET'
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            PdfWorker.createEmailDistance(data)
+        })
+    }
+
+    checkForEmailDistanceBtn(){
+        //if(club is logged in)
+        if(true)
+            this.shadowRoot.getElementById('email-distance-container').style.visibility = 'visible'
+    }
+
     render(){
+        $(document).ready(() => { 
+            this.checkForEmailDistanceBtn()
+        }) 
         return html`
         <script lang="javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
         <script lang="javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
@@ -79,6 +98,10 @@ export default class ClubRanking extends LitElement{
                 <br>
                 <input type ="button" value="Download pdf" class="btn btn-primary custom-color" @click="${() => this.getDistances()}"></input>
                 <p id="notification"></p>
+                <div id="email-distance-container" style="visibility:hidden">
+                    <p>------------------------</p>
+                    <input type ="button" value="Get Email-Distance Reference" class="btn btn-primary custom-color" style="width:210px" @click="${() => this.getEmailNameList()}"></input>
+                </div>
             </div>
         </div>
         `
