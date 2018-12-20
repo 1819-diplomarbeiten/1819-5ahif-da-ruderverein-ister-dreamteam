@@ -20,7 +20,9 @@ export default class PersonRanking extends LitElement{
         this.dropDownYear = this.shadowRoot.getElementById('dropDownYear').value
         this.dropDownResult = this.shadowRoot.getElementById('dropDownResult').value
         this.dropDownSequence = this.shadowRoot.getElementById('dropDownSequence').value
-        //var testit = DataService.getPersonRanking(this.dropDownYear, this.dropDownResult, this.dropDownSequence)
+        var testit = DataService.getPersonRanking(this.dropDownYear, this.dropDownResult, this.dropDownSequence)
+        console.log('testit' + testit)
+        console.log(testit[0])
         
         fetch(this.path + "bestFourDistancesParticipants.php?year=" + this.dropDownYear + "&result=" + this.dropDownResult + "&sequence=" + this.dropDownSequence, {
             method: "GET"

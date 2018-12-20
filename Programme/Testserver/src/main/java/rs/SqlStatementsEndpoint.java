@@ -30,6 +30,15 @@ public class SqlStatementsEndpoint {
         return new JsonArrayCreator().getAllChallenges();
     }
 
+    @GET
+    @Path(("/getChallenge/{id}"))
+    @Produces(MediaType.APPLICATION_JSON)
+    public JsonObject getChallengeById(@PathParam("id")String id){
+        System.out.println("================================");
+        System.out.println("=======Get Challenge By Id======");
+        return new JsonArrayCreator().getChallengeById();
+    }
+
     @POST
     @Path("/postPeriod")
     @Consumes(MediaType.APPLICATION_JSON)

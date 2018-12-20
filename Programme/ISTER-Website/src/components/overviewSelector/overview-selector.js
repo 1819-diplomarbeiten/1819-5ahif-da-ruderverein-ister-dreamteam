@@ -35,7 +35,7 @@ export default class OverviewSelector extends LitElement{
                 mainComp.appendChild(elem)
                 break
             case 'distance':
-                elem = document.createElement('distance-form-club')
+                elem = document.createElement('distance-form-participant')
                 mainComp.appendChild(elem)
                 break
             case 'home':
@@ -57,12 +57,6 @@ export default class OverviewSelector extends LitElement{
             default:
                 break
         }
-        /*if(content == '')
-        console.log('inserted ' + content)
-        console.log('deleted ' + mainComp.childNodes[0])
-        console.log(mainComp.childNodes)
-        mainComp.removeChild(mainComp.childNodes[0])
-        console.log(mainComp.childNodes)*/
     }
 
     checkForDistanceBtn(){

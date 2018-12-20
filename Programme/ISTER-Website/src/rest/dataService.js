@@ -41,17 +41,19 @@ export default class DataService{
 
     static getPersonRanking(year, result, sequence){
 
-        fetch(path + "bestFourDistancesParticipants/" + year + "/" + result + "/" + sequence, {
+        fetch(path + "bestFourDistancesParticipants.php?year=" + year + "&result=" + result + "&sequence=" + sequence, {
             method: "GET"
         })
         .then((resp) => resp.json())
         .then(data => {
-            console.log('data ' + data)
+            //console.log('data ' + data)
             returnV = data
-            console.log('returnv: ' + returnV)
-            return returnV
+            //console.log('returnv: ' + returnV)
+            //return returnV
         })
-        console.log('returnV2' + returnV)
-        return returnV
+        .then(() => console.log('third' + returnV))
+        console.log('returnV' + returnV)
+
+        return 'adf'
     }
 }

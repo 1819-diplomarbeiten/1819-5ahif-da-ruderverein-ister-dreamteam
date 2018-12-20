@@ -16,15 +16,25 @@ export default class DistanceFormParticipant extends LitElement{
     }
 
     postPeriod(){
+
         var fileReader = new FileReader();
         fileReader.onload = event => {
             this.evidencePic = event.target.result
-            DataService.postPeriod(this.distance, this.evidencePic)
-            this.shadowRoot.getElementById('waiting').innerHTML = 'Your distance is successfully uploaded!'
-            this.shadowRoot.getElementById('notification').innerHTML = ''
-            this.uploaded = true
+            this.manage(this.evidencePic)
         };
-        fileReader.readAsDataURL(this.shadowRoot.getElementById('evidencePic').files[0]);   
+        var file = this.shadowRoot.getElementById('evidencePic').files[0]
+
+        if(file == undefined)
+            this.manage(null)
+        else
+            fileReader.readAsDataURL(file);   
+    }
+
+    manage(evidencePic){
+        DataService.postPeriod(this.distance, evidencePic)
+        this.shadowRoot.getElementById('waiting').innerHTML = 'Your distance is successfully uploaded!'
+        this.shadowRoot.getElementById('notification').innerHTML = ''
+        this.uploaded = true
     }
 
     validDistance(){
@@ -41,7 +51,6 @@ export default class DistanceFormParticipant extends LitElement{
 
     setFileName(){
         this.shadowRoot.getElementById('picNotification').innerHTML = this.shadowRoot.getElementById('evidencePic').files[0].name
-        this.shadowRoot.getElementById('doneTwo').disabled = false
     }
 
     activate(toActivate){
@@ -74,26 +83,6 @@ export default class DistanceFormParticipant extends LitElement{
     render(){
         $(document).ready(() => { 
             this.shadowRoot.getElementById('evidencePic').onchange = () => {this.setFileName()}
-            /*var dropzone = new Dropzone(this.shadowRoot.getElementById('demo-upload'), {
-                previewTemplate: document.querySelector('#preview-template').innerHTML,
-                parallelUploads: 2,
-                thumbnailHeight: 120,
-                thumbnailWidth: 120,
-                maxFilesize: 3,
-                filesizeBase: 1000,
-                thumbnail: function(file, dataUrl) {
-                  if (file.previewElement) {
-                    file.previewElement.classList.remove("dz-file-preview");
-                    var images = file.previewElement.querySelectorAll("[data-dz-thumbnail]");
-                    for (var i = 0; i < images.length; i++) {
-                      var thumbnailElement = images[i];
-                      thumbnailElement.alt = file.name;
-                      thumbnailElement.src = dataUrl;
-                    }
-                    setTimeout(function() { file.previewElement.classList.add("dz-image-preview"); }, 1);
-                  }
-                }
-              });*/
         }) 
         return html`
         <script lang="javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -132,19 +121,10 @@ export default class DistanceFormParticipant extends LitElement{
                         Select Evidence Pic <input id="evidencePic" accept=".png, .jpg, .jpeg" class="form-control-file" type="file" style="display: none;">
                     </label>
                 </div>
-                <!--<div class="dropzone">
-                    <FORM class="dropzone needsclick" id="demo-upload" action="/upload">
-                        <DIV class="dz-message needsclick">    
-                            Drop files here or click to upload.<BR>
-                            <SPAN class="note needsclick">(This is just a demo dropzone. Selected 
-                            files are <STRONG>not</STRONG> actually uploaded.)</SPAN>
-                        </DIV>
-                    </FORM>
-                </div>-->
                 
                 <p id="picNotification"></p>
                 <div class="btn-group" role="group">
-                    <button id="doneTwo" type="submit" class="btn btn-primary custom-color" @click="${() => this.activate('3')}" disabled>Done</button>
+                    <button id="doneTwo" type="submit" class="btn btn-primary custom-color" @click="${() => this.activate('3')}">Done</button>
                     <button type="submit" class="btn btn-primary custom-color-reverse" @click="${() => this.activate('1')}">Step Back</button><br><br>
                 </div>
             </div>

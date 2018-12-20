@@ -1,9 +1,6 @@
 package rs;
 
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObjectBuilder;
+import javax.json.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -147,5 +144,12 @@ public class JsonArrayCreator {
             jsonArrayBuilder.add(Json.createObjectBuilder().add("year", String.valueOf(i)).add("roundOne", i + "-11-25").add("roundTwo", i + "-12-13").add("roundThree", (i +1) + "-01-14").add("roundFour", (i +1) + "-02-16").add("roundFive", (i +1) + "-03-29").add("roundSix", (i +1) + "-04-17"));
         }
         return jsonArrayBuilder.build();
+    }
+
+    public JsonObject getChallengeById() {
+        JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
+        JsonObjectBuilder json = Json.createObjectBuilder().add("roundOne", 2018 + "-11-25").add("roundTwo", 2018 + "-12-13").add("roundThree", (2018 +1) + "-01-14").add("roundFour", (2018 +1) + "-02-16").add("roundFive", (2018 +1) + "-03-29").add("roundSix", (2018 +1) + "-04-17");
+
+        return json.build();
     }
 }
