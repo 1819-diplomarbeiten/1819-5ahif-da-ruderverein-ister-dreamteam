@@ -4,6 +4,12 @@ import DataService from '../../../rest/dataService';
 export default class ChallengeManager extends LitElement{
     static get properties(){
         return{
+            challenges: {
+                type: Array
+            },
+            email: String,
+            year: String,
+            session: String
         }
     }
 
@@ -56,6 +62,7 @@ export default class ChallengeManager extends LitElement{
     }
 
     fillManageTable(){
+        var temp;
         fetch('http://localhost/restApi/rest/getallchallenges.php', {
             method: "GET"
         })
@@ -73,6 +80,92 @@ export default class ChallengeManager extends LitElement{
         })
     }
 
+    getChallenges(){
+        var temp;
+
+        //return await fetch("http://localhost/restApi/rest/getallchallenges.php");
+
+        
+        fetch('http://localhost/restApi/rest/getallchallenges.php', {
+            method: "GET"
+        })
+        .then((resp) => resp.json())
+        .then(data => {
+            var newObj = []
+            /*var manageTable = this.shadowRoot.getElementById('manageTable')
+            var tableHeader = this.getTableHeader()
+            var tableBody = document.createElement('tbody')
+            for(var i = 0; i < data.length; i ++){
+                var tr = this.getTableContentRow(data[i])
+                tableBody.appendChild(tr)
+            }
+            manageTable.appendChild(tableHeader)
+            manageTable.appendChild(tableBody)*/
+            for(var i = 0; i < data.length; i ++){
+                newObj[i] = {
+                    year: data[i].year,
+                    roundOne: this.transformDate(data[i].roundOne),
+                    roundTwo: this.transformDate(data[i].roundTwo),
+                    roundThree: this.transformDate(data[i].roundThree),
+                    roundFour: this.transformDate(data[i].roundFour),
+                    roundFive: this.transformDate(data[i].roundFive),
+                    roundSix: this.transformDate(data[i].roundSix)
+                }
+            }
+            console.log('newObj ' + newObj)
+            temp = newObj;
+            console.log('temp ' + temp)
+        })
+        console.log('temp2 ' + temp)
+        return temp
+    }
+
+    transformDate(date){
+        var temp = date.split('-')
+
+        switch(parseInt(temp[1])){
+            case 1:
+                return temp[2] + '. January ' +  temp[0]
+                break
+            case 2:
+                return temp[2] + '. February ' +  temp[0]
+                break
+            case 3:
+                return temp[2] + '. March ' +  temp[0]
+                break
+            case 4:
+                return temp[2] + '. April ' +  temp[0]
+                break
+            case 5:
+                return temp[2] + '. May ' +  temp[0]  
+                break  
+            case 6:
+                return temp[2] + '. June ' +  temp[0]
+                break
+            case 7:
+                return temp[2] + '. July ' +  temp[0]
+                break
+            case 8:
+                return temp[2] + '. August ' +  temp[0]
+                break
+            case 9:
+                return temp[2] + '. September ' +  temp[0]
+                break
+            case 10:
+                return temp[2] + '. October ' +  temp[0]
+                break
+            case 11:
+                return temp[2] + '. November ' +  temp[0]
+                break
+            case 12:
+                return temp[2] + '. December ' +  temp[0]
+                break
+            default:
+                return 'ERROR'
+                break
+        }
+    }
+
     getTableContentRow(data){
         var tr = document.createElement('tr')
         tr.appendChild(this.createSingleContentElement('td', data.year))
@@ -84,10 +177,6 @@ export default class ChallengeManager extends LitElement{
         tr.appendChild(this.createSingleContentElement('td', data.roundSix))
         tr.appendChild(this.createSingleContentElement('td', 'cancel'))
         return tr
-    }
-
-    test(){
-        console.log('entered test')
     }
 
     createSingleContentElement(content, msg){
@@ -141,6 +230,95 @@ export default class ChallengeManager extends LitElement{
             this.shadowRoot.getElementById(idToSet).style.display = 'none'
     }
 
+    validateInputParams(){
+        var errorString = ''
+        this.email = this.shadowRoot.getElementById('email').value
+        this.year = this.shadowRoot.getElementById('year').value
+        this.session = this.shadowRoot.getElementById('session').value
+        if(this.validateEmail(this.email) == false)
+            errorString += 'Invalid Email; '
+        if(isNaN(this.year) || this.year == "")
+            errorString += 'Invalid Year; '
+        if(isNaN(this.session) || this.session == "")
+            errorString += 'Invalid Session'
+        return errorString
+    }
+
+    searchEvidencePic(){
+        var errorString = this.validateInputParams()
+        if(errorString == '')
+            this.getSearch()
+        else
+            this.shadowRoot.getElementById('PicNotification').innerHTML = '<span class="error">' + errorString + '</span>'
+    }
+
+    validateEmail(email) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    }
+
+    getSearch(){
+        fetch('http://localhost:8080/testserver/rs/sql/picSearch/' + this.email + '/' + this.year + '/' + this.session, {
+            method: "GET"
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            if(data.picture == "notFound")
+                this.shadowRoot.getElementById('PicNotification').innerHTML = '<span class="error">Picture not found</span>'
+            else{
+                this.download(this.dataURItoBlob(data.picture), data.name + ".png")
+                this.shadowRoot.getElementById('searchForEvidencePic').style.display = 'none'
+                this.clearPictureContainer()
+            }
+        })
+    }
+
+    clearPictureContainer(){
+        this.shadowRoot.getElementById('email').value = ''
+        this.shadowRoot.getElementById('year').value = ''
+        this.shadowRoot.getElementById('session').value = ''
+    }
+
+    dataURItoBlob(dataURI) {
+        // convert base64 to raw binary data held in a string
+        // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
+        var byteString = atob(dataURI.split(',')[1]);
+    
+        // separate out the mime component
+        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    
+        // write the bytes of the string to an ArrayBuffer
+        var ab = new ArrayBuffer(byteString.length);
+        var ia = new Uint8Array(ab);
+        for (var i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+
+        return new Blob([ab], {type: mimeString});
+    }
+
+    downloadPic(pic){
+        this.download(pic, "asdf.jpg", "image/jpeg")
+    }
+
+    download(data, filename) {
+        var file = new Blob([data]);
+        if (window.navigator.msSaveOrOpenBlob)
+            window.navigator.msSaveOrOpenBlob(file, filename);
+        else { // Others
+            var a = document.createElement("a"),
+                    url = URL.createObjectURL(file);
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(function() {
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);  
+            }, 0); 
+        }
+    }
+
     render(){
         $(document).ready(() => { 
             this.setYears()
@@ -151,67 +329,121 @@ export default class ChallengeManager extends LitElement{
             this.loadDatePicker('roundFive')
             this.loadDatePicker('roundSix')
             this.fillManageTable()
-        }) 
+            //${repeat(this.challenges, (item) => html``)}
+        })/*
+        ${repeat(this.challenges, (item) => html`
+                            <tr>
+                                <td>${item.year}</td>
+                                <td>${item.roundOne}</td>
+                                <td>${item.roundTwo}</td>
+                                <td>${item.roundThree}</td>
+                                <td>${item.roundFour}</td>
+                                <td>${item.roundFive}</td>
+                                <td>${item.roundSix}</td>
+                            </tr>
+                        `)}
+         */
         return html`
         <script lang="javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
         <script lang="javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href=/src/components/overviewContent/challengeManager/styles.css>
+        <script lang="javascript" src="/node_modules/file-saver/dist/FileSaver.js"></script>
         <div style="margin-left:2%">
-            <h2 id="manageChallenge" class="header-border" @click="${() => this.changeStatus('manageTable')}"><strong>Manage the challenges</strong></h2>
+
+            <h2 id="manageChallenge" class="header-border" @click="${() => this.changeStatus('manageTable')}"><strong>Manage The Challenges</strong></h2>
             <div id="manageDiv">
                 <table id="manageTable" class="table table-bordered table-validate" style="display:none">
-
+                    <!--<thead>
+                        <tr>
+                            <th>Year</th>
+                            <th>Round One</th>
+                            <th>Round Two</th>
+                            <th>Round Three</th>
+                            <th>Round Four</th>
+                            <th>Round Five</th>
+                            <th>Round Six</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>-->
                 </table>
             </div>
-            <!--<div style="margin-left:2%">-->
-                <h2 id="createChallenge" class="header-border" @click="${() => this.changeStatus('createEnvironment')}"><strong>Create a new challenge</strong></h2>
-                <div id="createEnvironment" style="display:none">
+
+            <h2 id="createChallenge" class="header-border" @click="${() => this.changeStatus('createEnvironment')}"><strong>Create A New Challenge</strong></h2>
+            <div id="createEnvironment" style="display:none">
+                <div class="form-group">
+                    <p>Year</p>
+                    <select id="dropDown" style="width:250px" class="form-control">
+                    </select>
+                </div>
+                <div class="datePickPositionOne">
                     <div class="form-group">
-                        <p>Year</p>
-                        <select id="dropDown" style="width:250px" class="form-control">
-                        </select>
-                    </div>
-                    <div class="datePickPositionOne">
-                        <div class="form-group">
-                            <p for="roundOne">Date of Round 1</p>
-                            <input class="form-control-text "id="roundOne" style="width:80px;text-align:right">
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <p for="roundFour">Date of Round 4</p>
-                            <input class="form-control-text "id="roundFour" style="width:80px;text-align:right">
-                        </div>
-                    </div>
-                    <div class="datePickPositionTwoThree">
-                        <div class="form-group">
-                            <p for="roundTwo">Date of Round 2</p>
-                            <input class="form-control-text "id="roundTwo" style="width:80px;text-align:right">
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <p for="roundFive">Date of Round 5</p>
-                            <input class="form-control-text "id="roundFive" style="width:80px;text-align:right">
-                        </div>
-                    </div>
-                    <div class="datePickPositionTwoThree">
-                        <div class="form-group">
-                            <p for="roundThree">Date of Round 3</p>
-                            <input class="form-control-text "id="roundThree" style="width:80px;text-align:right">
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <p for="roundSix">Date of Round 6</p>
-                            <input class="form-control-text" id="roundSix" style="width:80px;text-align:right">
-                        </div>
+                        <p for="roundOne">Date of Round 1</p>
+                        <input class="form-control-text "id="roundOne" style="width:80px;text-align:right">
                     </div>
                     <br>
-                    <div style="left:2%;margin-top:10%">
-                        <input type ="button" value="Create Challenge" class="btn btn-primary custom-size" @click="${() => this.createNewChallenge()}"></input>
-                        <p id="notification"></p>
+                    <div class="form-group">
+                        <p for="roundFour">Date of Round 4</p>
+                        <input class="form-control-text "id="roundFour" style="width:80px;text-align:right">
                     </div>
                 </div>
-            <!--</div>-->
+                <div class="datePickPositionTwoThree">
+                    <div class="form-group">
+                        <p for="roundTwo">Date of Round 2</p>
+                        <input class="form-control-text "id="roundTwo" style="width:80px;text-align:right">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <p for="roundFive">Date of Round 5</p>
+                        <input class="form-control-text "id="roundFive" style="width:80px;text-align:right">
+                    </div>
+                </div>
+                <div class="datePickPositionTwoThree">
+                    <div class="form-group">
+                        <p for="roundThree">Date of Round 3</p>
+                        <input class="form-control-text "id="roundThree" style="width:80px;text-align:right">
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <p for="roundSix">Date of Round 6</p>
+                        <input class="form-control-text" id="roundSix" style="width:80px;text-align:right">
+                    </div>
+                </div>
+                <br>
+                <div style="left:2%;margin-top:10%">
+                    <input type ="button" value="Create Challenge" class="btn btn-primary custom-size" @click="${() => this.createNewChallenge()}"></input>
+                    <p id="notification"></p>
+                </div>
+            </div>
+
+            <h2 class="header-border" @click="${() => this.changeStatus('searchForEvidencePic')}"><strong>Search For Picture</strong></h2>
+            <div id="searchForEvidencePic" style="display:none">
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm"><strong>Email</strong></span>
+                    </div>
+                    <input id="email" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <br>
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm"><strong>Year</strong></span>
+                    </div>
+                    <input id="year" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <br>
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm"><strong>Session</strong></span>
+                    </div>
+                    <input id="session" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <br>
+                <button class="btn btn-primary custom-size" @click="${() => this.searchEvidencePic()}">Search</button>
+                <p id="PicNotification"></p>
+            </div>  
         </div>
         `
     }

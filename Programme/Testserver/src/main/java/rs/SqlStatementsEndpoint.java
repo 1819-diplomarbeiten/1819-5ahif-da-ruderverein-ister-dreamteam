@@ -3,6 +3,9 @@ package rs;
 import javax.json.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -19,6 +22,16 @@ public class SqlStatementsEndpoint {
         System.out.println(date);
         JsonObject jsonValues = Json.createObjectBuilder().add("time", date.getTime()).add("state", "STARTS").build();
         return jsonValues;
+    }
+
+    @GET
+    @Path("/picSearch/{email}/{year}/{session}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public JsonObject picSearch(@PathParam("email")String email, @PathParam("year")String year, @PathParam("session")String session) throws IOException {
+        System.out.println("================================");
+        System.out.println("=======Get Evidence Picture=====");
+        String content = new String(Files.readAllBytes(Paths.get("C:\\Users\\Daniel\\Desktop\\Schule\\Diplomarbeit\\Ruderverein_ISTER\\1819-5ahif-da-ruderverein-ister-dreamteam\\Programme\\Testserver\\test.txt")));
+        return Json.createObjectBuilder().add("picture", content).add("name", "Der Name").build();
     }
 
     @GET
