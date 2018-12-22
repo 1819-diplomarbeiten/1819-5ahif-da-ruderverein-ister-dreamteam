@@ -1,6 +1,6 @@
 import {LitElement, html} from '@polymer/lit-element'
-import DataService from '../../../../rest/dataService.js'
-import PdfWorker from '../../../../worker/pdf/pdfWorker.js';
+import DataService from '../../../../services/rest/dataService.js'
+import PdfService from '../../../../services/pdf/pdfService.js';
 
 export default class ClubRanking extends LitElement{
     static get properties(){
@@ -28,7 +28,7 @@ export default class ClubRanking extends LitElement{
         .then((resp) => resp.json())
         .then(data => {
             this.shadowRoot.getElementById('notification').innerHTML = 'Please wait, you pdf is being created ...'
-            PdfWorker.createPdfClub(data, this.dropDownYear)
+            PdfService.createPdfClub(data, this.dropDownYear)
             this.shadowRoot.getElementById('notification').innerHTML = ''
         })
     }
@@ -39,7 +39,7 @@ export default class ClubRanking extends LitElement{
         })
         .then(resp => resp.json())
         .then(data => {
-            PdfWorker.createEmailDistance(data)
+            PdfService.createEmailDistance(data)
         })
     }
 

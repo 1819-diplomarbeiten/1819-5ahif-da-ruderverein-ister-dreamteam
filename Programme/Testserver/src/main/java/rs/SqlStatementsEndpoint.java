@@ -13,6 +13,13 @@ import java.util.GregorianCalendar;
 @Path("/sql")
 public class SqlStatementsEndpoint {
     @GET
+    @Path("/translate/{language}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public JsonObject getTranslation(@PathParam("language")String language){
+        return new JsonArrayCreator().getKVGerman(language);
+    }
+
+    @GET
     @Path("/actualChallengeTime")
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject getActualChallengeTime(){

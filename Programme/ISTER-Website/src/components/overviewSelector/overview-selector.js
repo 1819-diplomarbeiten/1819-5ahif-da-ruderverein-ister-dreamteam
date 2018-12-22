@@ -1,5 +1,5 @@
 import {LitElement, html} from '@polymer/lit-element'
-import DataService from '../../rest/dataService.js'
+//import DataService from '../../rest/dataService.js'
 
 export default class OverviewSelector extends LitElement{
     static get properties(){
@@ -35,7 +35,7 @@ export default class OverviewSelector extends LitElement{
                 mainComp.appendChild(elem)
                 break
             case 'distance':
-                elem = document.createElement('distance-form-participant')
+                elem = document.createElement('distance-form-club')
                 mainComp.appendChild(elem)
                 break
             case 'home':

@@ -1,6 +1,6 @@
 import {LitElement, html} from '@polymer/lit-element'
-import DataService from '../../../../rest/dataService.js'
-import PdfWorker from '../../../../worker/pdf/pdfWorker.js'
+import DataService from '../../../../services/rest/dataService.js'
+import PdfService from '../../../../services/pdf/pdfService.js'
 
 export default class PersonRanking extends LitElement{
     static get properties(){
@@ -32,13 +32,13 @@ export default class PersonRanking extends LitElement{
             this.shadowRoot.getElementById('notification').innerHTML = 'Please wait, you pdf is being created ...'
 
             if(this.dropDownResult == '0' && this.dropDownSequence != 'Categories')
-                PdfWorker.createPdfTotal(data, this.dropDownYear)
+                PdfService.createPdfTotal(data, this.dropDownYear)
             else if(this.dropDownResult != '0' && this.dropDownSequence != 'Categories')
-                PdfWorker.createPdfPerSession(data, this.dropDownYear, this.dropDownResult)
+                PdfService.createPdfPerSession(data, this.dropDownYear, this.dropDownResult)
             else if(this.dropDownResult == '0' && this.dropDownSequence == 'Categories')
-                PdfWorker.createPdfTotalPerCategories(data, this.dropDownYear)
+                PdfService.createPdfTotalPerCategories(data, this.dropDownYear)
             else
-                PdfWorker.createPdfPerSessionPerCategories(data, this.dropDownYear, this.dropDownResult)
+                PdfService.createPdfPerSessionPerCategories(data, this.dropDownYear, this.dropDownResult)
 
             this.shadowRoot.getElementById('notification').innerHTML = ''
         })

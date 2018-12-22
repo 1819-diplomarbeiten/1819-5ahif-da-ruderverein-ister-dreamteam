@@ -1,5 +1,5 @@
 import {LitElement, html} from '@polymer/lit-element'
-import DataService from '../../../rest/dataService';
+import DataService from '../../../services/rest/dataService.js';
 
 export default class ChallengeManager extends LitElement{
     static get properties(){
@@ -19,10 +19,10 @@ export default class ChallengeManager extends LitElement{
 
     createNewChallenge(){
         if(this.allValuesSelected() == false)
-            this.shadowRoot.getElementById('notification').innerHTML = '<span class="error">Not all values selected<span>'
+            this.shadowRoot.getElementById('notification').innerHTML = '<span class="error">Nicht alle Werte wurden ausgefüllt<span>'
         else {
             DataService.postChallenge(this.shadowRoot.getElementById('dropDown').value, this.shadowRoot.getElementById('roundOne').value, this.shadowRoot.getElementById('roundTwo').value, this.shadowRoot.getElementById('roundThree').value, this.shadowRoot.getElementById('roundFour').value, this.shadowRoot.getElementById('roundFive').value, this.shadowRoot.getElementById('roundSix').value)
-            this.shadowRoot.getElementById('notification').innerHTML = 'Succesfully sent'
+            this.shadowRoot.getElementById('notification').innerHTML = 'Challenge erstellt'
         }
     }
 
@@ -49,7 +49,7 @@ export default class ChallengeManager extends LitElement{
     }
 
     getTableHeader(){
-        var header =  new Array("Year", "Round One", "Round Two", "Runde Three", "Round Four", "Round Five", "Round Six")
+        var header =  new Array("Jahr", "Runde 1", "Runde 2", "Runde 3", "Runde 4", "Runde 5", "Runde 6")
         var tableHeader = document.createElement('thead')
         var tableHeaderRow = document.createElement('tr')
         for(var i = 0; i < header.length;i++){
@@ -126,25 +126,25 @@ export default class ChallengeManager extends LitElement{
 
         switch(parseInt(temp[1])){
             case 1:
-                return temp[2] + '. January ' +  temp[0]
+                return temp[2] + '. Jänner ' +  temp[0]
                 break
             case 2:
-                return temp[2] + '. February ' +  temp[0]
+                return temp[2] + '. Februar ' +  temp[0]
                 break
             case 3:
-                return temp[2] + '. March ' +  temp[0]
+                return temp[2] + '. März ' +  temp[0]
                 break
             case 4:
                 return temp[2] + '. April ' +  temp[0]
                 break
             case 5:
-                return temp[2] + '. May ' +  temp[0]  
+                return temp[2] + '. Mai ' +  temp[0]  
                 break  
             case 6:
-                return temp[2] + '. June ' +  temp[0]
+                return temp[2] + '. Juni ' +  temp[0]
                 break
             case 7:
-                return temp[2] + '. July ' +  temp[0]
+                return temp[2] + '. Juli ' +  temp[0]
                 break
             case 8:
                 return temp[2] + '. August ' +  temp[0]
@@ -153,13 +153,13 @@ export default class ChallengeManager extends LitElement{
                 return temp[2] + '. September ' +  temp[0]
                 break
             case 10:
-                return temp[2] + '. October ' +  temp[0]
+                return temp[2] + '. Oktober ' +  temp[0]
                 break
             case 11:
                 return temp[2] + '. November ' +  temp[0]
                 break
             case 12:
-                return temp[2] + '. December ' +  temp[0]
+                return temp[2] + '. Dezember ' +  temp[0]
                 break
             default:
                 return 'ERROR'
@@ -184,12 +184,12 @@ export default class ChallengeManager extends LitElement{
         var content = document.createElement(content)
         if(isNaN(msg)){
             if(msg == 'cancel') {
-                content.innerHTML = '<button class="btn btn-danger">Delete Challenge</button>'
+                content.innerHTML = '<button class="btn btn-danger">Challenge löschen</button>'
             }
             else if(this.dateIsInPast(msg))
-                content.innerHTML = msg + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color' disabled>Edit</button>"
+                content.innerHTML = msg + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color' disabled>Ändern</button>"
             else
-                content.innerHTML = msg + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color'>Edit</button>"
+                content.innerHTML = msg + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color'>Ändern</button>"
         }
         else{
             content.innerHTML = msg
@@ -237,11 +237,11 @@ export default class ChallengeManager extends LitElement{
         this.year = this.shadowRoot.getElementById('year').value
         this.session = this.shadowRoot.getElementById('session').value
         if(this.validateEmail(this.email) == false)
-            errorString += 'Invalid Email; '
+            errorString += 'Ungültige Email; '
         if(isNaN(this.year) || this.year == "")
-            errorString += 'Invalid Year; '
+            errorString += 'Ungültiges Jahr; '
         if(isNaN(this.session) || this.session == "")
-            errorString += 'Invalid Session'
+            errorString += 'Ungültige Session'
         return errorString
     }
 
@@ -265,7 +265,7 @@ export default class ChallengeManager extends LitElement{
         .then(resp => resp.json())
         .then(data => {
             if(data.picture == "notFound")
-                this.shadowRoot.getElementById('PicNotification').innerHTML = '<span class="error">Picture not found</span>'
+                this.shadowRoot.getElementById('PicNotification').innerHTML = '<span class="error">Kein Beweisbild gefunden</span>'
             else{
                 this.download(this.dataURItoBlob(data.picture), data.name + ".png")
                 this.shadowRoot.getElementById('searchForEvidencePic').style.display = 'none'
@@ -348,18 +348,18 @@ export default class ChallengeManager extends LitElement{
         <script lang="javascript" src="/node_modules/file-saver/dist/FileSaver.js"></script>
         <div style="margin-left:2%">
 
-            <h2 id="manageChallenge" class="header-border" @click="${() => this.changeStatus('manageTable')}"><strong>Manage The Challenges</strong></h2>
+            <h2 id="manageChallenge" class="header-border" @click="${() => this.changeStatus('manageTable')}"><strong>Challenges bearbeiten</strong></h2>
             <div id="manageDiv">
                 <table id="manageTable" class="table table-bordered table-validate" style="display:none">
                     <!--<thead>
                         <tr>
-                            <th>Year</th>
-                            <th>Round One</th>
-                            <th>Round Two</th>
-                            <th>Round Three</th>
-                            <th>Round Four</th>
-                            <th>Round Five</th>
-                            <th>Round Six</th>
+                            <th>Jahr</th>
+                            <th>Runde 1</th>
+                            <th>Runde 2</th>
+                            <th>Runde 3</th>
+                            <th>Runde 4</th>
+                            <th>Runde 5</th>
+                            <th>Runde 6</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -368,7 +368,7 @@ export default class ChallengeManager extends LitElement{
                 </table>
             </div>
 
-            <h2 id="createChallenge" class="header-border" @click="${() => this.changeStatus('createEnvironment')}"><strong>Create A New Challenge</strong></h2>
+            <h2 id="createChallenge" class="header-border" @click="${() => this.changeStatus('createEnvironment')}"><strong>Challenge erstellen</strong></h2>
             <div id="createEnvironment" style="display:none">
                 <div class="form-group">
                     <p>Year</p>
@@ -377,45 +377,45 @@ export default class ChallengeManager extends LitElement{
                 </div>
                 <div class="datePickPositionOne">
                     <div class="form-group">
-                        <p for="roundOne">Date of Round 1</p>
+                        <p for="roundOne">Datum von Runde 1</p>
                         <input class="form-control-text "id="roundOne" style="width:80px;text-align:right">
                     </div>
                     <br>
                     <div class="form-group">
-                        <p for="roundFour">Date of Round 4</p>
+                        <p for="roundFour">Datum von Runde 4</p>
                         <input class="form-control-text "id="roundFour" style="width:80px;text-align:right">
                     </div>
                 </div>
                 <div class="datePickPositionTwoThree">
                     <div class="form-group">
-                        <p for="roundTwo">Date of Round 2</p>
+                        <p for="roundTwo">Datum von Runde 2</p>
                         <input class="form-control-text "id="roundTwo" style="width:80px;text-align:right">
                     </div>
                     <br>
                     <div class="form-group">
-                        <p for="roundFive">Date of Round 5</p>
+                        <p for="roundFive">Datum von Runde 5</p>
                         <input class="form-control-text "id="roundFive" style="width:80px;text-align:right">
                     </div>
                 </div>
                 <div class="datePickPositionTwoThree">
                     <div class="form-group">
-                        <p for="roundThree">Date of Round 3</p>
+                        <p for="roundThree">Datum von Runde 3</p>
                         <input class="form-control-text "id="roundThree" style="width:80px;text-align:right">
                     </div>
                     <br>
                     <div class="form-group">
-                        <p for="roundSix">Date of Round 6</p>
+                        <p for="roundSix">Datum von Runde 6</p>
                         <input class="form-control-text" id="roundSix" style="width:80px;text-align:right">
                     </div>
                 </div>
                 <br>
                 <div style="left:2%;margin-top:10%">
-                    <input type ="button" value="Create Challenge" class="btn btn-primary custom-size" @click="${() => this.createNewChallenge()}"></input>
+                    <input type ="button" value="Challenge erstellen" class="btn btn-primary custom-size" @click="${() => this.createNewChallenge()}"></input>
                     <p id="notification"></p>
                 </div>
             </div>
 
-            <h2 class="header-border" @click="${() => this.changeStatus('searchForEvidencePic')}"><strong>Search For Picture</strong></h2>
+            <h2 class="header-border" @click="${() => this.changeStatus('searchForEvidencePic')}"><strong>Beweisbild suchen</strong></h2>
             <div id="searchForEvidencePic" style="display:none">
                 <div class="input-group input-group-sm mb-3">
                     <div class="input-group-prepend">
@@ -426,7 +426,7 @@ export default class ChallengeManager extends LitElement{
                 <br>
                 <div class="input-group input-group-sm mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-sm"><strong>Year</strong></span>
+                        <span class="input-group-text" id="inputGroup-sizing-sm"><strong>Jahr</strong></span>
                     </div>
                     <input id="year" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
                 </div>
@@ -438,7 +438,7 @@ export default class ChallengeManager extends LitElement{
                     <input id="session" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
                 </div>
                 <br>
-                <button class="btn btn-primary custom-size" @click="${() => this.searchEvidencePic()}">Search</button>
+                <button class="btn btn-primary custom-size" @click="${() => this.searchEvidencePic()}">Suchen</button>
                 <p id="PicNotification"></p>
             </div>  
         </div>

@@ -1,5 +1,5 @@
 import {LitElement, html} from '@polymer/lit-element'
-import DataService from '../../../../rest/dataService.js'
+import DataService from '../../../../services/rest/dataService.js'
 
 export default class DistanceFormClub extends LitElement{
     
