@@ -65,7 +65,8 @@ export default class OverviewSelector extends LitElement{
             })
             .then((resp) => resp.json())
             .then(data => {
-                if(data.status == "true")
+                //if(data.status == "true")
+                if(data.status == false)
                     this.shadowRoot.getElementById('distanceBtn').style.display = 'initial'
             })
     }

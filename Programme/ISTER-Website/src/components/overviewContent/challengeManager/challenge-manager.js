@@ -62,6 +62,7 @@ export default class ChallengeManager extends LitElement{
     }
 
     fillManageTable(){
+        console.log('entered fillmanagetable')
         var temp;
         fetch('http://localhost/restApi/rest/getallchallenges.php', {
             method: "GET"
@@ -295,10 +296,6 @@ export default class ChallengeManager extends LitElement{
         }
 
         return new Blob([ab], {type: mimeString});
-    }
-
-    downloadPic(pic){
-        this.download(pic, "asdf.jpg", "image/jpeg")
     }
 
     download(data, filename) {
