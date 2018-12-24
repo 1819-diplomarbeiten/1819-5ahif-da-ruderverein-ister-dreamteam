@@ -19,6 +19,24 @@ public class SqlStatementsEndpoint {
         return new JsonArrayCreator().getKVGerman(language);
     }
 
+    @PUT
+    @Path("/updateSessionDate")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void updateSessionDate(final JsonObject json){
+        System.out.println("================================");
+        System.out.println("=======Update Session Date======");
+        System.out.println(json);
+    }
+
+    @POST
+    @Path("/postPeriod")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void postPeriod(final JsonObject msg){
+        System.out.println("================================");
+        System.out.println("===========Post Period==========");
+        System.out.println(msg.getInt("distance") + "  " + msg.getJsonString("evidencePic").getString());
+    }
+
     @GET
     @Path("/actualChallengeTime")
     @Produces(MediaType.APPLICATION_JSON)
@@ -66,15 +84,6 @@ public class SqlStatementsEndpoint {
         System.out.println("================================");
         System.out.println("========EmailDistance Ref=======");
         return new JsonArrayCreator().getEmailDistanceReference();
-    }
-
-    @POST
-    @Path("/postPeriod")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void postPeriod(final JsonObject msg){
-        System.out.println("================================");
-        System.out.println("===========Post Period==========");
-        System.out.println(msg.getInt("distance") + "  " + msg.getJsonString("evidencePic").getString());
     }
 
     @POST

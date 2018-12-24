@@ -68,7 +68,7 @@ export default class ErgoChallenge extends LitElement{
                     <h2>Ziel:</h2>
                     <p>Bei vier Termine zusammengerechnet, mindestens 30 000 Meter (Männer) oder 26 000 (Frauen) zu rudern und dabei mit Ruderkollegen aus Österreich und der Welt messen.</p>
                         <h2>Daten:</h2>
-                        <p>Um in die Reihung aufgenommen zu werden, benötige ich Geburtsjahr, Körpergewicht und ein Fotos des Monitors.  Anschließend Übermittlung der Daten per E-mail an challenge@ister.at.  Es können auch vereinsinterne Listen (30K Ergebnisse Liste) verwendet werden.  Vertrauen steht im Vordergrund. Die Reihung erfolgt gemäß der Concept2 Alterseinteilung.</p>
+                        <p>Um an der Challenge teilnehmen zu können, muss man sich mit einer E-Mail auf dieser Website registrieren und weitere persönliche Daten wie Name, Alter, Gewicht, etc. für die Auswertung der Challenge angeben (Das Gewicht dient lediglich zur Berechnung und scheint nicht in der Auswertung auf). Ihre Daten werden vertraulich gespeichert und nicht an Dritte weitergegeben. Bei Fragen wenden Sie sich an challenge@ister.at. Die Reihung erfolgt gemäß der Concept2 Alterseinteilung:</p>
                         <ul>
                             <li>SchülerInnen: bis 14 Jahre</li>
                             <li>JuniorenInnen: 15 – 16 Jahre</li>

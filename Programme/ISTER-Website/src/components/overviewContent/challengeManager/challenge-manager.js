@@ -1,5 +1,6 @@
 import {LitElement, html} from '@polymer/lit-element'
 import DataService from '../../../services/rest/dataService.js';
+//import { repeat } from '@polymer/lit-element/node_modules/lit-html/directives/repeat.js'
 
 export default class ChallengeManager extends LitElement{
     static get properties(){
@@ -9,12 +10,54 @@ export default class ChallengeManager extends LitElement{
             },
             email: String,
             year: String,
-            session: String
+            session: String,
+            valueId: String,
+            oldDate: String
         }
     }
 
     constructor(){
         super();
+        fetch('http://localhost/restApi/rest/getallchallenges.php', {
+            method: "GET"
+        })
+        .then((resp) => resp.json())
+        .then(data => {
+            data = this.transformJson(data)
+            this.doTableFill(data)
+        })
+        /*const request = new XMLHttpRequest()
+        request.open("GET", "http://localhost/restApi/rest/getallchallenges.php", false)
+        request.send(null)
+
+        if(request.status === 200){
+            console.log(request.responseText)
+            this.challenges = request.responseText
+            console.log(this.challenges)
+        }*/
+    }
+
+    doTableFill(data){
+        var tableBody = this.shadowRoot.getElementById('manageBody')
+        for(var i = 0; i < data.length; i ++){
+            var tr = this.getTableContentRow(data[i])
+            tableBody.appendChild(tr)
+        }
+    }
+
+    transformJson(data){
+        for(var i = 0; i < data.length; i ++){
+            data[i] = {
+                year: data[i].year,
+                roundOne: this.intToDate(data[i].roundOne),
+                roundTwo: this.intToDate(data[i].roundTwo),
+                roundThree: this.intToDate(data[i].roundThree),
+                roundFour: this.intToDate(data[i].roundFour),
+                roundFive: this.intToDate(data[i].roundFive),
+                roundSix: this.intToDate(data[i].roundSix)
+            }
+        }
+        return data
     }
 
     createNewChallenge(){
@@ -31,7 +74,38 @@ export default class ChallengeManager extends LitElement{
     }
 
     loadDatePicker(round){
-        $(this.shadowRoot.getElementById(round)).Zebra_DatePicker({direction: 1, disabled_dates:['* * * 0,1,2,3,5,6']});
+        $(this.shadowRoot.getElementById(round)).Zebra_DatePicker({direction: 1, disabled_dates:['* * * 0,1,2,3,5,6'], onChange: function(view, elements) {
+
+            //  on the "days" view...
+            //if (view === 'days') {
+    
+                //  iterate through the active elements in the view
+                elements.each(function() {
+    
+                    //  to simplify searching for particular dates,
+                    //  each element gets a "date" data attribute which
+                    //  is the form of:
+                    //  - YYYY-MM-DD for elements in the "days" view
+                    //  - YYYY-MM for elements in the "months" view
+                    //  - YYYY for elements in the "years" view
+    
+                    //  so, because we're on a "days" view,
+                    //  let's find the 24th day using a regular
+                    //  expression (notice that this will apply to
+                    //  every 24th day of every month of every year)
+                    if ($(this).data('date').match(/\-24$/))
+    
+                        // and highlight it!
+                        $(this).css({
+                            backgroundColor:    '#C40000',
+                            color:              '#FFF'
+                        });
+    
+                });
+    
+            //}
+    
+        }});
     }
 
     setYears(){
@@ -48,122 +122,67 @@ export default class ChallengeManager extends LitElement{
         }
     }
 
-    getTableHeader(){
-        var header =  new Array("Jahr", "Runde 1", "Runde 2", "Runde 3", "Runde 4", "Runde 5", "Runde 6")
-        var tableHeader = document.createElement('thead')
-        var tableHeaderRow = document.createElement('tr')
-        for(var i = 0; i < header.length;i++){
-            var th = document.createElement('th')
-            th.innerHTML = header[i]
-            tableHeaderRow.appendChild(th)
-        }
-        tableHeader.appendChild(tableHeaderRow)
-        return tableHeader
-    }
-
-    fillManageTable(){
-        console.log('entered fillmanagetable')
-        var temp;
-        fetch('http://localhost/restApi/rest/getallchallenges.php', {
-            method: "GET"
-        })
-        .then((resp) => resp.json())
-        .then(data => {
-            var manageTable = this.shadowRoot.getElementById('manageTable')
-            var tableHeader = this.getTableHeader()
-            var tableBody = document.createElement('tbody')
-            for(var i = 0; i < data.length; i ++){
-                var tr = this.getTableContentRow(data[i])
-                tableBody.appendChild(tr)
-            }
-            manageTable.appendChild(tableHeader)
-            manageTable.appendChild(tableBody)
-        })
-    }
-
-    getChallenges(){
-        var temp;
-
-        //return await fetch("http://localhost/restApi/rest/getallchallenges.php");
-
-        
-        fetch('http://localhost/restApi/rest/getallchallenges.php', {
-            method: "GET"
-        })
-        .then((resp) => resp.json())
-        .then(data => {
-            var newObj = []
-            /*var manageTable = this.shadowRoot.getElementById('manageTable')
-            var tableHeader = this.getTableHeader()
-            var tableBody = document.createElement('tbody')
-            for(var i = 0; i < data.length; i ++){
-                var tr = this.getTableContentRow(data[i])
-                tableBody.appendChild(tr)
-            }
-            manageTable.appendChild(tableHeader)
-            manageTable.appendChild(tableBody)*/
-            for(var i = 0; i < data.length; i ++){
-                newObj[i] = {
-                    year: data[i].year,
-                    roundOne: this.transformDate(data[i].roundOne),
-                    roundTwo: this.transformDate(data[i].roundTwo),
-                    roundThree: this.transformDate(data[i].roundThree),
-                    roundFour: this.transformDate(data[i].roundFour),
-                    roundFive: this.transformDate(data[i].roundFive),
-                    roundSix: this.transformDate(data[i].roundSix)
-                }
-            }
-            console.log('newObj ' + newObj)
-            temp = newObj;
-            console.log('temp ' + temp)
-        })
-        console.log('temp2 ' + temp)
-        return temp
-    }
-
-    transformDate(date){
+    intToDate(date){
         var temp = date.split('-')
 
         switch(parseInt(temp[1])){
             case 1:
-                return temp[2] + '. Jänner ' +  temp[0]
-                break
+                return temp[2] + '. Jan ' +  temp[0]
             case 2:
-                return temp[2] + '. Februar ' +  temp[0]
-                break
+                return temp[2] + '. Feb ' +  temp[0]
             case 3:
-                return temp[2] + '. März ' +  temp[0]
-                break
+                return temp[2] + '. Mär ' +  temp[0]
             case 4:
-                return temp[2] + '. April ' +  temp[0]
-                break
+                return temp[2] + '. Apr ' +  temp[0]
             case 5:
-                return temp[2] + '. Mai ' +  temp[0]  
-                break  
+                return temp[2] + '. Mai ' +  temp[0] 
             case 6:
-                return temp[2] + '. Juni ' +  temp[0]
-                break
+                return temp[2] + '. Jun ' +  temp[0]
             case 7:
-                return temp[2] + '. Juli ' +  temp[0]
-                break
+                return temp[2] + '. Jul ' +  temp[0]
             case 8:
-                return temp[2] + '. August ' +  temp[0]
-                break
+                return temp[2] + '. Aug ' +  temp[0]
             case 9:
-                return temp[2] + '. September ' +  temp[0]
-                break
+                return temp[2] + '. Sep ' +  temp[0]
             case 10:
-                return temp[2] + '. Oktober ' +  temp[0]
-                break
+                return temp[2] + '. Okt ' +  temp[0]
             case 11:
-                return temp[2] + '. November ' +  temp[0]
-                break
+                return temp[2] + '. Nov ' +  temp[0]
             case 12:
-                return temp[2] + '. Dezember ' +  temp[0]
-                break
+                return temp[2] + '. Dez ' +  temp[0]
             default:
                 return 'ERROR'
-                break
+        }
+    }
+
+    dateToInt(date){
+        var temp = date.split(' ')
+        temp[0] = temp[0].replace('.', '')
+        switch(temp[1]){
+            case 'Jan':
+                return temp[2] + '-1-' +  temp[0]
+            case 'Feb':
+                return temp[2] + '-2-' +  temp[0]
+            case 'Mär':
+                return temp[2] + '-3-' +  temp[0]
+            case 'Apr':
+                return temp[2] + '-4-' +  temp[0]
+            case 'Mai':
+                return temp[2] + '-5-' +  temp[0] 
+            case 'Jun':
+                return temp[2] + '-6-' +  temp[0]
+            case 'Jul':
+                return temp[2] + '-7-' +  temp[0]
+            case 'Aug':
+                return temp[2] + '-8-' +  temp[0]
+            case 'Sep':
+                return temp[2] + '-9-' +  temp[0]
+            case 'Okt':
+                return temp[2] + '-10-' +  temp[0]
+            case 'Nov':
+                return temp[2] + '-11-' +  temp[0]
+            default:
+                return temp[2] + '-12-' +  temp[0]
         }
     }
 
@@ -184,9 +203,9 @@ export default class ChallengeManager extends LitElement{
         var content = document.createElement(content)
         if(isNaN(msg)){
             if(msg == 'cancel') {
-                content.innerHTML = '<button class="btn btn-danger">Challenge löschen</button>'
+                content.innerHTML = '<button class="btn btn-danger" @click="{() => this.}">Challenge löschen</button>'
             }
-            else if(this.dateIsInPast(msg))
+            else if(this.dateIsInPast(this.dateToInt(msg)))
                 content.innerHTML = msg + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color' disabled>Ändern</button>"
             else
                 content.innerHTML = msg + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color'>Ändern</button>"
@@ -281,16 +300,11 @@ export default class ChallengeManager extends LitElement{
     }
 
     dataURItoBlob(dataURI) {
-        // convert base64 to raw binary data held in a string
-        // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
         var byteString = atob(dataURI.split(',')[1]);
-    
-        // separate out the mime component
         var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-    
-        // write the bytes of the string to an ArrayBuffer
         var ab = new ArrayBuffer(byteString.length);
         var ia = new Uint8Array(ab);
+
         for (var i = 0; i < byteString.length; i++) {
             ia[i] = byteString.charCodeAt(i);
         }
@@ -316,6 +330,35 @@ export default class ChallengeManager extends LitElement{
         }
     }
 
+    deleteChallenge(){
+        console.log('entered delete challenge Z301')
+    }
+
+    openPopup(valueId){
+        this.shadowRoot.getElementById('popup-field').style.display = 'initial';
+        this.valueId = valueId
+        this.oldDate = this.dateToInt(this.shadowRoot.getElementById(this.valueId).innerHTML)
+        //aufruf von zebra datepicker und wert von valueId einrichten
+        //this.loadDatePicker('popupInput')
+        this.shadowRoot.getElementById('popupInput').value = this.dateToInt(this.shadowRoot.getElementById(this.valueId).innerHTML)
+    }
+
+    closePopup(status){
+        this.shadowRoot.getElementById('popup-field').style.display = 'none';
+        if(status == 'save'){
+            this.shadowRoot.getElementById(this.valueId).innerHTML = this.intToDate(this.shadowRoot.getElementById('popupInput').value)
+            var json = JSON.stringify({"oldDate": this.oldDate, "newDate": this.shadowRoot.getElementById('popupInput').value})
+            console.log(json)
+            fetch('http://localhost:8080/testserver/rs/sql/updateSessionDate', {
+                method: "PUT",
+                body: json,
+                headers: {
+                    "content-type": "application/json"
+                }
+            })
+        }
+    }
+
     render(){
         $(document).ready(() => { 
             this.setYears()
@@ -325,9 +368,8 @@ export default class ChallengeManager extends LitElement{
             this.loadDatePicker('roundFour')
             this.loadDatePicker('roundFive')
             this.loadDatePicker('roundSix')
-            this.fillManageTable()
-            //${repeat(this.challenges, (item) => html``)}
-        })/*
+        })
+        /* simple
         ${repeat(this.challenges, (item) => html`
                             <tr>
                                 <td>${item.year}</td>
@@ -340,6 +382,20 @@ export default class ChallengeManager extends LitElement{
                             </tr>
                         `)}
          */
+        /* advanced
+        ${repeat(this.challenges, (item) => html`
+                            <tr>
+                                <td>${item.year}</td>
+                                <td>${item.roundOne}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color'>Ändern</button></td>
+                                <td>${item.roundTwo}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color'>Ändern</button></td>
+                                <td>${item.roundThree}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color'>Ändern</button></td>
+                                <td>${item.roundFour}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color'>Ändern</button></td>
+                                <td>${item.roundFive}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color'>Ändern</button></td>
+                                <td>${item.roundSix}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color'>Ändern</button></td>
+                                <td><button class="btn btn-danger" @click="${this.deleteChallenge(item.year)}">Challenge löschen</button></td>
+                            </tr>
+                        `)}
+        */
         return html`
         <script lang="javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
         <script lang="javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
@@ -350,8 +406,25 @@ export default class ChallengeManager extends LitElement{
 
             <h2 id="manageChallenge" class="header-border" @click="${() => this.changeStatus('manageTable')}"><strong>Challenges bearbeiten</strong></h2>
             <div id="manageDiv">
+                <p id="firstField">18. Jan 2018</p>
+                <button id="trigger_popup_fricc" @click="${() => this.openPopup('firstField')}">Change</button>
+                <br>
+                <p id="secondField">23. Jan 2018</p>
+                <button id="trigger_popup_fricct" @click="${() => this.openPopup('secondField')}">Change</button>
+                <br>
+                <div id="popup-field" class="popup-field">
+                    <span class="helper"></span>
+                    <div>
+                        <input class="form-control-text" id="popupInput" style="width:80px;text-align:right">
+                        <br><br>
+                        <div class="btn-group" role="group">
+                            <button id="doneTwo" type="submit" class="btn btn-primary custom-color" @click="${() => this.closePopup('save')}">Änderung speichern</button>
+                            <button type="submit" class="btn btn-primary custom-color-reverse" @click="${() => this.closePopup('abort')}">Abbrechen</button>
+                        </div>
+                    </div>
+                </div>
                 <table id="manageTable" class="table table-bordered table-validate" style="display:none">
-                    <!--<thead>
+                    <thead>
                         <tr>
                             <th>Jahr</th>
                             <th>Runde 1</th>
@@ -362,9 +435,8 @@ export default class ChallengeManager extends LitElement{
                             <th>Runde 6</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        
-                    </tbody>-->
+                    <tbody id="manageBody">
+                    </tbody>
                 </table>
             </div>
 

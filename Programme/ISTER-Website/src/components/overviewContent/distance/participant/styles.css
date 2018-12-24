@@ -1,11 +1,3 @@
-div.mainPos{
-    position: absolute;
-    /*background-color: #F09830;
-    left:0%; removed*/
-    left: 60%; /*added*/
-    height:100%;
-    margin-top: -26%
-}
 .btn-file {
     position: relative;
     overflow: hidden;
