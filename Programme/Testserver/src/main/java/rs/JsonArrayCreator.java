@@ -164,11 +164,11 @@ public class JsonArrayCreator {
         if(language.equals("german")) {
             JsonObjectBuilder jsonGerman = Json.createObjectBuilder();
             jsonGerman.add("headerCountdown", "DIE CHALLENGE")
-                    .add("headerCay", "Tage")
+                    .add("headerDay", "Tage")
                     .add("headerHour", "Stunden")
                     .add("headerMinutes", "Minuten")
                     .add("headerSeconds", "Sekunden")
-                    .add("homeButtom", "Start")
+                    .add("homeBtn", "Start")
                     .add("homeHeadline", "Willkommen zur ERGO-Challenge Seite des Linzer Rudervereins ISTER")
                     .add("homeTextOne", "Breitensport und Rennsport bestehen schon lange nebeneinander, oft jedoch teilt dieser Umstand die Mitglieder im Verein. Bei einer Challenge kann jeder, unabhängig von dieser Zuordnung teilnehmen. Bei den Reihungen in den Ergebnislisten findet man sich in bekannter Gesellschaft von Freunden, Bekannten oder auch Neueinsteigern verschiedenster Vereine.")
                     .add("homeTextTwo", "Die veranstaltete Challenge beschränkt sich nicht auf Rudervereine allein. Jeder der dabei sein will, ist willkommen und findet seinen Platz. Teilnehmer aus aller Welt sind so willkommen.")
@@ -220,11 +220,11 @@ public class JsonArrayCreator {
         else{
             JsonObjectBuilder jsonEnglish = Json.createObjectBuilder();
             jsonEnglish.add("headerCountdown", "THE CHALLENGE")
-                    .add("headerCay", "Days")
+                    .add("headeDay", "Days")
                     .add("headerHour", "Hours")
                     .add("headerMinutes", "Minutes")
                     .add("headerSeconds", "Seconds")
-                    .add("homeButtom", "Home")
+                    .add("homeBtn", "Home")
                     .add("homeHeadline", "Welcome to the ERGO-Challenge Website of Ruderverein ISTER Linz")
                     .add("homeTextOne", "blaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa english english english english english english english english english english english english english english english english ennglish")
                     .add("homeTextTwo", "english english english english english english english english english english english english english english english english english english english english english english english english ")
