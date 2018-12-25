@@ -26,23 +26,48 @@ export default class ChallengeManager extends LitElement{
             data = this.transformJson(data)
             this.doTableFill(data)
         })
+        /*
+        */
+
+    }
+
+    getAllChallenges(){
         /*const request = new XMLHttpRequest()
         request.open("GET", "http://localhost/restApi/rest/getallchallenges.php", false)
         request.send(null)
 
         if(request.status === 200){
-            console.log(request.responseText)
             this.challenges = request.responseText
-            console.log(this.challenges)
-        }*/
+        }
+        var data = this.transformJson(this.challenges.json())
+            this.doTableFill(data)
+        */
+        
     }
 
     doTableFill(data){
         var tableBody = this.shadowRoot.getElementById('manageBody')
+        console.log('data: ' + data.length)
         for(var i = 0; i < data.length; i ++){
             var tr = this.getTableContentRow(data[i])
             tableBody.appendChild(tr)
+            //tableBody.innerHTML += this.getSingleRow(data[i])
         }
+    }
+
+    getSingleRow(data){
+        return `
+            <tr>
+                <td>${data.year}&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color'>Ändern</button></td>
+                <td>${data.roundOne}&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color'>Ändern</button></td>
+                <td>${data.roundTwo}&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color'>Ändern</button></td>
+                <td>${data.roundThree}&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color'>Ändern</button></td>
+                <td>${data.roundFour}&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color'>Ändern</button></td>
+                <td>${data.roundFive}&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color'>Ändern</button></td>
+                <td>${data.roundSix}&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color'>Ändern</button></td>
+                <td><button class="btn btn-danger" @click="${() => this.deleteChallenge()}">Challenge löschen</button></td>
+            </tr>
+        `
     }
 
     transformJson(data){
@@ -74,38 +99,7 @@ export default class ChallengeManager extends LitElement{
     }
 
     loadDatePicker(round){
-        $(this.shadowRoot.getElementById(round)).Zebra_DatePicker({direction: 1, disabled_dates:['* * * 0,1,2,3,5,6'], onChange: function(view, elements) {
-
-            //  on the "days" view...
-            //if (view === 'days') {
-    
-                //  iterate through the active elements in the view
-                elements.each(function() {
-    
-                    //  to simplify searching for particular dates,
-                    //  each element gets a "date" data attribute which
-                    //  is the form of:
-                    //  - YYYY-MM-DD for elements in the "days" view
-                    //  - YYYY-MM for elements in the "months" view
-                    //  - YYYY for elements in the "years" view
-    
-                    //  so, because we're on a "days" view,
-                    //  let's find the 24th day using a regular
-                    //  expression (notice that this will apply to
-                    //  every 24th day of every month of every year)
-                    if ($(this).data('date').match(/\-24$/))
-    
-                        // and highlight it!
-                        $(this).css({
-                            backgroundColor:    '#C40000',
-                            color:              '#FFF'
-                        });
-    
-                });
-    
-            //}
-    
-        }});
+        $(this.shadowRoot.getElementById(round)).Zebra_DatePicker({direction: 1, disabled_dates:['* * * 0,1,2,3,5,6']});
     }
 
     setYears(){
@@ -368,6 +362,7 @@ export default class ChallengeManager extends LitElement{
             this.loadDatePicker('roundFour')
             this.loadDatePicker('roundFive')
             this.loadDatePicker('roundSix')
+            //this.getAllChallenges()
         })
         /* simple
         ${repeat(this.challenges, (item) => html`
@@ -436,6 +431,7 @@ export default class ChallengeManager extends LitElement{
                         </tr>
                     </thead>
                     <tbody id="manageBody">
+
                     </tbody>
                 </table>
             </div>
