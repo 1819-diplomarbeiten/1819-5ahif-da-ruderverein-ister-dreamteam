@@ -53,9 +53,9 @@ p.text{
   background-color: #35424A;
   border-color: #35424A;
 }
-.login{
-    margin-top: -15%;
-    margin-left: 123.5%
+.login-align{
+    float: right;
+    margin: 1rem;
 }
 .btn-primary:active,.btn-primary:hover,.btn-primary:focus,.btn-primary:visited{
     color:#35424A;

@@ -160,23 +160,23 @@ export default class ChallengeManager extends LitElement{
         temp[0] = temp[0].replace('.', '')
         switch(temp[1]){
             case 'Jan':
-                return temp[2] + '-1-' +  temp[0]
+                return temp[2] + '-01-' +  temp[0]
             case 'Feb':
-                return temp[2] + '-2-' +  temp[0]
+                return temp[2] + '-02-' +  temp[0]
             case 'Mär':
-                return temp[2] + '-3-' +  temp[0]
+                return temp[2] + '-03-' +  temp[0]
             case 'Apr':
-                return temp[2] + '-4-' +  temp[0]
+                return temp[2] + '-04-' +  temp[0]
             case 'Mai':
-                return temp[2] + '-5-' +  temp[0] 
+                return temp[2] + '-05-' +  temp[0] 
             case 'Jun':
-                return temp[2] + '-6-' +  temp[0]
+                return temp[2] + '-06-' +  temp[0]
             case 'Jul':
-                return temp[2] + '-7-' +  temp[0]
+                return temp[2] + '-07-' +  temp[0]
             case 'Aug':
-                return temp[2] + '-8-' +  temp[0]
+                return temp[2] + '-08-' +  temp[0]
             case 'Sep':
-                return temp[2] + '-9-' +  temp[0]
+                return temp[2] + '-09-' +  temp[0]
             case 'Okt':
                 return temp[2] + '-10-' +  temp[0]
             case 'Nov':

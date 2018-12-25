@@ -81,8 +81,11 @@ export default class OverviewSelector extends LitElement{
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
             <link rel="stylesheet" type="text/css" href="/src/components/overviewSelector/styles.css"></link>
             <div class ="background">
-                <div class="banner">
-                    <p><strong>Ergo Challenge ISTER Linz</strong></p>
+                <div>
+                    <div class="banner">
+                        <p><strong>Ergo Challenge ISTER Linz</strong></p>
+                    </div>   
+                    <button type="button" class="btn btn-primary custom-color login-align" style="height:40px" @click="${() => this.changeContent('login')}"><p class="text">Login</p></button>
                 </div>
                 <div class="componentSelection">
                     <div class="singleComponent">
@@ -103,8 +106,7 @@ export default class OverviewSelector extends LitElement{
                                 <button type="button" class="btn btn-primary custom-color" style="height:40px" @click="${() => this.changeContent('challenge-manager')}"><p class="text">Challenge Manager</p></button>
                             </div>
                         </div>
-                    </div>
-                    <button type="button" class="btn btn-primary custom-color login" style="height:40px" @click="${() => this.changeContent('login')}"><p class="text">Login</p></button>
+                    </div>  
                 </div>
             </div>
             <div id="components" class="componentss">

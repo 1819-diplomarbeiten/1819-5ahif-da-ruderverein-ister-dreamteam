@@ -44,7 +44,7 @@ export default class ClubRanking extends LitElement{
     }
 
     checkForEmailDistanceBtn(){
-        //if(club is logged in)
+        //if(a club is logged in)
         if(true)
             this.shadowRoot.getElementById('email-distance-container').style.visibility = 'visible'
     }

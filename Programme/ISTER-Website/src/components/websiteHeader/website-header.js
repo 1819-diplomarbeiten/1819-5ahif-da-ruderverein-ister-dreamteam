@@ -29,15 +29,15 @@ export default class WebSiteHeader extends LitElement{
                 var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                hours = this.zeroChecker(hours, 'hour')
-                minutes = this.zeroChecker(minutes, 'minute')
-                seconds = this.zeroChecker(seconds, 'second')
+                hours = this.zeroChecker(hours)
+                minutes = this.zeroChecker(minutes)
+                seconds = this.zeroChecker(seconds)
                 this.shadowRoot.getElementById('countdown').innerHTML = '<span><strong>THE CHALLENGE ' + data.state + ' &rarr;</strong></span>  ' + days + '<span class="highlight"> Days</span> ' + hours + ' <span class="highlight">Hours</span> ' + minutes + ' <span class="highlight">Minutes</span> ' + seconds + ' <span class="highlight">Seconds</span>'
             }, 994);
         })
     }
 
-    zeroChecker(nr, mode){
+    zeroChecker(nr){
         if(nr.toString().length == 1)
             return "0" + nr.toString();
         else 
