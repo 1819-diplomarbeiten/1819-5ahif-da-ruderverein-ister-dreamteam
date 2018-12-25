@@ -1,6 +1,7 @@
 import {LitElement, html} from '@polymer/lit-element'
 import DataService from '../../../../services/rest/dataService.js'
 import PdfService from '../../../../services/pdf/pdfService.js'
+import TranslationService from '../../../../services/translation/translationService.js'
 
 export default class PersonRanking extends LitElement{
     static get properties(){
@@ -8,12 +9,14 @@ export default class PersonRanking extends LitElement{
             path: String,
             dropDownYear: Number,
             dropDownResult: Number,
-            dropDownSequence: String
+            dropDownSequence: String,
+            translation: []
         }
     }
     constructor(){
         super();
         this.path = 'http://localhost/restApi/rest/';
+        this.translation = TranslationService.getTranslation('participant-ranking')
     }
 
     getDistances(){
@@ -52,12 +55,12 @@ export default class PersonRanking extends LitElement{
         <link rel="stylesheet" type="text/css" href=/src/components/overviewContent/ranking/person/styles.css></link>
         <div class="mainPos">
             <div style="margin-left:2%">
-            <h1><strong>30K Person Ranking List:</strong></h1>
-            <h3>Select your filter options</h3>
+            <h1><strong>${this.translation["participantRankingHeadline"]}:</strong></h1>
+            <h3>${this.translation["rankingSubheadline"]}</h3>
                 <div class="dropdown">
                     <form>
                         <div class="form-group">
-                            <p>Year</p>
+                            <p>${this.translation["rankingYear"]}</p>
                             <select id="dropDownYear" class="form-control" style="width:170px">
                                 <option value="2017">2017 / 2018</option>
                                 <option value="2016">2016 / 2017</option>
@@ -66,7 +69,7 @@ export default class PersonRanking extends LitElement{
                         </div>
                         <br>
                         <div class="form-group">
-                            <p>Result</p>
+                            <p>${this.translation["rankingResult"]}</p>
                             <select id="dropDownResult" class="form-control" style="width:170px">
                                 <option value="0">Total</option>
                                 <option value="1">1st Session</option>
@@ -79,17 +82,17 @@ export default class PersonRanking extends LitElement{
                         </div>
                         <br>
                         <div class="form-group">
-                            <p>Sequence</p>
+                            <p>${this.translation["rankingSequence"]}</p>
                             <select id="dropDownSequence" class="form-control" style="width:170px">
-                                <option value="Alphabetic">Alphabetic</option>
-                                <option value="TopDown">TopDown</option>
-                                <option value="Categories">Categories</option>
+                                <option value="Alphabetic">${this.translation["participantRankingSequenceContent"].split(';')[0]}</option>
+                                <option value="TopDown">${this.translation["participantRankingSequenceContent"].split(';')[1]}</option>
+                                <option value="Categories">${this.translation["participantRankingSequenceContent"].split(';')[2]}</option>
                             </select>
                         </div>
                     </form>
                 </div>
                 <br>
-                <input type ="button" value="Download pdf" class="btn btn-primary custom-color" @click="${() => this.getDistances()}"></input>
+                <input type ="button" value="${this.translation["rankingDownloadBtn"]}" class="btn btn-primary custom-color" @click="${() => this.getDistances()}"></input>
                 <p id="notification"></p>
             </div>
         </div>

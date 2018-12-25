@@ -1,9 +1,16 @@
 import {LitElement, html} from '@polymer/lit-element'
+import TranslationService from '../../../services/translation/translationService.js'
 
 export default class HomeView extends LitElement{
+    static get properties(){
+        return{
+            translation: []
+        }
+    }
 
     constructor(){
         super()
+        this.translation = TranslationService.getTranslation('home-view')
     }
 
     render(){
@@ -11,15 +18,15 @@ export default class HomeView extends LitElement{
             <link rel="stylesheet" type="text/css" href="/src/components/overviewContent/homeView/styles.css"></link>
             <div class="mainPos">
                 <div style="margin-left:2%">
-                    <h1><strong>Willkommen zur ERGO-Challenge Seite des Linzer Rudervereins ISTER</strong></h1>
+                    <h1><strong>${this.translation["homeHeadline"]}</strong></h1>
                     <div class="body-container">
                         <img src="images/homeView.jpg" width="650" height="433" class="image">
                         <div class="text-container">
-                            <p class="lineSeparator">Breitensport und Rennsport bestehen schon lange nebeneinander, oft jedoch teilt dieser Umstand die Mitglieder im Verein. Bei einer Challenge kann jeder, unabhängig von dieser Zuordnung teilnehmen. Bei den Reihungen in den Ergebnislisten findet man sich in bekannter Gesellschaft von Freunden, Bekannten oder auch Neueinsteigern verschiedenster Vereine.</p>  
+                            <p class="lineSeparator">${this.translation["homeTextOne"]}</p>  
                             <br>
-                            <p class="lineSeparator">Die veranstaltete Challenge beschränkt sich nicht auf Rudervereine allein.  Jeder der dabei sein will, ist willkommen und findet seinen Platz.  Teilnehmer aus aller Welt sind so willkommen.</p>
+                            <p class="lineSeparator">${this.translation["homeTextTwo"]}</p>
                             <br>
-                            <p class="lineSeparator">Als veranstaltender Verein „Linzer Ruderverein ISTER“ haben diese Veranstaltungen natürlich Bezug zum Rudern, insbesondere die Winterchallenge an den Concept2 Ergometern wird auch an die Fitness Clubs getragen.</p>
+                            <p class="lineSeparator">${this.translation["homeTextThree"]}</p>
                             <p><strong>ERGO - Challenge</strong></p>
                         </div>
                     </div>

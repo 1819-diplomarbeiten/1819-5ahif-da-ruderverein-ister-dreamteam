@@ -1,14 +1,32 @@
 import {LitElement, html} from '@polymer/lit-element'
 //import DataService from '../../rest/dataService.js'
+import TranslationService from '../../services/translation/translationService.js'
 
 export default class OverviewSelector extends LitElement{
     static get properties(){
         return {
-            
+            translation: [],
+            lastLanguage: '',
+            lastUsedContent: ''
         }
     }
     constructor(){
         super();
+        this.lastUsedContent = 'home-view'
+        this.translation = TranslationService.getTranslation('overview-selector')
+        this.lastLanguage = TranslationService.getCurrentLanguage()
+        this.startTranslationDetection()
+    }
+
+    startTranslationDetection(){
+        setInterval(_ => {
+            var tmp = TranslationService.getCurrentLanguage()
+            if(tmp != this.lastLanguage){
+                this.translation = TranslationService.getTranslation('overview-selector')
+                this.lastLanguage = tmp
+                this.changeContent(this.lastUsedContent)
+            }
+        }, 500);
     }
     
     changeWebsite(){
@@ -16,6 +34,7 @@ export default class OverviewSelector extends LitElement{
     }
 
     changeContent(content){
+        this.lastUsedContent = content
         let elem = null
         let mainComp = this.shadowRoot.getElementById('components')
 
@@ -91,7 +110,7 @@ export default class OverviewSelector extends LitElement{
                     <div class="singleComponent">
                         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                             <div class="btn-group mr-2" role="group" aria-label="First group">
-                                <button type="button" class="btn btn-primary custom-color" style="height:40px" @click="${() => this.changeContent('home')}"><p class="text">Home</p></button>
+                                <button type="button" class="btn btn-primary custom-color" style="height:40px" @click="${() => this.changeContent('home')}"><p class="text">${this.translation["homeBtn"]}</p></button>
                                 <button type="button" class="btn btn-primary custom-color" style="height:40px" @click="${() => this.changeContent('ergo')}"><p class="text">Ergo Challenge</p></button>
                             </div>
                             <div class="btn-group mr-2" role="group" aria-label="Second group">

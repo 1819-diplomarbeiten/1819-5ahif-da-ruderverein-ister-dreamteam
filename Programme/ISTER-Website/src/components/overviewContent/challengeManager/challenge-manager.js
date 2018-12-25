@@ -47,7 +47,6 @@ export default class ChallengeManager extends LitElement{
 
     doTableFill(data){
         var tableBody = this.shadowRoot.getElementById('manageBody')
-        console.log('data: ' + data.length)
         for(var i = 0; i < data.length; i ++){
             var tr = this.getTableContentRow(data[i])
             tableBody.appendChild(tr)

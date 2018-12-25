@@ -1,18 +1,29 @@
 import {LitElement, html} from '@polymer/lit-element'
+import TranslationService from '../../services/translation/translationService.js'
 
 export default class WebSiteHeader extends LitElement{
     static get properties(){
         return {
-            path: String
+            path: String,
+            translation: []
         }
     }
     constructor(){
         super();
         this.path = 'http://localhost/restApi/rest'
+        this.translation = []
+        /*start */
+        this.changeLanguage('german')
+
     }
 
     changeLanguage(language){
         console.log(language + ' selected as language')
+        /* start */
+        fetch('http://localhost:8080/testserver/rs/sql/translate/' + language)
+        .then(resp => resp.json())
+        TranslationService.loadTranslation(language)
+        this.translation = TranslationService.getTranslation('website-header')
     }
 
     countdown(){
@@ -32,7 +43,9 @@ export default class WebSiteHeader extends LitElement{
                 hours = this.zeroChecker(hours)
                 minutes = this.zeroChecker(minutes)
                 seconds = this.zeroChecker(seconds)
-                this.shadowRoot.getElementById('countdown').innerHTML = '<span><strong>THE CHALLENGE ' + data.state + ' &rarr;</strong></span>  ' + days + '<span class="highlight"> Days</span> ' + hours + ' <span class="highlight">Hours</span> ' + minutes + ' <span class="highlight">Minutes</span> ' + seconds + ' <span class="highlight">Seconds</span>'
+                this.shadowRoot.getElementById('countdown').innerHTML = `
+                    <span><strong>${this.translation["headerCountdown"]} ${data.state} &rarr; </strong></span>${days}<span class="highlight"> ${this.translation["headerDay"]} </span>${hours}<span class="highlight"> ${this.translation["headerHour"]} </span>${minutes}<span class="highlight"> ${this.translation["headerMinutes"]} </span>${seconds}<span class="highlight"> ${this.translation["headerSeconds"]} </span>
+                    `
             }, 994);
         })
     }

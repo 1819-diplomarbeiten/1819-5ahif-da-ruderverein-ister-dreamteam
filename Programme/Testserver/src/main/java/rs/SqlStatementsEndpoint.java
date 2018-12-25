@@ -16,7 +16,10 @@ public class SqlStatementsEndpoint {
     @Path("/translate/{language}")
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject getTranslation(@PathParam("language")String language){
-        return new JsonArrayCreator().getKVGerman(language);
+        System.out.println(language);
+        JsonObject json = new JsonArrayCreator().getKV(language);
+        System.out.println(json);
+        return json;
     }
 
     @PUT

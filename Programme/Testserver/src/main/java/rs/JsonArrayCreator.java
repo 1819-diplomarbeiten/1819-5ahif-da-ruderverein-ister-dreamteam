@@ -160,7 +160,7 @@ public class JsonArrayCreator {
         return jsonArrayBuilder.build();
     }
 
-    public JsonObject getKVGerman(String language){
+    public JsonObject getKV(String language){
         if(language.equals("german")) {
             JsonObjectBuilder jsonGerman = Json.createObjectBuilder();
             jsonGerman.add("headerCountdown", "DIE CHALLENGE")
@@ -217,13 +217,13 @@ public class JsonArrayCreator {
         else{
             JsonObjectBuilder jsonEnglish = Json.createObjectBuilder();
             jsonEnglish.add("headerCountdown", "THE CHALLENGE")
-                    .add("headeDay", "Days")
+                    .add("headerDay", "Days")
                     .add("headerHour", "Hours")
                     .add("headerMinutes", "Minutes")
                     .add("headerSeconds", "Seconds")
                     .add("homeBtn", "Home")
                     .add("homeHeadline", "Welcome to the ERGO-Challenge Website of Ruderverein ISTER Linz")
-                    .add("homeTextOne", "blaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa english english english english english english english english english english english english english english english english ennglish")
+                    .add("homeTextOne", "blaaaaaaaaaaaaaaa aaaaaaaa aaaaa aaa aaaa aaaa aaaaa aaaaaaa aaa aaaaa aaaaaa aaaaaa   aaa aa aaa aaa aaaaa aaa aaa aaaa aaa aaa aaaaaaaaaa aaa english english english english english english english english english english english english english english english english ennglish")
                     .add("homeTextTwo", "english english english english english english english english english english english english english english english english english english english english english english english english ")
                     .add("homeTextThree", "english english english english english english english english english english english english english english english english english english english english english ")
                     .add("ergoHeadline", "30 (dirty) K Ergo Challenge")
@@ -247,20 +247,19 @@ public class JsonArrayCreator {
                     .add("rankingDownloadBtn", "Download pdf")
                     .add("clubRankingEmailDistanceBtn", "Load Email-Name List")
                     .add("participantRankingHeadline", "30K Participant Ranking Liste")
-                    .add("participantRankingSubheadline", "Select Your Filter Options")
-                    .add("clubRankingSequenceContent", "Alphabetic;Top Down; Categories")
+                    .add("participantRankingSequenceContent", "Alphabetic;Top Down; Categories")
                     .add("distanceClubHeadlineOne", "Check Your Structur")
                     .add("distanceClubSubheadlineOne", "This Is How The Excel Should Look Like (.xlsx Format)")
-                    .add("distanceClubSubmitOne", "Verstanden")
-                    .add("distanceClubHeadlineTwo", "Wählen Sie die Datei aus")
-                    .add("distanceClubSelectTwo", "Wähle Excel Datei")
-                    .add("distanceClubSubmitBtn", "Erledigt")
-                    .add("distanceClubBackBtn", "Schritt zurück")
-                    .add("distanceHeadlineThree", "Hochladen zum Server")
-                    .add("distanceClubSuccessThree", "Ihre Excel Datei wurde erfolgreich hochgeladen")
-                    .add("distanceClubErrorThree", "Excel Daten ungültig")
-                    .add("distanceParticipantHeadlineOne", "Tragen Sie die erreichte Distanz ein")
-                    .add("distanceParticipantSubheadlineOne", "Distanz")
+                    .add("distanceClubSubmitOne", "got it")
+                    .add("distanceClubHeadlineTwo", "select yo data")
+                    .add("distanceClubSelectTwo", "select excel")
+                    .add("distanceClubSubmitBtn", "done")
+                    .add("distanceClubBackBtn", "Step back")
+                    .add("distanceHeadlineThree", "upload to Server")
+                    .add("distanceClubSuccessThree", "succesfully uploaded")
+                    .add("distanceClubErrorThree", "Excel invalid")
+                    .add("distanceParticipantHeadlineOne", "Enter your distance")
+                    .add("distanceParticipantSubheadlineOne", "Distance")
                     .add("distanceParticipantSubmitBtnOne", "Erledigt")
                     .add("distanceParticipantErrorMsg", "Ungültige Distanz")
                     .add("distanceParticipantHeadlineTwo", "Wählen Sie das Beweisbild aus")

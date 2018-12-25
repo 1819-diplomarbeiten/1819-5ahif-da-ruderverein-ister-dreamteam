@@ -1,6 +1,7 @@
 import {LitElement, html} from '@polymer/lit-element'
 import DataService from '../../../../services/rest/dataService.js'
 import PdfService from '../../../../services/pdf/pdfService.js';
+import TranslationService from '../../../../services/translation/translationService.js'
 
 export default class ClubRanking extends LitElement{
     static get properties(){
@@ -8,13 +9,15 @@ export default class ClubRanking extends LitElement{
             dropDownYear: Number,
             dropDownResult: Number,
             dropDownSequence: String,
-            path: String
+            path: String,
+            translation: []
         }
     }
 
     constructor(){
         super();
         this.path = 'http://localhost/restApi/rest/';
+        this.translation = TranslationService.getTranslation('club-ranking')
     }
 
     getDistances(){
@@ -60,12 +63,12 @@ export default class ClubRanking extends LitElement{
         <link rel="stylesheet" type="text/css" href=/src/components/overviewContent/ranking/club/styles.css></link>
         <div class="mainPos">
             <div style="margin-left:2%">
-                <h1><strong>30K Club Ranking List:</strong></h1>
-                <h3>Select your filter options</h3>
+                <h1><strong>${this.translation["clubRankingHeadline"]}:</strong></h1>
+                <h3>${this.translation["rankingSubheadline"]}</h3>
                 <div class="dropdown">
                     <form>
                         <div class="form-group">
-                            <p>Year</p>
+                            <p>${this.translation["rankingYear"]}</p>
                             <select id="dropDownYear" class="form-control" style="width:170px">
                                 <option value="2017">2017 / 2018</option>
                                 <option value="2016">2016 / 2017</option>
@@ -74,7 +77,7 @@ export default class ClubRanking extends LitElement{
                         </div>
                         <br>
                         <div class="form-group">
-                            <p>Result</p>
+                            <p>${this.translation["rankingResult"]}</p>
                             <select id="dropDownResult" class="form-control" style="width:170px">
                                 <option value="0">Total</option>
                                 <option value="1">1st Session</option>
@@ -87,20 +90,20 @@ export default class ClubRanking extends LitElement{
                         </div>
                         <br>
                         <div class="form-group">
-                            <p>Sequence</p>
+                            <p>${this.translation["rankingSequence"]}</p>
                             <select id="dropDownSequence" class="form-control" style="width:170px">
-                                <option value="Alphabetic">Alphabetic</option>
-                                <option value="TopDown">TopDown</option>
+                                <option value="Alphabetic">${this.translation["clubRankingSequenceContent"].split(';')[0]}</option>
+                                <option value="TopDown">${this.translation["clubRankingSequenceContent"].split(';')[1]}</option>
                             </select>
                         </div>
                     </form>
                 </div>
                 <br>
-                <input type ="button" value="Download pdf" class="btn btn-primary custom-color" @click="${() => this.getDistances()}"></input>
+                <input type ="button" value="${this.translation["rankingDownloadBtn"]}" class="btn btn-primary custom-color" @click="${() => this.getDistances()}"></input>
                 <p id="notification"></p>
                 <div id="email-distance-container" style="visibility:hidden">
                     <p>------------------------</p>
-                    <input type ="button" value="Get Email-Distance Reference" class="btn btn-primary custom-color" style="width:210px" @click="${() => this.getEmailNameList()}"></input>
+                    <input type ="button" value="${this.translation["clubRankingEmailDistanceBtn"]}" class="btn btn-primary custom-color" style="width:210px" @click="${() => this.getEmailNameList()}"></input>
                 </div>
             </div>
         </div>
