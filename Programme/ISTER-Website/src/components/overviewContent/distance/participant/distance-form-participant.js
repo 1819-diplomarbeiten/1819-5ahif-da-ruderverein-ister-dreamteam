@@ -1,18 +1,21 @@
 import {LitElement, html} from '@polymer/lit-element'
 import DataService from '../../../../services/rest/dataService.js'
+import TranslationService from '../../../../services/translation/translationService.js'
 
 export default class DistanceFormParticipant extends LitElement{
     static get properties(){
         return{
             distance: Number,
             evidencePic: String,
-            uploaded: Boolean
+            uploaded: Boolean,
+            translation: []
         }
     }
     
     constructor(){
         super();
         this.uploaded = false;
+        this.translation = TranslationService.getTranslation('participant-distance')
     }
 
     postPeriod(){
@@ -32,7 +35,7 @@ export default class DistanceFormParticipant extends LitElement{
 
     manage(evidencePic){
         DataService.postPeriod(this.distance, evidencePic)
-        this.shadowRoot.getElementById('waiting').innerHTML = 'Your distance is successfully uploaded!'
+        this.shadowRoot.getElementById('waiting').innerHTML = `${this.translation["distanceParticipantSuccessThree"]}!`
         this.shadowRoot.getElementById('notification').innerHTML = ''
         this.uploaded = true
     }
@@ -40,7 +43,7 @@ export default class DistanceFormParticipant extends LitElement{
     validDistance(){
         this.distance = this.shadowRoot.getElementById('distance').value;
         if(isNaN(this.distance) == true || this.distance == ""){
-            this.shadowRoot.getElementById('distanceNotification').innerHTML = '<span class="error">Invalid Distance<span>'
+            this.shadowRoot.getElementById('distanceNotification').innerHTML = `<span class="error">${this.translation["distanceParticipantErrorMsg"]}<span>`
             return false
         }
         else{
@@ -94,51 +97,51 @@ export default class DistanceFormParticipant extends LitElement{
         <div style="margin-top:2%;margin-left: 2%">
             <div>
                 <p class="number-design" @click="${() => this.activate('1')}">1</p>
-                <h2 style="margin-top:-3%;margin-left:4%" @click="${() => this.activate('1')}"><strong>Enter your reached distance</strong></h2>
+                <h2 style="margin-top:-3%;margin-left:4%" @click="${() => this.activate('1')}"><strong>${this.translation["distanceParticipantHeadlineOne"]}</strong></h2>
             </div>
             <div class="horizontal-line"></div><br>
             <div id="contentOne">
                 <div class="input-group input-group-sm mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-sm"><strong>Distance</strong></span>
+                        <span class="input-group-text" id="inputGroup-sizing-sm"><strong>${this.translation["distanceParticipantSubheadlineOne"]}</strong></span>
                     </div>
                     <input id="distance" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
                 </div>
                 <p id="distanceNotification"></p>
                 <br>
-                <button type="submit" class="btn btn-primary custom-color" @click="${() => this.activate('2')}">Done</button><br><br>
+                <button type="submit" class="btn btn-primary custom-color" @click="${() => this.activate('2')}">${this.translation["distanceSubmitBtn"]}</button><br><br>
             </div>
 
 
             <div>
                 <p class="number-design">2</p>
-                <h2 style="margin-top:-3%;margin-left:4%"><strong>Select your evidence picture</strong></h2>
+                <h2 style="margin-top:-3%;margin-left:4%"><strong>${this.translation["distanceParticipantHeadlineTwo"]}</strong></h2>
             </div>
             <div class="horizontal-line"></div><br>
             <div id="contentTwo" style="display:none">
                 <div class="form-group">
                     <label class="btn btn-default btn-file">
-                        Select Evidence Pic <input id="evidencePic" accept=".png, .jpg, .jpeg" class="form-control-file" type="file" style="display: none;">
+                    ${this.translation["distanceParticipantSelectionTwo"]} <input id="evidencePic" accept=".png, .jpg, .jpeg" class="form-control-file" type="file" style="display: none;">
                     </label>
                 </div>
                 
                 <p id="picNotification"></p>
                 <div class="btn-group" role="group">
-                    <button id="doneTwo" type="submit" class="btn btn-primary custom-color" @click="${() => this.activate('3')}">Done</button>
-                    <button type="submit" class="btn btn-primary custom-color-reverse" @click="${() => this.activate('1')}">Step Back</button><br><br>
+                    <button id="doneTwo" type="submit" class="btn btn-primary custom-color" @click="${() => this.activate('3')}">${this.translation["distanceSubmitBtn"]}</button>
+                    <button type="submit" class="btn btn-primary custom-color-reverse" @click="${() => this.activate('1')}">${this.translation["distanceBackBtn"]}</button><br><br>
                 </div>
             </div>
 
 
             <div>
                 <p class="number-design">3</p>
-                <h2 style="margin-top:-3%;margin-left:4%"><strong>Upload to Server</strong></h2>
+                <h2 style="margin-top:-3%;margin-left:4%"><strong>${this.translation["distanceHeadlineThree"]}</strong></h2>
             </div>
             <div class="horizontal-line"></div><br>
             <div id="contentThree" style="display:none">
                 <h3 id="waiting"><strong>Waiting ...</strong></h3>
                 <p id="notification"></p>
-                <button id="stepBackThree" style="display:none" type="submit" class="btn btn-primary custom-color-reverse" @click="${() => this.activate('2')}">Step Back</button>
+                <button id="stepBackThree" style="display:none" type="submit" class="btn btn-primary custom-color-reverse" @click="${() => this.activate('2')}">${this.translation["distanceBackBtn"]}</button>
             </div>
         </div>
         `

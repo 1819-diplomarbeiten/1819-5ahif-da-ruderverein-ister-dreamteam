@@ -16,19 +16,17 @@ export default class HomeView extends LitElement{
     render(){
         return html`
             <link rel="stylesheet" type="text/css" href="/src/components/overviewContent/homeView/styles.css"></link>
-            <div class="mainPos">
-                <div style="margin-left:2%">
-                    <h1><strong>${this.translation["homeHeadline"]}</strong></h1>
-                    <div class="body-container">
-                        <img src="images/homeView.jpg" width="650" height="433" class="image">
-                        <div class="text-container">
-                            <p class="lineSeparator">${this.translation["homeTextOne"]}</p>  
-                            <br>
-                            <p class="lineSeparator">${this.translation["homeTextTwo"]}</p>
-                            <br>
-                            <p class="lineSeparator">${this.translation["homeTextThree"]}</p>
-                            <p><strong>ERGO - Challenge</strong></p>
-                        </div>
+            <div style="margin-left:2%">
+                <h1><strong>${this.translation["homeHeadline"]}</strong></h1>
+                <div class="body-container">
+                    <img src="images/homeView.jpg" width="650" height="433" class="image">
+                    <div class="text-container">
+                        <p class="lineSeparator">${this.translation["homeTextOne"]}</p>  
+                        <br>
+                        <p class="lineSeparator">${this.translation["homeTextTwo"]}</p>
+                        <br>
+                        <p class="lineSeparator">${this.translation["homeTextThree"]}</p>
+                        <p><strong>ERGO - Challenge</strong></p>
                     </div>
                 </div>
             </div>

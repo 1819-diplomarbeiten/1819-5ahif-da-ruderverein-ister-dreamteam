@@ -1,17 +1,20 @@
 import {LitElement, html} from '@polymer/lit-element'
 import DataService from '../../../../services/rest/dataService.js'
+import TranslationService from '../../../../services/translation/translationService.js'
 
 export default class DistanceFormClub extends LitElement{
     
     static get properties(){
         return{
-            uploaded: Boolean
+            uploaded: Boolean,
+            translation: []
         }
     }
 
     constructor(){
         super();
         this.uploaded = false
+        this.translation = TranslationService.getTranslation('club-distance')
     }
 
     postPeriods(){
@@ -37,12 +40,12 @@ export default class DistanceFormClub extends LitElement{
                 var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
                 var jsonObj = JSON.stringify(XL_row_object);
                 if(this.excelIsValid(XL_row_object) == false) {
-                    this.shadowRoot.getElementById('notification').innerHTML = 'Excel data invalid'
+                    this.shadowRoot.getElementById('notification').innerHTML = `${this.translation["distanceClubErrorThree"]}`
                     this.shadowRoot.getElementById('stepBackThree').style.display = 'initial'
                 }
                 else {
                     DataService.postPeriods(jsonObj)
-                    this.shadowRoot.getElementById('waiting').innerHTML = 'Your Excel File is successfully uploaded!'
+                    this.shadowRoot.getElementById('waiting').innerHTML = `${this.translation["distanceClubSuccessThree"]}!`
                     this.shadowRoot.getElementById('notification').innerHTML = ''
                     this.uploaded = true
                 }
@@ -111,11 +114,11 @@ export default class DistanceFormClub extends LitElement{
                 <div style="margin-left:2%">
                     <div>
                         <p class="number-design" @click="${() => this.activate('1')}">1</p>
-                        <h2 style="margin-top:-3%;margin-left:4%" @click="${() => this.activate('1')}"><strong>Check the structure</strong></h2>
+                        <h2 style="margin-top:-3%;margin-left:4%" @click="${() => this.activate('1')}"><strong>${this.translation["distanceClubHeadlineOne"]}</strong></h2>
                     </div>
                     <div class="horizontal-line"></div><br>
                     <div id="contentOne">
-                        <br><h4><strong>This is how the Excel should look like (.xlsx File)</strong><h4>
+                        <br><h4><strong>${this.translation["distanceClubSubheadlineOne"]}</strong><h4>
                         <table class="table table-dark" style="width:400px">
                             <thead width="300" class="thead-dark">
                                 <tr>
@@ -142,36 +145,36 @@ export default class DistanceFormClub extends LitElement{
                                 </tr>
                             </tbody>
                         </table>
-                        <button type="submit" class="btn btn-primary custom-color" @click="${() => this.activate('2')}">Got it!</button><br><br>
+                        <button type="submit" class="btn btn-primary custom-color" @click="${() => this.activate('2')}">${this.translation["distanceClubSubmitOne"]}</button><br><br>
                     </div>
 
                     <div>
                         <p class="number-design">2</p>
-                        <h2 style="margin-top:-3%;margin-left:4%"><strong>Select your File</strong></h2>
+                        <h2 style="margin-top:-3%;margin-left:4%"><strong>${this.translation["distanceClubHeadlineTwo"]}</strong></h2>
                     </div>
                     <div class="horizontal-line"></div><br>
                     <div id="contentTwo" style="display:none">
                         <div class="form-group">
                             <label class="btn btn-default btn-file">
-                                Select Excel File <input id="excelFile" accept=".xlsx" class="form-control-file" type="file" style="display:none">
+                                ${this.translation["distanceClubSelectTwo"]} <input id="excelFile" accept=".xlsx" class="form-control-file" type="file" style="display:none">
                             </label>
                         </div>
                         <p id ="excelNotification"></p>
                         <div class="btn-group" role="group">
-                            <button id="doneTwo" type="submit" class="btn btn-primary custom-color" @click="${() => this.activate('3')}" disabled>Done</button>
-                            <button type="submit" class="btn btn-primary custom-color-reverse" @click="${() => this.activate('1')}">Step Back</button><br><br>
+                            <button id="doneTwo" type="submit" class="btn btn-primary custom-color" @click="${() => this.activate('3')}" disabled>${this.translation["distanceSubmitBtn"]}</button>
+                            <button type="submit" class="btn btn-primary custom-color-reverse" @click="${() => this.activate('1')}">${this.translation["distanceBackBtn"]}</button><br><br>
                         </div>
                     </div>
                     <div>
                     <div>
                         <p class="number-design">3</p>
-                        <h2 style="margin-top:-3%;margin-left:4%"><strong>Upload to Server</strong></h2>
+                        <h2 style="margin-top:-3%;margin-left:4%"><strong>${this.translation["distanceHeadlineThree"]}</strong></h2>
                     </div>
                     <div class="horizontal-line"></div><br>
                     <div id="contentThree" style="display:none">
                         <h3 id="waiting"><strong>Waiting ...</strong></h3>
                         <p id="notification"></p>
-                        <button id="stepBackThree" style="display:none" type="submit" class="btn btn-primary custom-color-reverse" @click="${() => this.activate('2')}">Step Back</button>
+                        <button id="stepBackThree" style="display:none" type="submit" class="btn btn-primary custom-color-reverse" @click="${() => this.activate('2')}">${this.translation["distanceBackBtn"]}</button>
                     </div>
                 </div>
             </div>

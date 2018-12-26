@@ -7,6 +7,7 @@ var ergoChallengeKeys = [""] //ergo challenge not done
 var clubRankingKeys = ["clubRankingHeadline", "rankingSubheadline", "rankingYear", "rankingResult", "rankingResultContent", "rankingSequence", "clubRankingSequenceContent", "rankingDownloadBtn", "clubRankingEmailDistanceBtn"]
 var participantRankingKeys = ["participantRankingHeadline", "rankingYear", "rankingResult", "rankingResultContent", "rankingSequence", "participantRankingSequenceContent", "rankingDownloadBtn"]
 var clubDistanceKeys = ["distanceClubHeadlineOne", "distanceClubSubheadlineOne", "distanceClubSubmitOne", "distanceClubHeadlineTwo", "distanceClubSelectTwo", "distanceClubSubmitBtn", "distanceBackBtn", "distanceHeadlineThree", "distanceClubSuccessThree", "distanceClubErrorThree", "distanceSubmitBtn"]
+var participantDistanceKeys = ["distanceSubmitBtn", "distanceBackBtn", "distanceHeadlineThree", "distanceParticipantHeadlineOne", "distanceParticipantSubheadlineOne", "distanceParticipantErrorMsg", "distanceParticipantHeadlineTwo", "distanceParticipantSelectionTwo", "distanceParticipantSuccessThree"]
 var currentLanguage = ''
 export default class TranslationService{
 
@@ -44,6 +45,8 @@ export default class TranslationService{
                 return this.getSpecificTranslation(participantRankingKeys)
             case 'club-distance':
                 return this.getSpecificTranslation(clubDistanceKeys)
+            case 'participant-distance':
+                return this.getSpecificTranslation(participantDistanceKeys)
             default:
                 console.log('invalid component in translation')
                 break

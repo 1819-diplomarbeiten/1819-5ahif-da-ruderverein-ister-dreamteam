@@ -253,20 +253,17 @@ public class JsonArrayCreator {
                     .add("distanceClubSubmitOne", "got it")
                     .add("distanceClubHeadlineTwo", "select yo data")
                     .add("distanceClubSelectTwo", "select excel")
-                    .add("distanceClubSubmitBtn", "done")
-                    .add("distanceClubBackBtn", "Step back")
+                    .add("distanceSubmitBtn", "done")
+                    .add("distanceBackBtn", "Step back")
                     .add("distanceHeadlineThree", "upload to Server")
                     .add("distanceClubSuccessThree", "succesfully uploaded")
                     .add("distanceClubErrorThree", "Excel invalid")
                     .add("distanceParticipantHeadlineOne", "Enter your distance")
                     .add("distanceParticipantSubheadlineOne", "Distance")
-                    .add("distanceParticipantSubmitBtnOne", "Erledigt")
-                    .add("distanceParticipantErrorMsg", "Ungültige Distanz")
-                    .add("distanceParticipantHeadlineTwo", "Wählen Sie das Beweisbild aus")
-                    .add("distanceParticipantSelectionTwo", "Wähle Beweisbild")
-                    .add("distanceParticipantSubmitBtnTwo", "Erledigt")
-                    .add("distanceParticipantBackBtnTwo", "Schritt zurück")
-                    .add("distanceParticipantSuccessThree", "Ihre Distanz wurde erfolgreich hochgeladen");
+                    .add("distanceParticipantErrorMsg", "invalid Distanz")
+                    .add("distanceParticipantHeadlineTwo", "select the Beweisbild aus")
+                    .add("distanceParticipantSelectionTwo", "select Beweisbild")
+                    .add("distanceParticipantSuccessThree", "Ihre Distanz wurde succesful hochgeladen");
             return jsonEnglish.build();
         }
     }

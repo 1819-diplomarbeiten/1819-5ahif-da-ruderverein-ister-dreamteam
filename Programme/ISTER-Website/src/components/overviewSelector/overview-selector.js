@@ -54,7 +54,7 @@ export default class OverviewSelector extends LitElement{
                 mainComp.appendChild(elem)
                 break
             case 'distance':
-                elem = document.createElement('distance-form-club')
+                elem = document.createElement('distance-form-participant')
                 mainComp.appendChild(elem)
                 break
             case 'home':
