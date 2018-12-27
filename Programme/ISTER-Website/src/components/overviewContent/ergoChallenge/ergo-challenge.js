@@ -32,7 +32,6 @@ export default class ErgoChallenge extends LitElement{
 
     appendChildTo(to){
         var li = document.createElement('li')
-        //li.innerHTML = this.counter + '. Session: ' + this.prepareDate(to)
         li.innerHTML = `${this.counter}. ${this.translation["session"]}: ${this.prepareDate(to)}`
         this.counter++
         this.shadowRoot.getElementById('sessionList').appendChild(li)
@@ -53,11 +52,11 @@ export default class ErgoChallenge extends LitElement{
         }) 
         return html`
             <link rel="stylesheet" type="text/css" href="/src/components/overviewContent/ergoChallenge/styles.css"></link>
-            <div class="mainPos">
+            <div>
                 <div style="margin-left:2%">
                         <h1><strong>${this.translation["ergoHeadline"]}</strong></h1>
+                        <img src="images/ergo_challenge.jpg" width="650" height="433">
                         <div class="body-container">
-                            <img src="images/ergo_challenge.jpg" width="650" height="433" class="image">
                             <div class="text-container">
                                 <h2>${this.translation["ergoSubheadlineOne"]}</h2>
                                 <p class="lineSeparator">${this.translation["ergoTextOne"]}</p>  

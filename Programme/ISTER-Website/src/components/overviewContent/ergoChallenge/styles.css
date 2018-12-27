@@ -16,11 +16,12 @@
 }
 .text-container{
     font-size: 15px;
-    margin: 2rem;
+    margin: 2rem 2rem 2rem 0rem;
 }
 .lineSeparator{
     line-height: 2.5
 }
 img{
-    margin-top: -45%;
+    float: right;
+    margin-right: 4rem
 }
