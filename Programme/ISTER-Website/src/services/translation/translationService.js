@@ -1,14 +1,15 @@
 var translation = []
 var path = 'http://localhost:8080/testserver/rs/sql/translate/'
-var websiteHeaderKeys = ["headerCountdown", "headerDay", "headerHour", "headerMinutes", "headerSeconds"]
-var overviewSelectorKeys = ["homeBtn"]
+var websiteHeaderKeys = ["headerCountdown", "headerDay", "headerHour", "headerMinutes", "headerSeconds", "headerStarts", "headerEnds"]
+var overviewSelectorKeys = ["homeBtn", "distanceBtn", "ergoBtn", "clubRankingBtn", "participantRankingBtn", "loginBtn"]
 var homeViewKeys = ["homeHeadline", "homeTextOne", "homeTextTwo", "homeTextThree"]
 var ergoChallengeKeys = ["ergoHeadline", "ergoSubheadlineOne", "ergoTextOne", "ergoSubheadlineTwo", "ergoTextTwo", "session", "ergoSubheadlineThree", "ergoTextThree", "ergoSubheadlineFour", "ergoTextFour", "ergoTextFourClasslist"]
-var clubRankingKeys = ["clubRankingHeadline", "rankingSubheadline", "rankingYear", "rankingResult", "rankingResultContent", "rankingSequence", "clubRankingSequenceContent", "rankingDownloadBtn", "clubRankingEmailDistanceBtn"]
-var participantRankingKeys = ["participantRankingHeadline", "rankingYear", "rankingResult", "rankingResultContent", "rankingSequence", "participantRankingSequenceContent", "rankingDownloadBtn"]
+var clubRankingKeys = ["clubRankingHeadline", "rankingSubheadline", "rankingYear", "rankingResult", "rankingAll", "rankingSequence", "rankingSequenceContent", "rankingDownloadBtn", "clubRankingEmailDistanceBtn", "session"]
+var participantRankingKeys = ["participantRankingHeadline", "rankingYear", "rankingResult", "rankingAll", "rankingSequence", "rankingSequenceContent", "rankingDownloadBtn", "session"]
 var clubDistanceKeys = ["distanceClubHeadlineOne", "distanceClubSubheadlineOne", "distanceClubSubmitOne", "distanceClubHeadlineTwo", "distanceClubSelectTwo", "distanceClubSubmitBtn", "distanceBackBtn", "distanceHeadlineThree", "distanceClubSuccessThree", "distanceClubErrorThree", "distanceSubmitBtn"]
-var participantDistanceKeys = ["distanceSubmitBtn", "distanceBackBtn", "distanceHeadlineThree", "distanceParticipantHeadlineOne", "distanceParticipantSubheadlineOne", "distanceParticipantErrorMsg", "distanceParticipantHeadlineTwo", "distanceParticipantSelectionTwo", "distanceParticipantSuccessThree"]
+var participantDistanceKeys = ["distanceSubmitBtn", "distanceBackBtn", "distanceHeadlineThree", "distanceParticipantHeadlineOne", "distance", "distanceParticipantErrorMsg", "distanceParticipantHeadlineTwo", "distanceParticipantSelectionTwo", "distanceParticipantSuccessThree"]
 var currentLanguage = ''
+
 export default class TranslationService{
 
     static getCurrentLanguage(){

@@ -12,14 +12,12 @@ export default class WebSiteHeader extends LitElement{
         super();
         this.path = 'http://localhost/restApi/rest'
         this.translation = []
-        /*start */
         this.changeLanguage('german')
 
     }
 
     changeLanguage(language){
         console.log(language + ' selected as language')
-        /* start */
         fetch('http://localhost:8080/testserver/rs/sql/translate/' + language)
         .then(resp => resp.json())
         TranslationService.loadTranslation(language)
@@ -43,8 +41,13 @@ export default class WebSiteHeader extends LitElement{
                 hours = this.zeroChecker(hours)
                 minutes = this.zeroChecker(minutes)
                 seconds = this.zeroChecker(seconds)
+                var startsEnds = ""
+                if(data.state == "STARTS")
+                    startsEnds = this.translation["headerStarts"]
+                else
+                    startsEnds = this.translation["headerEnds"]
                 this.shadowRoot.getElementById('countdown').innerHTML = `
-                    <span><strong>${this.translation["headerCountdown"]} ${data.state} &rarr; </strong></span>${days}<span class="highlight"> ${this.translation["headerDay"]} </span>${hours}<span class="highlight"> ${this.translation["headerHour"]} </span>${minutes}<span class="highlight"> ${this.translation["headerMinutes"]} </span>${seconds}<span class="highlight"> ${this.translation["headerSeconds"]} </span>
+                    <span><strong>${this.translation["headerCountdown"]} ${startsEnds} &rarr; </strong></span>${days}<span class="highlight"> ${this.translation["headerDay"]} </span>${hours}<span class="highlight"> ${this.translation["headerHour"]} </span>${minutes}<span class="highlight"> ${this.translation["headerMinutes"]} </span>${seconds}<span class="highlight"> ${this.translation["headerSeconds"]} </span>
                     `
             }, 994);
         })

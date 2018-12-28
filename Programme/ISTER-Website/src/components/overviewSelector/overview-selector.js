@@ -46,7 +46,7 @@ export default class OverviewSelector extends LitElement{
         //Set the next "main" component
         switch(content){
             case 'person':
-                elem = document.createElement('person-ranking')
+                elem = document.createElement('participant-ranking')
                 mainComp.appendChild(elem)
                 break
             case 'club':
@@ -111,14 +111,14 @@ export default class OverviewSelector extends LitElement{
                         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                             <div class="btn-group mr-2" role="group" aria-label="First group">
                                 <button type="button" class="btn btn-primary custom-color" style="height:40px" @click="${() => this.changeContent('home')}"><p class="text">${this.translation["homeBtn"]}</p></button>
-                                <button type="button" class="btn btn-primary custom-color" style="height:40px" @click="${() => this.changeContent('ergo')}"><p class="text">Ergo Challenge</p></button>
+                                <button type="button" class="btn btn-primary custom-color" style="height:40px" @click="${() => this.changeContent('ergo')}"><p class="text">${this.translation["ergoBtn"]}</p></button>
                             </div>
                             <div class="btn-group mr-2" role="group" aria-label="Second group">
-                                <button type="button" class="btn btn-primary custom-color" style="height:40px" @click="${() => this.changeContent('club')}"><p class="text">30K Club Ranking</p></button>
-                                <button type="button" class="btn btn-primary custom-color" style="height:40px" @click="${() => this.changeContent('person')}"><p class="text">30K Person Ranking</p></button>
+                                <button type="button" class="btn btn-primary custom-color" style="height:40px" @click="${() => this.changeContent('club')}"><p class="text">${this.translation["clubRankingBtn"]}</p></button>
+                                <button type="button" class="btn btn-primary custom-color" style="height:40px" @click="${() => this.changeContent('person')}"><p class="text">${this.translation["participantRankingBtn"]}</p></button>
                             </div>
                             <div class="btn-group mr-2" role="group" aria-label="Third group">
-                                <button id="distanceBtn" type="button" class="btn btn-primary custom-color" style="height:40px;display:none" @click="${() => this.changeContent('distance')}"><p class="text">Distance</p></button>
+                                <button id="distanceBtn" type="button" class="btn btn-primary custom-color" style="height:40px;display:none" @click="${() => this.changeContent('distance')}"><p class="text">${this.translation["distanceBtn"]}</p></button>
                                 <button type="button" class="btn btn-primary custom-color" style="height:40px" @click="${() => this.changeWebsite()}"><p class="text">LRV Ister</p></button>
                             </div>
                             <div class="btn-group mr-2" role="group" aria-label="Fourth group">
@@ -128,7 +128,7 @@ export default class OverviewSelector extends LitElement{
                     </div>  
                 </div>
             </div>
-            <div id="components" class="componentss">
+            <div id="components" class="body-content">
                 <home-view></home-view>
             </div>
             `

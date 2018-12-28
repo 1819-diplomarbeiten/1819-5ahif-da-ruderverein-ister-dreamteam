@@ -3,7 +3,7 @@ import DataService from '../../../../services/rest/dataService.js'
 import PdfService from '../../../../services/pdf/pdfService.js'
 import TranslationService from '../../../../services/translation/translationService.js'
 
-export default class PersonRanking extends LitElement{
+export default class ParticipantRanking extends LitElement{
     static get properties(){
         return {
             path: String,
@@ -52,7 +52,7 @@ export default class PersonRanking extends LitElement{
         <script lang="javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
         <script lang="javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href=/src/components/overviewContent/ranking/person/styles.css></link>
+        <link rel="stylesheet" type="text/css" href=/src/components/overviewContent/ranking/participant/styles.css></link>
         <div class="mainPos">
             <div style="margin-left:2%">
             <h1><strong>${this.translation["participantRankingHeadline"]}:</strong></h1>
@@ -71,22 +71,22 @@ export default class PersonRanking extends LitElement{
                         <div class="form-group">
                             <p>${this.translation["rankingResult"]}</p>
                             <select id="dropDownResult" class="form-control" style="width:170px">
-                                <option value="0">Total</option>
-                                <option value="1">1st Session</option>
-                                <option value="2">2nd Session</option>
-                                <option value="3">3rd Session</option>
-                                <option value="4">4th Session</option>
-                                <option value="5">5th Session</option>
-                                <option value="6">6th Session</option>
+                                <option value="0">${this.translation["rankingAll"]}</option>
+                                <option value="1">1. ${this.translation["session"]}</option>
+                                <option value="2">2. ${this.translation["session"]}</option>
+                                <option value="3">3. ${this.translation["session"]}</option>
+                                <option value="4">4. ${this.translation["session"]}</option>
+                                <option value="5">5. ${this.translation["session"]}</option>
+                                <option value="6">6. ${this.translation["session"]}</option>
                             </select>
                         </div>
                         <br>
                         <div class="form-group">
                             <p>${this.translation["rankingSequence"]}</p>
                             <select id="dropDownSequence" class="form-control" style="width:170px">
-                                <option value="Alphabetic">${this.translation["participantRankingSequenceContent"].split(';')[0]}</option>
-                                <option value="TopDown">${this.translation["participantRankingSequenceContent"].split(';')[1]}</option>
-                                <option value="Categories">${this.translation["participantRankingSequenceContent"].split(';')[2]}</option>
+                                <option value="Alphabetic">${this.translation["rankingSequenceContent"].split(';')[0]}</option>
+                                <option value="TopDown">${this.translation["rankingSequenceContent"].split(';')[1]}</option>
+                                <option value="Categories">${this.translation["rankingSequenceContent"].split(';')[2]}</option>
                             </select>
                         </div>
                     </form>
@@ -99,4 +99,4 @@ export default class PersonRanking extends LitElement{
         `
     }
 }
-window.customElements.define('person-ranking', PersonRanking)
+window.customElements.define('participant-ranking', ParticipantRanking)

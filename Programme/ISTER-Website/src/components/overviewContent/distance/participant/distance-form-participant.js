@@ -103,7 +103,7 @@ export default class DistanceFormParticipant extends LitElement{
             <div id="contentOne">
                 <div class="input-group input-group-sm mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-sm"><strong>${this.translation["distanceParticipantSubheadlineOne"]}</strong></span>
+                        <span class="input-group-text" id="inputGroup-sizing-sm"><strong>${this.translation["distance"]}</strong></span>
                     </div>
                     <input id="distance" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
                 </div>

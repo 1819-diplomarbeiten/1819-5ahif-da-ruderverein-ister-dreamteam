@@ -79,21 +79,21 @@ export default class ClubRanking extends LitElement{
                         <div class="form-group">
                             <p>${this.translation["rankingResult"]}</p>
                             <select id="dropDownResult" class="form-control" style="width:170px">
-                                <option value="0">Total</option>
-                                <option value="1">1st Session</option>
-                                <option value="2">2nd Session</option>
-                                <option value="3">3rd Session</option>
-                                <option value="4">4th Session</option>
-                                <option value="5">5th Session</option>
-                                <option value="6">6th Session</option>
+                                <option value="0">${this.translation["rankingAll"]}</option>
+                                <option value="1">1. ${this.translation["session"]}</option>
+                                <option value="2">2. ${this.translation["session"]}</option>
+                                <option value="3">3. ${this.translation["session"]}</option>
+                                <option value="4">4. ${this.translation["session"]}</option>
+                                <option value="5">5. ${this.translation["session"]}</option>
+                                <option value="6">6. ${this.translation["session"]}</option>
                             </select>
                         </div>
                         <br>
                         <div class="form-group">
                             <p>${this.translation["rankingSequence"]}</p>
                             <select id="dropDownSequence" class="form-control" style="width:170px">
-                                <option value="Alphabetic">${this.translation["clubRankingSequenceContent"].split(';')[0]}</option>
-                                <option value="TopDown">${this.translation["clubRankingSequenceContent"].split(';')[1]}</option>
+                                <option value="Alphabetic">${this.translation["rankingSequenceContent"].split(';')[0]}</option>
+                                <option value="TopDown">${this.translation["rankingSequenceContent"].split(';')[1]}</option>
                             </select>
                         </div>
                     </form>
