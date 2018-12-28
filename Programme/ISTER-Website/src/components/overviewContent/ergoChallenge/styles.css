@@ -25,3 +25,7 @@ img{
     float: right;
     margin-right: 4rem
 }
+.under-pic{
+    left: 0;
+    width: 100%
+}

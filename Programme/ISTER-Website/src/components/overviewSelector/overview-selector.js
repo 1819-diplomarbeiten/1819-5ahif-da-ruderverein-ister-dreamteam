@@ -12,7 +12,7 @@ export default class OverviewSelector extends LitElement{
     }
     constructor(){
         super();
-        this.lastUsedContent = 'home-view'
+        this.lastUsedContent = 'home'
         this.translation = TranslationService.getTranslation('overview-selector')
         this.lastLanguage = TranslationService.getCurrentLanguage()
         this.startTranslationDetection()
@@ -34,6 +34,8 @@ export default class OverviewSelector extends LitElement{
     }
 
     changeContent(content){
+        console.log('conteent ')
+        console.log(content)
         this.lastUsedContent = content
         let elem = null
         let mainComp = this.shadowRoot.getElementById('components')
@@ -128,7 +130,7 @@ export default class OverviewSelector extends LitElement{
                     </div>  
                 </div>
             </div>
-            <div id="components" class="body-content">
+            <div id="components" class="body-container">
                 <home-view></home-view>
             </div>
             `

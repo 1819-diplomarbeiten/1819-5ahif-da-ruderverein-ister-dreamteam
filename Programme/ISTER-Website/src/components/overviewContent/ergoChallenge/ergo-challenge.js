@@ -69,13 +69,11 @@ export default class ErgoChallenge extends LitElement{
                     <ul id="sessionList">
                     </ul>     
                     <br>
-                    <p class="lineSeparator">${this.translation["ergoTextThree"]}</p>
-                    <br>
                     <h2>${this.translation["ergoSubheadlineThree"]}</h2>
-                    <p class="lineSeparator">${this.translation["ergoTextThree"]}</p>
+                    <p class="lineSeparator under-pic">${this.translation["ergoTextThree"]}</p>
                     <br>
                     <h2>${this.translation["ergoSubheadlineFour"]}</h2>
-                    <p class="lineSeparator">${this.translation["ergoTextFour"]}</p>
+                    <p class="lineSeparator under-pic">${this.translation["ergoTextFour"]}</p>
                     <ul>
                         <li>${this.translation["ergoTextFourClasslist"].split(';')[0]}</li>
                         <li>${this.translation["ergoTextFourClasslist"].split(';')[1]}</li>

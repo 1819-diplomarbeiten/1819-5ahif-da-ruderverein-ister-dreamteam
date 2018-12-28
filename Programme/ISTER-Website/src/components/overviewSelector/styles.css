@@ -36,14 +36,9 @@ div.mainPos {
 div.selectors{
     margin-top: 20%
 }
-div.body-content{
+div.body-container{
     position: absolute;
     top: 26%;
-    background-color: #FAFAFA;
-    background-repeat: no-repeat;
-    background-attachment: scroll;
-    width: 98%;
-    height: 74%;
     margin-left: 2%;
 }
 p.text{
