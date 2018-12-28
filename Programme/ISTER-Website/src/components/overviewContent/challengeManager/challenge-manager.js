@@ -396,119 +396,115 @@ export default class ChallengeManager extends LitElement{
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href=/src/components/overviewContent/challengeManager/styles.css>
         <script lang="javascript" src="/node_modules/file-saver/dist/FileSaver.js"></script>
-        <div style="margin-left:2%">
-
-            <h2 id="manageChallenge" class="header-border" @click="${() => this.changeStatus('manageTable')}"><strong>Challenges bearbeiten</strong></h2>
-            <div id="manageDiv">
-                <p id="firstField">18. Jan 2018</p>
-                <button id="trigger_popup_fricc" @click="${() => this.openPopup('firstField')}">Change</button>
-                <br>
-                <p id="secondField">23. Jan 2018</p>
-                <button id="trigger_popup_fricct" @click="${() => this.openPopup('secondField')}">Change</button>
-                <br>
-                <div id="popup-field" class="popup-field">
-                    <span class="helper"></span>
-                    <div>
-                        <input class="form-control-text" id="popupInput" style="width:80px;text-align:right">
-                        <br><br>
-                        <div class="btn-group" role="group">
-                            <button id="doneTwo" type="submit" class="btn btn-primary custom-color" @click="${() => this.closePopup('save')}">Änderung speichern</button>
-                            <button type="submit" class="btn btn-primary custom-color-reverse" @click="${() => this.closePopup('abort')}">Abbrechen</button>
-                        </div>
+        <h2 id="manageChallenge" class="header-border" @click="${() => this.changeStatus('manageTable')}"><strong>Challenges bearbeiten</strong></h2>
+        <div id="manageDiv">
+            <p id="firstField">18. Jan 2018</p>
+            <button id="trigger_popup_fricc" @click="${() => this.openPopup('firstField')}">Change</button>
+            <br>
+            <p id="secondField">23. Jan 2018</p>
+            <button id="trigger_popup_fricct" @click="${() => this.openPopup('secondField')}">Change</button>
+            <br>
+            <div id="popup-field" class="popup-field">
+                <span class="helper"></span>
+                <div>
+                    <input class="form-control-text" id="popupInput" style="width:80px;text-align:right">
+                    <br><br>
+                    <div class="btn-group" role="group">
+                        <button id="doneTwo" type="submit" class="btn btn-primary custom-color" @click="${() => this.closePopup('save')}">Änderung speichern</button>
+                        <button type="submit" class="btn btn-primary custom-color-reverse" @click="${() => this.closePopup('abort')}">Abbrechen</button>
                     </div>
-                </div>
-                <table id="manageTable" class="table table-bordered table-validate" style="display:none">
-                    <thead>
-                        <tr>
-                            <th>Jahr</th>
-                            <th>Runde 1</th>
-                            <th>Runde 2</th>
-                            <th>Runde 3</th>
-                            <th>Runde 4</th>
-                            <th>Runde 5</th>
-                            <th>Runde 6</th>
-                        </tr>
-                    </thead>
-                    <tbody id="manageBody">
-
-                    </tbody>
-                </table>
-            </div>
-
-            <h2 id="createChallenge" class="header-border" @click="${() => this.changeStatus('createEnvironment')}"><strong>Challenge erstellen</strong></h2>
-            <div id="createEnvironment" style="display:none">
-                <div class="form-group">
-                    <p>Year</p>
-                    <select id="dropDown" style="width:250px" class="form-control">
-                    </select>
-                </div>
-                <div class="datePickPositionOne">
-                    <div class="form-group">
-                        <p for="roundOne">Datum von Runde 1</p>
-                        <input class="form-control-text "id="roundOne" style="width:80px;text-align:right">
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <p for="roundFour">Datum von Runde 4</p>
-                        <input class="form-control-text "id="roundFour" style="width:80px;text-align:right">
-                    </div>
-                </div>
-                <div class="datePickPositionTwoThree">
-                    <div class="form-group">
-                        <p for="roundTwo">Datum von Runde 2</p>
-                        <input class="form-control-text "id="roundTwo" style="width:80px;text-align:right">
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <p for="roundFive">Datum von Runde 5</p>
-                        <input class="form-control-text "id="roundFive" style="width:80px;text-align:right">
-                    </div>
-                </div>
-                <div class="datePickPositionTwoThree">
-                    <div class="form-group">
-                        <p for="roundThree">Datum von Runde 3</p>
-                        <input class="form-control-text "id="roundThree" style="width:80px;text-align:right">
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <p for="roundSix">Datum von Runde 6</p>
-                        <input class="form-control-text" id="roundSix" style="width:80px;text-align:right">
-                    </div>
-                </div>
-                <br>
-                <div style="left:2%;margin-top:10%">
-                    <input type ="button" value="Challenge erstellen" class="btn btn-primary custom-size" @click="${() => this.createNewChallenge()}"></input>
-                    <p id="notification"></p>
                 </div>
             </div>
-
-            <h2 class="header-border" @click="${() => this.changeStatus('searchForEvidencePic')}"><strong>Beweisbild suchen</strong></h2>
-            <div id="searchForEvidencePic" style="display:none">
-                <div class="input-group input-group-sm mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-sm"><strong>Email</strong></span>
-                    </div>
-                    <input id="email" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                </div>
-                <br>
-                <div class="input-group input-group-sm mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-sm"><strong>Jahr</strong></span>
-                    </div>
-                    <input id="year" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                </div>
-                <br>
-                <div class="input-group input-group-sm mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-sm"><strong>Session</strong></span>
-                    </div>
-                    <input id="session" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                </div>
-                <br>
-                <button class="btn btn-primary custom-size" @click="${() => this.searchEvidencePic()}">Suchen</button>
-                <p id="PicNotification"></p>
-            </div>  
+            <table id="manageTable" class="table table-bordered table-validate" style="display:none">
+                <thead>
+                    <tr>
+                        <th>Jahr</th>
+                        <th>Runde 1</th>
+                        <th>Runde 2</th>
+                        <th>Runde 3</th>
+                        <th>Runde 4</th>
+                        <th>Runde 5</th>
+                        <th>Runde 6</th>
+                    </tr>
+                </thead>
+                <tbody id="manageBody">
+                </tbody>
+            </table>
         </div>
+
+        <h2 id="createChallenge" class="header-border" @click="${() => this.changeStatus('createEnvironment')}"><strong>Challenge erstellen</strong></h2>
+        <div id="createEnvironment" style="display:none">
+            <div class="form-group">
+                <p>Year</p>
+                <select id="dropDown" style="width:250px" class="form-control">
+                </select>
+            </div>
+            <div class="datePickPositionOne">
+                <div class="form-group">
+                    <p for="roundOne">Datum von Runde 1</p>
+                    <input class="form-control-text "id="roundOne" style="width:80px;text-align:right">
+                </div>
+                <br>
+                <div class="form-group">
+                    <p for="roundFour">Datum von Runde 4</p>
+                    <input class="form-control-text "id="roundFour" style="width:80px;text-align:right">
+                </div>
+            </div>
+            <div class="datePickPositionTwoThree">
+                <div class="form-group">
+                    <p for="roundTwo">Datum von Runde 2</p>
+                    <input class="form-control-text "id="roundTwo" style="width:80px;text-align:right">
+                </div>
+                <br>
+                <div class="form-group">
+                    <p for="roundFive">Datum von Runde 5</p>
+                    <input class="form-control-text "id="roundFive" style="width:80px;text-align:right">
+                </div>
+            </div>
+            <div class="datePickPositionTwoThree">
+                <div class="form-group">
+                    <p for="roundThree">Datum von Runde 3</p>
+                    <input class="form-control-text "id="roundThree" style="width:80px;text-align:right">
+                </div>
+                <br>
+                <div class="form-group">
+                    <p for="roundSix">Datum von Runde 6</p>
+                    <input class="form-control-text" id="roundSix" style="width:80px;text-align:right">
+                </div>
+            </div>
+            <br>
+            <div style="left:2%;margin-top:10%">
+                <input type ="button" value="Challenge erstellen" class="btn btn-primary custom-size" @click="${() => this.createNewChallenge()}"></input>
+                <p id="notification"></p>
+            </div>
+        </div>
+
+        <h2 class="header-border" @click="${() => this.changeStatus('searchForEvidencePic')}"><strong>Beweisbild suchen</strong></h2>
+        <div id="searchForEvidencePic" style="display:none">
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-sm"><strong>Email</strong></span>
+                </div>
+                <input id="email" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+            </div>
+            <br>
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-sm"><strong>Jahr</strong></span>
+                </div>
+                <input id="year" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+            </div>
+            <br>
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-sm"><strong>Session</strong></span>
+                </div>
+                <input id="session" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+            </div>
+            <br>
+            <button class="btn btn-primary custom-size" @click="${() => this.searchEvidencePic()}">Suchen</button>
+            <p id="PicNotification"></p>
+        </div>  
         `
     }
 }

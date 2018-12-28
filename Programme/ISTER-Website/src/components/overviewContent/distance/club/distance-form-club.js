@@ -109,74 +109,69 @@ export default class DistanceFormClub extends LitElement{
             <script lang="javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
             <link rel="stylesheet" type="text/css" href=/src/components/overviewContent/distance/club/styles.css>
-
-            <div style="margin-top:2%">
-                <div style="margin-left:2%">
-                    <div>
-                        <p class="number-design" @click="${() => this.activate('1')}">1</p>
-                        <h2 style="margin-top:-3%;margin-left:4%" @click="${() => this.activate('1')}"><strong>${this.translation["distanceClubHeadlineOne"]}</strong></h2>
-                    </div>
-                    <div class="horizontal-line"></div><br>
-                    <div id="contentOne">
-                        <br><h4><strong>${this.translation["distanceClubSubheadlineOne"]}</strong><h4>
-                        <table class="table table-dark" style="width:400px">
-                            <thead width="300" class="thead-dark">
-                                <tr>
-                                    <th></th>
-                                    <th>A</th>
-                                    <th>B</th>
-                                </tr>
-                            </thead>
-                            <tbody width="300">
-                                <tr>
-                                    <td>1</td>
-                                    <td>Email</td>
-                                    <td>Distance</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>your.email@gmail.com</td>
-                                    <td>6789</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>another.email@gmx.at</td>
-                                    <td>7870</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <button type="submit" class="btn btn-primary custom-color" @click="${() => this.activate('2')}">${this.translation["distanceClubSubmitOne"]}</button><br><br>
-                    </div>
-
-                    <div>
-                        <p class="number-design">2</p>
-                        <h2 style="margin-top:-3%;margin-left:4%"><strong>${this.translation["distanceClubHeadlineTwo"]}</strong></h2>
-                    </div>
-                    <div class="horizontal-line"></div><br>
-                    <div id="contentTwo" style="display:none">
-                        <div class="form-group">
-                            <label class="btn btn-default btn-file">
-                                ${this.translation["distanceClubSelectTwo"]} <input id="excelFile" accept=".xlsx" class="form-control-file" type="file" style="display:none">
-                            </label>
-                        </div>
-                        <p id ="excelNotification"></p>
-                        <div class="btn-group" role="group">
-                            <button id="doneTwo" type="submit" class="btn btn-primary custom-color" @click="${() => this.activate('3')}" disabled>${this.translation["distanceSubmitBtn"]}</button>
-                            <button type="submit" class="btn btn-primary custom-color-reverse" @click="${() => this.activate('1')}">${this.translation["distanceBackBtn"]}</button><br><br>
-                        </div>
-                    </div>
-                    <div>
-                    <div>
-                        <p class="number-design">3</p>
-                        <h2 style="margin-top:-3%;margin-left:4%"><strong>${this.translation["distanceHeadlineThree"]}</strong></h2>
-                    </div>
-                    <div class="horizontal-line"></div><br>
-                    <div id="contentThree" style="display:none">
-                        <h3 id="waiting"><strong>Waiting ...</strong></h3>
-                        <p id="notification"></p>
-                        <button id="stepBackThree" style="display:none" type="submit" class="btn btn-primary custom-color-reverse" @click="${() => this.activate('2')}">${this.translation["distanceBackBtn"]}</button>
-                    </div>
+            <br>
+            <div>
+                <p class="number-design" @click="${() => this.activate('1')}">1</p>
+                <h2 style="margin-top:-3%;margin-left:4%" @click="${() => this.activate('1')}"><strong>${this.translation["distanceClubHeadlineOne"]}</strong></h2>
+            </div>
+            <div class="horizontal-line"></div><br>
+            <div id="contentOne">
+                <br><h4><strong>${this.translation["distanceClubSubheadlineOne"]}</strong><h4>
+                <table class="table table-dark" style="width:400px">
+                    <thead width="300" class="thead-dark">
+                        <tr>
+                            <th></th>
+                            <th>A</th>
+                            <th>B</th>
+                        </tr>
+                    </thead>
+                    <tbody width="300">
+                        <tr>
+                            <td>1</td>
+                            <td>Email</td>
+                            <td>Distance</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>your.email@gmail.com</td>
+                            <td>6789</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>another.email@gmx.at</td>
+                            <td>7870</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button type="submit" class="btn btn-primary custom-color" @click="${() => this.activate('2')}">${this.translation["distanceClubSubmitOne"]}</button><br><br>
+            </div>
+            <div>
+                <p class="number-design">2</p>
+                <h2 style="margin-top:-3%;margin-left:4%"><strong>${this.translation["distanceClubHeadlineTwo"]}</strong></h2>
+            </div>
+            <div class="horizontal-line"></div><br>
+            <div id="contentTwo" style="display:none">
+                <div class="form-group">
+                    <label class="btn btn-default btn-file">
+                        ${this.translation["distanceClubSelectTwo"]} <input id="excelFile" accept=".xlsx" class="form-control-file" type="file" style="display:none">
+                    </label>
                 </div>
+                <p id ="excelNotification"></p>
+                <div class="btn-group" role="group">
+                    <button id="doneTwo" type="submit" class="btn btn-primary custom-color" @click="${() => this.activate('3')}" disabled>${this.translation["distanceSubmitBtn"]}</button>
+                    <button type="submit" class="btn btn-primary custom-color-reverse" @click="${() => this.activate('1')}">${this.translation["distanceBackBtn"]}</button><br><br>
+                </div>
+            </div>
+            <div>
+            <div>
+                <p class="number-design">3</p>
+                <h2 style="margin-top:-3%;margin-left:4%"><strong>${this.translation["distanceHeadlineThree"]}</strong></h2>
+            </div>
+            <div class="horizontal-line"></div><br>
+            <div id="contentThree" style="display:none">
+                <h3 id="waiting"><strong>Waiting ...</strong></h3>
+                <p id="notification"></p>
+                <button id="stepBackThree" style="display:none" type="submit" class="btn btn-primary custom-color-reverse" @click="${() => this.activate('2')}">${this.translation["distanceBackBtn"]}</button>
             </div>
         `
     }

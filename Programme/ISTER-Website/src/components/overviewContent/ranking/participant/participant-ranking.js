@@ -53,49 +53,45 @@ export default class ParticipantRanking extends LitElement{
         <script lang="javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href=/src/components/overviewContent/ranking/participant/styles.css></link>
-        <div class="mainPos">
-            <div style="margin-left:2%">
-            <h1><strong>${this.translation["participantRankingHeadline"]}:</strong></h1>
-            <h3>${this.translation["rankingSubheadline"]}</h3>
-                <div class="dropdown">
-                    <form>
-                        <div class="form-group">
-                            <p>${this.translation["rankingYear"]}</p>
-                            <select id="dropDownYear" class="form-control" style="width:170px">
-                                <option value="2017">2017 / 2018</option>
-                                <option value="2016">2016 / 2017</option>
-                                <option value="2015">2015 / 2016</option>
-                            </select>
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <p>${this.translation["rankingResult"]}</p>
-                            <select id="dropDownResult" class="form-control" style="width:170px">
-                                <option value="0">${this.translation["rankingAll"]}</option>
-                                <option value="1">1. ${this.translation["session"]}</option>
-                                <option value="2">2. ${this.translation["session"]}</option>
-                                <option value="3">3. ${this.translation["session"]}</option>
-                                <option value="4">4. ${this.translation["session"]}</option>
-                                <option value="5">5. ${this.translation["session"]}</option>
-                                <option value="6">6. ${this.translation["session"]}</option>
-                            </select>
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <p>${this.translation["rankingSequence"]}</p>
-                            <select id="dropDownSequence" class="form-control" style="width:170px">
-                                <option value="Alphabetic">${this.translation["rankingSequenceContent"].split(';')[0]}</option>
-                                <option value="TopDown">${this.translation["rankingSequenceContent"].split(';')[1]}</option>
-                                <option value="Categories">${this.translation["rankingSequenceContent"].split(';')[2]}</option>
-                            </select>
-                        </div>
-                    </form>
-                </div>
-                <br>
-                <input type ="button" value="${this.translation["rankingDownloadBtn"]}" class="btn btn-primary custom-color" @click="${() => this.getDistances()}"></input>
-                <p id="notification"></p>
+        <h1><strong>${this.translation["participantRankingHeadline"]}:</strong></h1>
+        <h3>${this.translation["rankingSubheadline"]}</h3>
+            <div class="dropdown">
+                <form>
+                    <div class="form-group">
+                        <p>${this.translation["rankingYear"]}</p>
+                        <select id="dropDownYear" class="form-control" style="width:170px">
+                            <option value="2017">2017 / 2018</option>
+                            <option value="2016">2016 / 2017</option>
+                            <option value="2015">2015 / 2016</option>
+                        </select>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <p>${this.translation["rankingResult"]}</p>
+                        <select id="dropDownResult" class="form-control" style="width:170px">
+                            <option value="0">${this.translation["rankingAll"]}</option>
+                            <option value="1">1. ${this.translation["session"]}</option>
+                            <option value="2">2. ${this.translation["session"]}</option>
+                            <option value="3">3. ${this.translation["session"]}</option>
+                            <option value="4">4. ${this.translation["session"]}</option>
+                            <option value="5">5. ${this.translation["session"]}</option>
+                            <option value="6">6. ${this.translation["session"]}</option>
+                        </select>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <p>${this.translation["rankingSequence"]}</p>
+                        <select id="dropDownSequence" class="form-control" style="width:170px">
+                            <option value="Alphabetic">${this.translation["rankingSequenceContent"].split(';')[0]}</option>
+                            <option value="TopDown">${this.translation["rankingSequenceContent"].split(';')[1]}</option>
+                            <option value="Categories">${this.translation["rankingSequenceContent"].split(';')[2]}</option>
+                        </select>
+                    </div>
+                </form>
             </div>
-        </div>
+            <br>
+            <input type ="button" value="${this.translation["rankingDownloadBtn"]}" class="btn btn-primary custom-color" @click="${() => this.getDistances()}"></input>
+            <p id="notification"></p>
         `
     }
 }
