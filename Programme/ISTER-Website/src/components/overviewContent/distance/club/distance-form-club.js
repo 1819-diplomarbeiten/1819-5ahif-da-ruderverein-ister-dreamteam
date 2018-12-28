@@ -44,7 +44,7 @@ export default class DistanceFormClub extends LitElement{
                     this.shadowRoot.getElementById('stepBackThree').style.display = 'initial'
                 }
                 else {
-                    DataService.postPeriods(jsonObj)
+                    DataService.post(jsonObj, "periods")
                     this.shadowRoot.getElementById('waiting').innerHTML = `${this.translation["distanceClubSuccessThree"]}!`
                     this.shadowRoot.getElementById('notification').innerHTML = ''
                     this.uploaded = true

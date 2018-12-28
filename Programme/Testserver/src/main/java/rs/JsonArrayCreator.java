@@ -180,7 +180,7 @@ public class JsonArrayCreator {
                     .add("ergoBtn", "Ergo Challenge")
                     .add("ergoTextOne", "Bei diesem Bewerb gibt es weder etwas zu gewinnen, noch erhält man eine Medaille. Alle Ruderer, weiblich und männlich aus Vereinen oder privat, sind startberechtigt und als Administrator vertrauen wir auf die Richtigkeit der gelieferten Daten.")
                     .add("ergoSubheadlineTwo", "Bewerb")
-                    .add("ergoTextTwo", "Die Teilnehmer sollen versuchen in der Zeit von 30 Minuten so viele Meter am Ergometer zurück zu legen, als es ihnen möglich ist. Es gibt über den Winter verteilt sechs (6) Termine, wobei die vier (4) besten Ergebnisse gewertet werden. Die Termine sind immer von Donnerstag 18:00 Uhr bis Montag 18:00 Uhr berechnet:")
+                    .add("ergoTextTwo", "Die Teilnehmer sollen versuchen in der Zeit von 30 Minuten so viele Meter am Ergometer zurück zu legen, als es ihnen möglich ist. Es gibt über den Winter verteilt 6 Termine, wobei die 4 besten Ergebnisse gewertet werden. Die Termine sind immer von Donnerstag 18:00 Uhr bis Montag 18:00 Uhr berechnet:")
                     .add("session", "Session")
                     .add("ergoSubheadlineThree", "Ziel")
                     .add("ergoTextThree", "Bei vier Termine zusammengerechnet, mindestens 30 000 Meter (Männer) oder 26 000 (Frauen) zu rudern und dabei mit Ruderkollegen aus Österreich und der Welt messen.")

@@ -24,26 +24,19 @@ export default class ClubRanking extends LitElement{
         this.dropDownYear = this.shadowRoot.getElementById('dropDownYear').value
         this.dropDownResult = this.shadowRoot.getElementById('dropDownResult').value
         this.dropDownSequence = this.shadowRoot.getElementById('dropDownSequence').value
-        
-        fetch(this.path + "bestfourdistancesclubs.php?year=" + this.dropDownYear + "&result=" + this.dropDownResult + "&sequence=" + this.dropDownSequence, {
-            method: "GET"
-        })
-        .then((resp) => resp.json())
-        .then(data => {
-            this.shadowRoot.getElementById('notification').innerHTML = 'Please wait, you pdf is being created ...'
+        var data = DataService.getClubRanking(this.dropDownYear, this.dropDownResult, this.dropDownSequence)
+        if(data != "failure")
             PdfService.createPdfClub(data, this.dropDownYear)
-            this.shadowRoot.getElementById('notification').innerHTML = ''
-        })
+        else
+            this.shadowRoot.getElementById('notification').innerHTML = 'connection failed'
     }
 
     getEmailNameList(){
-        fetch('http://localhost:8080/testserver/rs/sql/getEmailDistanceReference', {
-            method: 'GET'
-        })
-        .then(resp => resp.json())
-        .then(data => {
+        var data = DataService.getEmailNameList()
+        if(data != "failure")
             PdfService.createEmailDistance(data)
-        })
+        else
+            console.log("connection failed")
     }
 
     checkForEmailDistanceBtn(){

@@ -1,14 +1,16 @@
 var path = 'http://localhost/restApi/rest/'
-var returnV = []
-var msgJson = []
-export default class DataService{
+var msgJson = [] //entfernen sobald post/add
+var clubRankingExtension = "createResults.php"
+var participantRankingExtension = "postPeriod.php"
+var challengeCreationExtension = "createChallenges.php"
 
-    static postPeriod(distance, evidencePic){
-        msgJson = "{\"distance\":" + distance + ",\"evidencePic\":\"" + evidencePic + "\"}";
-        fetch(path + 'postPeriod',
+export default class DataService{
+    static post(json, msgType){
+        var extendedPath = this.getExtendedPath(msgType)
+        fetch(path + extendedPath,
                 {
                     method: "POST",
-                    body: msgJson,
+                    body: json,
                     headers: {
                         "Content-Type": "application/json"
                     }
@@ -16,44 +18,82 @@ export default class DataService{
             )
     }
 
-    static postPeriods(jsonObj){
-        fetch(path + 'createResults.php',
-                    {
-                        method: "POST",
-                        body: jsonObj,
-                        headers: {
-                            "Content-Type": "application/json"
-                        }
-                    })
+    static getParticipantRanking(year, result, sequence){
+        const request = new XMLHttpRequest()
+        request.open("GET", path + "bestFourDistancesParticipants.php?year=" + year + "&result=" + result + "&sequence=" + sequence, false)
+        request.send(null)
+
+        if(request.status === 200)
+            return JSON.parse(request.responseText)
+        else
+            return "failure"
     }
 
-    static postChallenge(year, roundOne, roundTwo, roundThree, roundFour, roundFive, roundSix){
-        msgJson = "{\"roundOne\":\"" + roundOne + "\",\"roundTwo\":\"" + roundTwo + "\",\"roundThree\":\"" + roundThree + "\",\"roundFour\":\"" + roundFour + "\",\"roundFive\":\"" + roundFive + "\",\"roundSix\":\"" + roundSix + "\",\"year\":\"" + year + "\"}";
-            fetch(path + 'createChallenges.php',
-            {
-                method: "POST",
-                body: msgJson,
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
+    static getClubRanking(year, result, sequence){
+        const request = new XMLHttpRequest()
+        request.open("GET", path + "bestfourdistancesclubs.php?year=" + year + "&result=" + result + "&sequence=" + sequence, false)
+        request.send(null)
+
+        if(request.status === 200)
+            return JSON.parse(request.responseText)
+        else
+            return "failure"
     }
 
-    static getPersonRanking(year, result, sequence){
+    static getChallengeSessions(actualYear){
+        const request = new XMLHttpRequest()
+        request.open("GET", 'http://localhost:8080/testserver/rs/sql/getChallenge/' + actualYear, false)
+        request.send(null)
 
-        fetch(path + "bestFourDistancesParticipants.php?year=" + year + "&result=" + result + "&sequence=" + sequence, {
-            method: "GET"
-        })
-        .then((resp) => resp.json())
-        .then(data => {
-            //console.log('data ' + data)
-            returnV = data
-            //console.log('returnv: ' + returnV)
-            //return returnV
-        })
-        .then(() => console.log('third' + returnV))
-        console.log('returnV' + returnV)
+        if(request.status === 200)
+            return JSON.parse(request.responseText)
+        else
+            return "failure"
+    }
 
-        return 'adf'
+    static getEmailNameList(){
+        const request = new XMLHttpRequest()
+        request.open("GET", 'http://localhost:8080/testserver/rs/sql/getEmailDistanceReference', false)
+        request.send(null)
+
+        if(request.status === 200)
+            return JSON.parse(request.responseText)
+        else
+            return "failure"
+    }
+
+    static getAllChallenges(){
+        const request = new XMLHttpRequest()
+        request.open("GET", path + 'getallchallenges.php', false)
+        request.send(null)
+
+        if(request.status === 200)
+            return JSON.parse(request.responseText)
+        else
+            return "failure"
+    }
+
+    static getEvidencePic(email, year, session){
+        const request = new XMLHttpRequest()
+        request.open("GET", 'http://localhost:8080/testserver/rs/sql/picSearch/' + this.email + '/' + this.year + '/' + this.session, false)
+        request.send(null)
+
+        if(request.status === 200)
+            return JSON.parse(request.responseText)
+        else
+            return "failure"
+    }
+
+    static getExtendedPath(msgType){
+        switch(msgType){
+            case "periods":
+                return clubRankingExtension
+            case "period":
+                return participantRankingExtension
+            case "challenge":
+                return challengeCreationExtension
+            default:
+                break
+        }
     }
 }

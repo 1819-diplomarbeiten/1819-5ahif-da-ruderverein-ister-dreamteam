@@ -77,6 +77,7 @@ public class SqlStatementsEndpoint {
     public JsonObject getChallengeById(@PathParam("id")String id){
         System.out.println("================================");
         System.out.println("=======Get Challenge By Id======");
+        System.out.println(id);
         return new JsonArrayCreator().getChallengeById();
     }
 

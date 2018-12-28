@@ -1,4 +1,5 @@
 import {LitElement, html} from '@polymer/lit-element'
+import DataService from '../../../services/rest/dataService.js'
 import TranslationService from '../../../services/translation/translationService.js'
 
 export default class ErgoChallenge extends LitElement{
@@ -9,25 +10,29 @@ export default class ErgoChallenge extends LitElement{
             translation: []
         }
     }
+
     constructor(){
         super();
         this.translation = TranslationService.getTranslation('ergo-challenge')
     }
 
+    getChallengeYear(){
+        var date = new Date().getFullYear()
+        if(new Date().getMonth() < 4)
+            return date - 1
+        else
+            return date
+    }
+
     getChallengeSessions(){
-        fetch('http://localhost:8080/testserver/rs/sql/getChallenge/1', {
-            method: "GET"
-        })
-        .then((resp) => resp.json())
-        .then(data => {
-            this.appendChildTo(data.roundOne)
+        var data = DataService.getChallengeSessions(this.getChallengeYear())
+        this.appendChildTo(data.roundOne)
             this.appendChildTo(data.roundTwo)
             this.appendChildTo(data.roundThree)
             this.appendChildTo(data.roundFour)
             this.appendChildTo(data.roundFive)
             this.appendChildTo(data.roundSix)
             this.methodEntered = true
-        })
     }
 
     appendChildTo(to){

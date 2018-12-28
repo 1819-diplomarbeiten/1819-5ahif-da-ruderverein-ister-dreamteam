@@ -12,37 +12,24 @@ export default class ChallengeManager extends LitElement{
             year: String,
             session: String,
             valueId: String,
-            oldDate: String
+            oldDate: String,
+            entered: Boolean
         }
     }
 
     constructor(){
         super();
-        fetch('http://localhost/restApi/rest/getallchallenges.php', {
-            method: "GET"
-        })
-        .then((resp) => resp.json())
-        .then(data => {
-            data = this.transformJson(data)
-            this.doTableFill(data)
-        })
-        /*
-        */
-
+        this.entered = false
     }
 
     getAllChallenges(){
-        /*const request = new XMLHttpRequest()
-        request.open("GET", "http://localhost/restApi/rest/getallchallenges.php", false)
-        request.send(null)
-
-        if(request.status === 200){
-            this.challenges = request.responseText
-        }
-        var data = this.transformJson(this.challenges.json())
-            this.doTableFill(data)
-        */
-        
+       var data = DataService.getAllChallenges()
+       if(data != "failure"){
+           data = this.transformJson(data)
+           this.doTableFill(data)
+       }
+       else
+           console.log('connection failed')
     }
 
     doTableFill(data){
@@ -88,9 +75,13 @@ export default class ChallengeManager extends LitElement{
         if(this.allValuesSelected() == false)
             this.shadowRoot.getElementById('notification').innerHTML = '<span class="error">Nicht alle Werte wurden ausgefüllt<span>'
         else {
-            DataService.postChallenge(this.shadowRoot.getElementById('dropDown').value, this.shadowRoot.getElementById('roundOne').value, this.shadowRoot.getElementById('roundTwo').value, this.shadowRoot.getElementById('roundThree').value, this.shadowRoot.getElementById('roundFour').value, this.shadowRoot.getElementById('roundFive').value, this.shadowRoot.getElementById('roundSix').value)
+            DataService.post(this.createMsgJson(), "challenge")
             this.shadowRoot.getElementById('notification').innerHTML = 'Challenge erstellt'
         }
+    }
+
+    createMsgJson(){
+        return "{\"roundOne\":\"" + this.shadowRoot.getElementById('roundOne').value + "\",\"roundTwo\":\"" + this.shadowRoot.getElementById('roundTwo').value + "\",\"roundThree\":\"" + this.shadowRoot.getElementById('roundThree').value + "\",\"roundFour\":\"" + this.shadowRoot.getElementById('roundFour').value + "\",\"roundFive\":\"" + this.shadowRoot.getElementById('roundFive').value + "\",\"roundSix\":\"" + this.shadowRoot.getElementById('roundSix').value + "\",\"year\":\"" + this.shadowRoot.getElementById('dropDown').value + "\"}"
     }
 
     allValuesSelected(){
@@ -271,11 +262,8 @@ export default class ChallengeManager extends LitElement{
     }
 
     getSearch(){
-        fetch('http://localhost:8080/testserver/rs/sql/picSearch/' + this.email + '/' + this.year + '/' + this.session, {
-            method: "GET"
-        })
-        .then(resp => resp.json())
-        .then(data => {
+        var data = DataService.getEvidencePic(this.email, this.year, this.session)
+        if(data != "failure") {
             if(data.picture == "notFound")
                 this.shadowRoot.getElementById('PicNotification').innerHTML = '<span class="error">Kein Beweisbild gefunden</span>'
             else{
@@ -283,7 +271,17 @@ export default class ChallengeManager extends LitElement{
                 this.shadowRoot.getElementById('searchForEvidencePic').style.display = 'none'
                 this.clearPictureContainer()
             }
+        }
+        else
+            this.shadowRoot.getElementById('PicNotification').innerHTML = '<span class="error">Connection failed</span>'
+
+        /*fetch('http://localhost:8080/testserver/rs/sql/picSearch/' + this.email + '/' + this.year + '/' + this.session, {
+            method: "GET"
         })
+        .then(resp => resp.json())
+        .then(data => {
+            
+        })*/
     }
 
     clearPictureContainer(){
@@ -361,7 +359,10 @@ export default class ChallengeManager extends LitElement{
             this.loadDatePicker('roundFour')
             this.loadDatePicker('roundFive')
             this.loadDatePicker('roundSix')
-            //this.getAllChallenges()
+            if(this.entered == false){
+                this.entered = true
+                this.getAllChallenges()
+            }
         })
         /* simple
         ${repeat(this.challenges, (item) => html`

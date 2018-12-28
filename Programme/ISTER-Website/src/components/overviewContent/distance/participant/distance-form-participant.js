@@ -34,7 +34,7 @@ export default class DistanceFormParticipant extends LitElement{
     }
 
     manage(evidencePic){
-        DataService.postPeriod(this.distance, evidencePic)
+        DataService.post(JSON.parse("{\"distance\":" + this.distance + ",\"evidencePic\":\"" + evidencePic + "\"}"), "period")
         this.shadowRoot.getElementById('waiting').innerHTML = `${this.translation["distanceParticipantSuccessThree"]}!`
         this.shadowRoot.getElementById('notification').innerHTML = ''
         this.uploaded = true

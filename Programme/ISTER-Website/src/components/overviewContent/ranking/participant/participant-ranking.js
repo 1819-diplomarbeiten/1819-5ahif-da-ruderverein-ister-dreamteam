@@ -23,28 +23,25 @@ export default class ParticipantRanking extends LitElement{
         this.dropDownYear = this.shadowRoot.getElementById('dropDownYear').value
         this.dropDownResult = this.shadowRoot.getElementById('dropDownResult').value
         this.dropDownSequence = this.shadowRoot.getElementById('dropDownSequence').value
-        var testit = DataService.getPersonRanking(this.dropDownYear, this.dropDownResult, this.dropDownSequence)
-        console.log('testit' + testit)
-        console.log(testit[0])
-        
-        fetch(this.path + "bestFourDistancesParticipants.php?year=" + this.dropDownYear + "&result=" + this.dropDownResult + "&sequence=" + this.dropDownSequence, {
-            method: "GET"
-        })
-        .then((resp) => resp.json())
-        .then(data => {
-            this.shadowRoot.getElementById('notification').innerHTML = 'Please wait, you pdf is being created ...'
-
-            if(this.dropDownResult == '0' && this.dropDownSequence != 'Categories')
-                PdfService.createPdfTotal(data, this.dropDownYear)
-            else if(this.dropDownResult != '0' && this.dropDownSequence != 'Categories')
-                PdfService.createPdfPerSession(data, this.dropDownYear, this.dropDownResult)
-            else if(this.dropDownResult == '0' && this.dropDownSequence == 'Categories')
-                PdfService.createPdfTotalPerCategories(data, this.dropDownYear)
-            else
-                PdfService.createPdfPerSessionPerCategories(data, this.dropDownYear, this.dropDownResult)
-
+        this.shadowRoot.getElementById('notification').innerHTML = '...'
+        var data = DataService.getParticipantRanking(this.dropDownYear, this.dropDownResult, this.dropDownSequence)
+        if(data != "failure") {
+            this.managePdfCreation(data)
             this.shadowRoot.getElementById('notification').innerHTML = ''
-        })
+        }
+        else
+            this.shadowRoot.getElementById('notification').innerHTML = 'connection failed'
+    }
+
+    managePdfCreation(data){
+        if(this.dropDownResult == '0' && this.dropDownSequence != 'Categories')
+            PdfService.createPdfTotal(data, this.dropDownYear)
+        else if(this.dropDownResult != '0' && this.dropDownSequence != 'Categories')
+            PdfService.createPdfPerSession(data, this.dropDownYear, this.dropDownResult)
+        else if(this.dropDownResult == '0' && this.dropDownSequence == 'Categories')
+            PdfService.createPdfTotalPerCategories(data, this.dropDownYear)
+        else
+            PdfService.createPdfPerSessionPerCategories(data, this.dropDownYear, this.dropDownResult)
     }
 
     render(){
