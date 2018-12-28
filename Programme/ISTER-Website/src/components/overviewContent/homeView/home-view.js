@@ -21,12 +21,13 @@ export default class HomeView extends LitElement{
                 <img src="images/homeView.jpg" width="650" height="433" class="image">
                 <div class="text-container">
                     <p class="lineSeparator">${this.translation["homeTextOne"]}</p>  
-                    <br>
+                    
                     <p class="lineSeparator">${this.translation["homeTextTwo"]}</p>
-                    <br>
+                    
                     <p class="lineSeparator">${this.translation["homeTextThree"]}</p>
                     <p><strong>ERGO - Challenge</strong></p>
                 </div>
+                    <img src="images/htl-leonding.jpg" width="150" height="150" class="image-htl">
             </div>
         `
     }
