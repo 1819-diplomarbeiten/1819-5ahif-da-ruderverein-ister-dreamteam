@@ -40,6 +40,17 @@ export default class DataService{
             return "failure"
     }
 
+    static getClubRankingNew(year, sequence){
+        const request = new XMLHttpRequest()
+        request.open("GET", 'http://localhost:8080/testserver/rs/sql/bestFourDistancesClubs/' + year + "/" + sequence, false)
+        request.send(null)
+
+        if(request.status === 200)
+            return JSON.parse(request.responseText)
+        else
+            return "failure"
+    }
+
     static getChallengeSessions(actualYear){
         const request = new XMLHttpRequest()
         request.open("GET", 'http://localhost:8080/testserver/rs/sql/getChallenge/' + actualYear, false)

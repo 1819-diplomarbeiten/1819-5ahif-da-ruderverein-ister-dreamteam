@@ -42,7 +42,7 @@ public class JsonArrayCreator {
         }
         return jsonArrayBuilder.build();
     }
-
+    //working
     public JsonArray GetJsonArrayClubs(){
         JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
         fillData();
@@ -54,8 +54,47 @@ public class JsonArrayCreator {
         return jsonArrayBuilder.build();
     }
 
+    public JsonObject GetJsonArrayClubsNew(){
+        fillData();
+        JsonObjectBuilder fullObject = Json.createObjectBuilder();
+
+        //distanceTable
+        JsonArrayBuilder distanceTableArray = Json.createArrayBuilder();
+        JsonObject allSix = null;
+        for(int i = 0; i < bestFour.size();i++){
+            allSix = Json.createObjectBuilder().add("roundOne", one.get(i)*10).add("roundTwo", two.get(i)*10).add("roundThree", three.get(i)*10).add("roundFour", four.get(i)*10).add("roundFive", five.get(i)*10).add("roundSix", six.get(i)*10).build();
+            distanceTableArray.add(Json.createObjectBuilder().add("clubLong", clubLong.get(i)).add("club", club.get(i)).add("allSixDistances", allSix).add("clubParticipantCount", clubMembers.get(i)));
+        }
+        fullObject.add("distanceTableArray", distanceTableArray);
+
+        //distanceFootnoteTable
+        JsonObject allSixCount = Json.createObjectBuilder().add("roundOne", 110).add("roundTwo", 60).add("roundThree", 50).add("roundFour", 30).add("roundFive", 40).add("roundSix", 90).build();
+        JsonObjectBuilder distanceFootnoteTableArray = Json.createObjectBuilder();
+        distanceFootnoteTableArray.add("totalCount", Json.createObjectBuilder().add("clubCountTotal", 500).add("allSixRoundsClubs", allSixCount))
+                                    .add("maleCount", Json.createObjectBuilder().add("clubMaleCountTotal", 300).add("allSixRoundsClubs", allSixCount))
+                                    .add("femaleCount", Json.createObjectBuilder().add("clubFemaleCountTotal", 300).add("allSixRoundsClubs", allSixCount))
+                                    .add("maleTotal", allSix)
+                                    .add("totalDistances", allSix)
+                                    .add("femaleTotal", allSix);
+        fullObject.add("distanceFootnoteTable", distanceFootnoteTableArray);
+
+        //genderDistanceTable
+        fullObject.add("genderDistanceTable", Json.createObjectBuilder().add("male", getGenderDistanceArray(allSixCount)).add("female", getGenderDistanceArray(allSixCount)));
+
+
+        return fullObject.build();
+    }
+
+    private JsonArray getGenderDistanceArray(JsonObject allSix){
+        JsonArrayBuilder g = Json.createArrayBuilder();
+        for(int i = 0; i < 10; i ++){
+            g.add(Json.createObjectBuilder().add("reachenDistance", 1000).add("distances", allSix));
+        }
+        return g.build();
+    }
+
     private void fillData(){
-        for(int i = 0; i < 40; i ++){
+        for(int i = 0; i < 9; i ++){
             bestFour.add(329000);
             bestFour.add(12345);
             bestFour.add(63789);

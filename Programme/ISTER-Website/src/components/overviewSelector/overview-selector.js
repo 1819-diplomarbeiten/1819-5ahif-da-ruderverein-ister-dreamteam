@@ -34,8 +34,6 @@ export default class OverviewSelector extends LitElement{
     }
 
     changeContent(content){
-        console.log('conteent ')
-        console.log(content)
         this.lastUsedContent = content
         let elem = null
         let mainComp = this.shadowRoot.getElementById('components')

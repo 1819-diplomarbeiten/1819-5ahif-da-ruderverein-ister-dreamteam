@@ -17,7 +17,6 @@ export default class WebSiteHeader extends LitElement{
     }
 
     changeLanguage(language){
-        console.log(language + ' selected as language')
         fetch('http://localhost:8080/testserver/rs/sql/translate/' + language)
         .then(resp => resp.json())
         TranslationService.loadTranslation(language)
@@ -120,6 +119,7 @@ export default class WebSiteHeader extends LitElement{
                         <option value='vimeo'>Vimeo</option>
                     </select>
                 </div> 
+                <!--<img src="images/htl-leonding.jpg" width="150" height="150" class="image-htl">-->
             <div>
         `
     }

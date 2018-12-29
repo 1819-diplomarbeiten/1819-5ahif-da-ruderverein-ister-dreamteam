@@ -133,13 +133,14 @@ public class SqlStatementsEndpoint {
     }
 
     @GET
-    @Path("/bestFourDistancesClubs/{year}/{result}/{sequence}")
+    @Path("/bestFourDistancesClubs/{year}/{sequence}")
     @Produces(MediaType.APPLICATION_JSON)
-    public JsonArray bestFourDistancesClub(@PathParam("year")String year, @PathParam("result")String result, @PathParam("sequence")String sequence){
+    public JsonObject bestFourDistancesClub(@PathParam("year")String year, @PathParam("sequence")String sequence){
         System.out.println("================================");
         System.out.println("====Get Distances Table Clubs===");
-        System.out.println(year + "  " + result + "  " + sequence);
-        JsonArray jsonValues = new JsonArrayCreator().GetJsonArrayClubs();
+        System.out.println(year + "  " + "  " + sequence);
+        //JsonArray jsonValues = new JsonArrayCreator().GetJsonArrayClubs();
+        JsonObject jsonValues = new JsonArrayCreator().GetJsonArrayClubsNew();
         return jsonValues;
     }
 

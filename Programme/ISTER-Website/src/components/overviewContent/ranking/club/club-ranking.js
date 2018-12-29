@@ -22,11 +22,14 @@ export default class ClubRanking extends LitElement{
 
     getDistances(){
         this.dropDownYear = this.shadowRoot.getElementById('dropDownYear').value
-        this.dropDownResult = this.shadowRoot.getElementById('dropDownResult').value
+        //this.dropDownResult = this.shadowRoot.getElementById('dropDownResult').value
         this.dropDownSequence = this.shadowRoot.getElementById('dropDownSequence').value
-        var data = DataService.getClubRanking(this.dropDownYear, this.dropDownResult, this.dropDownSequence)
-        if(data != "failure")
-            PdfService.createPdfClub(data, this.dropDownYear)
+        //var data = DataService.getClubRanking(this.dropDownYear, this.dropDownResult, this.dropDownSequence)
+        var data = DataService.getClubRankingNew(this.dropDownYear, this.dropDownSequence)
+        if(data != "failure"){
+            //PdfService.createPdfClub(data, this.dropDownYear)
+            PdfService.createPdfClubNew(data, this.dropDownYear)
+        }
         else
             this.shadowRoot.getElementById('notification').innerHTML = 'connection failed'
     }
@@ -49,6 +52,21 @@ export default class ClubRanking extends LitElement{
         $(document).ready(() => { 
             this.checkForEmailDistanceBtn()
         }) 
+        /*
+        <div class="form-group">
+                    <p>${this.translation["rankingResult"]}</p>
+                    <select id="dropDownResult" class="form-control" style="width:170px">
+                        <option value="0">${this.translation["rankingAll"]}</option>
+                        <option value="1">1. ${this.translation["session"]}</option>
+                        <option value="2">2. ${this.translation["session"]}</option>
+                        <option value="3">3. ${this.translation["session"]}</option>
+                        <option value="4">4. ${this.translation["session"]}</option>
+                        <option value="5">5. ${this.translation["session"]}</option>
+                        <option value="6">6. ${this.translation["session"]}</option>
+                    </select>
+                </div>
+                <br>
+        */
         return html`
         <script lang="javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
         <script lang="javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
@@ -67,19 +85,7 @@ export default class ClubRanking extends LitElement{
                     </select>
                 </div>
                 <br>
-                <div class="form-group">
-                    <p>${this.translation["rankingResult"]}</p>
-                    <select id="dropDownResult" class="form-control" style="width:170px">
-                        <option value="0">${this.translation["rankingAll"]}</option>
-                        <option value="1">1. ${this.translation["session"]}</option>
-                        <option value="2">2. ${this.translation["session"]}</option>
-                        <option value="3">3. ${this.translation["session"]}</option>
-                        <option value="4">4. ${this.translation["session"]}</option>
-                        <option value="5">5. ${this.translation["session"]}</option>
-                        <option value="6">6. ${this.translation["session"]}</option>
-                    </select>
-                </div>
-                <br>
+                <!--cutted-->
                 <div class="form-group">
                     <p>${this.translation["rankingSequence"]}</p>
                     <select id="dropDownSequence" class="form-control" style="width:170px">

@@ -27,7 +27,6 @@ export default class HomeView extends LitElement{
                     <p class="lineSeparator">${this.translation["homeTextThree"]}</p>
                     <p><strong>ERGO - Challenge</strong></p>
                 </div>
-                    <img src="images/htl-leonding.jpg" width="150" height="150" class="image-htl">
             </div>
         `
     }
