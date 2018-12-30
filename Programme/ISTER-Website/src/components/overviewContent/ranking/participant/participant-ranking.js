@@ -23,12 +23,9 @@ export default class ParticipantRanking extends LitElement{
         this.dropDownYear = this.shadowRoot.getElementById('dropDownYear').value
         this.dropDownResult = this.shadowRoot.getElementById('dropDownResult').value
         this.dropDownSequence = this.shadowRoot.getElementById('dropDownSequence').value
-        this.shadowRoot.getElementById('notification').innerHTML = '...'
         var data = DataService.getParticipantRanking(this.dropDownYear, this.dropDownResult, this.dropDownSequence)
-        if(data != "failure") {
+        if(data != "failure")
             this.managePdfCreation(data)
-            this.shadowRoot.getElementById('notification').innerHTML = ''
-        }
         else
             this.shadowRoot.getElementById('notification').innerHTML = 'connection failed'
     }

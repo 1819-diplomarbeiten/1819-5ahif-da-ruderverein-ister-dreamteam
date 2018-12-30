@@ -5,6 +5,9 @@ var participantRankingExtension = "postPeriod.php"
 var challengeCreationExtension = "createChallenges.php"
 
 export default class DataService{
+    static testMethod(param){
+        console.log('test ' + param)
+    }
     static post(json, msgType){
         var extendedPath = this.getExtendedPath(msgType)
         fetch(path + extendedPath,

@@ -76,7 +76,7 @@ export default class WebSiteHeader extends LitElement{
             console.log(window.Select2)
             $(this.shadowRoot.getElementById('social')).select2({
                 templateResult: $(this.formatState())
-               });*/
+               });
                
                var counter = 0
                var x = setInterval(_ => {
@@ -88,7 +88,7 @@ export default class WebSiteHeader extends LitElement{
                 templateResult: this.formatState()
                });
                 }
-            }, 994);
+            }, 994);*/
         }) 
         return html`
             <script lang="javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -105,19 +105,19 @@ export default class WebSiteHeader extends LitElement{
                         <option value="english"><img src="images/englishFlag.png"></option>
                         <option value="german"><a style="background-image:url(images/germanFlag.png);height:10px;width:10px" class="img-thumbnail" href=""> </a></option>
                     </select>-->
-                    <!--<img src="images/germanFlag.png" width="70" height="35" @click="${() => this.changeLanguage('german')}">
+                    <img src="images/germanFlag.png" width="70" height="35" @click="${() => this.changeLanguage('german')}">
                     <img src="images/englishFlag.png" width="70" height="35" @click="${() => this.changeLanguage('english')}">
-                    <select id="social" class="form-control" style="width:60px">
+                    <!--<select id="social" class="form-control" style="width:60px">
                         <option value='german'>Deutsch</option>
                         <option value='english'>English</option>
                     </select>-->
-                    <select id='social' style='width: 150px;'>
+                    <!--<select id='social' style='width: 150px;'>
                         <option value='facebook'>Facebook</option>
                         <option value='twitter'>Twitter</option>
                         <option value='linkedin'>Linkedin</option>
                         <option value='google_plus'>Google Plus</option>
                         <option value='vimeo'>Vimeo</option>
-                    </select>
+                    </select>-->
                 </div> 
                 <!--<img src="images/htl-leonding.jpg" width="150" height="150" class="image-htl">-->
             <div>

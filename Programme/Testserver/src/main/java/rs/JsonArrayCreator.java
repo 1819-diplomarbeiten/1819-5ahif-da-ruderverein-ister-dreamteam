@@ -249,7 +249,7 @@ public class JsonArrayCreator {
                     .add("rankingAll", "Alle")
                     .add("rankingSequence", "Sortierung")
                     .add("rankingDownloadBtn", "pdf erstellen")
-                    .add("clubRankingEmailDistanceBtn", "Email - Name Liste erstellen")
+                    .add("clubRankingEmailNameBtn", "Email - Name Liste erstellen")
                     .add("participantRankingHeadline", "30K Teilnehmer Ranking Liste")
                     .add("participantRankingSubheadline", "Wählen Sie Ihre Filteroptionen")
                     .add("rankingSequenceContent", "Alphabetisch;Top Down;Kategorien")
@@ -269,7 +269,25 @@ public class JsonArrayCreator {
                     .add("distanceParticipantSelectionTwo", "Beweisbild auswählen")
                     .add("distanceSubmitBtn", "Weiter")
                     .add("loginBtn", "Login")
-                    .add("distanceParticipantSuccessThree", "Ihre Distanz wurde erfolgreich hochgeladen");
+                    .add("distanceParticipantSuccessThree", "Ihre Distanz wurde erfolgreich hochgeladen")
+                    .add("pdfEmail", "Email")
+                    .add("pdfName", "Name")
+                    .add("pdfClub", "Club")
+                    .add("pdfShortcut", "Kürzel")
+                    .add("pdfParticipant", "Teilnehmer")
+                    .add("pdfParticipantCount", "Anzahl")
+                    .add("pdfTotal", "Gesamt")
+                    .add("pdfRating", "Wertung")
+                    .add("pdfRound", "Runde")
+                    .add("pdfMeter", "Meter")
+                    .add("pdfAthletes", "Athleten")
+                    .add("pdfCat", "Kat.")
+                    .add("pdfClass", "Klasse")
+                    .add("male", "männlich")
+                    .add("female", "weiblich")
+                    .add("categories", "Kategorien")
+                    .add("resultPerWeekend", "Ergebnis pro Wochenende")
+                    .add("pdfStatistics", "Statistiken");
             return jsonGerman.build();
         }
         else{
@@ -309,7 +327,7 @@ public class JsonArrayCreator {
                     .add("rankingResultContent", "Total;1. Session;2. Session;3. Session;4. Session;5. Session;6. Session;")
                     .add("rankingSequence", "Order")
                     .add("rankingDownloadBtn", "Download pdf")
-                    .add("clubRankingEmailDistanceBtn", "Load Email-Name List")
+                    .add("clubRankingEmailNameBtn", "Load Email-Name List")
                     .add("participantRankingHeadline", "30K Participant Ranking Liste")
                     .add("rankingSequenceContent", "Alphabetic;Top Down; Categories")
                     .add("distanceClubHeadlineOne", "Check Your Structur")
@@ -328,7 +346,25 @@ public class JsonArrayCreator {
                     .add("distanceParticipantHeadlineTwo", "select the Beweisbild aus")
                     .add("distanceParticipantSelectionTwo", "select Beweisbild")
                     .add("loginBtn", "Login")
-                    .add("distanceParticipantSuccessThree", "Ihre Distanz wurde succesful hochgeladen");
+                    .add("distanceParticipantSuccessThree", "Ihre Distanz wurde succesful hochgeladen")
+                    .add("pdfEmail", "Email")
+                    .add("pdfName", "Name")
+                    .add("pdfClub", "Club")
+                    .add("pdfShortcut", "Short")
+                    .add("pdfParticipant", "Participants")
+                    .add("pdfParticipantCount", "Count")
+                    .add("pdfTotal", "Total")
+                    .add("pdfRating", "Rating")
+                    .add("pdfRound", "Round")
+                    .add("pdfMeter", "Meter")
+                    .add("pdfAthletes", "Athletes")
+                    .add("pdfCat", "Cat.")
+                    .add("pdfClass", "Class")
+                    .add("male", "male")
+                    .add("female", "female")
+                    .add("categories", "Categories")
+                    .add("resultPerWeekend", "Result per Weekend")
+                    .add("pdfStatistics", "Statistis");
             return jsonEnglish.build();
         }
     }

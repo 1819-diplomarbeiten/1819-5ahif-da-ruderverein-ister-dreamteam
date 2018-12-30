@@ -40,6 +40,7 @@ div.body-container{
     position: absolute;
     top: 26%;
     margin-left: 2%;
+    width: 98%
 }
 p.text{
     font-size: 20px;

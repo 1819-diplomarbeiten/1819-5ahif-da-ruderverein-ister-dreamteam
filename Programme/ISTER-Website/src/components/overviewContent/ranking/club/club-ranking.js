@@ -7,7 +7,6 @@ export default class ClubRanking extends LitElement{
     static get properties(){
         return{
             dropDownYear: Number,
-            dropDownResult: Number,
             dropDownSequence: String,
             path: String,
             translation: []
@@ -22,14 +21,11 @@ export default class ClubRanking extends LitElement{
 
     getDistances(){
         this.dropDownYear = this.shadowRoot.getElementById('dropDownYear').value
-        //this.dropDownResult = this.shadowRoot.getElementById('dropDownResult').value
         this.dropDownSequence = this.shadowRoot.getElementById('dropDownSequence').value
         //var data = DataService.getClubRanking(this.dropDownYear, this.dropDownResult, this.dropDownSequence)
         var data = DataService.getClubRankingNew(this.dropDownYear, this.dropDownSequence)
-        if(data != "failure"){
-            //PdfService.createPdfClub(data, this.dropDownYear)
+        if(data != "failure")
             PdfService.createPdfClub(data, this.dropDownYear)
-        }
         else
             this.shadowRoot.getElementById('notification').innerHTML = 'connection failed'
     }
@@ -39,34 +35,19 @@ export default class ClubRanking extends LitElement{
         if(data != "failure")
             PdfService.createEmailName(data)
         else
-            console.log("connection failed")
+            this.shadowRoot.getElementById('notificationEmailName').innerHTML = 'connection failed'
     }
 
     checkForEmailDistanceBtn(){
         //if(a club is logged in)
         if(true)
-            this.shadowRoot.getElementById('email-distance-container').style.visibility = 'visible'
+            this.shadowRoot.getElementById('email-name-container').style.visibility = 'visible'
     }
 
     render(){
         $(document).ready(() => { 
             this.checkForEmailDistanceBtn()
         }) 
-        /*
-        <div class="form-group">
-                    <p>${this.translation["rankingResult"]}</p>
-                    <select id="dropDownResult" class="form-control" style="width:170px">
-                        <option value="0">${this.translation["rankingAll"]}</option>
-                        <option value="1">1. ${this.translation["session"]}</option>
-                        <option value="2">2. ${this.translation["session"]}</option>
-                        <option value="3">3. ${this.translation["session"]}</option>
-                        <option value="4">4. ${this.translation["session"]}</option>
-                        <option value="5">5. ${this.translation["session"]}</option>
-                        <option value="6">6. ${this.translation["session"]}</option>
-                    </select>
-                </div>
-                <br>
-        */
         return html`
         <script lang="javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
         <script lang="javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
@@ -98,9 +79,10 @@ export default class ClubRanking extends LitElement{
         <br>
         <input type ="button" value="${this.translation["rankingDownloadBtn"]}" class="btn btn-primary custom-color" @click="${() => this.getDistances()}"></input>
         <p id="notification"></p>
-        <div id="email-distance-container" style="visibility:hidden">
+        <div id="email-name-container" style="visibility:hidden">
             <p>------------------------</p>
-            <input type ="button" value="${this.translation["clubRankingEmailDistanceBtn"]}" class="btn btn-primary custom-color" style="width:210px" @click="${() => this.getEmailNameList()}"></input>
+            <input type ="button" value="${this.translation["clubRankingEmailNameBtn"]}" class="btn btn-primary custom-color" style="width:210px" @click="${() => this.getEmailNameList()}">
+            </input><p id="notificationEmailName"></p>
         </div>
         `
     }
