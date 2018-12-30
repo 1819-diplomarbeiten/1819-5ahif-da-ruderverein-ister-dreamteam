@@ -81,8 +81,21 @@ public class JsonArrayCreator {
         //genderDistanceTable
         fullObject.add("genderDistanceTable", Json.createObjectBuilder().add("male", getGenderDistanceArray(allSixCount)).add("female", getGenderDistanceArray(allSixCount)));
 
+        //participationTable
+        fullObject.add("participationTable", Json.createObjectBuilder().add("male", allSixCount).add("female", allSixCount).add("total", allSixCount));
+
+        //categoryTable
+        JsonArrayBuilder categoryTableArray = Json.createArrayBuilder();
+        for(int i = 0; i < 11; i ++){
+            categoryTableArray.add(createSingleCategoryRow());
+        }
+        fullObject.add("categoryTable", categoryTableArray);
 
         return fullObject.build();
+    }
+
+    private JsonObject createSingleCategoryRow(){
+        return Json.createObjectBuilder().add("category", "Masters A").add("years", "1977 - 1986").add("maleCount", 50).add("femaleCount", 50).add("totalCount", 50).build();
     }
 
     private JsonArray getGenderDistanceArray(JsonObject allSix){
