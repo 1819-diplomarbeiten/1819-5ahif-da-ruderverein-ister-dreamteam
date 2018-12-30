@@ -27,32 +27,11 @@ var clubColumns = [
     {title: "6th", dataKey:"roundSix"},
     {title: "Total", dataKey:"total"},
 ]
-var genderDistanceColumns = [
-    {title: "", dataKey:"Weiblich"},
-    {title: "distance", dataKey:"> Meter"},
-    {title: "1st", dataKey:"roundOne"},
-    {title: "2nd", dataKey:"roundTwo"},
-    {title: "3rd", dataKey:"roundThree"},
-    {title: "4th", dataKey:"roundFour"},
-    {title: "5th", dataKey:"roundFive"},
-    {title: "6th", dataKey:"roundSix"},
-]
+
 var emailDistanceColumns = [
     {title: "Email", dataKey:"email"},
     {title: "Name", dataKey:"name"},
 ]
-var standardOptions = {
-    margin: {top:35},
-    styles: {
-        fontSize:7
-    },
-    headerStyles: {
-        fontSize: 9
-    },
-    tableWidth: 'auto',
-    theme: 'striped',
-    showHeader: 'everyPage'
-}
 
 export default class PdfService{
 
@@ -74,7 +53,7 @@ export default class PdfService{
                 "wattKg": result[j].wattKg
             }
         }
-        doc.autoTable(columns, rows, this.getParticipantPdfRows(doc));
+        doc.autoTable(columns, rows, this.getParticipantPdfAutotableOptions(doc));
         doc.save('PersonChallenge.pdf')
     }
     
@@ -98,7 +77,7 @@ export default class PdfService{
             "bestFour": result[j].bestFourDistances,
             "total": this.calculateTotal(result[j].allSixDistances)}
         }
-        doc.autoTable(columns, rows, this.getParticipantPdfRows(doc));
+        doc.autoTable(columns, rows, this.getParticipantPdfAutotableOptions(doc));
         doc.save('PersonChallenge.pdf')
     }
 
@@ -125,7 +104,7 @@ export default class PdfService{
                 "total": this.calculateTotal(result[i].results[j].allSixDistances)}
             }
 
-            doc.autoTable(columns, rows, this.getParticipantPdfRows(doc));
+            doc.autoTable(columns, rows, this.getParticipantPdfAutotableOptions(doc));
         }
         doc.save('PersonChallenge.pdf')
     }
@@ -149,20 +128,24 @@ export default class PdfService{
                 "wattKg": result[i].results[j].wattKg
                 }
             }
-            doc.autoTable(columns, rows, this.getParticipantPdfRows(doc));
+            doc.autoTable(columns, rows, this.getParticipantPdfAutotableOptions(doc));
         }
         doc.save('PersonChallenge.pdf')
     }
 
-    static createPdfClubNew(result, year){
+    static createPdfClub(result, year){
         var doc = new jsPDF()
         doc = this.createHeader(doc, year, "30 (dirty) K Ergo Winter Challenge ")
         doc = this.createDistanceTable(doc, result)
-        //doc = this.createGenderDistanceTable(doc, result.genderDistanceTable)
+        doc.addPage()
+        doc = this.createStatisticsHeader(doc)
+        doc = this.createGenderDistanceTable(doc, result.genderDistanceTable.female, "weiblich", 50)
+        doc = this.createGenderDistanceTable(doc, result.genderDistanceTable.male, "männlich", doc.autoTableEndPosY() + 30)
+        doc.addPage()
         doc.save('ClubChallenge.pdf')
     }
 
-    static createEmailDistance(result){
+    static createEmailName(result){
         var doc = new jsPDF()
         doc = this.createHeader(doc, "", "Ergo Challenge Email-Name")
         
@@ -174,8 +157,8 @@ export default class PdfService{
             "name": result[j].name
             }
         }
-        doc.autoTable(columns, rows, standardOptions);
-        doc.save('Email Name References.pdf')
+        doc.autoTable(columns, rows, this.getStandardPdfAutotableOptions(35, 7, 9));
+        doc.save('Email Name.pdf')
     }
     
     static calculateTotal(allSix){
@@ -190,12 +173,30 @@ export default class PdfService{
     }
 
     
-    //methods for club pdf
+    //methods for club statistics pdf
     static createHeader(doc, year, content){
         doc.setFontSize(18)
         doc.setFontType('bold')
         doc.text(content + year, 20, 25)
         doc.addImage(img, 'PNG', 150, 15)
+        doc.setFontSize(12)
+        doc.setFontType('slim')
+        return doc
+    }
+
+    static createStatisticsHeader(doc){
+        doc.setFontSize(18)
+        doc.setFontType('bold')
+        doc.text("Statistiken:", 20, 25)
+        doc.setFontSize(12)
+        doc.setFontType('slim')
+        return doc
+    }
+
+    static createStatisticsSubheader(doc, content, pos){
+        doc.setFontSize(16)
+        doc.setFontType('bold')
+        doc.text(content, 20, pos)
         doc.setFontSize(12)
         doc.setFontType('slim')
         return doc
@@ -219,15 +220,12 @@ export default class PdfService{
             "total": this.calculateTotal(resultDistanceTable[j].allSixDistances)}
         }
         rows = this.getDistanceFootnoteArray(rows, result.distanceFootnoteTable, resultDistanceTable.length)
-        doc.autoTable(columns, rows, standardOptions);
+        doc.autoTable(columns, rows, this.getStandardPdfAutotableOptions(35, 9, 7));
         return doc;
     }
 
     static getDistanceFootnoteArray(rows, result, startIndex){
-        console.log(result.totalCount.allSixRoundsClubs.roundOne)
-        rows[startIndex] = {
-
-        }
+        rows[startIndex] = { }
         rows[startIndex + 1] = {
             "clubLong": "Teilnehmer gesamt",
             "clubParticipantCount": result.totalCount.clubCountTotal,
@@ -282,30 +280,30 @@ export default class PdfService{
         return rows;
     }
 
-    static createGenderDistanceTable(doc, result){
-        var resultDistanceTable = result.distanceTableArray
-        var columns = genderDistanceColumns
+    static createGenderDistanceTable(doc, result, gender, subHeaderStartY){
+        var doc = this.createStatisticsSubheader(doc, gender, subHeaderStartY)
+        var columns = this.getGenderDistanceColumns(gender)
         var rows = []
-        for(var j = 0; j < resultDistanceTable.length;j++){
-            rows[j] = {"position": j + 1,
-            "club": resultDistanceTable[j].club,
-            "clubLong": resultDistanceTable[j].clubLong,
-            "clubParticipantCount": resultDistanceTable[j].clubParticipantCount,
-            "roundOne": resultDistanceTable[j].allSixDistances.roundOne,
-            "roundTwo": resultDistanceTable[j].allSixDistances.roundTwo,
-            "roundThree": resultDistanceTable[j].allSixDistances.roundThree,
-            "roundFour": resultDistanceTable[j].allSixDistances.roundFour,
-            "roundFive": resultDistanceTable[j].allSixDistances.roundFive,
-            "roundSix": resultDistanceTable[j].allSixDistances.roundSix,
-            "total": this.calculateTotal(resultDistanceTable[j].allSixDistances)}
+        for(var j = 0; j < result.length;j++){
+            rows[j] = {
+                "distance": result[j].reachenDistance,
+                "roundOne": result[j].distances.roundOne,
+                "roundTwo": result[j].distances.roundTwo,
+                "roundThree": result[j].distances.roundThree,
+                "roundFour": result[j].distances.roundFour,
+                "roundFive": result[j].distances.roundFive,
+                "roundSix": result[j].distances.roundSix
+            }
         }
-        rows = this.getDistanceFootnoteTable(rows, result.distanceFootnoteTable, resultDistanceTable.length)
-        doc.autoTable(columns, rows, standardOptions);
+        if(gender == "männlich")
+            doc.autoTable(columns, rows, this.getStandardPdfAutotableOptions(doc.autoTableEndPosY() + 35, 12, 10));
+        else
+            doc.autoTable(columns, rows, this.getStandardPdfAutotableOptions(55, 12, 10));
         return doc;
     }
 
 
-    //columns
+    //columns with params
     static getSessionColumns(session){
         return [
             {title: "", dataKey:"position"},
@@ -321,7 +319,21 @@ export default class PdfService{
         ]
     }
 
-    static getParticipantPdfRows(doc){
+    static getGenderDistanceColumns(gender){
+        return [
+            {title: "> Meter", dataKey:"distance"},
+            {title: "Athletes", dataKey:"roundOne"},
+            {title: "Athletes", dataKey:"roundTwo"},
+            {title: "Athletes", dataKey:"roundThree"},
+            {title: "Athletes", dataKey:"roundFour"},
+            {title: "Athletes", dataKey:"roundFive"},
+            {title: "Athletes", dataKey:"roundSix"},
+        ]
+    }
+
+
+    //autotable options
+    static getParticipantPdfAutotableOptions(doc){
         return {
             startY: doc.autoTableEndPosY() + 35,
             styles: {
@@ -337,6 +349,21 @@ export default class PdfService{
                 roundFour: { halign: 'center' },
                 roundFive: { halign: 'center' },
                 roundSix: { halign: 'center' }
+            },
+            tableWidth: 'auto',
+            theme: 'striped',
+            showHeader: 'everyPage'
+        }
+    }
+
+    static getStandardPdfAutotableOptions(marginTop, fontSizeHeader, fontSizeBody){
+        return {
+            margin: {top:marginTop},
+            styles: {
+                fontSize:fontSizeBody
+            },
+            headerStyles: {
+                fontSize: fontSizeHeader
             },
             tableWidth: 'auto',
             theme: 'striped',

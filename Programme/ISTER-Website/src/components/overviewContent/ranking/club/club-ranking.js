@@ -28,7 +28,7 @@ export default class ClubRanking extends LitElement{
         var data = DataService.getClubRankingNew(this.dropDownYear, this.dropDownSequence)
         if(data != "failure"){
             //PdfService.createPdfClub(data, this.dropDownYear)
-            PdfService.createPdfClubNew(data, this.dropDownYear)
+            PdfService.createPdfClub(data, this.dropDownYear)
         }
         else
             this.shadowRoot.getElementById('notification').innerHTML = 'connection failed'
@@ -37,7 +37,7 @@ export default class ClubRanking extends LitElement{
     getEmailNameList(){
         var data = DataService.getEmailNameList()
         if(data != "failure")
-            PdfService.createEmailDistance(data)
+            PdfService.createEmailName(data)
         else
             console.log("connection failed")
     }

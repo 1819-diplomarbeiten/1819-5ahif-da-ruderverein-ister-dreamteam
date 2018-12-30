@@ -88,7 +88,7 @@ public class JsonArrayCreator {
     private JsonArray getGenderDistanceArray(JsonObject allSix){
         JsonArrayBuilder g = Json.createArrayBuilder();
         for(int i = 0; i < 10; i ++){
-            g.add(Json.createObjectBuilder().add("reachenDistance", 1000).add("distances", allSix));
+            g.add(Json.createObjectBuilder().add("reachenDistance", 3500 + (500 * i)).add("distances", allSix));
         }
         return g.build();
     }
