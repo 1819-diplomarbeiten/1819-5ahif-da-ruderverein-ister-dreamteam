@@ -19,17 +19,21 @@ export default class ParticipantRanking extends LitElement{
         this.translation = TranslationService.getTranslation('participant-ranking')
     }
 
+    //get the data from service and call pdf-manage method
     getDistances(){
         this.dropDownYear = this.shadowRoot.getElementById('dropDownYear').value
         this.dropDownResult = this.shadowRoot.getElementById('dropDownResult').value
         this.dropDownSequence = this.shadowRoot.getElementById('dropDownSequence').value
+
         var data = DataService.getParticipantRanking(this.dropDownYear, this.dropDownResult, this.dropDownSequence)
+
         if(data != "failure")
             this.managePdfCreation(data)
         else
             this.shadowRoot.getElementById('notification').innerHTML = 'connection failed'
     }
 
+    //manage the 4 types of participant pdf creation
     managePdfCreation(data){
         if(this.dropDownResult == '0' && this.dropDownSequence != 'Categories')
             PdfService.createPdfTotal(data, this.dropDownYear)

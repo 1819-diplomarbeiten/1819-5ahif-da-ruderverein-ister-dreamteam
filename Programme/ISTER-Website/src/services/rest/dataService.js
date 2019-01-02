@@ -32,18 +32,7 @@ export default class DataService{
             return "failure"
     }
 
-    static getClubRanking(year, result, sequence){
-        const request = new XMLHttpRequest()
-        request.open("GET", path + "bestfourdistancesclubs.php?year=" + year + "&result=" + result + "&sequence=" + sequence, false)
-        request.send(null)
-
-        if(request.status === 200)
-            return JSON.parse(request.responseText)
-        else
-            return "failure"
-    }
-
-    static getClubRankingNew(year, sequence){
+    static getClubRanking(year, sequence){
         const request = new XMLHttpRequest()
         request.open("GET", 'http://localhost:8080/testserver/rs/sql/bestFourDistancesClubs/' + year + "/" + sequence, false)
         request.send(null)
@@ -89,7 +78,29 @@ export default class DataService{
 
     static getEvidencePic(email, year, session){
         const request = new XMLHttpRequest()
-        request.open("GET", 'http://localhost:8080/testserver/rs/sql/picSearch/' + this.email + '/' + this.year + '/' + this.session, false)
+        request.open("GET", 'http://localhost:8080/testserver/rs/sql/picSearch/' + email + '/' + year + '/' + session, false)
+        request.send(null)
+
+        if(request.status === 200)
+            return JSON.parse(request.responseText)
+        else
+            return "failure"
+    }
+
+    static getChallengeTime(){
+        const request = new XMLHttpRequest()
+        request.open("GET", path + "actualchallengetime.php", false)
+        request.send(null)
+
+        if(request.status === 200)
+            return JSON.parse(request.responseText)
+        else
+            return "failure"
+    }
+
+    static getChallengeStatus(){
+        const request = new XMLHttpRequest()
+        request.open("GET", path + "challengestatus.php", false)
         request.send(null)
 
         if(request.status === 200)

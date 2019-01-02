@@ -18,21 +18,26 @@ export default class DistanceFormParticipant extends LitElement{
         this.translation = TranslationService.getTranslation('participant-distance')
     }
 
+    //gets called per user button, POST a single period from participant to server
     postPeriod(){
-
         var fileReader = new FileReader();
+
+        //gets called when var file is ready 
         fileReader.onload = event => {
             this.evidencePic = event.target.result
             this.manage(this.evidencePic)
         };
+
         var file = this.shadowRoot.getElementById('evidencePic').files[0]
 
+        //check if evidence picture is selected, depending on that preparing POST with(out) pic
         if(file == undefined)
             this.manage(null)
         else
             fileReader.readAsDataURL(file);   
     }
 
+    //
     manage(evidencePic){
         DataService.post(JSON.parse("{\"distance\":" + this.distance + ",\"evidencePic\":\"" + evidencePic + "\"}"), "period")
         this.shadowRoot.getElementById('waiting').innerHTML = `${this.translation["distanceParticipantSuccessThree"]}!`
@@ -40,6 +45,7 @@ export default class DistanceFormParticipant extends LitElement{
         this.uploaded = true
     }
 
+    //check if a valid (field filled, only numbers) distance is entered
     validDistance(){
         this.distance = this.shadowRoot.getElementById('distance').value;
         if(isNaN(this.distance) == true || this.distance == ""){
@@ -52,6 +58,7 @@ export default class DistanceFormParticipant extends LitElement{
         }
     }
 
+    //displays filename beneath selection button
     setFileName(){
         this.shadowRoot.getElementById('picNotification').innerHTML = this.shadowRoot.getElementById('evidencePic').files[0].name
     }

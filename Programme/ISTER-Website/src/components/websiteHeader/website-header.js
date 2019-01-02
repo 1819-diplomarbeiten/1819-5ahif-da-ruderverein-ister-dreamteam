@@ -1,7 +1,8 @@
 import {LitElement, html} from '@polymer/lit-element'
 import TranslationService from '../../services/translation/translationService.js'
+import DataService from '../../services/rest/dataService.js';
 
-export default class WebSiteHeader extends LitElement{
+export default class WebsiteHeader extends LitElement{
     static get properties(){
         return {
             path: String,
@@ -16,42 +17,42 @@ export default class WebSiteHeader extends LitElement{
 
     }
 
+    //gets called when a new language is selected, loads the new translation and sets it afterwards for this component
     changeLanguage(language){
-        fetch('http://localhost:8080/testserver/rs/sql/translate/' + language)
-        .then(resp => resp.json())
         TranslationService.loadTranslation(language)
         this.translation = TranslationService.getTranslation('website-header')
     }
 
+    //manages the countdown at the top of the website
     countdown(){
-        fetch(this.path + '/actualchallengetime.php', {
-            method: 'GET'
-        })
-        .then((resp) => resp.json())
-        .then(data => {
-            var x = setInterval(_ => {
-                var distance = data.time - new Date().getTime();
-                
-                // Time calculations for days, hours, minutes and seconds
-                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                hours = this.zeroChecker(hours)
-                minutes = this.zeroChecker(minutes)
-                seconds = this.zeroChecker(seconds)
-                var startsEnds = ""
-                if(data.state == "STARTS")
-                    startsEnds = this.translation["headerStarts"]
-                else
-                    startsEnds = this.translation["headerEnds"]
-                this.shadowRoot.getElementById('countdown').innerHTML = `
-                    <span><strong>${this.translation["headerCountdown"]} ${startsEnds} &rarr; </strong></span>${days}<span class="highlight"> ${this.translation["headerDay"]} </span>${hours}<span class="highlight"> ${this.translation["headerHour"]} </span>${minutes}<span class="highlight"> ${this.translation["headerMinutes"]} </span>${seconds}<span class="highlight"> ${this.translation["headerSeconds"]} </span>
-                    `
-            }, 994);
-        })
+        var data = DataService.getChallengeTime()
+        setInterval(_ => {
+            var distance = data.time - new Date().getTime();
+            
+            // Time calculations for days, hours, minutes and seconds
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            hours = this.zeroChecker(hours)
+            minutes = this.zeroChecker(minutes)
+            seconds = this.zeroChecker(seconds)
+
+            //Load starts/ends translation for display
+            var startsEnds = ""
+            if(data.state == "STARTS")
+                startsEnds = this.translation["headerStarts"]
+            else
+                startsEnds = this.translation["headerEnds"]
+
+            this.shadowRoot.getElementById('countdown').innerHTML = `
+                <span><strong>${this.translation["headerCountdown"]} ${startsEnds} &rarr; </strong></span>${days}<span class="highlight"> ${this.translation["headerDay"]} </span>${hours}<span class="highlight"> ${this.translation["headerHour"]} </span>${minutes}<span class="highlight"> ${this.translation["headerMinutes"]} </span>${seconds}<span class="highlight"> ${this.translation["headerSeconds"]} </span>
+                `
+        }, 994);
     }
 
+    //add styling zeros if necessary
     zeroChecker(nr){
         if(nr.toString().length == 1)
             return "0" + nr.toString();
@@ -119,9 +120,8 @@ export default class WebSiteHeader extends LitElement{
                         <option value='vimeo'>Vimeo</option>
                     </select>-->
                 </div> 
-                <!--<img src="images/htl-leonding.jpg" width="150" height="150" class="image-htl">-->
-            <div>
+            </div>
         `
     }
 }
-window.customElements.define('website-header', WebSiteHeader)
+window.customElements.define('website-header', WebsiteHeader)

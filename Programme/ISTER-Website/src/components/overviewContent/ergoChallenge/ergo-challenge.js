@@ -16,6 +16,7 @@ export default class ErgoChallenge extends LitElement{
         this.translation = TranslationService.getTranslation('ergo-challenge')
     }
 
+    //returns the actual year depending on challenge -> if it's april or earlier it's the year before
     getChallengeYear(){
         var date = new Date().getFullYear()
         if(new Date().getMonth() < 4)
@@ -24,17 +25,18 @@ export default class ErgoChallenge extends LitElement{
             return date
     }
 
+    //gets actual session dates from service and adds it to page
     getChallengeSessions(){
         var data = DataService.getChallengeSessions(this.getChallengeYear())
         this.appendChildTo(data.roundOne)
-            this.appendChildTo(data.roundTwo)
-            this.appendChildTo(data.roundThree)
-            this.appendChildTo(data.roundFour)
-            this.appendChildTo(data.roundFive)
-            this.appendChildTo(data.roundSix)
-            this.methodEntered = true
+        this.appendChildTo(data.roundTwo)
+        this.appendChildTo(data.roundThree)
+        this.appendChildTo(data.roundFour)
+        this.appendChildTo(data.roundFive)
+        this.appendChildTo(data.roundSix)
     }
 
+    //prepares single row data
     appendChildTo(to){
         var li = document.createElement('li')
         li.innerHTML = `${this.counter}. ${this.translation["session"]}: ${this.prepareDate(to)}`
@@ -42,6 +44,7 @@ export default class ErgoChallenge extends LitElement{
         this.shadowRoot.getElementById('sessionList').appendChild(li)
     }
 
+    //parses date
     prepareDate(to){
         var temp = to.split('-')
         return temp[2] + '. - ' + (parseInt(temp[2]) + 4) + '.' + temp[1] + '.' + temp[0]
@@ -49,6 +52,7 @@ export default class ErgoChallenge extends LitElement{
 
     render(){
         $(document).ready(() => { 
+            //however, this function gets called again when i add childen to the code, so therefore a boolean is needed
             if(!this.methodEntered){
                 this.counter = 1
                 this.methodEntered = true

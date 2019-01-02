@@ -19,17 +19,20 @@ export default class ClubRanking extends LitElement{
         this.translation = TranslationService.getTranslation('club-ranking')
     }
 
+    //gets called from user per button-click, manages creation of pdf club
     getDistances(){
         this.dropDownYear = this.shadowRoot.getElementById('dropDownYear').value
         this.dropDownSequence = this.shadowRoot.getElementById('dropDownSequence').value
-        //var data = DataService.getClubRanking(this.dropDownYear, this.dropDownResult, this.dropDownSequence)
-        var data = DataService.getClubRankingNew(this.dropDownYear, this.dropDownSequence)
+
+        var data = DataService.getClubRanking(this.dropDownYear, this.dropDownSequence)
+        
         if(data != "failure")
             PdfService.createPdfClub(data, this.dropDownYear)
         else
             this.shadowRoot.getElementById('notification').innerHTML = 'connection failed'
     }
 
+    //gets called from user per button-click, manages creation of email name reference list
     getEmailNameList(){
         var data = DataService.getEmailNameList()
         if(data != "failure")
@@ -38,6 +41,7 @@ export default class ClubRanking extends LitElement{
             this.shadowRoot.getElementById('notificationEmailName').innerHTML = 'connection failed'
     }
 
+    //button is only displayed when a club is logged in
     checkForEmailDistanceBtn(){
         //if(a club is logged in)
         if(true)

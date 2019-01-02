@@ -59,3 +59,8 @@ p.text{
     background-color: #FAFAFA;
     border-color: #35424A;
 }
+.image-htl{
+    position: absolute;
+    top: 85%;
+    right: 10px;
+}
