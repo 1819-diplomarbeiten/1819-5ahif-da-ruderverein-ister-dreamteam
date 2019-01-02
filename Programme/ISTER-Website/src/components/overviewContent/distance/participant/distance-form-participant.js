@@ -19,7 +19,7 @@ export default class DistanceFormParticipant extends LitElement{
     }
 
     //gets called per user button, POST a single period from participant to server
-    postPeriod(){
+    manageUpload(){
         var fileReader = new FileReader();
 
         //gets called when var file is ready 
@@ -37,8 +37,8 @@ export default class DistanceFormParticipant extends LitElement{
             fileReader.readAsDataURL(file);   
     }
 
-    //
-    manage(evidencePic){
+    //POST per Service
+    postPeriod(evidencePic){
         DataService.post(JSON.parse("{\"distance\":" + this.distance + ",\"evidencePic\":\"" + evidencePic + "\"}"), "period")
         this.shadowRoot.getElementById('waiting').innerHTML = `${this.translation["distanceParticipantSuccessThree"]}!`
         this.shadowRoot.getElementById('notification').innerHTML = ''
@@ -63,6 +63,7 @@ export default class DistanceFormParticipant extends LitElement{
         this.shadowRoot.getElementById('picNotification').innerHTML = this.shadowRoot.getElementById('evidencePic').files[0].name
     }
 
+    //handles displaying of the different parts
     activate(toActivate){
         if(!this.uploaded) {
             switch(toActivate){
@@ -83,13 +84,12 @@ export default class DistanceFormParticipant extends LitElement{
                     this.shadowRoot.getElementById('contentOne').style.display = 'none'
                     this.shadowRoot.getElementById('contentTwo').style.display = 'none'
                     this.shadowRoot.getElementById('contentThree').style.display = 'initial'
-                    this.postPeriod()
+                    this.manageUpload()
                 break
             }
         }
     }
 
-    //zu späterer Zeit: Überprüfung ob gerade eine Challenge!
     render(){
         $(document).ready(() => { 
             this.shadowRoot.getElementById('evidencePic').onchange = () => {this.setFileName()}

@@ -17,60 +17,68 @@ export default class DistanceFormClub extends LitElement{
         this.translation = TranslationService.getTranslation('club-distance')
     }
 
-    postPeriods(){
+    //manages excel upload per service
+    manageUpload(){
         var file = this.shadowRoot.getElementById('excelFile').files[0]
         var fileReader = new FileReader();
-        if(this.distance == "" || this.shadowRoot.getElementById('excelFile').files[0] == undefined) {
-            this.shadowRoot.getElementById('notification').innerHTML = 'no Excel selected'
-            this.shadowRoot.getElementById('stepBackThree').style.display = 'initial'
-            return
-        }
 
         fileReader.onload = e => {
-            var binary = "";
-            var bytes = new Uint8Array(e.target.result);
-            var length = bytes.byteLength;
-
-            for (var i = 0; i < length; i++) {
-              binary += String.fromCharCode(bytes[i]);
-            }
-
-            var workbook = XLSX.read(binary, {type: 'binary', cellDates:true, cellStyles:true});
-            workbook.SheetNames.forEach(sheetName => {
-                var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
-                var jsonObj = JSON.stringify(XL_row_object);
-                if(this.excelIsValid(XL_row_object) == false) {
-                    this.shadowRoot.getElementById('notification').innerHTML = `${this.translation["distanceClubErrorThree"]}`
-                    this.shadowRoot.getElementById('stepBackThree').style.display = 'initial'
-                }
-                else {
-                    DataService.post(jsonObj, "periods")
-                    this.shadowRoot.getElementById('waiting').innerHTML = `${this.translation["distanceClubSuccessThree"]}!`
-                    this.shadowRoot.getElementById('notification').innerHTML = ''
-                    this.uploaded = true
-                }
-            })
+            this.checkExcel(e)
         }
+
         fileReader.readAsArrayBuffer(file)
     }
 
+    //parses excel file
+    checkExcel(e){
+        var binary = "";
+        var bytes = new Uint8Array(e.target.result);
+        var length = bytes.byteLength;
+
+        for (var i = 0; i < length; i++) {
+          binary += String.fromCharCode(bytes[i]);
+        }
+
+        var workbook = XLSX.read(binary, {type: 'binary', cellDates:true, cellStyles:true});
+        workbook.SheetNames.forEach(sheetName => {
+            var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+            var jsonObj = JSON.stringify(XL_row_object);
+            if(this.excelIsValid(XL_row_object) == false) {
+                this.shadowRoot.getElementById('notification').innerHTML = `${this.translation["distanceClubErrorThree"]}`
+                this.shadowRoot.getElementById('stepBackThree').style.display = 'initial'
+            }
+            else {
+                DataService.post(jsonObj, "periods")
+                this.shadowRoot.getElementById('waiting').innerHTML = `${this.translation["distanceClubSuccessThree"]}!`
+                this.shadowRoot.getElementById('notification').innerHTML = ''
+                this.uploaded = true
+            }
+        })
+    }
+
+    //checks the structure of the excel (header, valid distance, valid email)
     excelIsValid(jsonObj){
+        //Header name check
         if(jsonObj[0].Distance == undefined || jsonObj[0].Email == undefined){
             return false
         }
 
+        //content check
         for(var i = 0; i < jsonObj.length; i ++){
             if(this.validateEmail(jsonObj[i].Email) == false || isNaN(jsonObj[i].Distance) == true || jsonObj[i].Distance == "")
                 return false
         }
+
         return true
     }
     
+    //checks if a email's structure is correct
     validateEmail(email) {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(email).toLowerCase());
     }
 
+    //handles displaying of the different parts
     activate(toActivate){
         if(!this.uploaded) {
             switch(toActivate){
@@ -93,11 +101,13 @@ export default class DistanceFormClub extends LitElement{
                     this.shadowRoot.getElementById('contentOne').style.display = 'none'
                     this.shadowRoot.getElementById('contentTwo').style.display = 'none'
                     this.shadowRoot.getElementById('contentThree').style.display = 'initial'
-                    this.postPeriods()
+                    this.manageUpload()
                 break
             }
         }
     }
+    
+    //displays filename beneath selection button
     setFileName(){
         this.shadowRoot.getElementById('excelNotification').innerHTML = this.shadowRoot.getElementById('excelFile').files[0].name
         this.shadowRoot.getElementById('doneTwo').disabled = false

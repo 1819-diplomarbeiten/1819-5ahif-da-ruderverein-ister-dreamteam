@@ -22,6 +22,7 @@ export default class ChallengeManager extends LitElement{
         this.entered = false
     }
 
+    //manages the fill of the challenge table
     getAllChallenges(){
        var data = DataService.getAllChallenges()
        if(data != "failure"){
@@ -32,6 +33,7 @@ export default class ChallengeManager extends LitElement{
            console.log('connection failed')
     }
 
+    
     doTableFill(data){
         var tableBody = this.shadowRoot.getElementById('manageBody')
         for(var i = 0; i < data.length; i ++){
@@ -274,14 +276,6 @@ export default class ChallengeManager extends LitElement{
         }
         else
             this.shadowRoot.getElementById('PicNotification').innerHTML = '<span class="error">Connection failed</span>'
-
-        /*fetch('http://localhost:8080/testserver/rs/sql/picSearch/' + this.email + '/' + this.year + '/' + this.session, {
-            method: "GET"
-        })
-        .then(resp => resp.json())
-        .then(data => {
-            
-        })*/
     }
 
     clearPictureContainer(){

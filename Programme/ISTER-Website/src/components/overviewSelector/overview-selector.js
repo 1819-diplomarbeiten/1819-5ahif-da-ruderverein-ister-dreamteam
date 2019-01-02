@@ -67,7 +67,8 @@ export default class OverviewSelector extends LitElement{
                 mainComp.appendChild(elem)
                 break
             case 'distance':
-                elem = document.createElement('distance-form-club')
+                var distance = this.getDistanceSelector()
+                elem = document.createElement(distance)
                 mainComp.appendChild(elem)
                 break
             case 'home':
@@ -89,6 +90,15 @@ export default class OverviewSelector extends LitElement{
             default:
                 break
         }
+    }
+
+    //checks which distance formular has to be displayed
+    getDistanceSelector(){
+        //if(a club is logged in)
+        if(true)
+            return 'distance-form-club'
+        else
+            return 'distance-form-participant'
     }
 
     //check if there is a challenge running
