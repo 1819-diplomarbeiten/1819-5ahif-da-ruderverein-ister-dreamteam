@@ -22,13 +22,15 @@ export default class ChallengeManager extends LitElement{
     }
 
     getAllChallenges(){
-       var data = DataService.get('all-challenges')
-       if(data != "failure"){
-           data = this.transformJson(data)
-           this.doTableFill(data)
-       }
-       else
-           console.log('connection failed')
+        if(this.entered == false)
+            this.challenges = DataService.get('all-challenges')
+        if(this.challenges != "failure"){
+            var data = this.transformJson(this.challenges)
+            this.doTableFill(data)
+        }
+        else
+            console.log('connection failed')
+        
     }
 
 
@@ -41,8 +43,9 @@ export default class ChallengeManager extends LitElement{
     }
 
     transformJson(data){
+        var newData = []
         for(var i = 0; i < data.length; i ++){
-            data[i] = {
+            newData[i] = {
                 year: data[i].year,
                 roundOne: this.intToDate(data[i].roundOne),
                 roundTwo: this.intToDate(data[i].roundTwo),
@@ -52,19 +55,19 @@ export default class ChallengeManager extends LitElement{
                 roundSix: this.intToDate(data[i].roundSix)
             }
         }
-        return data
+        return newData
     }
 
     getTableContentRow(data){
         var tr = document.createElement('tr')
-        tr.appendChild(this.createSingleContentElement('td', data.year))
-        tr.appendChild(this.createSingleContentElement('td', data.roundOne, data.year + 'roundOne'))
-        tr.appendChild(this.createSingleContentElement('td', data.roundTwo, data.year + 'roundTwo'))
-        tr.appendChild(this.createSingleContentElement('td', data.roundThree, data.year + 'roundThree'))
-        tr.appendChild(this.createSingleContentElement('td', data.roundFour, data.year + 'roundFour'))
-        tr.appendChild(this.createSingleContentElement('td', data.roundFive, data.year + 'roundFive'))
-        tr.appendChild(this.createSingleContentElement('td', data.roundSix, data.year + 'roundSix'))
-        tr.appendChild(this.createSingleContentElement('td', 'delete', data.year + 'delete'))
+        tr.appendChild(this.createTdObject(data.year))
+        tr.appendChild(this.createTdObject(data.roundOne, data.year + 'roundOne'))
+        tr.appendChild(this.createTdObject(data.roundTwo, data.year + 'roundTwo'))
+        tr.appendChild(this.createTdObject(data.roundThree, data.year + 'roundThree'))
+        tr.appendChild(this.createTdObject(data.roundFour, data.year + 'roundFour'))
+        tr.appendChild(this.createTdObject(data.roundFive, data.year + 'roundFive'))
+        tr.appendChild(this.createTdObject(data.roundSix, data.year + 'roundSix'))
+        tr.appendChild(this.createTdObject('delete', data.year + 'delete'))
         return tr
     }
 
@@ -100,36 +103,67 @@ export default class ChallengeManager extends LitElement{
         this.shadowRoot.getElementById('popup-field').style.display = 'none';
         if(status == 'save'){
             var newDate = this.shadowRoot.getElementById('popupInput').value
-            this.shadowRoot.getElementById(this.selectedValueId).innerHTML = this.createSingleContentElement('td', newDate, this.selectedValueId)
+            this.shadowRoot.getElementById(this.selectedValueId).innerHTML = this.getTdContent('enabled', this.selectedValueId, this.intToDate(newDate))
             var json = JSON.stringify({"oldDate": this.oldDate, "newDate": newDate})
             DataService.put(json, 'session-date-update')
+            window.alert('Datum wurde in der Datenbank geupdatet')
         }
     }
 
-    createSingleContentElement(content, date, id){
-        var content = document.createElement(content)
-        content.setAttribute('id', id)
+    createTdObject(date, id){
+        var td = document.createElement('td')
+        td.setAttribute('id', id)
         if(isNaN(date)){
-            if(date == 'delete') {
-                content.innerHTML = '<button class="btn btn-danger" id="' + id + '">Challenge löschen</button>'
-                this.setIdOnClick(id, 'delete')
-            }
+            if(date == 'delete')
+                td.innerHTML = this.getTdContent('delete', id, date)
             else if(this.dateIsInPast(this.dateToInt(date)))
-                content.innerHTML = date + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color' disabled>Ändern</button>"
-            else{
-                content.innerHTML = date + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id='" + id + "' align='right' class='btn btn-primary custom-color'>Ändern</button>"
-                this.setIdOnClick(id, 'change', this.dateToInt(date))
-            }
+                td.innerHTML = this.getTdContent('disabled', null, date)
+            else
+                td.innerHTML = this.getTdContent('enabled', id, date)
         }
-        else{
-            content.innerHTML = date
-            content.style.marginTop = ''
+        else {
+            td.innerHTML = date
+            td.style.marginTop = ''
+        }
+        return td
+    }
+
+    getTdContent(mode, id, date){
+        var content = ''
+        switch(mode){
+            case "delete":
+                content = '<button class="btn btn-danger">Challenge löschen</button>'
+                this.setIdOnClick(id, 'delete')
+                break;
+            case "disabled":
+                content = date + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color' disabled>Ändern</button>"
+                break
+            case "enabled":
+                content = date + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color'>Ändern</button>"
+                this.setIdOnClick(id, 'change', this.dateToInt(date))
+                break
+            default:
+                console.log("ERROR")
+                break
         }
         return content
     }
 
-    deleteChallenge(){
-        console.log('entered delete challenge')
+    deleteChallenge(id){
+        var year = id.substring(0,4)
+        if(window.confirm('Wollen Sie die Challenge vom Jahr ' + year + ' wirklich aus der Datenbank löschen?')){
+            window.alert('Challenge von ' + year + ' gelöscht')
+            DataService.delete(id)
+            this.shadowRoot.getElementById('manageBody').innerHTML = ''
+            this.deleteSpecificChallengeFromList(year)
+            this.getAllChallenges()
+        }
+    }
+
+    deleteSpecificChallengeFromList(year){
+        this.challenges = this.challenges.filter(function(value, index, arr){
+            return value.year != year
+        });
     }
 
     render(){
@@ -142,8 +176,8 @@ export default class ChallengeManager extends LitElement{
             this.loadDatePicker('roundFive')
             this.loadDatePicker('roundSix')
             if(this.entered == false){
-                this.entered = true
                 this.getAllChallenges()
+                this.entered = true
             }
         })
 
@@ -155,16 +189,13 @@ export default class ChallengeManager extends LitElement{
         <script lang="javascript" src="/node_modules/file-saver/dist/FileSaver.js"></script>
         <h2 id="manageChallenge" class="header-border" @click="${() => this.changeStatus('manageTable')}"><strong>Challenges bearbeiten</strong></h2>
         <div id="manageDiv">
-            <p id="firstField">18. Jan 2018</p>
-            <button id="trigger_popup_fricc" @click="${() => this.openPopup('firstField')}">Change</button>
-            <br>
-            <p id="secondField">23. Jan 2018</p>
-            <button id="trigger_popup_fricct" @click="${() => this.openPopup('secondField')}">Change</button>
-            <br>
             <div id="popup-field" class="popup-field">
                 <span class="helper"></span>
                 <div>
-                    <input id="popupInput">
+                    <div class="form-group">
+                        <p for="popupInput">Neues Datum eingeben</p>
+                        <input class="form-control-text" id="popupInput" style="width:160px;text-align:right">
+                    </div>
                     <br><br>
                     <div class="btn-group" role="group">
                         <button id="doneTwo" type="submit" class="btn btn-primary custom-color" @click="${() => this.closePopup('save')}">Änderung speichern</button>
@@ -172,6 +203,7 @@ export default class ChallengeManager extends LitElement{
                     </div>
                 </div>
             </div>
+            
             <table id="manageTable" class="table table-bordered table-validate" style="display:none">
                 <thead>
                     <tr>
@@ -370,7 +402,8 @@ export default class ChallengeManager extends LitElement{
             this.shadowRoot.getElementById('notification').innerHTML = '<span class="error">Nicht alle Werte wurden ausgefüllt<span>'
         else {
             DataService.post(this.createMsgJson(), "challenge")
-            this.shadowRoot.getElementById('notification').innerHTML = 'Challenge erstellt'
+            this.challenges[this.challenges.length] = this.createMsgJson()
+            window.alert('Challenge erstellt')
         }
     }
 

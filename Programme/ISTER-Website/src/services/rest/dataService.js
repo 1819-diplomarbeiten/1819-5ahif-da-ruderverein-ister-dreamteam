@@ -48,6 +48,12 @@ export default class DataService{
             return "failure"
     }
 
+    //david des musst du no implementieren, du bekommst an delete request, als parameter kriegst ah jahr und
+    //von der challenge soll dann der gesamte eintrag gelöscht werden
+    static delete(year){
+
+    }
+
     static getRealPath(msgType, jsonParams){
         switch(msgType){
             case "periods":
