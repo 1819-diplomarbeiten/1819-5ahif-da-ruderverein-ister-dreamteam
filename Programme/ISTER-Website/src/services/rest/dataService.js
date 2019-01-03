@@ -13,7 +13,7 @@ var actualChallengeTimeExtension = "actualchallengetime.php"
 var challengeStatusExtension = "challengestatus.php"
 var picSearchExtension = "picSearch/"
 var updateSessionDateExtension = "updateSessionDate/"
-
+var deleteSingleChallengeExtension = "blablabla"
 export default class DataService{
     static post(json, msgType){
         fetch(this.getRealPath(msgType),
@@ -48,10 +48,15 @@ export default class DataService{
             return "failure"
     }
 
-    //david des musst du no implementieren, du bekommst an delete request, als parameter kriegst ah jahr und
-    //von der challenge soll dann der gesamte eintrag gelöscht werden
-    static delete(year){
-
+    //david da musst du no oben den pfad umändern
+    static delete(msgType, jsonParams){
+        fetch(this.getRealPath(msgType), {
+            method: "DELETE",
+            body: jsonParams,
+            headers: {
+                "content-type": "application/json"
+            }
+        })
     }
 
     static getRealPath(msgType, jsonParams){
@@ -80,6 +85,8 @@ export default class DataService{
                 return path + challengeStatusExtension
             case "session-date-update":
                 return pathTwo + updateSessionDateExtension
+            case "delete-single-challenge":
+                return path + deleteSingleChallengeExtension
             default:
                 break
         }
