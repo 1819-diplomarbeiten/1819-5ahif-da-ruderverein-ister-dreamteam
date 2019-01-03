@@ -1,14 +1,22 @@
 var path = 'http://localhost/restApi/rest/'
 var pathTwo = 'http://localhost:8080/testserver/rs/sql/'
-var msgJson = [] //entfernen sobald post/add
-var clubRankingExtension = "createResults.php"
-var participantRankingExtension = "postPeriod.php"
+
+var clubDistanceExtension = "createResults.php"
+var participantDistanceExtension = "postPeriod.php"
 var challengeCreationExtension = "createChallenges.php"
+var participantRankingExtension = "bestFourDistancesParticipants.php"
+var clubRankingExtension = "bestFourDistancesClubs/"
+var challengeSessionsExtension = "getChallenge/"
+var emailNameExtension = "getEmailNameReference"
+var allChallengesExtension = "getallchallenges.php"
+var actualChallengeTimeExtension = "actualchallengetime.php"
+var challengeStatusExtension = "challengestatus.php"
+var picSearchExtension = "picSearch/"
+var updateSessionDateExtension = "updateSessionDate/"
 
 export default class DataService{
     static post(json, msgType){
-        var realPath = this.getRealPath(msgType)
-        fetch(realPath,
+        fetch(this.getRealPath(msgType),
                 {
                     method: "POST",
                     body: json,
@@ -19,10 +27,17 @@ export default class DataService{
             )
     }
 
+    static put(json, msgType){
+        fetch(this.getRealPath(msgType), {
+                method: "PUT",
+                body: json,
+                headers: {
+                    "content-type": "application/json"
+                }
+            })
+    }
+
     static get(msgType, jsonParams){
-        console.log('get: ')
-        console.log(msgType)
-        console.log(jsonParams)
         const request = new XMLHttpRequest()
         request.open("GET", this.getRealPath(msgType, jsonParams), false)
         request.send(null)
@@ -36,27 +51,29 @@ export default class DataService{
     static getRealPath(msgType, jsonParams){
         switch(msgType){
             case "periods":
-                return path + clubRankingExtension
+                return path + clubDistanceExtension
             case "period":
-                return path + participantRankingExtension
+                return path + participantDistanceExtension
             case "challenge":
                 return path + challengeCreationExtension
             case "participant-ranking":
-                return path + "bestFourDistancesParticipants.php?year=" + jsonParams.year + "&result=" + jsonParams.result + "&sequence=" + jsonParams.sequence
+                return path + participantRankingExtension + "?year=" + jsonParams.year + "&result=" + jsonParams.result + "&sequence=" + jsonParams.sequence
             case "club-ranking":
-                return pathTwo + "bestFourDistancesClubs/" +jsonParams.year + "/" + jsonParams.sequence    
+                return pathTwo + clubRankingExtension + jsonParams.year + "/" + jsonParams.sequence    
             case "challenge-sessions":
-                return pathTwo + 'getChallenge/' + jsonParams.actualYear
+                return pathTwo + challengeSessionsExtension + jsonParams.actualYear
             case "email-name":
-                return pathTwo + 'getEmailNameReference'
+                return pathTwo + emailNameExtension
             case "all-challenges":
-                return path + 'getallchallenges.php'
+                return path + allChallengesExtension
             case "evidence-pic":
-                return pathTwo + 'picSearch/' + jsonParams.email + '/' + jsonParams.year + '/' + jsonParams.session
+                return pathTwo + picSearchExtension + jsonParams.email + '/' + jsonParams.year + '/' + jsonParams.session
             case "challenge-time":
-                return path + "actualchallengetime.php"
+                return path + actualChallengeTimeExtension
             case "challenge-status":
-                return path + "challengestatus.php"
+                return path + challengeStatusExtension
+            case "session-date-update":
+                return pathTwo + updateSessionDateExtension
             default:
                 break
         }
