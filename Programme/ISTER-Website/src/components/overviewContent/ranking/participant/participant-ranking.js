@@ -25,7 +25,7 @@ export default class ParticipantRanking extends LitElement{
         this.dropDownResult = this.shadowRoot.getElementById('dropDownResult').value
         this.dropDownSequence = this.shadowRoot.getElementById('dropDownSequence').value
 
-        var data = DataService.getParticipantRanking(this.dropDownYear, this.dropDownResult, this.dropDownSequence)
+        var data = DataService.get('participant-ranking', JSON.parse('{"year":"' + this.dropDownYear + '","result":"' + this.dropDownResult + '","sequence":"' + this.dropDownSequence + '"}'))
 
         if(data != "failure")
             this.managePdfCreation(data)

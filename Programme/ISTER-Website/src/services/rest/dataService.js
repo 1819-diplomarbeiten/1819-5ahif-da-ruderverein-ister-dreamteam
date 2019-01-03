@@ -1,16 +1,14 @@
 var path = 'http://localhost/restApi/rest/'
+var pathTwo = 'http://localhost:8080/testserver/rs/sql/'
 var msgJson = [] //entfernen sobald post/add
 var clubRankingExtension = "createResults.php"
 var participantRankingExtension = "postPeriod.php"
 var challengeCreationExtension = "createChallenges.php"
 
 export default class DataService{
-    static testMethod(param){
-        console.log('test ' + param)
-    }
     static post(json, msgType){
-        var extendedPath = this.getExtendedPath(msgType)
-        fetch(path + extendedPath,
+        var realPath = this.getRealPath(msgType)
+        fetch(realPath,
                 {
                     method: "POST",
                     body: json,
@@ -21,9 +19,12 @@ export default class DataService{
             )
     }
 
-    static getParticipantRanking(year, result, sequence){
+    static get(msgType, jsonParams){
+        console.log('get: ')
+        console.log(msgType)
+        console.log(jsonParams)
         const request = new XMLHttpRequest()
-        request.open("GET", path + "bestFourDistancesParticipants.php?year=" + year + "&result=" + result + "&sequence=" + sequence, false)
+        request.open("GET", this.getRealPath(msgType, jsonParams), false)
         request.send(null)
 
         if(request.status === 200)
@@ -32,91 +33,30 @@ export default class DataService{
             return "failure"
     }
 
-    static getClubRanking(year, sequence){
-        const request = new XMLHttpRequest()
-        request.open("GET", 'http://localhost:8080/testserver/rs/sql/bestFourDistancesClubs/' + year + "/" + sequence, false)
-        request.send(null)
-
-        if(request.status === 200)
-            return JSON.parse(request.responseText)
-        else
-            return "failure"
-    }
-
-    static getChallengeSessions(actualYear){
-        const request = new XMLHttpRequest()
-        request.open("GET", 'http://localhost:8080/testserver/rs/sql/getChallenge/' + actualYear, false)
-        request.send(null)
-
-        if(request.status === 200)
-            return JSON.parse(request.responseText)
-        else
-            return "failure"
-    }
-
-    static getEmailNameList(){
-        const request = new XMLHttpRequest()
-        request.open("GET", 'http://localhost:8080/testserver/rs/sql/getEmailDistanceReference', false)
-        request.send(null)
-
-        if(request.status === 200)
-            return JSON.parse(request.responseText)
-        else
-            return "failure"
-    }
-
-    static getAllChallenges(){
-        const request = new XMLHttpRequest()
-        request.open("GET", path + 'getallchallenges.php', false)
-        request.send(null)
-
-        if(request.status === 200)
-            return JSON.parse(request.responseText)
-        else
-            return "failure"
-    }
-
-    static getEvidencePic(email, year, session){
-        const request = new XMLHttpRequest()
-        request.open("GET", 'http://localhost:8080/testserver/rs/sql/picSearch/' + email + '/' + year + '/' + session, false)
-        request.send(null)
-
-        if(request.status === 200)
-            return JSON.parse(request.responseText)
-        else
-            return "failure"
-    }
-
-    static getChallengeTime(){
-        const request = new XMLHttpRequest()
-        request.open("GET", path + "actualchallengetime.php", false)
-        request.send(null)
-
-        if(request.status === 200)
-            return JSON.parse(request.responseText)
-        else
-            return "failure"
-    }
-
-    static getChallengeStatus(){
-        const request = new XMLHttpRequest()
-        request.open("GET", path + "challengestatus.php", false)
-        request.send(null)
-
-        if(request.status === 200)
-            return JSON.parse(request.responseText)
-        else
-            return "failure"
-    }
-
-    static getExtendedPath(msgType){
+    static getRealPath(msgType, jsonParams){
         switch(msgType){
             case "periods":
-                return clubRankingExtension
+                return path + clubRankingExtension
             case "period":
-                return participantRankingExtension
+                return path + participantRankingExtension
             case "challenge":
-                return challengeCreationExtension
+                return path + challengeCreationExtension
+            case "participant-ranking":
+                return path + "bestFourDistancesParticipants.php?year=" + jsonParams.year + "&result=" + jsonParams.result + "&sequence=" + jsonParams.sequence
+            case "club-ranking":
+                return pathTwo + "bestFourDistancesClubs/" +jsonParams.year + "/" + jsonParams.sequence    
+            case "challenge-sessions":
+                return pathTwo + 'getChallenge/' + jsonParams.actualYear
+            case "email-name":
+                return pathTwo + 'getEmailNameReference'
+            case "all-challenges":
+                return path + 'getallchallenges.php'
+            case "evidence-pic":
+                return pathTwo + 'picSearch/' + jsonParams.email + '/' + jsonParams.year + '/' + jsonParams.session
+            case "challenge-time":
+                return path + "actualchallengetime.php"
+            case "challenge-status":
+                return path + "challengestatus.php"
             default:
                 break
         }

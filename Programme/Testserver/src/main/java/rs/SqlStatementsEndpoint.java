@@ -82,7 +82,7 @@ public class SqlStatementsEndpoint {
     }
 
     @GET
-    @Path("/getEmailDistanceReference")
+    @Path("/getEmailNameReference")
     @Produces(MediaType.APPLICATION_JSON)
     public JsonArray getEmailDistanceReference(){
         System.out.println("================================");

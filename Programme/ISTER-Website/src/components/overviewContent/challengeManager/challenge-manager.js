@@ -24,7 +24,7 @@ export default class ChallengeManager extends LitElement{
 
     //manages the fill of the challenge table
     getAllChallenges(){
-       var data = DataService.getAllChallenges()
+       var data = DataService.get('all-challenges')
        if(data != "failure"){
            data = this.transformJson(data)
            this.doTableFill(data)
@@ -33,7 +33,7 @@ export default class ChallengeManager extends LitElement{
            console.log('connection failed')
     }
 
-    
+
     doTableFill(data){
         var tableBody = this.shadowRoot.getElementById('manageBody')
         for(var i = 0; i < data.length; i ++){
@@ -264,7 +264,7 @@ export default class ChallengeManager extends LitElement{
     }
 
     getSearch(){
-        var data = DataService.getEvidencePic(this.email, this.year, this.session)
+        var data = DataService.get('evidence-pic', JSON.parse('{"email":"' + this.email + '","year":"' + this.year + '","session":"' + this.session + '"}'))
         if(data != "failure") {
             if(data.picture == "notFound")
                 this.shadowRoot.getElementById('PicNotification').innerHTML = '<span class="error">Kein Beweisbild gefunden</span>'
@@ -316,7 +316,7 @@ export default class ChallengeManager extends LitElement{
     }
 
     deleteChallenge(){
-        console.log('entered delete challenge Z301')
+        console.log('entered delete challenge')
     }
 
     openPopup(valueId){
@@ -324,7 +324,7 @@ export default class ChallengeManager extends LitElement{
         this.valueId = valueId
         this.oldDate = this.dateToInt(this.shadowRoot.getElementById(this.valueId).innerHTML)
         //aufruf von zebra datepicker und wert von valueId einrichten
-        //this.loadDatePicker('popupInput')
+        this.loadDatePicker('popupInput')
         this.shadowRoot.getElementById('popupInput').value = this.dateToInt(this.shadowRoot.getElementById(this.valueId).innerHTML)
     }
 

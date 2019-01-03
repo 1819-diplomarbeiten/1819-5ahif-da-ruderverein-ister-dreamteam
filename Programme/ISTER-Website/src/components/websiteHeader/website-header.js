@@ -25,7 +25,7 @@ export default class WebsiteHeader extends LitElement{
 
     //manages the countdown at the top of the website
     countdown(){
-        var data = DataService.getChallengeTime()
+        var data = DataService.get('challenge-time')
         setInterval(_ => {
             var distance = data.time - new Date().getTime();
             

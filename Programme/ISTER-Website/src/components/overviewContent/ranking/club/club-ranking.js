@@ -24,8 +24,8 @@ export default class ClubRanking extends LitElement{
         this.dropDownYear = this.shadowRoot.getElementById('dropDownYear').value
         this.dropDownSequence = this.shadowRoot.getElementById('dropDownSequence').value
 
-        var data = DataService.getClubRanking(this.dropDownYear, this.dropDownSequence)
-        
+        var data = DataService.get("club-ranking", JSON.parse('{"year":"' + this.dropDownYear + '","sequence":"' + this.dropDownSequence + '"}'))
+
         if(data != "failure")
             PdfService.createPdfClub(data, this.dropDownYear)
         else
@@ -34,7 +34,7 @@ export default class ClubRanking extends LitElement{
 
     //gets called from user per button-click, manages creation of email name reference list
     getEmailNameList(){
-        var data = DataService.getEmailNameList()
+        var data = DataService.get("email-name")
         if(data != "failure")
             PdfService.createEmailName(data)
         else

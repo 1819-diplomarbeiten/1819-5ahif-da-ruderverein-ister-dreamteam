@@ -103,7 +103,7 @@ export default class OverviewSelector extends LitElement{
 
     //check if there is a challenge running
     checkForDistanceBtn(){
-        var data = DataService.getChallengeStatus()
+        var data = DataService.get('challenge-status')
 
         //if(data.status == "true")
         if(data.status == false)
