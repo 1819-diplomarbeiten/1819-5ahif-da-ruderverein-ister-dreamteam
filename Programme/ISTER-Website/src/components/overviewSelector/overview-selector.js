@@ -38,7 +38,7 @@ export default class OverviewSelector extends LitElement{
 
     //disable htl-logo if home view component is not displayed
     checkForHtlLogo(){
-        if(this.content != 'home')
+        if(this.lastUsedContent != 'home')
             this.shadowRoot.getElementById('htl').style.display = 'none'
         else
             this.shadowRoot.getElementById('htl').style.display = 'initial'

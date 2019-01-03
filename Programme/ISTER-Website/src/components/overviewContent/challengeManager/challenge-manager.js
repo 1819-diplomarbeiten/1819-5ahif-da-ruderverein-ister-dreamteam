@@ -1,6 +1,5 @@
 import {LitElement, html} from '@polymer/lit-element'
 import DataService from '../../../services/rest/dataService.js';
-//import { repeat } from '@polymer/lit-element/node_modules/lit-html/directives/repeat.js'
 
 export default class ChallengeManager extends LitElement{
     static get properties(){
@@ -11,7 +10,7 @@ export default class ChallengeManager extends LitElement{
             email: String,
             year: String,
             session: String,
-            valueId: String,
+            selectedValueId: String,
             oldDate: String,
             entered: Boolean
         }
@@ -22,7 +21,6 @@ export default class ChallengeManager extends LitElement{
         this.entered = false
     }
 
-    //manages the fill of the challenge table
     getAllChallenges(){
        var data = DataService.get('all-challenges')
        if(data != "failure"){
@@ -39,23 +37,7 @@ export default class ChallengeManager extends LitElement{
         for(var i = 0; i < data.length; i ++){
             var tr = this.getTableContentRow(data[i])
             tableBody.appendChild(tr)
-            //tableBody.innerHTML += this.getSingleRow(data[i])
         }
-    }
-
-    getSingleRow(data){
-        return `
-            <tr>
-                <td>${data.year}&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color'>Ändern</button></td>
-                <td>${data.roundOne}&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color'>Ändern</button></td>
-                <td>${data.roundTwo}&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color'>Ändern</button></td>
-                <td>${data.roundThree}&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color'>Ändern</button></td>
-                <td>${data.roundFour}&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color'>Ändern</button></td>
-                <td>${data.roundFive}&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color'>Ändern</button></td>
-                <td>${data.roundSix}&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color'>Ändern</button></td>
-                <td><button class="btn btn-danger" @click="${() => this.deleteChallenge()}">Challenge löschen</button></td>
-            </tr>
-        `
     }
 
     transformJson(data){
@@ -73,275 +55,81 @@ export default class ChallengeManager extends LitElement{
         return data
     }
 
-    createNewChallenge(){
-        if(this.allValuesSelected() == false)
-            this.shadowRoot.getElementById('notification').innerHTML = '<span class="error">Nicht alle Werte wurden ausgefüllt<span>'
-        else {
-            DataService.post(this.createMsgJson(), "challenge")
-            this.shadowRoot.getElementById('notification').innerHTML = 'Challenge erstellt'
-        }
-    }
-
-    createMsgJson(){
-        return "{\"roundOne\":\"" + this.shadowRoot.getElementById('roundOne').value + "\",\"roundTwo\":\"" + this.shadowRoot.getElementById('roundTwo').value + "\",\"roundThree\":\"" + this.shadowRoot.getElementById('roundThree').value + "\",\"roundFour\":\"" + this.shadowRoot.getElementById('roundFour').value + "\",\"roundFive\":\"" + this.shadowRoot.getElementById('roundFive').value + "\",\"roundSix\":\"" + this.shadowRoot.getElementById('roundSix').value + "\",\"year\":\"" + this.shadowRoot.getElementById('dropDown').value + "\"}"
-    }
-
-    allValuesSelected(){
-        return this.shadowRoot.getElementById('roundOne').value != "" && this.shadowRoot.getElementById('roundTwo').value != "" && this.shadowRoot.getElementById('roundThree').value != "" && this.shadowRoot.getElementById('roundFour').value != "" && this.shadowRoot.getElementById('roundFive').value != "" && this.shadowRoot.getElementById('roundSix').value != "" && this.shadowRoot.getElementById('dropDown').value != ""
-    }
-
-    loadDatePicker(round){
-        $(this.shadowRoot.getElementById(round)).Zebra_DatePicker({direction: 1, disabled_dates:['* * * 0,1,2,3,5,6']});
-    }
-
-    setYears(){
-        if(this.shadowRoot.getElementById('dropDown').length == 0)
-        {
-            let startYear = new Date().getFullYear()
-            let dropDown = this.shadowRoot.getElementById('dropDown')
-            for(var i = startYear; i < startYear + 3;i++){
-                let option = document.createElement('option')
-                option.value = i
-                option.innerHTML = i + " / " + (i+1)
-                dropDown.appendChild(option)
-            }
-        }
-    }
-
-    intToDate(date){
-        var temp = date.split('-')
-
-        switch(parseInt(temp[1])){
-            case 1:
-                return temp[2] + '. Jan ' +  temp[0]
-            case 2:
-                return temp[2] + '. Feb ' +  temp[0]
-            case 3:
-                return temp[2] + '. Mär ' +  temp[0]
-            case 4:
-                return temp[2] + '. Apr ' +  temp[0]
-            case 5:
-                return temp[2] + '. Mai ' +  temp[0] 
-            case 6:
-                return temp[2] + '. Jun ' +  temp[0]
-            case 7:
-                return temp[2] + '. Jul ' +  temp[0]
-            case 8:
-                return temp[2] + '. Aug ' +  temp[0]
-            case 9:
-                return temp[2] + '. Sep ' +  temp[0]
-            case 10:
-                return temp[2] + '. Okt ' +  temp[0]
-            case 11:
-                return temp[2] + '. Nov ' +  temp[0]
-            case 12:
-                return temp[2] + '. Dez ' +  temp[0]
-            default:
-                return 'ERROR'
-        }
-    }
-
-    dateToInt(date){
-        var temp = date.split(' ')
-        temp[0] = temp[0].replace('.', '')
-        switch(temp[1]){
-            case 'Jan':
-                return temp[2] + '-01-' +  temp[0]
-            case 'Feb':
-                return temp[2] + '-02-' +  temp[0]
-            case 'Mär':
-                return temp[2] + '-03-' +  temp[0]
-            case 'Apr':
-                return temp[2] + '-04-' +  temp[0]
-            case 'Mai':
-                return temp[2] + '-05-' +  temp[0] 
-            case 'Jun':
-                return temp[2] + '-06-' +  temp[0]
-            case 'Jul':
-                return temp[2] + '-07-' +  temp[0]
-            case 'Aug':
-                return temp[2] + '-08-' +  temp[0]
-            case 'Sep':
-                return temp[2] + '-09-' +  temp[0]
-            case 'Okt':
-                return temp[2] + '-10-' +  temp[0]
-            case 'Nov':
-                return temp[2] + '-11-' +  temp[0]
-            default:
-                return temp[2] + '-12-' +  temp[0]
-        }
-    }
-
     getTableContentRow(data){
         var tr = document.createElement('tr')
         tr.appendChild(this.createSingleContentElement('td', data.year))
-        tr.appendChild(this.createSingleContentElement('td', data.roundOne))
-        tr.appendChild(this.createSingleContentElement('td', data.roundTwo))
-        tr.appendChild(this.createSingleContentElement('td', data.roundThree))
-        tr.appendChild(this.createSingleContentElement('td', data.roundFour))
-        tr.appendChild(this.createSingleContentElement('td', data.roundFive))
-        tr.appendChild(this.createSingleContentElement('td', data.roundSix))
-        tr.appendChild(this.createSingleContentElement('td', 'cancel'))
+        tr.appendChild(this.createSingleContentElement('td', data.roundOne, data.year + 'roundOne'))
+        tr.appendChild(this.createSingleContentElement('td', data.roundTwo, data.year + 'roundTwo'))
+        tr.appendChild(this.createSingleContentElement('td', data.roundThree, data.year + 'roundThree'))
+        tr.appendChild(this.createSingleContentElement('td', data.roundFour, data.year + 'roundFour'))
+        tr.appendChild(this.createSingleContentElement('td', data.roundFive, data.year + 'roundFive'))
+        tr.appendChild(this.createSingleContentElement('td', data.roundSix, data.year + 'roundSix'))
+        tr.appendChild(this.createSingleContentElement('td', 'delete', data.year + 'delete'))
         return tr
     }
 
-    createSingleContentElement(content, msg){
-        var content = document.createElement(content)
-        if(isNaN(msg)){
-            if(msg == 'cancel') {
-                content.innerHTML = '<button class="btn btn-danger" @click="{() => this.}">Challenge löschen</button>'
+    changeSessionDate(id, date){
+        this.selectedValueId = id
+        this.oldDate = date
+        this.openPopup()
+    }
+
+    setIdOnClick(id, mode, date){
+        var x = setInterval(_ => {
+            var elem = this.shadowRoot.getElementById(id)
+            if(elem != null){
+                elem.onclick = () => {
+                    if(mode == 'delete')
+                        this.deleteChallenge(id)
+                    else if(mode == 'change')
+                        this.changeSessionDate(id, date)
+                    else
+                        console.log('ERROR at click-listener')
+                }
+                clearInterval(x)
             }
-            else if(this.dateIsInPast(this.dateToInt(msg)))
-                content.innerHTML = msg + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color' disabled>Ändern</button>"
-            else
-                content.innerHTML = msg + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color'>Ändern</button>"
-        }
-        else{
-            content.innerHTML = msg
-            content.style.marginTop = ''
-        }
-        return content
+        }, 10);
     }
-
-    dateIsInPast(date){
-        var today = new Date()
-        var dd = today.getDate();
-        var mm = today.getMonth()+1;
-        var yyyy = today.getFullYear();
-        var toCheck = date.split('-')
-
-        if(parseInt(yyyy) > parseInt(toCheck[0]))
-            return true
-        else if(parseInt(yyyy) < parseInt(toCheck[0]))
-            return false
-        else {
-            if(parseInt(mm) > parseInt(toCheck[1]))
-                return false
-            else if(parseInt(mm) < parseInt(toCheck[1]))
-                return true
-            else {
-                if(parseInt(dd) > parseInt(toCheck[2]))
-                    return true
-                else
-                    return false
-            }
-        }
-    }
-
-    changeStatus(idToSet){
-        var elem = this.shadowRoot.getElementById(idToSet)
-        if(elem.style.display == 'none')
-            this.shadowRoot.getElementById(idToSet).style.display = 'initial'
-        else
-            this.shadowRoot.getElementById(idToSet).style.display = 'none'
-    }
-
-    validateInputParams(){
-        var errorString = ''
-        this.email = this.shadowRoot.getElementById('email').value
-        this.year = this.shadowRoot.getElementById('year').value
-        this.session = this.shadowRoot.getElementById('session').value
-        if(this.validateEmail(this.email) == false)
-            errorString += 'Ungültige Email; '
-        if(isNaN(this.year) || this.year == "")
-            errorString += 'Ungültiges Jahr; '
-        if(isNaN(this.session) || this.session == "")
-            errorString += 'Ungültige Session'
-        return errorString
-    }
-
-    searchEvidencePic(){
-        var errorString = this.validateInputParams()
-        if(errorString == '')
-            this.getSearch()
-        else
-            this.shadowRoot.getElementById('PicNotification').innerHTML = '<span class="error">' + errorString + '</span>'
-    }
-
-    validateEmail(email) {
-        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(email).toLowerCase());
-    }
-
-    getSearch(){
-        var data = DataService.get('evidence-pic', JSON.parse('{"email":"' + this.email + '","year":"' + this.year + '","session":"' + this.session + '"}'))
-        if(data != "failure") {
-            if(data.picture == "notFound")
-                this.shadowRoot.getElementById('PicNotification').innerHTML = '<span class="error">Kein Beweisbild gefunden</span>'
-            else{
-                this.download(this.dataURItoBlob(data.picture), data.name + ".png")
-                this.shadowRoot.getElementById('searchForEvidencePic').style.display = 'none'
-                this.clearPictureContainer()
-            }
-        }
-        else
-            this.shadowRoot.getElementById('PicNotification').innerHTML = '<span class="error">Connection failed</span>'
-    }
-
-    clearPictureContainer(){
-        this.shadowRoot.getElementById('email').value = ''
-        this.shadowRoot.getElementById('year').value = ''
-        this.shadowRoot.getElementById('session').value = ''
-    }
-
-    dataURItoBlob(dataURI) {
-        var byteString = atob(dataURI.split(',')[1]);
-        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-        var ab = new ArrayBuffer(byteString.length);
-        var ia = new Uint8Array(ab);
-
-        for (var i = 0; i < byteString.length; i++) {
-            ia[i] = byteString.charCodeAt(i);
-        }
-
-        return new Blob([ab], {type: mimeString});
-    }
-
-    download(data, filename) {
-        var file = new Blob([data]);
-        if (window.navigator.msSaveOrOpenBlob)
-            window.navigator.msSaveOrOpenBlob(file, filename);
-        else { // Others
-            var a = document.createElement("a"),
-                    url = URL.createObjectURL(file);
-            a.href = url;
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            setTimeout(function() {
-                document.body.removeChild(a);
-                window.URL.revokeObjectURL(url);  
-            }, 0); 
-        }
-    }
-
-    deleteChallenge(){
-        console.log('entered delete challenge')
-    }
-
-    openPopup(valueId){
+    
+    openPopup(){
         this.shadowRoot.getElementById('popup-field').style.display = 'initial';
-        this.valueId = valueId
-        this.oldDate = this.dateToInt(this.shadowRoot.getElementById(this.valueId).innerHTML)
-        //aufruf von zebra datepicker und wert von valueId einrichten
-        this.loadDatePicker('popupInput')
-        this.shadowRoot.getElementById('popupInput').value = this.dateToInt(this.shadowRoot.getElementById(this.valueId).innerHTML)
+        this.loadDatePicker('popupInput', this.oldDate)
     }
 
     closePopup(status){
         this.shadowRoot.getElementById('popup-field').style.display = 'none';
         if(status == 'save'){
-            this.shadowRoot.getElementById(this.valueId).innerHTML = this.intToDate(this.shadowRoot.getElementById('popupInput').value)
-            var json = JSON.stringify({"oldDate": this.oldDate, "newDate": this.shadowRoot.getElementById('popupInput').value})
-            console.log(json)
-            fetch('http://localhost:8080/testserver/rs/sql/updateSessionDate', {
-                method: "PUT",
-                body: json,
-                headers: {
-                    "content-type": "application/json"
-                }
-            })
+            var newDate = this.shadowRoot.getElementById('popupInput').value
+            this.shadowRoot.getElementById(this.selectedValueId).innerHTML = this.createSingleContentElement('td', newDate, this.selectedValueId)
+            var json = JSON.stringify({"oldDate": this.oldDate, "newDate": newDate})
+            DataService.put(json, 'session-date-update')
         }
+    }
+
+    createSingleContentElement(content, date, id){
+        var content = document.createElement(content)
+        content.setAttribute('id', id)
+        if(isNaN(date)){
+            if(date == 'delete') {
+                content.innerHTML = '<button class="btn btn-danger" id="' + id + '">Challenge löschen</button>'
+                this.setIdOnClick(id, 'delete')
+            }
+            else if(this.dateIsInPast(this.dateToInt(date)))
+                content.innerHTML = date + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color' disabled>Ändern</button>"
+            else{
+                content.innerHTML = date + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button id='" + id + "' align='right' class='btn btn-primary custom-color'>Ändern</button>"
+                this.setIdOnClick(id, 'change', this.dateToInt(date))
+            }
+        }
+        else{
+            content.innerHTML = date
+            content.style.marginTop = ''
+        }
+        return content
+    }
+
+    deleteChallenge(){
+        console.log('entered delete challenge')
     }
 
     render(){
@@ -358,33 +146,7 @@ export default class ChallengeManager extends LitElement{
                 this.getAllChallenges()
             }
         })
-        /* simple
-        ${repeat(this.challenges, (item) => html`
-                            <tr>
-                                <td>${item.year}</td>
-                                <td>${item.roundOne}</td>
-                                <td>${item.roundTwo}</td>
-                                <td>${item.roundThree}</td>
-                                <td>${item.roundFour}</td>
-                                <td>${item.roundFive}</td>
-                                <td>${item.roundSix}</td>
-                            </tr>
-                        `)}
-         */
-        /* advanced
-        ${repeat(this.challenges, (item) => html`
-                            <tr>
-                                <td>${item.year}</td>
-                                <td>${item.roundOne}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color'>Ändern</button></td>
-                                <td>${item.roundTwo}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color'>Ändern</button></td>
-                                <td>${item.roundThree}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color'>Ändern</button></td>
-                                <td>${item.roundFour}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color'>Ändern</button></td>
-                                <td>${item.roundFive}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color'>Ändern</button></td>
-                                <td>${item.roundSix}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button align='right' class='btn btn-primary custom-color'>Ändern</button></td>
-                                <td><button class="btn btn-danger" @click="${this.deleteChallenge(item.year)}">Challenge löschen</button></td>
-                            </tr>
-                        `)}
-        */
+
         return html`
         <script lang="javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
         <script lang="javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
@@ -402,7 +164,7 @@ export default class ChallengeManager extends LitElement{
             <div id="popup-field" class="popup-field">
                 <span class="helper"></span>
                 <div>
-                    <input class="form-control-text" id="popupInput" style="width:80px;text-align:right">
+                    <input id="popupInput">
                     <br><br>
                     <div class="btn-group" role="group">
                         <button id="doneTwo" type="submit" class="btn btn-primary custom-color" @click="${() => this.closePopup('save')}">Änderung speichern</button>
@@ -502,5 +264,223 @@ export default class ChallengeManager extends LitElement{
         </div>  
         `
     }
+
+    dateIsInPast(date){
+        var today = new Date()
+        var dd = today.getDate();
+        var mm = today.getMonth()+1;
+        var yyyy = today.getFullYear();
+        var toCheck = date.split('-')
+        
+        if(parseInt(yyyy) > parseInt(toCheck[0])){
+            return true
+        }
+        else if(parseInt(yyyy) < parseInt(toCheck[0])){
+            return false
+        }
+        else {
+            if(parseInt(mm) > parseInt(toCheck[1])){
+                return true
+            }
+            else if(parseInt(mm) < parseInt(toCheck[1])){
+                return false
+            }
+            else {
+                if(parseInt(dd) > parseInt(toCheck[2])){
+                    return true
+                }
+                else{
+                    return false
+                }
+            }
+        }
+    }
+
+    intToDate(date){
+        var temp = date.split('-')
+
+        switch(parseInt(temp[1])){
+            case 1:
+                return temp[2] + '. Jan ' +  temp[0]
+            case 2:
+                return temp[2] + '. Feb ' +  temp[0]
+            case 3:
+                return temp[2] + '. Mär ' +  temp[0]
+            case 4:
+                return temp[2] + '. Apr ' +  temp[0]
+            case 5:
+                return temp[2] + '. Mai ' +  temp[0] 
+            case 6:
+                return temp[2] + '. Jun ' +  temp[0]
+            case 7:
+                return temp[2] + '. Jul ' +  temp[0]
+            case 8:
+                return temp[2] + '. Aug ' +  temp[0]
+            case 9:
+                return temp[2] + '. Sep ' +  temp[0]
+            case 10:
+                return temp[2] + '. Okt ' +  temp[0]
+            case 11:
+                return temp[2] + '. Nov ' +  temp[0]
+            case 12:
+                return temp[2] + '. Dez ' +  temp[0]
+            default:
+                return 'ERROR'
+        }
+    }
+
+    dateToInt(date){
+        var temp = date.split(' ')
+        temp[0] = temp[0].replace('.', '')
+        switch(temp[1]){
+            case 'Jan':
+                return temp[2] + '-01-' +  temp[0]
+            case 'Feb':
+                return temp[2] + '-02-' +  temp[0]
+            case 'Mär':
+                return temp[2] + '-03-' +  temp[0]
+            case 'Apr':
+                return temp[2] + '-04-' +  temp[0]
+            case 'Mai':
+                return temp[2] + '-05-' +  temp[0] 
+            case 'Jun':
+                return temp[2] + '-06-' +  temp[0]
+            case 'Jul':
+                return temp[2] + '-07-' +  temp[0]
+            case 'Aug':
+                return temp[2] + '-08-' +  temp[0]
+            case 'Sep':
+                return temp[2] + '-09-' +  temp[0]
+            case 'Okt':
+                return temp[2] + '-10-' +  temp[0]
+            case 'Nov':
+                return temp[2] + '-11-' +  temp[0]
+            default:
+                return temp[2] + '-12-' +  temp[0]
+        }
+    }
+
+    validateEmail(email) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    }
+    
+    createNewChallenge(){
+        if(this.allValuesSelected() == false)
+            this.shadowRoot.getElementById('notification').innerHTML = '<span class="error">Nicht alle Werte wurden ausgefüllt<span>'
+        else {
+            DataService.post(this.createMsgJson(), "challenge")
+            this.shadowRoot.getElementById('notification').innerHTML = 'Challenge erstellt'
+        }
+    }
+
+    createMsgJson(){
+        return "{\"roundOne\":\"" + this.shadowRoot.getElementById('roundOne').value + "\",\"roundTwo\":\"" + this.shadowRoot.getElementById('roundTwo').value + "\",\"roundThree\":\"" + this.shadowRoot.getElementById('roundThree').value + "\",\"roundFour\":\"" + this.shadowRoot.getElementById('roundFour').value + "\",\"roundFive\":\"" + this.shadowRoot.getElementById('roundFive').value + "\",\"roundSix\":\"" + this.shadowRoot.getElementById('roundSix').value + "\",\"year\":\"" + this.shadowRoot.getElementById('dropDown').value + "\"}"
+    }
+
+    allValuesSelected(){
+        return this.shadowRoot.getElementById('roundOne').value != "" && this.shadowRoot.getElementById('roundTwo').value != "" && this.shadowRoot.getElementById('roundThree').value != "" && this.shadowRoot.getElementById('roundFour').value != "" && this.shadowRoot.getElementById('roundFive').value != "" && this.shadowRoot.getElementById('roundSix').value != "" && this.shadowRoot.getElementById('dropDown').value != ""
+    }
+
+    loadDatePicker(round, date){
+        $(this.shadowRoot.getElementById(round)).Zebra_DatePicker({direction: 1, disabled_dates:['* * * 0,1,2,3,5,6']});
+    }
+ 
+    setYears(){
+        if(this.shadowRoot.getElementById('dropDown').length == 0)
+        {
+            let startYear = new Date().getFullYear()
+            let dropDown = this.shadowRoot.getElementById('dropDown')
+            for(var i = startYear; i < startYear + 3;i++){
+                let option = document.createElement('option')
+                option.value = i
+                option.innerHTML = i + " / " + (i+1)
+                dropDown.appendChild(option)
+            }
+        }
+    }
+
+    changeStatus(idToSet){
+        var elem = this.shadowRoot.getElementById(idToSet)
+        if(elem.style.display == 'none')
+            this.shadowRoot.getElementById(idToSet).style.display = 'initial'
+        else
+            this.shadowRoot.getElementById(idToSet).style.display = 'none'
+    }
+
+    validateInputParams(){
+        var errorString = ''
+        this.email = this.shadowRoot.getElementById('email').value
+        this.year = this.shadowRoot.getElementById('year').value
+        this.session = this.shadowRoot.getElementById('session').value
+        if(this.validateEmail(this.email) == false)
+            errorString += 'Ungültige Email; '
+        if(isNaN(this.year) || this.year == "")
+            errorString += 'Ungültiges Jahr; '
+        if(isNaN(this.session) || this.session == "")
+            errorString += 'Ungültige Session'
+        return errorString
+    }
+
+    searchEvidencePic(){
+        var errorString = this.validateInputParams()
+        if(errorString == '')
+            this.getSearch()
+        else
+            this.shadowRoot.getElementById('PicNotification').innerHTML = '<span class="error">' + errorString + '</span>'
+    }
+
+    getSearch(){
+        var data = DataService.get('evidence-pic', JSON.parse('{"email":"' + this.email + '","year":"' + this.year + '","session":"' + this.session + '"}'))
+        if(data != "failure") {
+            if(data.picture == "notFound")
+                this.shadowRoot.getElementById('PicNotification').innerHTML = '<span class="error">Kein Beweisbild gefunden</span>'
+            else{
+                this.download(this.dataURItoBlob(data.picture), data.name + ".png")
+                this.shadowRoot.getElementById('searchForEvidencePic').style.display = 'none'
+                this.clearPictureContainer()
+            }
+        }
+        else
+            this.shadowRoot.getElementById('PicNotification').innerHTML = '<span class="error">Connection failed</span>'
+    }
+
+    clearPictureContainer(){
+        this.shadowRoot.getElementById('email').value = ''
+        this.shadowRoot.getElementById('year').value = ''
+        this.shadowRoot.getElementById('session').value = ''
+    }
+
+    dataURItoBlob(dataURI) {
+        var byteString = atob(dataURI.split(',')[1]);
+        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+        var ab = new ArrayBuffer(byteString.length);
+        var ia = new Uint8Array(ab);
+
+        for (var i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+
+        return new Blob([ab], {type: mimeString});
+    }
+
+    download(data, filename) {
+        var file = new Blob([data]);
+        if (window.navigator.msSaveOrOpenBlob)
+            window.navigator.msSaveOrOpenBlob(file, filename);
+        else { // Others
+            var a = document.createElement("a"),
+                    url = URL.createObjectURL(file);
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(function() {
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);  
+            }, 0); 
+        }
+    }
+
 }
 window.customElements.define('challenge-manager', ChallengeManager)
