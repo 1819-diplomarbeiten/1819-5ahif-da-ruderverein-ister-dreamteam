@@ -10,12 +10,14 @@ export default class ParticipantRanking extends LitElement{
             dropDownYear: Number,
             dropDownResult: Number,
             dropDownSequence: String,
-            translation: []
+            translation: [],
+            methodEntered: Boolean
         }
     }
     constructor(){
         super();
         this.path = 'http://localhost/restApi/rest/';
+        this.methodEntered = false
         this.translation = TranslationService.getTranslation('participant-ranking')
     }
 
@@ -45,7 +47,33 @@ export default class ParticipantRanking extends LitElement{
             PdfService.createPdfPerSessionPerCategories(data, this.dropDownYear, this.dropDownResult)
     }
 
+    getYearsDropdown(){
+        var data = DataService.get('all-challenges')
+        if(data != "failure"){
+            var select = this.shadowRoot.getElementById('dropDownYear')
+            for(var i = 0; i < data.length; i ++){
+                select.appendChild(this.createSingleOptionElem(data[i].year))
+            }
+        }
+        else
+            console.log("ERROR LOADING YEARS")
+    }
+
+    createSingleOptionElem(year){
+        var option = document.createElement('option')
+        option.value = year
+        option.innerHTML = year + " / " + (parseInt(year) + 1)
+        return option
+    }
+
     render(){
+        $(document).ready(() => { 
+            //however, this function gets called again when i add childen to the code, so therefore a boolean is needed
+            if(!this.methodEntered){
+                this.methodEntered = true
+                this.getYearsDropdown()
+            }
+        }) 
         return html`
         <script lang="javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
         <script lang="javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
@@ -58,9 +86,6 @@ export default class ParticipantRanking extends LitElement{
                     <div class="form-group">
                         <p>${this.translation["rankingYear"]}</p>
                         <select id="dropDownYear" class="form-control" style="width:170px">
-                            <option value="2017">2017 / 2018</option>
-                            <option value="2016">2016 / 2017</option>
-                            <option value="2015">2015 / 2016</option>
                         </select>
                     </div>
                     <br>

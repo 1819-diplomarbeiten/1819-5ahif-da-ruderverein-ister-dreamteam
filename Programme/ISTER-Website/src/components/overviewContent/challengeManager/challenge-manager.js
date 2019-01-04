@@ -153,7 +153,7 @@ export default class ChallengeManager extends LitElement{
         var year = id.substring(0,4)
         if(window.confirm('Wollen Sie die Challenge vom Jahr ' + year + ' wirklich aus der Datenbank löschen?')){
             window.alert('Challenge von ' + year + ' gelöscht')
-            DataService.delete(id)
+            DataService.delete('delete-single-challenge', id)
             this.shadowRoot.getElementById('manageBody').innerHTML = ''
             this.deleteSpecificChallengeFromList(year)
             this.getAllChallenges()
@@ -164,6 +164,8 @@ export default class ChallengeManager extends LitElement{
         this.challenges = this.challenges.filter(function(value, index, arr){
             return value.year != year
         });
+            console.log('delete')
+            console.log(this.challenges)
     }
 
     render(){
@@ -401,6 +403,7 @@ export default class ChallengeManager extends LitElement{
         if(this.allValuesSelected() == false)
             this.shadowRoot.getElementById('notification').innerHTML = '<span class="error">Nicht alle Werte wurden ausgefüllt<span>'
         else {
+            this.shadowRoot.getElementById('notification').innerHTML = ''
             DataService.post(this.createMsgJson(), "challenge")
             this.challenges[this.challenges.length] = this.createMsgJson()
             window.alert('Challenge erstellt')
@@ -408,7 +411,7 @@ export default class ChallengeManager extends LitElement{
     }
 
     createMsgJson(){
-        return "{\"roundOne\":\"" + this.shadowRoot.getElementById('roundOne').value + "\",\"roundTwo\":\"" + this.shadowRoot.getElementById('roundTwo').value + "\",\"roundThree\":\"" + this.shadowRoot.getElementById('roundThree').value + "\",\"roundFour\":\"" + this.shadowRoot.getElementById('roundFour').value + "\",\"roundFive\":\"" + this.shadowRoot.getElementById('roundFive').value + "\",\"roundSix\":\"" + this.shadowRoot.getElementById('roundSix').value + "\",\"year\":\"" + this.shadowRoot.getElementById('dropDown').value + "\"}"
+        return JSON.parse("{\"roundOne\":\"" + this.shadowRoot.getElementById('roundOne').value + "\",\"roundTwo\":\"" + this.shadowRoot.getElementById('roundTwo').value + "\",\"roundThree\":\"" + this.shadowRoot.getElementById('roundThree').value + "\",\"roundFour\":\"" + this.shadowRoot.getElementById('roundFour').value + "\",\"roundFive\":\"" + this.shadowRoot.getElementById('roundFive').value + "\",\"roundSix\":\"" + this.shadowRoot.getElementById('roundSix').value + "\",\"year\":\"" + this.shadowRoot.getElementById('dropDown').value + "\"}")
     }
 
     allValuesSelected(){
@@ -482,6 +485,16 @@ export default class ChallengeManager extends LitElement{
         this.shadowRoot.getElementById('email').value = ''
         this.shadowRoot.getElementById('year').value = ''
         this.shadowRoot.getElementById('session').value = ''
+    }
+
+    clearCreatorContainer(){
+        this.shadowRoot.getElementById('roundOne').value = ''
+        this.shadowRoot.getElementById('roundTwo').value = ''
+        this.shadowRoot.getElementById('roundThree').value = ''
+        this.shadowRoot.getElementById('roundFour').value = ''
+        this.shadowRoot.getElementById('roundFive').value = ''
+        this.shadowRoot.getElementById('roundSix').value = ''
+        this.shadowRoot.getElementById('notification').innerHTML = ''
     }
 
     dataURItoBlob(dataURI) {
