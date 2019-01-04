@@ -5,6 +5,9 @@ div.datePickPositionTwoThree{
     float: left;
     margin-left: 4%;
 }
+.createBtn{
+    margin-top:10%;
+}
 .custom-color{
     color: #FAFAFA;
     background-color: #35424A;

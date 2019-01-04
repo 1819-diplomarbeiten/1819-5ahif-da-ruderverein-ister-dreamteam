@@ -1,4 +1,4 @@
-div.banner{
+p.banner{
     position: absolute;
     font-size: 35px;
     float: left;
@@ -6,35 +6,20 @@ div.banner{
     margin-left: 2%;
     color: #f4f4f4;
 }
-div.componentSelection{
+.componentSelection{
     position: absolute;
     margin-left: 2%;
     float: left;
-}
-div.singleComponent{
-    width: relative;
-    text-align: center;
-    float: left;
-    margin-top: 5.6%;
-    font-size: 20px;
+    bottom: 8px;
+    justify-content: center
 }
 div.background{
-    margin: 0 auto;
     position: absolute;
     top: 8%;
     left: 0;
     width: 100%;
     height: 16%;
     background-color: #939393;
-}
-div.mainPos {
-    position: absolute;
-    top: 26%;
-    background-color: lightgoldenrodyellow;
-    width: 40%
-}
-div.selectors{
-    margin-top: 20%
 }
 div.body-container{
     position: absolute;
@@ -49,10 +34,11 @@ p.text{
   color: #FAFAFA;
   background-color: #35424A;
   border-color: #35424A;
+  height:40px;
 }
 .login-align{
     float: right;
-    margin: 2rem;
+    margin: 1rem;
 }
 .btn-primary:active,.btn-primary:hover,.btn-primary:focus,.btn-primary:visited{
     color:#35424A;
@@ -63,4 +49,31 @@ p.text{
     position: absolute;
     top: 85%;
     right: 10px;
+}
+@media only screen and (max-width: 1200px){
+    .componentSelection{
+        position: absolute;
+        margin-left: 2%;
+        float: left;
+        bottom: 8px;
+        justify-content: center
+    }
+    .custom-color{
+        color: #FAFAFA;
+        background-color: #35424A;
+        border-color: #35424A;
+        height:30px;
+    }
+    p.text{
+        font-size: 15px;
+    }
+}
+@media only screen and(min-width: 800px){
+    .componentSelection{
+        position: absolute;
+        margin-left: 2%;
+        float: left;
+        bottom: 18px;
+        justify-content: center
+    }
 }

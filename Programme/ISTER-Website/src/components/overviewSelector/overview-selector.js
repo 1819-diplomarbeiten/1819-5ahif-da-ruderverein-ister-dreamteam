@@ -48,7 +48,7 @@ export default class OverviewSelector extends LitElement{
     changeContent(content){
         this.lastUsedContent = content
         let elem = null
-        let mainComp = this.shadowRoot.getElementById('components')
+        let mainComp = this.shadowRoot.getElementById('website-content')
         this.checkForHtlLogo()
 
         //remove current childen
@@ -120,35 +120,28 @@ export default class OverviewSelector extends LitElement{
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
             <link rel="stylesheet" type="text/css" href="/src/components/overviewSelector/styles.css"></link>
             <div class ="background">
-                <div>
-                    <div class="banner">
-                        <p><strong>Ergo Challenge ISTER Linz</strong></p>
-                    </div>   
-                    <button type="button" class="btn btn-primary custom-color login-align" style="height:40px" @click="${() => this.changeContent('login')}"><p class="text">Login</p></button>
-                </div>
-                <div class="componentSelection">
-                    <div class="singleComponent">
-                        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                            <div class="btn-group mr-2" role="group" aria-label="First group">
-                                <button type="button" class="btn btn-primary custom-color" style="height:40px" @click="${() => this.changeContent('home')}"><p class="text">${this.translation["homeBtn"]}</p></button>
-                                <button type="button" class="btn btn-primary custom-color" style="height:40px" @click="${() => this.changeContent('ergo')}"><p class="text">${this.translation["ergoBtn"]}</p></button>
-                            </div>
-                            <div class="btn-group mr-2" role="group" aria-label="Second group">
-                                <button type="button" class="btn btn-primary custom-color" style="height:40px" @click="${() => this.changeContent('club')}"><p class="text">${this.translation["clubRankingBtn"]}</p></button>
-                                <button type="button" class="btn btn-primary custom-color" style="height:40px" @click="${() => this.changeContent('participant')}"><p class="text">${this.translation["participantRankingBtn"]}</p></button>
-                            </div>
-                            <div class="btn-group mr-2" role="group" aria-label="Third group">
-                                <button id="distanceBtn" type="button" class="btn btn-primary custom-color" style="height:40px;display:none" @click="${() => this.changeContent('distance')}"><p class="text">${this.translation["distanceBtn"]}</p></button>
-                                <button type="button" class="btn btn-primary custom-color" style="height:40px" @click="${() => this.changeWebsite()}"><p class="text">LRV Ister</p></button>
-                            </div>
-                            <div class="btn-group mr-2" role="group" aria-label="Fourth group">
-                                <button type="button" class="btn btn-primary custom-color" style="height:40px" @click="${() => this.changeContent('challenge-manager')}"><p class="text">Challenge Manager</p></button>
-                            </div>
-                        </div>
-                    </div>  
+                <p class="banner"><strong>Ergo Challenge ISTER Linz</strong></p>
+                <button type="button" class="btn btn-primary custom-color login-align" @click="${() => this.changeContent('login')}"><p class="text">Login</p></button>
+                
+                <div class="btn-toolbar componentSelection" role="toolbar" aria-label="Toolbar with button groups">
+                    <div class="btn-group mr-2" role="group" aria-label="First group">
+                        <button type="button" class="btn btn-primary custom-color" @click="${() => this.changeContent('home')}"><p class="text">${this.translation["homeBtn"]}</p></button>
+                        <button type="button" class="btn btn-primary custom-color" @click="${() => this.changeContent('ergo')}"><p class="text">${this.translation["ergoBtn"]}</p></button>
+                    </div>
+                    <div class="btn-group mr-2" role="group" aria-label="Second group">
+                        <button type="button" class="btn btn-primary custom-color" @click="${() => this.changeContent('club')}"><p class="text">${this.translation["clubRankingBtn"]}</p></button>
+                        <button type="button" class="btn btn-primary custom-color" @click="${() => this.changeContent('participant')}"><p class="text">${this.translation["participantRankingBtn"]}</p></button>
+                    </div>
+                    <div class="btn-group mr-2" role="group" aria-label="Third group">
+                        <button id="distanceBtn" type="button" class="btn btn-primary custom-color" style="display:none" @click="${() => this.changeContent('distance')}"><p class="text">${this.translation["distanceBtn"]}</p></button>
+                        <button type="button" class="btn btn-primary custom-color" @click="${() => this.changeWebsite()}"><p class="text">LRV Ister</p></button>
+                    </div>
+                    <div class="btn-group mr-2" role="group" aria-label="Fourth group">
+                        <button type="button" class="btn btn-primary custom-color" @click="${() => this.changeContent('challenge-manager')}"><p class="text">Challenge Manager</p></button>
+                    </div>
                 </div>
             </div>
-            <div id="components" class="body-container">
+            <div id="website-content" class="body-container">
                 <home-view></home-view>
             </div>
             <img id="htl" src="images/htl-leonding.jpg" width="100" height="100" class="image-htl">

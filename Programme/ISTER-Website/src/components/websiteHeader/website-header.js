@@ -70,7 +70,9 @@ export default class WebsiteHeader extends LitElement{
     render(){
         window.onload = () => {
             this.countdown()
-            
+            this.shadowRoot.getElementById('language').onchange = (event) => {
+                this.changeLanguage(event.target.value)
+            }
         }
         $(document).ready(() => { 
             /*console.log(this.shadowRoot.getElementById('social'))
@@ -90,36 +92,27 @@ export default class WebsiteHeader extends LitElement{
                });
                 }
             }, 994);*/
-        }) 
+        })
+        /*<!--<select id="dropDownSequence" class="form-control" style="width:60px">
+                        <option value="english"><img src="images/englishFlag.png"></option>
+                        <option value="german"><a style="background-image:url(images/germanFlag.png);height:10px;width:10px" class="img-thumbnail" href=""> </a></option>
+                    </select>
+                    <img src="images/germanFlag.png" width="70" height="35" @click="${() => this.changeLanguage('german')}">
+                    <img src="images/englishFlag.png" width="70" height="35" @click="${() => this.changeLanguage('english')}">--> */ 
         return html`
             <script lang="javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
             <script lang="javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-            <link href="/node_modules/select2/select2.css" rel="stylesheet" type="text/css">
-            <script src="/node_modules/select2/select2.js"></script>
+            <link rel="stylesheet" type="text/css" href=/src/components/websiteHeader/styles.css>
+            <!--<link href="/node_modules/select2/select2.css" rel="stylesheet" type="text/css">
+            <script src="/node_modules/select2/select2.js"></script>-->
 
             <div class="background">
-                <link rel="stylesheet" type="text/css" href=/src/components/websiteHeader/styles.css>
+                <select id="language" class="language-options">
+                    <option value='german'>German</option>
+                    <option value='english'>English</option>
+                </select>
                 <h1 class="header" id="countdown"></h1>
-                <div class="languages">
-                    <!--<select id="dropDownSequence" class="form-control" style="width:60px">
-                        <option value="english"><img src="images/englishFlag.png"></option>
-                        <option value="german"><a style="background-image:url(images/germanFlag.png);height:10px;width:10px" class="img-thumbnail" href=""> </a></option>
-                    </select>-->
-                    <img src="images/germanFlag.png" width="70" height="35" @click="${() => this.changeLanguage('german')}">
-                    <img src="images/englishFlag.png" width="70" height="35" @click="${() => this.changeLanguage('english')}">
-                    <!--<select id="social" class="form-control" style="width:60px">
-                        <option value='german'>Deutsch</option>
-                        <option value='english'>English</option>
-                    </select>-->
-                    <!--<select id='social' style='width: 150px;'>
-                        <option value='facebook'>Facebook</option>
-                        <option value='twitter'>Twitter</option>
-                        <option value='linkedin'>Linkedin</option>
-                        <option value='google_plus'>Google Plus</option>
-                        <option value='vimeo'>Vimeo</option>
-                    </select>-->
-                </div> 
             </div>
         `
     }

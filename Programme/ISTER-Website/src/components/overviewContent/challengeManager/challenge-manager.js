@@ -262,7 +262,7 @@ export default class ChallengeManager extends LitElement{
                 </div>
             </div>
             <br>
-            <div style="left:2%;margin-top:10%">
+            <div class="createBtn">
                 <input type ="button" value="Challenge erstellen" class="btn btn-primary custom-size" @click="${() => this.createNewChallenge()}"></input>
                 <p id="notification"></p>
             </div>
