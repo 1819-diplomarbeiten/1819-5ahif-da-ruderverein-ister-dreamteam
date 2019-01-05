@@ -41,7 +41,7 @@ export default class DataService{
         const request = new XMLHttpRequest()
         request.open("GET", this.getRealPath(msgType, jsonParams), false)
         request.send(null)
-
+        
         if(request.status === 200)
             return JSON.parse(request.responseText)
         else

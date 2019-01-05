@@ -12,13 +12,15 @@ export default class ChallengeManager extends LitElement{
             session: String,
             selectedValueId: String,
             oldDate: String,
-            entered: Boolean
+            entered: Boolean,
+            datePickerLoaded: Boolean
         }
     }
 
     constructor(){
         super();
         this.entered = false
+        this.datePickerLoaded = false
     }
 
     getAllChallenges(){
@@ -96,7 +98,10 @@ export default class ChallengeManager extends LitElement{
     
     openPopup(){
         this.shadowRoot.getElementById('popup-field').style.display = 'initial';
-        this.loadDatePicker('popupInput', this.oldDate)
+        if(!this.datePickerLoaded){
+            this.loadDatePicker('popupInput', this.oldDate)
+            this.datePickerLoaded = true
+        }
     }
 
     closePopup(status){
@@ -153,31 +158,30 @@ export default class ChallengeManager extends LitElement{
         var year = id.substring(0,4)
         if(window.confirm('Wollen Sie die Challenge vom Jahr ' + year + ' wirklich aus der Datenbank löschen?')){
             window.alert('Challenge von ' + year + ' gelöscht')
-            DataService.delete('delete-single-challenge', id)
-            this.shadowRoot.getElementById('manageBody').innerHTML = ''
+            console.log('DataService delete hier auskommentiert')
+            //DataService.delete('delete-single-challenge', id)
             this.deleteSpecificChallengeFromList(year)
+            this.shadowRoot.getElementById('manageBody').innerHTML = ''
             this.getAllChallenges()
         }
     }
 
     deleteSpecificChallengeFromList(year){
-        this.challenges = this.challenges.filter(function(value, index, arr){
+        this.challenges = this.challenges.filter((value, index, arr) => {
             return value.year != year
         });
-            console.log('delete')
-            console.log(this.challenges)
     }
 
     render(){
         $(document).ready(() => { 
-            this.setYears()
-            this.loadDatePicker('roundOne')
-            this.loadDatePicker('roundTwo')
-            this.loadDatePicker('roundThree')
-            this.loadDatePicker('roundFour')
-            this.loadDatePicker('roundFive')
-            this.loadDatePicker('roundSix')
             if(this.entered == false){
+                this.setYears()
+                this.loadDatePicker('roundOne')
+                this.loadDatePicker('roundTwo')
+                this.loadDatePicker('roundThree')
+                this.loadDatePicker('roundFour')
+                this.loadDatePicker('roundFive')
+                this.loadDatePicker('roundSix')
                 this.getAllChallenges()
                 this.entered = true
             }
@@ -405,7 +409,30 @@ export default class ChallengeManager extends LitElement{
         else {
             this.shadowRoot.getElementById('notification').innerHTML = ''
             DataService.post(this.createMsgJson(), "challenge")
-            this.challenges[this.challenges.length] = this.createMsgJson()
+
+            var usedIdex = 0
+            var actualIndex = 0
+            var challenge = this.challenges.filter((value, index, arr) => {
+                usedIdex = index
+                return value.year == this.shadowRoot.getElementById('dropDown').value
+            })
+            if(challenge[0] != undefined)
+                actualIndex = usedIdex
+            else
+                actualIndex = this.challenges.length
+
+            this.challenges[actualIndex] = {
+                "year": this.shadowRoot.getElementById('dropDown').value,
+                "roundOne": this.shadowRoot.getElementById('roundOne').value,
+                "roundTwo": this.shadowRoot.getElementById('roundTwo').value,
+                "roundThree": this.shadowRoot.getElementById('roundThree').value,
+                "roundFour": this.shadowRoot.getElementById('roundFour').value,
+                "roundFive": this.shadowRoot.getElementById('roundFive').value,
+                "roundSix": this.shadowRoot.getElementById('roundSix').value,
+            }
+            this.clearCreatorContainer()
+            this.shadowRoot.getElementById('manageBody').innerHTML = ''
+            this.getAllChallenges()
             window.alert('Challenge erstellt')
         }
     }
@@ -427,7 +454,7 @@ export default class ChallengeManager extends LitElement{
         {
             let startYear = new Date().getFullYear()
             let dropDown = this.shadowRoot.getElementById('dropDown')
-            for(var i = startYear; i < startYear + 3;i++){
+            for(var i = startYear; i < startYear + 2;i++){
                 let option = document.createElement('option')
                 option.value = i
                 option.innerHTML = i + " / " + (i+1)
@@ -488,12 +515,12 @@ export default class ChallengeManager extends LitElement{
     }
 
     clearCreatorContainer(){
-        this.shadowRoot.getElementById('roundOne').value = ''
-        this.shadowRoot.getElementById('roundTwo').value = ''
-        this.shadowRoot.getElementById('roundThree').value = ''
-        this.shadowRoot.getElementById('roundFour').value = ''
-        this.shadowRoot.getElementById('roundFive').value = ''
-        this.shadowRoot.getElementById('roundSix').value = ''
+        this.shadowRoot.getElementById('roundOne').value = this.shadowRoot.getElementById('roundOne').defaultValue
+        this.shadowRoot.getElementById('roundTwo').value = this.shadowRoot.getElementById('roundTwo').defaultValue
+        this.shadowRoot.getElementById('roundThree').value = this.shadowRoot.getElementById('roundThree').defaultValue
+        this.shadowRoot.getElementById('roundFour').value = this.shadowRoot.getElementById('roundFour').defaultValue
+        this.shadowRoot.getElementById('roundFive').value = this.shadowRoot.getElementById('roundFive').defaultValue
+        this.shadowRoot.getElementById('roundSix').value = this.shadowRoot.getElementById('roundSix').defaultValue
         this.shadowRoot.getElementById('notification').innerHTML = ''
     }
 
