@@ -18,10 +18,6 @@ export default class LoginForm extends LitElement{
         console.log('content of p: ' + this.shadowRoot.getElementById(paramId).innerHTML)
     }
 
-    ezSkinz(){
-        console.log("HANSI")
-        console.log(gapi.auth2.getAuthInstance()['currentUser'].get())
-    }
 
     render(){
         return html`
@@ -33,7 +29,6 @@ export default class LoginForm extends LitElement{
     }
 
     _handleSignInEvent(e){
-        console.log('iaiaiaiaaio')
         console.log('type', e.type, e)
         console.log(gapi.auth2.getAuthInstance()['currentUser'].get())
         this.eventName = e.type

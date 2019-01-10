@@ -91,6 +91,7 @@ export default class PdfService{
     }
 
     static createPdfPerSessionPerCategories(result, year, round){
+        console.log(result)
         var doc = new jsPDF()
         this.checkForTranslation()
         var margin = 0
