@@ -42,7 +42,7 @@ public class JsonArrayCreator {
         }
         return jsonArrayBuilder.build();
     }
-
+    //working
     public JsonArray GetJsonArrayClubs(){
         JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
         fillData();
@@ -54,8 +54,60 @@ public class JsonArrayCreator {
         return jsonArrayBuilder.build();
     }
 
+    public JsonObject GetJsonArrayClubsNew(){
+        fillData();
+        JsonObjectBuilder fullObject = Json.createObjectBuilder();
+
+        //distanceTable
+        JsonArrayBuilder distanceTableArray = Json.createArrayBuilder();
+        JsonObject allSix = null;
+        for(int i = 0; i < bestFour.size();i++){
+            allSix = Json.createObjectBuilder().add("roundOne", one.get(i)*10).add("roundTwo", two.get(i)*10).add("roundThree", three.get(i)*10).add("roundFour", four.get(i)*10).add("roundFive", five.get(i)*10).add("roundSix", six.get(i)*10).build();
+            distanceTableArray.add(Json.createObjectBuilder().add("clubLong", clubLong.get(i)).add("club", club.get(i)).add("allSixDistances", allSix).add("clubParticipantCount", clubMembers.get(i)));
+        }
+        fullObject.add("distanceTableArray", distanceTableArray);
+
+        //distanceFootnoteTable
+        JsonObject allSixCount = Json.createObjectBuilder().add("roundOne", 110).add("roundTwo", 60).add("roundThree", 50).add("roundFour", 30).add("roundFive", 40).add("roundSix", 90).build();
+        JsonObjectBuilder distanceFootnoteTableArray = Json.createObjectBuilder();
+        distanceFootnoteTableArray.add("totalCount", Json.createObjectBuilder().add("clubCountTotal", 500).add("allSixRoundsClubs", allSixCount))
+                                    .add("maleCount", Json.createObjectBuilder().add("clubMaleCountTotal", 300).add("allSixRoundsClubs", allSixCount))
+                                    .add("femaleCount", Json.createObjectBuilder().add("clubFemaleCountTotal", 300).add("allSixRoundsClubs", allSixCount))
+                                    .add("maleTotal", allSix)
+                                    .add("totalDistances", allSix)
+                                    .add("femaleTotal", allSix);
+        fullObject.add("distanceFootnoteTable", distanceFootnoteTableArray);
+
+        //genderDistanceTable
+        fullObject.add("genderDistanceTable", Json.createObjectBuilder().add("male", getGenderDistanceArray(allSixCount)).add("female", getGenderDistanceArray(allSixCount)));
+
+        //participationTable
+        fullObject.add("participationTable", Json.createObjectBuilder().add("male", allSixCount).add("female", allSixCount).add("total", allSixCount));
+
+        //categoryTable
+        JsonArrayBuilder categoryTableArray = Json.createArrayBuilder();
+        for(int i = 0; i < 11; i ++){
+            categoryTableArray.add(createSingleCategoryRow());
+        }
+        fullObject.add("categoryTable", categoryTableArray);
+
+        return fullObject.build();
+    }
+
+    private JsonObject createSingleCategoryRow(){
+        return Json.createObjectBuilder().add("category", "Masters A").add("years", "1977 - 1986").add("maleCount", 50).add("femaleCount", 50).add("totalCount", 50).build();
+    }
+
+    private JsonArray getGenderDistanceArray(JsonObject allSix){
+        JsonArrayBuilder g = Json.createArrayBuilder();
+        for(int i = 0; i < 10; i ++){
+            g.add(Json.createObjectBuilder().add("reachenDistance", 3500 + (500 * i)).add("distances", allSix));
+        }
+        return g.build();
+    }
+
     private void fillData(){
-        for(int i = 0; i < 40; i ++){
+        for(int i = 0; i < 9; i ++){
             bestFour.add(329000);
             bestFour.add(12345);
             bestFour.add(63789);
@@ -168,6 +220,8 @@ public class JsonArrayCreator {
                     .add("headerHour", "Stunden")
                     .add("headerMinutes", "Minuten")
                     .add("headerSeconds", "Sekunden")
+                    .add("headerStarts", "STARTET")
+                    .add("headerEnds", "ENDET")
                     .add("homeBtn", "Start")
                     .add("homeHeadline", "Willkommen zur ERGO-Challenge Seite des Linzer Rudervereins ISTER")
                     .add("homeTextOne", "Breitensport und Rennsport bestehen schon lange nebeneinander, oft jedoch teilt dieser Umstand die Mitglieder im Verein. Bei einer Challenge kann jeder, unabhängig von dieser Zuordnung teilnehmen. Bei den Reihungen in den Ergebnislisten findet man sich in bekannter Gesellschaft von Freunden, Bekannten oder auch Neueinsteigern verschiedenster Vereine.")
@@ -175,9 +229,10 @@ public class JsonArrayCreator {
                     .add("homeTextThree", "Als veranstaltender Verein „Linzer Ruderverein ISTER“ haben diese Veranstaltungen natürlich Bezug zum Rudern, insbesondere die Winterchallenge an den Concept2 Ergometern wird auch an die Fitness Clubs getragen.")
                     .add("ergoHeadline", "30 (dirty) K Ergo Challenge")
                     .add("ergoSubheadlineOne", "Allgemeines")
+                    .add("ergoBtn", "Ergo Challenge")
                     .add("ergoTextOne", "Bei diesem Bewerb gibt es weder etwas zu gewinnen, noch erhält man eine Medaille. Alle Ruderer, weiblich und männlich aus Vereinen oder privat, sind startberechtigt und als Administrator vertrauen wir auf die Richtigkeit der gelieferten Daten.")
                     .add("ergoSubheadlineTwo", "Bewerb")
-                    .add("ergoTextTwo", "Die Teilnehmer sollen versuchen in der Zeit von 30 Minuten so viele Meter am Ergometer zurück zu legen, als es ihnen möglich ist. Es gibt über den Winter verteilt sechs (6) Termine, wobei die vier (4) besten Ergebnisse gewertet werden. Die Termine sind immer von Donnerstag 18:00 Uhr bis Montag 18:00 Uhr berechnet:")
+                    .add("ergoTextTwo", "Die Teilnehmer sollen versuchen in der Zeit von 30 Minuten so viele Meter am Ergometer zurück zu legen, als es ihnen möglich ist. Es gibt über den Winter verteilt 6 Termine, wobei die 4 besten Ergebnisse gewertet werden. Die Termine sind immer von Donnerstag 18:00 Uhr bis Montag 18:00 Uhr berechnet:")
                     .add("session", "Session")
                     .add("ergoSubheadlineThree", "Ziel")
                     .add("ergoTextThree", "Bei vier Termine zusammengerechnet, mindestens 30 000 Meter (Männer) oder 26 000 (Frauen) zu rudern und dabei mit Ruderkollegen aus Österreich und der Welt messen.")
@@ -185,17 +240,19 @@ public class JsonArrayCreator {
                     .add("ergoTextFour", "Um an der Challenge teilnehmen zu können, muss man sich mit einer E-Mail auf dieser Website registrieren und weitere persönliche Daten wie Name, Alter, Gewicht, etc. für die Auswertung der Challenge angeben (Das Gewicht dient lediglich zur Berechnung und scheint nicht in der Auswertung auf). Ihre Daten werden vertraulich gespeichert und nicht an Dritte weitergegeben. Bei Fragen wenden Sie sich an challenge@ister.at. Die Reihung erfolgt gemäß der Concept2 Alterseinteilung:")
                     .add("ergoTextFourClasslist", "SchülerInnen: bis 14 Jahre;JuniorenInnen: 15 – 16 Jahre;JuniorenInnen: 17 – 18 Jahre;Allgemeine Klasse: 19 – 29 Jahre;Masters A: 30 – 39 Jahre;Masters B: 40 – 49 Jahre;Masters C: 50 – 59 Jahre;Masters D: 60 – 69 Jahre;Masters E: 70 – 79 Jahre;Masters F: 80 – 89 Jahre")
                     .add("clubRankingHeadline", "30K Club Ranking Liste")
+                    .add("clubRankingBtn", "30K Club Ranking")
+                    .add("participantRankingBtn", "30K Teilnehmer Ranking")
                     .add("rankingSubheadline", "Wählen Sie Ihre Filteroptionen")
                     .add("rankingYear", "Jahr")
                     .add("rankingResult", "Durchgänge")
-                    .add("rankingResultContent", "Alle;1. Session;2. Session;3. Session;4. Session;5. Session;6. Session")
+                    .add("distanceBtn", "Distanz hochladen")
+                    .add("rankingAll", "Alle")
                     .add("rankingSequence", "Sortierung")
-                    .add("clubRankingSequenceContent", "Alphabetisch;Top Down")
-                    .add("rankingDownloadBtn", "Lade pdf herunter")
-                    .add("clubRankingEmailDistanceBtn", "Lade Email-Name Liste")
-                    .add("participantRankingHeadline", "30K Personen Ranking Liste")
+                    .add("rankingDownloadBtn", "pdf erstellen")
+                    .add("clubRankingEmailNameBtn", "Email - Name Liste erstellen")
+                    .add("participantRankingHeadline", "30K Teilnehmer Ranking Liste")
                     .add("participantRankingSubheadline", "Wählen Sie Ihre Filteroptionen")
-                    .add("participantRankingSequenceContent", "Alphabetisch;Top Down; Kategorien")
+                    .add("rankingSequenceContent", "Alphabetisch;Top Down;Kategorien")
                     .add("distanceClubHeadlineOne", "Überprüfen Sie die Struktur")
                     .add("distanceClubSubheadlineOne", "So soll die Excel Tabelle aussehen (.xlsx Format)")
                     .add("distanceClubSubmitOne", "Verstanden")
@@ -206,12 +263,31 @@ public class JsonArrayCreator {
                     .add("distanceClubSuccessThree", "Ihre Excel Datei wurde erfolgreich hochgeladen")
                     .add("distanceClubErrorThree", "Excel Daten ungültig")
                     .add("distanceParticipantHeadlineOne", "Tragen Sie die erreichte Distanz ein")
-                    .add("distanceParticipantSubheadlineOne", "Distanz")
+                    .add("distance", "Distanz")
                     .add("distanceParticipantErrorMsg", "Ungültige Distanz")
                     .add("distanceParticipantHeadlineTwo", "Wählen Sie das Beweisbild aus")
-                    .add("distanceParticipantSelectionTwo", "Wähle Beweisbild")
-                    .add("distanceSubmitBtn", "Erledigt")
-                    .add("distanceParticipantSuccessThree", "Ihre Distanz wurde erfolgreich hochgeladen");
+                    .add("distanceParticipantSelectionTwo", "Beweisbild auswählen")
+                    .add("distanceSubmitBtn", "Weiter")
+                    .add("loginBtn", "Login")
+                    .add("distanceParticipantSuccessThree", "Ihre Distanz wurde erfolgreich hochgeladen")
+                    .add("pdfEmail", "Email")
+                    .add("pdfName", "Name")
+                    .add("pdfClub", "Club")
+                    .add("pdfShortcut", "Kürzel")
+                    .add("pdfParticipant", "Teilnehmer")
+                    .add("pdfParticipantCount", "Anzahl")
+                    .add("pdfTotal", "Gesamt")
+                    .add("pdfRating", "Wertung")
+                    .add("pdfRound", "Runde")
+                    .add("pdfMeter", "Meter")
+                    .add("pdfAthletes", "Athleten")
+                    .add("pdfCat", "Kat.")
+                    .add("pdfClass", "Klasse")
+                    .add("male", "männlich")
+                    .add("female", "weiblich")
+                    .add("categories", "Kategorien")
+                    .add("resultPerWeekend", "Ergebnis pro Wochenende")
+                    .add("pdfStatistics", "Statistiken");
             return jsonGerman.build();
         }
         else{
@@ -221,6 +297,8 @@ public class JsonArrayCreator {
                     .add("headerHour", "Hours")
                     .add("headerMinutes", "Minutes")
                     .add("headerSeconds", "Seconds")
+                    .add("headerStarts", "STARTS")
+                    .add("headerEnds", "ENDS")
                     .add("homeBtn", "Home")
                     .add("homeHeadline", "Welcome to the ERGO-Challenge Website of Ruderverein ISTER Linz")
                     .add("homeTextOne", "blaaaaaaaaaaaaaaa aaaaaaaa aaaaa aaa aaaa aaaa aaaaa aaaaaaa aaa aaaaa aaaaaa aaaaaa   aaa aa aaa aaa aaaaa aaa aaa aaaa aaa aaa aaaaaaaaaa aaa english english english english english english english english english english english english english english english english ennglish")
@@ -230,24 +308,28 @@ public class JsonArrayCreator {
                     .add("ergoSubheadlineOne", "allgmeinielgish")
                     .add("ergoTextOne", "english english english english english english english english english english english english english english english english english english english english english english english english english english english english english english english")
                     .add("ergoSubheadlineTwo", "Bewerb")
+                    .add("ergoBtn", "Ergo Challenge")
                     .add("ergoTextTwo", "english english english english english english english english english english english english english english english english english english english english english english english english english english english english english english english english english english english english english english ")
-                    .add("session", "blabla")
+                    .add("session", "Session")
                     .add("ergoSubheadlineThree", "Ziel")
                     .add("ergoTextThree", "english english english english english english english english english english english english english english english english english english english english english")
                     .add("ergoSubheadlineFour", "Daten")
+                    .add("distanceBtn", "Upload Distance")
                     .add("ergoTextFour", "english english english english english english english english english english english english english english english english english english ")
                     .add("ergoTextFourClasslist", "SchülerInnen: bis 14 Jahre;JuniorenInnen: 15 – 16 Jahre;JuniorenInnen: 17 – 18 Jahre;Allgemeine Klasse: 19 – 29 Jahre;Masters A: 30 – 39 Jahre;Masters B: 40 – 49 Jahre;Masters C: 50 – 59 Jahre;Masters D: 60 – 69 Jahre;Masters E: 70 – 79 Jahre;Masters F: 80 – 89 Jahre")
                     .add("clubRankingHeadline", "30K Club Ranking Liste")
+                    .add("clubRankingBtn", "30K Club Ranking")
+                    .add("participantRankingBtn", "30K Particpant Ranking")
                     .add("rankingSubheadline", "Select Your Filter Options")
                     .add("rankingYear", "Year")
+                    .add("rankingAll", "Total")
                     .add("rankingResult", "Result")
                     .add("rankingResultContent", "Total;1. Session;2. Session;3. Session;4. Session;5. Session;6. Session;")
                     .add("rankingSequence", "Order")
-                    .add("clubRankingSequenceContent", "Alphabetic;Top Down")
                     .add("rankingDownloadBtn", "Download pdf")
-                    .add("clubRankingEmailDistanceBtn", "Load Email-Name List")
+                    .add("clubRankingEmailNameBtn", "Load Email-Name List")
                     .add("participantRankingHeadline", "30K Participant Ranking Liste")
-                    .add("participantRankingSequenceContent", "Alphabetic;Top Down; Categories")
+                    .add("rankingSequenceContent", "Alphabetic;Top Down; Categories")
                     .add("distanceClubHeadlineOne", "Check Your Structur")
                     .add("distanceClubSubheadlineOne", "This Is How The Excel Should Look Like (.xlsx Format)")
                     .add("distanceClubSubmitOne", "got it")
@@ -259,11 +341,30 @@ public class JsonArrayCreator {
                     .add("distanceClubSuccessThree", "succesfully uploaded")
                     .add("distanceClubErrorThree", "Excel invalid")
                     .add("distanceParticipantHeadlineOne", "Enter your distance")
-                    .add("distanceParticipantSubheadlineOne", "Distance")
+                    .add("distance", "Distance")
                     .add("distanceParticipantErrorMsg", "invalid Distanz")
                     .add("distanceParticipantHeadlineTwo", "select the Beweisbild aus")
                     .add("distanceParticipantSelectionTwo", "select Beweisbild")
-                    .add("distanceParticipantSuccessThree", "Ihre Distanz wurde succesful hochgeladen");
+                    .add("loginBtn", "Login")
+                    .add("distanceParticipantSuccessThree", "Ihre Distanz wurde succesful hochgeladen")
+                    .add("pdfEmail", "Email")
+                    .add("pdfName", "Name")
+                    .add("pdfClub", "Club")
+                    .add("pdfShortcut", "Short")
+                    .add("pdfParticipant", "Participants")
+                    .add("pdfParticipantCount", "Count")
+                    .add("pdfTotal", "Total")
+                    .add("pdfRating", "Rating")
+                    .add("pdfRound", "Round")
+                    .add("pdfMeter", "Meter")
+                    .add("pdfAthletes", "Athletes")
+                    .add("pdfCat", "Cat.")
+                    .add("pdfClass", "Class")
+                    .add("male", "male")
+                    .add("female", "female")
+                    .add("categories", "Categories")
+                    .add("resultPerWeekend", "Result per Weekend")
+                    .add("pdfStatistics", "Statistis");
             return jsonEnglish.build();
         }
     }

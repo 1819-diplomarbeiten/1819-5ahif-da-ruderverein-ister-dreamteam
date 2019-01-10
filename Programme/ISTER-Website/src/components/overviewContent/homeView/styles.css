@@ -19,5 +19,13 @@
     margin: 2rem;
 }
 .lineSeparator{
-    line-height: 2.5
+    line-height: 2.7
+}
+.image-htl{
+    float: right;
+    margin-top: 20%;
+    margin-left: -2%
+}
+.image{
+    margin-top: 2%
 }

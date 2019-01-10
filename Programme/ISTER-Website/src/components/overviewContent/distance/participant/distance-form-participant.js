@@ -18,28 +18,34 @@ export default class DistanceFormParticipant extends LitElement{
         this.translation = TranslationService.getTranslation('participant-distance')
     }
 
-    postPeriod(){
-
+    //gets called per user button, POST a single period from participant to server
+    manageUpload(){
         var fileReader = new FileReader();
+
+        //gets called when var file is ready 
         fileReader.onload = event => {
             this.evidencePic = event.target.result
             this.manage(this.evidencePic)
         };
+
         var file = this.shadowRoot.getElementById('evidencePic').files[0]
 
+        //check if evidence picture is selected, depending on that preparing POST with(out) pic
         if(file == undefined)
             this.manage(null)
         else
             fileReader.readAsDataURL(file);   
     }
 
-    manage(evidencePic){
-        DataService.postPeriod(this.distance, evidencePic)
+    //POST per Service
+    postPeriod(evidencePic){
+        DataService.post(JSON.parse("{\"distance\":" + this.distance + ",\"evidencePic\":\"" + evidencePic + "\"}"), "period")
         this.shadowRoot.getElementById('waiting').innerHTML = `${this.translation["distanceParticipantSuccessThree"]}!`
         this.shadowRoot.getElementById('notification').innerHTML = ''
         this.uploaded = true
     }
 
+    //check if a valid (field filled, only numbers) distance is entered
     validDistance(){
         this.distance = this.shadowRoot.getElementById('distance').value;
         if(isNaN(this.distance) == true || this.distance == ""){
@@ -52,10 +58,12 @@ export default class DistanceFormParticipant extends LitElement{
         }
     }
 
+    //displays filename beneath selection button
     setFileName(){
         this.shadowRoot.getElementById('picNotification').innerHTML = this.shadowRoot.getElementById('evidencePic').files[0].name
     }
 
+    //handles displaying of the different parts
     activate(toActivate){
         if(!this.uploaded) {
             switch(toActivate){
@@ -76,13 +84,12 @@ export default class DistanceFormParticipant extends LitElement{
                     this.shadowRoot.getElementById('contentOne').style.display = 'none'
                     this.shadowRoot.getElementById('contentTwo').style.display = 'none'
                     this.shadowRoot.getElementById('contentThree').style.display = 'initial'
-                    this.postPeriod()
+                    this.manageUpload()
                 break
             }
         }
     }
 
-    //zu späterer Zeit: Überprüfung ob gerade eine Challenge!
     render(){
         $(document).ready(() => { 
             this.shadowRoot.getElementById('evidencePic').onchange = () => {this.setFileName()}
@@ -92,57 +99,50 @@ export default class DistanceFormParticipant extends LitElement{
         <script lang="javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="/src/components/overviewContent/distance/participant/styles.css">
-        <script src="/node_modules/dropzone/dist/dropzone.js" type="text/javascript"></script>
-        <link rel="stylesheet" href="/node_modules/dropzone/dist/min/dropzone.min.css" type="text/css">
-        <div style="margin-top:2%;margin-left: 2%">
-            <div>
-                <p class="number-design" @click="${() => this.activate('1')}">1</p>
-                <h2 style="margin-top:-3%;margin-left:4%" @click="${() => this.activate('1')}"><strong>${this.translation["distanceParticipantHeadlineOne"]}</strong></h2>
-            </div>
-            <div class="horizontal-line"></div><br>
-            <div id="contentOne">
-                <div class="input-group input-group-sm mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-sm"><strong>${this.translation["distanceParticipantSubheadlineOne"]}</strong></span>
-                    </div>
-                    <input id="distance" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+        <br>
+        <div>
+            <p class="number-design" @click="${() => this.activate('1')}">1</p>
+            <h2 style="margin-top:-3%;margin-left:4%" @click="${() => this.activate('1')}"><strong>${this.translation["distanceParticipantHeadlineOne"]}</strong></h2>
+        </div>
+        <div class="horizontal-line"></div><br>
+        <div id="contentOne">
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-sm"><strong>${this.translation["distance"]}</strong></span>
                 </div>
-                <p id="distanceNotification"></p>
-                <br>
-                <button type="submit" class="btn btn-primary custom-color" @click="${() => this.activate('2')}">${this.translation["distanceSubmitBtn"]}</button><br><br>
+                <input id="distance" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
             </div>
-
-
-            <div>
-                <p class="number-design">2</p>
-                <h2 style="margin-top:-3%;margin-left:4%"><strong>${this.translation["distanceParticipantHeadlineTwo"]}</strong></h2>
+            <p id="distanceNotification"></p>
+            <br>
+            <button type="submit" class="btn btn-primary custom-color" @click="${() => this.activate('2')}">${this.translation["distanceSubmitBtn"]}</button><br><br>
+        </div>
+        <div>
+            <p class="number-design">2</p>
+            <h2 style="margin-top:-3%;margin-left:4%"><strong>${this.translation["distanceParticipantHeadlineTwo"]}</strong></h2>
+        </div>
+        <div class="horizontal-line"></div><br>
+        <div id="contentTwo" style="display:none">
+            <div class="form-group">
+                <label class="btn btn-default btn-file">
+                ${this.translation["distanceParticipantSelectionTwo"]} <input id="evidencePic" accept=".png, .jpg, .jpeg" class="form-control-file" type="file" style="display: none;">
+                </label>
             </div>
-            <div class="horizontal-line"></div><br>
-            <div id="contentTwo" style="display:none">
-                <div class="form-group">
-                    <label class="btn btn-default btn-file">
-                    ${this.translation["distanceParticipantSelectionTwo"]} <input id="evidencePic" accept=".png, .jpg, .jpeg" class="form-control-file" type="file" style="display: none;">
-                    </label>
-                </div>
-                
-                <p id="picNotification"></p>
-                <div class="btn-group" role="group">
-                    <button id="doneTwo" type="submit" class="btn btn-primary custom-color" @click="${() => this.activate('3')}">${this.translation["distanceSubmitBtn"]}</button>
-                    <button type="submit" class="btn btn-primary custom-color-reverse" @click="${() => this.activate('1')}">${this.translation["distanceBackBtn"]}</button><br><br>
-                </div>
+            
+            <p id="picNotification"></p>
+            <div class="btn-group" role="group">
+                <button id="doneTwo" type="submit" class="btn btn-primary custom-color" @click="${() => this.activate('3')}">${this.translation["distanceSubmitBtn"]}</button>
+                <button type="submit" class="btn btn-primary custom-color-reverse" @click="${() => this.activate('1')}">${this.translation["distanceBackBtn"]}</button><br><br>
             </div>
-
-
-            <div>
-                <p class="number-design">3</p>
-                <h2 style="margin-top:-3%;margin-left:4%"><strong>${this.translation["distanceHeadlineThree"]}</strong></h2>
-            </div>
-            <div class="horizontal-line"></div><br>
-            <div id="contentThree" style="display:none">
-                <h3 id="waiting"><strong>Waiting ...</strong></h3>
-                <p id="notification"></p>
-                <button id="stepBackThree" style="display:none" type="submit" class="btn btn-primary custom-color-reverse" @click="${() => this.activate('2')}">${this.translation["distanceBackBtn"]}</button>
-            </div>
+        </div>
+        <div>
+            <p class="number-design">3</p>
+            <h2 style="margin-top:-3%;margin-left:4%"><strong>${this.translation["distanceHeadlineThree"]}</strong></h2>
+        </div>
+        <div class="horizontal-line"></div><br>
+        <div id="contentThree" style="display:none">
+            <h3 id="waiting"><strong>Waiting ...</strong></h3>
+            <p id="notification"></p>
+            <button id="stepBackThree" style="display:none" type="submit" class="btn btn-primary custom-color-reverse" @click="${() => this.activate('2')}">${this.translation["distanceBackBtn"]}</button>
         </div>
         `
     }
