@@ -10,7 +10,7 @@ var challengeSessionsExtension = "getChallenge/"
 var emailNameExtension = "getEmailNameReference"
 var allChallengesExtension = "getallchallenges.php"
 var actualChallengeTimeExtension = "actualchallengetime.php"
-var challengeStatusExtension = "challengestatus.php"
+var challengeStatusExtension = "challengeStatus"
 var picSearchExtension = "picSearch/"
 var updateSessionDateExtension = "updateSessionDate/"
 var deleteSingleChallengeExtension = "blablabla"
@@ -38,11 +38,10 @@ export default class DataService{
     }
 
     static get(msgType, jsonParams){
-        console.log(msgType)
         const request = new XMLHttpRequest()
         request.open("GET", this.getRealPath(msgType, jsonParams), false)
         request.send(null)
-        console.log(request.responseText)
+
         if(request.status === 200)
             return JSON.parse(request.responseText)
         else
@@ -83,7 +82,8 @@ export default class DataService{
             case "challenge-time":
                 return path + actualChallengeTimeExtension
             case "challenge-status":
-                return path + challengeStatusExtension
+                console.log(jsonParams.email)
+                return pathTwo + challengeStatusExtension + "/" + jsonParams.email
             case "session-date-update":
                 return pathTwo + updateSessionDateExtension
             case "delete-single-challenge":

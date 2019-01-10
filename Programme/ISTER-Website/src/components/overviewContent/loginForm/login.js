@@ -29,8 +29,8 @@ export default class LoginForm extends LitElement{
     }
 
     _handleSignInEvent(e){
-        console.log('type', e.type, e)
-        console.log(gapi.auth2.getAuthInstance()['currentUser'].get())
+        //console.log('type', e.type, e)
+        //console.log(gapi.auth2.getAuthInstance()['currentUser'].get())
         this.eventName = e.type
         this.eventDetail = JSON.stringify(e.detail)
 

@@ -7,16 +7,45 @@ export default class OverviewSelector extends LitElement{
         return {
             translation: [],
             lastLanguage: '',
-            lastUsedContent: ''
+            lastUsedContent: '',
+            email: '',
+            emailStatus: '',
+            emailSchramm: ''
         }
     }
 
     constructor(){
         super();
+        this.emailSchramm = 'schramm@gmail.com'
         this.lastUsedContent = 'home'
         this.translation = TranslationService.getTranslation('overview-selector')
         this.lastLanguage = TranslationService.getCurrentLanguage()
         this.startTranslationDetection()
+    }
+
+    //sets interval and waits until auth2 content is not null
+    checkForEmail(){
+        var x = setInterval(_ => {
+            if(gapi.auth2.getAuthInstance() != null && gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile() != null){
+                this.email = gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail()
+                //this.email = this.emailSchramm
+                this.checkForLogout()
+                clearInterval(x)
+            }
+        }, 500)
+    }
+
+    checkForLogout(){
+        var x = setInterval(_ =>{
+            //if(der user hat sich ausgeloggt)
+            if(false){
+                this.shadowRoot.getElementById('participantRankingBtn').style.display = 'none'
+                this.shadowRoot.getElementById('challengeManagerBtn').style.display = 'none'
+                this.shadowRoot.getElementById('distanceBtn').style.display = 'none'
+                console.log('seaaas')
+                clearInterval(x)
+            }
+        }, 1000)
     }
 
     //checks in an 500ms interval if the language has changed, if so the website content gets refreshed
@@ -80,6 +109,7 @@ export default class OverviewSelector extends LitElement{
                 mainComp.appendChild(elem)
                 break
             case 'login':
+                this.manageLoginUsage()
                 elem = document.createElement('login-form')
                 mainComp.appendChild(elem)
                 break
@@ -92,27 +122,71 @@ export default class OverviewSelector extends LitElement{
         }
     }
 
+    manageLoginUsage(){
+        this.checkForEmail()
+
+        var d = setInterval(_ => {
+            if(this.checkForDistanceBtn()){
+                this.getDistanceSelector()
+                clearInterval(d)
+            }
+        }, 1000)
+
+        var m = setInterval(_ => {
+            if(this.checkForChallengeManagerBtn())
+                clearInterval(m)
+        }, 1000)
+    }
+
+    checkForChallengeManagerBtn(){
+        if(this.email != undefined){
+            if(this.email == this.emailSchramm)
+                this.shadowRoot.getElementById('challengeManagerBtn').style.display = 'initial'
+            return true
+        }
+        else{
+            return false
+        }
+    }
+
     //checks which distance formular has to be displayed
     getDistanceSelector(){
-        //if(a club is logged in)
-        if(true)
+        if(this.emailStatus == 'club')
             return 'distance-form-club'
-        else
+        else{
+            this.shadowRoot.getElementById('participantRankingBtn').style.display = 'initial'
             return 'distance-form-participant'
+        }
     }
 
     //check if there is a challenge running
     checkForDistanceBtn(){
-        var data = DataService.get('challenge-status')
-
-        //if(data.status == "true")
-        if(data.status == false)
-            this.shadowRoot.getElementById('distanceBtn').style.display = 'initial'
+        if(this.email != undefined){
+            var data = DataService.get('challenge-status', JSON.parse('{"email":"' + this.email + '"}'))
+            if(data.challengeStatus == "true"){
+                this.shadowRoot.getElementById('distanceBtn').style.display = 'initial'
+                this.emailStatus = data.emailStatus
+                return true
+            }
+            else{
+                this.shadowRoot.getElementById('distanceBtn').style.display = 'none'
+                return false
+            }
+        }
+        else{
+            this.shadowRoot.getElementById('distanceBtn').style.display = 'none'
+            return false
+        }
     }
 
     render(){
         $(document).ready(() => { 
-            this.checkForDistanceBtn()  
+            /*var x = setInterval(_ => {
+                if(this.checkForDistanceBtn()){
+                    this.getDistanceSelector()
+                    clearInterval(x)
+                }
+            }, 1000)*/
         }) 
         return html`
             <script lang="javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -130,14 +204,14 @@ export default class OverviewSelector extends LitElement{
                     </div>
                     <div class="btn-group mr-2" role="group" aria-label="Second group">
                         <button type="button" class="btn btn-primary custom-color" @click="${() => this.changeContent('club')}"><p class="text">${this.translation["clubRankingBtn"]}</p></button>
-                        <button type="button" class="btn btn-primary custom-color" @click="${() => this.changeContent('participant')}"><p class="text">${this.translation["participantRankingBtn"]}</p></button>
+                        <button id="participantRankingBtn" type="button" class="btn btn-primary custom-color" @click="${() => this.changeContent('participant')}" style="display:none"><p class="text">${this.translation["participantRankingBtn"]}</p></button>
                     </div>
                     <div class="btn-group mr-2" role="group" aria-label="Third group">
                         <button id="distanceBtn" type="button" class="btn btn-primary custom-color" style="display:none" @click="${() => this.changeContent('distance')}"><p class="text">${this.translation["distanceBtn"]}</p></button>
                         <button type="button" class="btn btn-primary custom-color" @click="${() => this.changeWebsite()}"><p class="text">LRV Ister</p></button>
                     </div>
                     <div class="btn-group mr-2" role="group" aria-label="Fourth group">
-                        <button type="button" class="btn btn-primary custom-color" @click="${() => this.changeContent('challenge-manager')}"><p class="text">Challenge Manager</p></button>
+                        <button id="challengeManagerBtn"type="button" class="btn btn-primary custom-color" @click="${() => this.changeContent('challenge-manager')}" style="display:none"><p class="text">Challenge Manager</p></button>
                     </div>
                 </div>
             </div>

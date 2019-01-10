@@ -278,11 +278,12 @@ public class SqlStatementsEndpoint {
     }
 
     @GET
-    @Path("/challengeStatus")
+    @Path("/challengeStatus/{email}")
     @Produces(MediaType.APPLICATION_JSON)
-    public JsonObject getChallengeStatus(){
+    public JsonObject getChallengeStatus(@PathParam("email") String email){
         System.out.println("================================");
         System.out.println("======Get Challenge Status======");
-        return Json.createObjectBuilder().add("status", "true").build();
+        System.out.println(email);
+        return Json.createObjectBuilder().add("challengeStatus", "true").add("emailStatus", "club").build();
     }
 }
