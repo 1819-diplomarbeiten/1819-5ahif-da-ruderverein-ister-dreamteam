@@ -1,6 +1,7 @@
 var path = 'http://localhost/restApi/rest/'
 var pathTwo = 'http://localhost:8080/testserver/rs/sql/'
 
+var emailExists = "emailExists.php"
 var clubDistanceExtension = "createResults.php"
 var participantDistanceExtension = "postPeriod.php"
 var challengeCreationExtension = "createChallenges.php"
@@ -82,12 +83,13 @@ export default class DataService{
             case "challenge-time":
                 return path + actualChallengeTimeExtension
             case "challenge-status":
-                console.log(jsonParams.email)
                 return pathTwo + challengeStatusExtension + "/" + jsonParams.email
             case "session-date-update":
                 return pathTwo + updateSessionDateExtension
             case "delete-single-challenge":
                 return path + deleteSingleChallengeExtension
+            case "email-exists":
+                return path + emailExists + "?email=" +jsonParams.email
             default:
                 break
         }
