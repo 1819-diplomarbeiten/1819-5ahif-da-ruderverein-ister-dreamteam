@@ -100,8 +100,6 @@ export default class WebsiteHeader extends LitElement{
                     <img src="images/germanFlag.png" width="70" height="35" @click="${() => this.changeLanguage('german')}">
                     <img src="images/englishFlag.png" width="70" height="35" @click="${() => this.changeLanguage('english')}">--> */ 
         return html`
-            <script lang="javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-            <script lang="javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
             <link rel="stylesheet" type="text/css" href=/src/components/websiteHeader/styles.css>
             <!--<link href="/node_modules/select2/select2.css" rel="stylesheet" type="text/css">

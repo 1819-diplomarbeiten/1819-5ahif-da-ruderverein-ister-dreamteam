@@ -76,7 +76,6 @@ export default class OverviewSelector extends LitElement{
     //changes the website content
     changeContent(content){
         this.lastUsedContent = content
-        let elem = null
         let mainComp = this.shadowRoot.getElementById('website-content')
         this.checkForHtlLogo()
 
@@ -88,34 +87,27 @@ export default class OverviewSelector extends LitElement{
         //Set the next active component
         switch(content){
             case 'participant':
-                elem = document.createElement('participant-ranking')
-                mainComp.appendChild(elem)
+                mainComp.innerHTML = `<participant-ranking></participant-ranking>`
                 break
             case 'club':
-                elem = document.createElement('club-ranking')
-                mainComp.appendChild(elem)
+                mainComp.innerHTML = `<club-ranking isClub="${this.emailStatus == content}"></club-ranking>`
                 break
             case 'distance':
                 var distance = this.getDistanceSelector()
-                elem = document.createElement(distance)
-                mainComp.appendChild(elem)
+                mainComp.innerHTML = `<${distance}></${distance}>`
                 break
             case 'home':
-                elem = document.createElement('home-view')
-                mainComp.appendChild(elem)
+                mainComp.innerHTML = `<home-view></home-view>`
                 break
             case 'ergo':
-                elem = document.createElement('ergo-challenge')
-                mainComp.appendChild(elem)
+                mainComp.innerHTML = `<ergo-challenge></ergo-challenge>`
                 break
             case 'login':
                 this.manageLoginUsage()
-                elem = document.createElement('login-form')
-                mainComp.appendChild(elem)
+                mainComp.innerHTML = `<login-form></login-form>`
                 break
             case 'challenge-manager':
-                elem = document.createElement('challenge-manager')
-                mainComp.appendChild(elem)
+                mainComp.innerHTML = `<challenge-manager></challenge-manager>`
                 break
             default:
                 break
@@ -151,12 +143,13 @@ export default class OverviewSelector extends LitElement{
 
     //checks which distance formular has to be displayed
     getDistanceSelector(){
-        if(this.emailStatus == 'club')
-            return 'distance-form-club'
-        else{
+        if(this.emailStatus == 'participant' || this.emailStatus == 'schramm'){
             this.shadowRoot.getElementById('participantRankingBtn').style.display = 'initial'
             return 'distance-form-participant'
         }
+        else
+            return 'distance-form-club'
+        
     }
 
     //check if there is a challenge running
@@ -189,8 +182,6 @@ export default class OverviewSelector extends LitElement{
             }, 1000)*/
         }) 
         return html`
-            <script lang="javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-            <script lang="javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
             <link rel="stylesheet" type="text/css" href="/src/components/overviewSelector/styles.css"></link>
             <div class ="background">
@@ -214,6 +205,8 @@ export default class OverviewSelector extends LitElement{
                         <button id="challengeManagerBtn"type="button" class="btn btn-primary custom-color" @click="${() => this.changeContent('challenge-manager')}" style="display:none"><p class="text">Challenge Manager</p></button>
                     </div>
                 </div>
+            </div>
+            <div class="background-image">
             </div>
             <div id="website-content" class="body-container">
                 <home-view></home-view>

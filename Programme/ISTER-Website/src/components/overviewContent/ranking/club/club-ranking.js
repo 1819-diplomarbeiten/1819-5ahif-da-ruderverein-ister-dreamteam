@@ -45,9 +45,8 @@ export default class ClubRanking extends LitElement{
 
     //button is only displayed when a club is logged in
     checkForEmailDistanceBtn(){
-        //if(a club is logged in)
-        if(true)
-            this.shadowRoot.getElementById('email-name-container').style.visibility = 'visible'
+        if(this.getAttribute("isClub") == true)
+            this.shadowRoot.getElementById('email-name-container').style.display = 'initial'
     }
 
     getYearsDropdown(){
@@ -73,18 +72,22 @@ export default class ClubRanking extends LitElement{
         $(document).ready(() => { 
             this.checkForEmailDistanceBtn()
             if(!this.methodEntered){
+                /*$("body").css("background-image", "url('../../../../../images/background/2017-1.jpg')")
+                        .css("filter", "blur(8px)")
+                        .css("-webkit-filter", "blur(8px)")
+                        .css("background-position", "center")
+                        .css("background-repeat", "no-repeat")
+                        .css("background-size", "cover")*/
                 this.methodEntered = true
                 this.getYearsDropdown()
             }
         }) 
         return html`
-        <script lang="javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script lang="javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
+        <div class="body-content"></div>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href=/src/components/overviewContent/ranking/club/styles.css></link>
         <h1><strong>${this.translation["clubRankingHeadline"]}:</strong></h1>
         <h3>${this.translation["rankingSubheadline"]}</h3>
-        <div class="dropdown">
             <form>
                 <div class="form-group">
                     <p>${this.translation["rankingYear"]}</p>
@@ -92,7 +95,6 @@ export default class ClubRanking extends LitElement{
                     </select>
                 </div>
                 <br>
-                <!--cutted-->
                 <div class="form-group">
                     <p>${this.translation["rankingSequence"]}</p>
                     <select id="dropDownSequence" class="form-control" style="width:170px">
@@ -101,14 +103,14 @@ export default class ClubRanking extends LitElement{
                     </select>
                 </div>
             </form>
-        </div>
-        <br>
-        <input type ="button" value="${this.translation["rankingDownloadBtn"]}" class="btn btn-primary custom-color" @click="${() => this.getDistances()}"></input>
-        <p id="notification"></p>
-        <div id="email-name-container" style="visibility:hidden">
-            <p>------------------------</p>
-            <input type ="button" value="${this.translation["clubRankingEmailNameBtn"]}" class="btn btn-primary custom-color" style="width:210px" @click="${() => this.getEmailNameList()}">
-            </input><p id="notificationEmailName"></p>
+            <br>
+            <input type ="button" value="${this.translation["rankingDownloadBtn"]}" class="btn btn-primary custom-color" @click="${() => this.getDistances()}"></input>
+            <p id="notification"></p>
+            <div id="email-name-container" style="display:none">
+                <p>------------------------</p>
+                <input type ="button" value="${this.translation["clubRankingEmailNameBtn"]}" class="btn btn-primary custom-color" style="width:210px" @click="${() => this.getEmailNameList()}">
+                </input><p id="notificationEmailName"></p>
+            </div>
         </div>
         `
     }

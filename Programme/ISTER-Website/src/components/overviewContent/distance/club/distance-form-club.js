@@ -115,8 +115,6 @@ export default class DistanceFormClub extends LitElement{
 
     render(){
         return html`
-            <script lang="javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-            <script lang="javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
             <link rel="stylesheet" type="text/css" href=/src/components/overviewContent/distance/club/styles.css>
             <br>

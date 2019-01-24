@@ -75,8 +75,6 @@ export default class ParticipantRanking extends LitElement{
             }
         }) 
         return html`
-        <script lang="javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script lang="javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href=/src/components/overviewContent/ranking/participant/styles.css></link>
         <h1><strong>${this.translation["participantRankingHeadline"]}:</strong></h1>

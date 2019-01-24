@@ -95,8 +95,6 @@ export default class DistanceFormParticipant extends LitElement{
             this.shadowRoot.getElementById('evidencePic').onchange = () => {this.setFileName()}
         }) 
         return html`
-        <script lang="javascript" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script lang="javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="/src/components/overviewContent/distance/participant/styles.css">
         <br>
