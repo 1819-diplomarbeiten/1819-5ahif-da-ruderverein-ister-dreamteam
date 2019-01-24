@@ -20,11 +20,12 @@ img{
     border-radius: 15%;
 }
 .language-options{
-    float: right;
-    top: 0;
-    margin: 1%;
+    right: 0.8%;
+    margin: 0.8%;
+    position: absolute;
     align-content: center;
-    width:50px;
+    z-index: 200000;
+    float: right;
 }
 @media only screen and (max-width: 1400px){
     h1.header{
@@ -54,3 +55,53 @@ img{
         vertical-align: center;
     }
 }
+
+#language {
+    border:1px solid black; width:60px; height:30px; overflow:hidden;
+    -moz-transition: height 0.1s; 
+    -webkit-transition: height 0.1s; 
+    -ms-transition: height 0.1s;  
+    -o-transition: height 0.1s;  
+    transition: height 0.1s;
+}
+#language:hover {
+    height:140px; 
+    -moz-transition: height 0.5s; 
+    -webkit-transition: height 0.5s; 
+    -ms-transition: height 0.5s;  
+    -o-transition: height 0.5s;  
+    transition: height 0.5s;
+}
+#language input {
+    position:absolute;top:0;left:0;opacity:0;
+}
+
+#language label[for=line1] {
+    display:none; height:30px;
+    background:url("/images/flags/germanFlag.png");
+}
+#language label[for=line2] {
+    display:none; height:30px;
+    background:url("/images/flags/englishFlag.png");
+}
+#language label[for=line3] {
+    display:none; height:30px;
+    background:url("/images/flags/spanishFlag.png");
+}
+#language label[for=line4] {
+    display:none; height:30px;
+    background:url("/images/flags/croatienFlag.png");
+}
+
+#language:hover label{
+    display:block;
+    max-height: 30px
+}
+#language label:hover {
+    opacity:0.8;
+}
+#language input:checked + label {
+    opacity:1 !important; display:block;
+}
+
+#trace {margin:0 0 20px;}

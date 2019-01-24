@@ -60,56 +60,24 @@ export default class WebsiteHeader extends LitElement{
             return nr;
     }
 
-    formatState () {
-          var $state = $(
-            '<span><img src="images/germanFlag.png" class="img-flag" /> ' + 'seas' + '</span>'
-          );
-          return $state;
-    }
-
     render(){
-        window.onload = () => {
+        $(document).ready(() => { 
             this.countdown()
             this.shadowRoot.getElementById('language').onchange = (event) => {
                 this.changeLanguage(event.target.value)
             }
-        }
-        $(document).ready(() => { 
-            /*console.log(this.shadowRoot.getElementById('social'))
-            console.log(window.Select2)
-            $(this.shadowRoot.getElementById('social')).select2({
-                templateResult: $(this.formatState())
-               });
-               
-               var counter = 0
-               var x = setInterval(_ => {
-                if(counter < 4){
-                    counter++
-                }
-                else{
-                    this.shadowRoot.getElementById('social').select2({
-                templateResult: this.formatState()
-               });
-                }
-            }, 994);*/
         })
-        /*<!--<select id="dropDownSequence" class="form-control" style="width:60px">
-                        <option value="english"><img src="images/englishFlag.png"></option>
-                        <option value="german"><a style="background-image:url(images/germanFlag.png);height:10px;width:10px" class="img-thumbnail" href=""> </a></option>
-                    </select>
-                    <img src="images/germanFlag.png" width="70" height="35" @click="${() => this.changeLanguage('german')}">
-                    <img src="images/englishFlag.png" width="70" height="35" @click="${() => this.changeLanguage('english')}">--> */ 
         return html`
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
             <link rel="stylesheet" type="text/css" href=/src/components/websiteHeader/styles.css>
-            <!--<link href="/node_modules/select2/select2.css" rel="stylesheet" type="text/css">
-            <script src="/node_modules/select2/select2.js"></script>-->
 
             <div class="background">
-                <select id="language" class="language-options">
-                    <option value='german'>German</option>
-                    <option value='english'>English</option>
-                </select>
+                <div id="language" class="language-options">
+                    <input checked="checked" type="radio" id="line1" name="line-style" value="german"  /><label for="line1"></label>
+                    <input type="radio" id="line2" name="line-style" value="english"  /><label for="line2"></label>
+                    <input type="radio" id="line3" name="line-style" value="spanish"  /><label for="line3"></label>
+                    <input type="radio" id="line4" name="line-style" value="croatian"  /><label for="line4"></label>
+                </div>
                 <h1 class="header" id="countdown"></h1>
             </div>
         `
