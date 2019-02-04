@@ -210,6 +210,36 @@ class Query
         return $test[0]['milliseconds'];
     }
 
+    function emailExists($email){
+        global $db;
+        global $query;
+
+        $sql = $db->prepare("SELECT * from participant where participant.email = :email");
+
+        $sql->bindValue(':email', $email, PDO::PARAM_STR);
+        $result = json_decode($query->buildJson("email", "e", $sql), true);
+        if($result == null)
+            return false;
+        return true;
+    }
+
+    function getTranslation($language){
+        global $db;
+        global $query;
+
+        $sql = $db->prepare("SELECT term from language");
+        $keys = json_decode($query->buildJson("term", "key", $sql), true);
+        $sql = $db->prepare("SELECT ".$language." from language");
+        $values = json_decode($query->buildJson($language, "values", $sql), true);
+        $newArray = array();
+
+        for ($i=0; $i < count($keys); $i++) {
+            $newArray[$keys[$i]['key']] = $values[$i]['values'];
+        }
+
+
+        return $newArray;
+    }
     public function __construct($db)
     {
         $this->conn = $db;

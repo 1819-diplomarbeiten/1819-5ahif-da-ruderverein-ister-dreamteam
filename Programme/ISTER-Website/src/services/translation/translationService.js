@@ -1,5 +1,5 @@
 var translation = []
-var path = 'http://localhost:8080/testserver/rs/sql/translate/'
+var path = 'http://localhost/restApi/rest/getTranslation.php?language='
 var websiteHeaderKeys = ["headerCountdown", "headerDay", "headerHour", "headerMinutes", "headerSeconds", "headerStarts", "headerEnds"]
 var overviewSelectorKeys = ["homeBtn", "distanceBtn", "ergoBtn", "clubRankingBtn", "participantRankingBtn", "loginBtn"]
 var homeViewKeys = ["homeHeadline", "homeTextOne", "homeTextTwo", "homeTextThree"]
