@@ -1,31 +1,31 @@
-.body-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: -2%;
+div.body-content{
+    text-align: center;
+    margin-left: 25%;
+    width: 50%;
+    position: relative;
+    z-index: 2;
 }
-
-@media only screen and (max-width: 990px){
-    .body-container{
-        flex-direction: column
-    }
-    .text-container{
-        margin: 0;
-        text-align: center;
-    }
-}
-.text-container{
-    font-size: 15px;
-    margin: 2rem 2rem 2rem 0rem;
+ul{
+    list-style-position: inside;
 }
 .lineSeparator{
     line-height: 2.5
 }
-img{
-    float: right;
-    margin-right: 4rem
-}
-.under-pic{
-    left: 0;
-    width: 100%
+div.background-image {
+    position: absolute;
+    left: -3%;
+    top: -1%;
+    z-index: 1;
+    background-image: url("../../../../images/background/2017-volker.JPG");
+    display: block;
+    width: 103%;
+    height: 100%;
+    background-position-x: 70%;
+    background-position-y: 30%;
+  
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: grayscale(80%) blur(5px) opacity(60%);
 }

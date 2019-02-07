@@ -61,36 +61,35 @@ export default class ErgoChallenge extends LitElement{
         }) 
         return html`
             <link rel="stylesheet" type="text/css" href="/src/components/overviewContent/ergoChallenge/styles.css"></link>
-            <h1><strong>${this.translation["ergoHeadline"]}</strong></h1>
-            <img src="images/ergo_challenge.jpg" width="650" height="433">
-            <div class="body-container">
-                <div class="text-container">
-                    <h2>${this.translation["ergoSubheadlineOne"]}</h2>
-                    <p class="lineSeparator">${this.translation["ergoTextOne"]}</p>  
-                    <br>
-                    <h2>${this.translation["ergoSubheadlineTwo"]}</h2>
-                    <p class="lineSeparator">${this.translation["ergoTextTwo"]}</p>
-                    <ul id="sessionList">
-                    </ul>     
-                    <br>
-                    <h2>${this.translation["ergoSubheadlineThree"]}</h2>
-                    <p class="lineSeparator under-pic">${this.translation["ergoTextThree"]}</p>
-                    <br>
-                    <h2>${this.translation["ergoSubheadlineFour"]}</h2>
-                    <p class="lineSeparator under-pic">${this.translation["ergoTextFour"]}</p>
-                    <ul>
-                        <li>${this.translation["ergoTextFourClasslist"].split(';')[0]}</li>
-                        <li>${this.translation["ergoTextFourClasslist"].split(';')[1]}</li>
-                        <li>${this.translation["ergoTextFourClasslist"].split(';')[2]}</li>
-                        <li>${this.translation["ergoTextFourClasslist"].split(';')[3]}</li>
-                        <li>${this.translation["ergoTextFourClasslist"].split(';')[4]}</li>
-                        <li>${this.translation["ergoTextFourClasslist"].split(';')[5]}</li>
-                        <li>${this.translation["ergoTextFourClasslist"].split(';')[6]}</li>
-                        <li>${this.translation["ergoTextFourClasslist"].split(';')[7]}</li>
-                        <li>${this.translation["ergoTextFourClasslist"].split(';')[8]}</li>
-                        <li>${this.translation["ergoTextFourClasslist"].split(';')[9]}</li>
-                    </ul>
-                </div>
+            <div class="background-image">
+            </div>
+            <div class="body-content">
+                <h1><strong>${this.translation["ergoHeadline"]}</strong></h1>
+                <h2>${this.translation["ergoSubheadlineOne"]}</h2>
+                <p class="lineSeparator">${this.translation["ergoTextOne"]}</p>  
+                <br>
+                <h2>${this.translation["ergoSubheadlineTwo"]}</h2>
+                <p class="lineSeparator">${this.translation["ergoTextTwo"]}</p>
+                <ul id="sessionList">
+                </ul>     
+                <br>
+                <h2>${this.translation["ergoSubheadlineThree"]}</h2>
+                <p class="lineSeparator">${this.translation["ergoTextThree"]}</p>
+                <br>
+                <h2>${this.translation["ergoSubheadlineFour"]}</h2>
+                <p class="lineSeparator">${this.translation["ergoTextFour"]}</p>
+                <ul>
+                    <li>${this.translation["ergoTextFourClasslist"].split(';')[0]}</li>
+                    <li>${this.translation["ergoTextFourClasslist"].split(';')[1]}</li>
+                    <li>${this.translation["ergoTextFourClasslist"].split(';')[2]}</li>
+                    <li>${this.translation["ergoTextFourClasslist"].split(';')[3]}</li>
+                    <li>${this.translation["ergoTextFourClasslist"].split(';')[4]}</li>
+                    <li>${this.translation["ergoTextFourClasslist"].split(';')[5]}</li>
+                    <li>${this.translation["ergoTextFourClasslist"].split(';')[6]}</li>
+                    <li>${this.translation["ergoTextFourClasslist"].split(';')[7]}</li>
+                    <li>${this.translation["ergoTextFourClasslist"].split(';')[8]}</li>
+                    <li>${this.translation["ergoTextFourClasslist"].split(';')[9]}</li>
+                </ul>
             </div>
         `
     }

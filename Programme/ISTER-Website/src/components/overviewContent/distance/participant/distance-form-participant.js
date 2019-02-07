@@ -97,50 +97,54 @@ export default class DistanceFormParticipant extends LitElement{
         return html`
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="/src/components/overviewContent/distance/participant/styles.css">
-        <br>
-        <div>
-            <p class="number-design" @click="${() => this.activate('1')}">1</p>
-            <h2 style="margin-top:-3%;margin-left:4%" @click="${() => this.activate('1')}"><strong>${this.translation["distanceParticipantHeadlineOne"]}</strong></h2>
+        <div class="background-image">
         </div>
-        <div class="horizontal-line"></div><br>
-        <div id="contentOne">
-            <div class="input-group input-group-sm mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-sm"><strong>${this.translation["distance"]}</strong></span>
-                </div>
-                <input id="distance" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-            </div>
-            <p id="distanceNotification"></p>
+        <div class="body-content">
             <br>
-            <button type="submit" class="btn btn-primary custom-color" @click="${() => this.activate('2')}">${this.translation["distanceSubmitBtn"]}</button><br><br>
-        </div>
-        <div>
-            <p class="number-design">2</p>
-            <h2 style="margin-top:-3%;margin-left:4%"><strong>${this.translation["distanceParticipantHeadlineTwo"]}</strong></h2>
-        </div>
-        <div class="horizontal-line"></div><br>
-        <div id="contentTwo" style="display:none">
-            <div class="form-group">
-                <label class="btn btn-default btn-file">
-                ${this.translation["distanceParticipantSelectionTwo"]} <input id="evidencePic" accept=".png, .jpg, .jpeg" class="form-control-file" type="file" style="display: none;">
-                </label>
+            <div>
+                <p class="number-design" @click="${() => this.activate('1')}">1</p>
+                <h2 style="margin-top:-3%;margin-left:4%" @click="${() => this.activate('1')}"><strong>${this.translation["distanceParticipantHeadlineOne"]}</strong></h2>
             </div>
-            
-            <p id="picNotification"></p>
-            <div class="btn-group" role="group">
-                <button id="doneTwo" type="submit" class="btn btn-primary custom-color" @click="${() => this.activate('3')}">${this.translation["distanceSubmitBtn"]}</button>
-                <button type="submit" class="btn btn-primary custom-color-reverse" @click="${() => this.activate('1')}">${this.translation["distanceBackBtn"]}</button><br><br>
+            <div class="horizontal-line"></div><br>
+            <div id="contentOne">
+                <div class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm"><strong>${this.translation["distance"]}</strong></span>
+                    </div>
+                    <input id="distance" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                </div>
+                <p id="distanceNotification"></p>
+                <br>
+                <button type="submit" class="btn btn-primary custom-color" @click="${() => this.activate('2')}">${this.translation["distanceSubmitBtn"]}</button><br><br>
             </div>
-        </div>
-        <div>
-            <p class="number-design">3</p>
-            <h2 style="margin-top:-3%;margin-left:4%"><strong>${this.translation["distanceHeadlineThree"]}</strong></h2>
-        </div>
-        <div class="horizontal-line"></div><br>
-        <div id="contentThree" style="display:none">
-            <h3 id="waiting"><strong>Waiting ...</strong></h3>
-            <p id="notification"></p>
-            <button id="stepBackThree" style="display:none" type="submit" class="btn btn-primary custom-color-reverse" @click="${() => this.activate('2')}">${this.translation["distanceBackBtn"]}</button>
+            <div>
+                <p class="number-design">2</p>
+                <h2 style="margin-top:-3%;margin-left:4%"><strong>${this.translation["distanceParticipantHeadlineTwo"]}</strong></h2>
+            </div>
+            <div class="horizontal-line"></div><br>
+            <div id="contentTwo" style="display:none">
+                <div class="form-group">
+                    <label class="btn btn-default btn-file">
+                    ${this.translation["distanceParticipantSelectionTwo"]} <input id="evidencePic" accept=".png, .jpg, .jpeg" class="form-control-file" type="file" style="display: none;">
+                    </label>
+                </div>
+                
+                <p id="picNotification"></p>
+                <div class="btn-group" role="group">
+                    <button id="doneTwo" type="submit" class="btn btn-primary custom-color" @click="${() => this.activate('3')}">${this.translation["distanceSubmitBtn"]}</button>
+                    <button type="submit" class="btn btn-primary custom-color-reverse" @click="${() => this.activate('1')}">${this.translation["distanceBackBtn"]}</button><br><br>
+                </div>
+            </div>
+            <div>
+                <p class="number-design">3</p>
+                <h2 style="margin-top:-3%;margin-left:4%"><strong>${this.translation["distanceHeadlineThree"]}</strong></h2>
+            </div>
+            <div class="horizontal-line"></div><br>
+            <div id="contentThree" style="display:none">
+                <h3 id="waiting"><strong>Waiting ...</strong></h3>
+                <p id="notification"></p>
+                <button id="stepBackThree" style="display:none" type="submit" class="btn btn-primary custom-color-reverse" @click="${() => this.activate('2')}">${this.translation["distanceBackBtn"]}</button>
+            </div>
         </div>
         `
     }
