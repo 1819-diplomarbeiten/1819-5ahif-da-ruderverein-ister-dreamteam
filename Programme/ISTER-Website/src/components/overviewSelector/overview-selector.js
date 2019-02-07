@@ -206,12 +206,10 @@ export default class OverviewSelector extends LitElement{
                     </div>
                 </div>
             </div>
-            <div class="background-image">
-            </div>
             <div id="website-content" class="body-container">
                 <home-view></home-view>
             </div>
-            <img id="htl" src="images/htl-leonding.jpg" width="100" height="100" class="image-htl">
+            <img id="htl" src="images/htl-leonding.jpg" width="100" height="16" class="image-htl">
             `
     }
 }

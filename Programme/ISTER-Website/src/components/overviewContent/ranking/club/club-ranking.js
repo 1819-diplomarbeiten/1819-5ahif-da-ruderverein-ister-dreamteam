@@ -16,7 +16,6 @@ export default class ClubRanking extends LitElement{
 
     constructor(){
         super();
-        this.path = 'http://localhost/restApi/rest/';
         this.methodEntered = false
         this.translation = TranslationService.getTranslation('club-ranking')
     }
@@ -83,20 +82,23 @@ export default class ClubRanking extends LitElement{
             }
         }) 
         return html`
-        <div class="body-content"></div>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href=/src/components/overviewContent/ranking/club/styles.css></link>
-        <h1><strong>${this.translation["clubRankingHeadline"]}:</strong></h1>
-        <h3>${this.translation["rankingSubheadline"]}</h3>
+            
+        <div class="background-image">
+        </div>
+        <div class="body-content">
+            <h1 class="test"><strong>${this.translation["clubRankingHeadline"]}:</strong></h1>
+            <h3><strong>${this.translation["rankingSubheadline"]}</strong></h3>
             <form>
                 <div class="form-group">
-                    <p>${this.translation["rankingYear"]}</p>
+                    <p><strong>${this.translation["rankingYear"]}</strong></p>
                     <select id="dropDownYear" class="form-control" style="width:170px">
                     </select>
                 </div>
                 <br>
                 <div class="form-group">
-                    <p>${this.translation["rankingSequence"]}</p>
+                    <p><strong>${this.translation["rankingSequence"]}</strong></p>
                     <select id="dropDownSequence" class="form-control" style="width:170px">
                         <option value="Alphabetic">${this.translation["rankingSequenceContent"].split(';')[0]}</option>
                         <option value="TopDown">${this.translation["rankingSequenceContent"].split(';')[1]}</option>

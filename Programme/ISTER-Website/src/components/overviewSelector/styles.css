@@ -24,11 +24,8 @@ div.background{
 div.body-container{
     position: absolute;
     top: 26%;
-    margin-left: 2%;
-    width: 98%;
-}
-div.background-image{
-    background-image: url("../../../images/background/homepage_003.jpg");
+    margin-left: 3%;
+    width: 97%;
 }
 p.text{
     font-size: 20px;

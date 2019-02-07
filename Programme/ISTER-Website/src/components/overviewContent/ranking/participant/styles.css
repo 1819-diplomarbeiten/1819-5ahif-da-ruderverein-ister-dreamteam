@@ -13,3 +13,25 @@
     background-color: #35424A;
     border-color: #35424A;
 }
+div.body-content{
+    position: relative;
+    z-index: 2;
+}
+div.background-image {
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    top: 24%;
+    background-image: url("../../../../../images/background/homepage_007.jpg");
+    display: block;
+    width: 100%;
+    height: 75%;
+    background-position-y: 70%;
+  
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: grayscale(80%) blur(5px) opacity(60%);
+}
