@@ -240,6 +240,22 @@ class Query
 
         return $newArray;
     }
+
+    function getAllClubs(){
+        global $db;
+        global $query;
+
+        $sql = $db->prepare("SELECT name from Club");
+
+        $sql->execute();
+
+        while ($row = $sql->fetch(PDO::FETCH_ASSOC)) {
+            $data[] = $row['name'];
+        }
+
+        return $data;
+
+    }
     public function __construct($db)
     {
         $this->conn = $db;
