@@ -268,6 +268,15 @@ public class SqlStatementsEndpoint {
     }
 
     @GET
+    @Path("/getAllClassess")
+    @Produces(MediaType.APPLICATION_JSON)
+    public JsonArray getAllClasses(){
+        System.out.println("================================");
+        System.out.println("===========Get Classes==========");
+        return new JsonArrayCreator().getAllClubs();
+    }
+
+    @GET
     @Path("/getClass/{mail}")
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject getClass(@PathParam("mail")String mail){
@@ -284,6 +293,6 @@ public class SqlStatementsEndpoint {
         System.out.println("================================");
         System.out.println("======Get Challenge Status======");
         System.out.println(email);
-        return Json.createObjectBuilder().add("challengeStatus", "true").add("emailStatus", "participant").build();
+        return Json.createObjectBuilder().add("challengeStatus", "true").add("emailStatus", "schramm").build();
     }
 }

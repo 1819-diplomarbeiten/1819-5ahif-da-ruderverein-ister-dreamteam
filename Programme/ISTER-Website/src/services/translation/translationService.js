@@ -9,6 +9,7 @@ var participantRankingKeys = ["participantRankingHeadline", "rankingYear", "rank
 var clubDistanceKeys = ["distanceClubHeadlineOne", "distanceClubSubheadlineOne", "distanceClubSubmitOne", "distanceClubHeadlineTwo", "distanceClubSelectTwo", "distanceClubSubmitBtn", "distanceBackBtn", "distanceHeadlineThree", "distanceClubSuccessThree", "distanceClubErrorThree", "distanceSubmitBtn"]
 var participantDistanceKeys = ["distanceSubmitBtn", "distanceBackBtn", "distanceHeadlineThree", "distanceParticipantHeadlineOne", "distance", "distanceParticipantErrorMsg", "distanceParticipantHeadlineTwo", "distanceParticipantSelectionTwo", "distanceParticipantSuccessThree"]
 var pdfKeys = ["pdfEmail", "pdfName", "pdfClub", "pdfShortcut", "pdfTotal", "pdfRating", "pdfRound", "pdfCat", "pdfMeter", "pdfAthletes", "rankingYear", "pdfClass", "male", "female", "categories", "resultPerWeekend", "pdfStatistics", "pdfParticipantCount", "pdfParticipant"]
+var loginKeys = ["male", "female", "firstName", "lastName", "birthday", "weight", "gender", "pdfClub", "loginHeader", "distanceSubmitBtn"]
 var currentLanguage = ''
 
 export default class TranslationService{
@@ -51,6 +52,8 @@ export default class TranslationService{
                 return this.getSpecificTranslation(participantDistanceKeys)
             case 'pdf':
                 return this.getSpecificTranslation(pdfKeys)
+            case 'login-form':
+                return this.getSpecificTranslation(loginKeys)
             default:
                 console.log('invalid component in translation')
                 break

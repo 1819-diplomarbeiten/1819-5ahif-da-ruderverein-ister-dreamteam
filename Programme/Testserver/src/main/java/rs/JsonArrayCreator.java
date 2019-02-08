@@ -368,4 +368,12 @@ public class JsonArrayCreator {
             return jsonEnglish.build();
         }
     }
+
+    public JsonArray getAllClubs() {
+        JsonArrayBuilder jsonArrayBuilder = Json.createArrayBuilder();
+        for(int i = 0; i < clubLong.size(); i ++){
+            jsonArrayBuilder.add(Json.createObjectBuilder().add("clubName", clubLong.get(i)));
+        }
+        return jsonArrayBuilder.build();
+    }
 }

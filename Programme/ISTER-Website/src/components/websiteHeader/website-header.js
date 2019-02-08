@@ -5,13 +5,11 @@ import DataService from '../../services/rest/dataService.js';
 export default class WebsiteHeader extends LitElement{
     static get properties(){
         return {
-            path: String,
             translation: []
         }
     }
     constructor(){
         super();
-        this.path = 'http://localhost/restApi/rest'
         this.translation = []
         this.changeLanguage('german')
 

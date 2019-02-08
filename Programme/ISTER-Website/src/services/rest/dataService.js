@@ -15,6 +15,8 @@ var challengeStatusExtension = "challengeStatus"
 var picSearchExtension = "picSearch/"
 var updateSessionDateExtension = "updateSessionDate/"
 var deleteSingleChallengeExtension = "blablabla"
+var dataFormExtension = "createParticipant.php"
+var allClubsExtension = "getAllClubs.php"
 export default class DataService{
     static post(json, msgType){
         fetch(this.getRealPath(msgType),
@@ -42,7 +44,6 @@ export default class DataService{
         const request = new XMLHttpRequest()
         request.open("GET", this.getRealPath(msgType, jsonParams), false)
         request.send(null)
-
         if(request.status === 200)
             return JSON.parse(request.responseText)
         else
@@ -90,6 +91,10 @@ export default class DataService{
                 return path + deleteSingleChallengeExtension
             case "email-exists":
                 return path + emailExists + "?email=" +jsonParams.email
+            case "data-form":
+                return path + dataFormExtension
+            case "all-clubs":
+                return path + allClubsExtension
             default:
                 break
         }

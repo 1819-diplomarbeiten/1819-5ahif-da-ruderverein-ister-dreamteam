@@ -28,7 +28,7 @@ export default class OverviewSelector extends LitElement{
         var x = setInterval(_ => {
             if(gapi.auth2.getAuthInstance() != null && gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile() != null){
                 this.email = gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail()
-                //this.email = this.emailSchramm
+                this.email = this.emailSchramm
                 this.checkForLogout()
                 clearInterval(x)
             }
@@ -173,14 +173,6 @@ export default class OverviewSelector extends LitElement{
     }
 
     render(){
-        $(document).ready(() => { 
-            /*var x = setInterval(_ => {
-                if(this.checkForDistanceBtn()){
-                    this.getDistanceSelector()
-                    clearInterval(x)
-                }
-            }, 1000)*/
-        }) 
         return html`
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
             <link rel="stylesheet" type="text/css" href="/src/components/overviewSelector/styles.css"></link>

@@ -33,11 +33,8 @@ export default class LoginForm extends LitElement{
     _handleSignInEvent(e){
         let mainComp = this.shadowRoot.getElementById('website-content')
         let elem = null
-        console.log(mainComp)
         var email = gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail()
-        console.log(email)
         if(DataService.get("email-exists", JSON.parse('{"email":"' + this.email + '"}')) == false){
-            console.log("FORMULAR!")
             elem = document.createElement('data-form')
             while (mainComp.firstChild) {
                 mainComp.removeChild(mainComp.firstChild);
