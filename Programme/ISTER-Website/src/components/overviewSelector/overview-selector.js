@@ -21,6 +21,10 @@ export default class OverviewSelector extends LitElement{
         this.translation = TranslationService.getTranslation('overview-selector')
         this.lastLanguage = TranslationService.getCurrentLanguage()
         this.startTranslationDetection()
+
+        document.addEventListener("submitBtnPressed", _ => {
+            this.changeContent('home')
+        })
     }
 
     //sets interval and waits until auth2 content is not null
@@ -29,6 +33,7 @@ export default class OverviewSelector extends LitElement{
             if(gapi.auth2.getAuthInstance() != null && gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile() != null){
                 this.email = gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail()
                 this.email = this.emailSchramm
+                this.shadowRoot.getElementById('editBtn').style.display = 'initial'
                 this.checkForLogout()
                 clearInterval(x)
             }
@@ -109,10 +114,15 @@ export default class OverviewSelector extends LitElement{
             case 'challenge-manager':
                 mainComp.innerHTML = `<challenge-manager></challenge-manager>`
                 break
+            case 'edit':
+                var data = DataService.get('data-participant', JSON.parse('{"email":"' + this.email + '"}'))
+                mainComp.innerHTML = `<data-form firstName="${data.firstName}" lastName="${data.lastName}" birthday="${data.birthday}" weight="${data.weight}" gender="${data.gender}" club="${data.club}"></data-form>`
+                break
             default:
                 break
         }
     }
+
 
     manageLoginUsage(){
         this.checkForEmail()
@@ -176,10 +186,19 @@ export default class OverviewSelector extends LitElement{
         return html`
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
             <link rel="stylesheet" type="text/css" href="/src/components/overviewSelector/styles.css"></link>
+            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
             <div class ="background">
                 <p class="banner"><strong>Ergo Challenge ISTER Linz</strong></p>
-                <button type="button" class="btn btn-primary custom-color login-align" @click="${() => this.changeContent('login')}"><p class="text">Login</p></button>
-                
+            
+                <div class="test">
+                    <div class="btn-group mr-2" role="group" aria-label="First group">
+                    <button type="button" class="btn btn-primary custom-color login-align" @click="${() => this.changeContent('login')}"><p class="text">${this.translation["loginBtn"]}</p></button>
+                    </div>
+                    <div class="btn-group mr-2" role="group" aria-label="Second group">
+                    <button id="editBtn" style="display:none" type="button" class="btn btn-primary custom-color login-align" @click="${() => this.changeContent('edit')}"><p class="text"><i class="fas fa-cogs"></i></p></button>
+                    </div>
+                </div>
+
                 <div class="btn-toolbar componentSelection" role="toolbar" aria-label="Toolbar with button groups">
                     <div class="btn-group mr-2" role="group" aria-label="First group">
                         <button type="button" class="btn btn-primary custom-color" @click="${() => this.changeContent('home')}"><p class="text">${this.translation["homeBtn"]}</p></button>

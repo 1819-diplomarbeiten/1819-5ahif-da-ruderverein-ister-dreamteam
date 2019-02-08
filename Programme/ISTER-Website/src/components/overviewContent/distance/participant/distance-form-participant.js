@@ -39,7 +39,7 @@ export default class DistanceFormParticipant extends LitElement{
 
     //POST per Service
     postPeriod(evidencePic){
-        DataService.post(JSON.parse("{\"distance\":" + this.distance + ",\"evidencePic\":\"" + evidencePic + "\"}"), "period")
+        DataService.post(JSON.parse("{\"distance\":" + this.distance + ",\"evidencePic\":\"" + evidencePic + "\",\"email\":\"" + gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail() + "\"}"), "period")
         this.shadowRoot.getElementById('waiting').innerHTML = `${this.translation["distanceParticipantSuccessThree"]}!`
         this.shadowRoot.getElementById('notification').innerHTML = ''
         this.uploaded = true

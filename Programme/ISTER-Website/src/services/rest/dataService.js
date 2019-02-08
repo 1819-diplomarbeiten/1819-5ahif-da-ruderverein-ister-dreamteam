@@ -17,6 +17,7 @@ var updateSessionDateExtension = "updateSessionDate/"
 var deleteSingleChallengeExtension = "blablabla"
 var dataFormExtension = "createParticipant.php"
 var allClubsExtension = "getAllClubs.php"
+var getDataExtension = "getDataByParticipant/"
 export default class DataService{
     static post(json, msgType){
         fetch(this.getRealPath(msgType),
@@ -95,6 +96,8 @@ export default class DataService{
                 return path + dataFormExtension
             case "all-clubs":
                 return path + allClubsExtension
+            case "data-participant":
+                return pathTwo + getDataExtension + jsonParams.email
             default:
                 break
         }

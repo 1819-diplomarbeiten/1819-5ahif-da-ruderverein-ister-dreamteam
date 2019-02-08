@@ -12,7 +12,8 @@ export default class DataForm extends LitElement{
             gender: String,
             club: String,
             translation: [],
-            entered: Boolean
+            entered: Boolean,
+            isCreate: Boolean
         }
     }
 
@@ -20,6 +21,24 @@ export default class DataForm extends LitElement{
         super();
         this.entered = false
         this.translation = TranslationService.getTranslation('login-form')
+    }
+
+    checkIfCreateOrUpdate(){
+        if(this.getAttribute('firstName') != null){
+            this.isCreate = false
+            this.setDataInForm()
+        }
+    }
+
+    setDataInForm(){
+        this.shadowRoot.getElementById('firstName').value = this.getAttribute('firstName')
+        this.shadowRoot.getElementById('lastName').value = this.getAttribute('lastName')
+        this.shadowRoot.getElementById('weight').value = this.getAttribute('weight')
+        this.shadowRoot.getElementById('birthdayContent').style.display = 'none'
+        if(this.getAttribute("gender") == "m"){
+            this.shadowRoot.getElementById("male").checked = true
+        }
+        this.shadowRoot.getElementById('club').value = this.getAttribute("club")
     }
 
     fillClubDropdown(){
@@ -33,17 +52,28 @@ export default class DataForm extends LitElement{
         for(var i = 0; i < data.length; i ++){
             option = document.createElement('option')
             option.innerHTML = data[i]
+            option.value = data[i]
             clubs.appendChild(option)
         }
     }
 
     submitBtnPressed(){
         this.setValues()
+
+        //bean validation
         if(this.fieldsAreValid()){
+            if(this.isCreate)
+            //is a club selected?
             if(this.shadowRoot.getElementById('club').value == '')
-                DataService.post(JSON.parse('{"firstName":"' + this.firstName + '","lastName":"' + this.lastName + '","birthday":"' + this.birthday + '","weight":"' + this.weight + '","gender":"' + this.gender + '","club":"' + this.club + '"}'), "data-form")
+                DataService.post(JSON.parse('{"firstName":"' + this.firstName + '","lastName":"' + this.lastName + '","birthday":"' + this.birthday + '","weight":"' + this.weight + '","gender":"' + this.gender + '","club":"' + this.club + '","email":"' + gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail() + '"}'), "data-form")
             else
-                DataService.post(JSON.parse('{"firstName":"' + this.firstName + '","lastName":"' + this.lastName + '","birthday":"' + this.birthday + '","weight":"' + this.weight + '","gender":"' + this.gender + '"}'), "data-form")
+                DataService.post(JSON.parse('{"firstName":"' + this.firstName + '","lastName":"' + this.lastName + '","birthday":"' + this.birthday + '","weight":"' + this.weight + '","gender":"' + this.gender + '","email":' + gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail() + '"}'), "data-form")
+        
+            //fire event for component change
+            let events = new CustomEvent("submitBtnPressed", {
+                bubbles: true
+            })
+            document.dispatchEvent(events);
         }
     }
 
@@ -94,6 +124,7 @@ export default class DataForm extends LitElement{
             if(this.entered == false){
                 this.fillClubDropdown()
                 $(this.shadowRoot.getElementById('birthday')).Zebra_DatePicker();
+                this.checkIfCreateOrUpdate()
                 this.entered = true
             }
         })
@@ -115,8 +146,8 @@ export default class DataForm extends LitElement{
                 </div>
                 <input id="lastName" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
             </div>
+            <div class="input-group input-group-sm mb-3" id="birthdayContent">
             <br>
-            <div class="input-group input-group-sm mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="inputGroup-sizing-sm"><strong>${this.translation["birthday"]} *</strong></span>
                 </div>

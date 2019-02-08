@@ -36,9 +36,16 @@ p.text{
   border-color: #35424A;
   height:40px;
 }
+.settings{
+    width: 30px;
+    height: 30px;
+}
+.test{
+    float: right;
+    margin-top: 1rem;
+}
 .login-align{
     float: right;
-    margin: 1rem;
 }
 .btn-primary:active,.btn-primary:hover,.btn-primary:focus,.btn-primary:visited{
     color:#35424A;

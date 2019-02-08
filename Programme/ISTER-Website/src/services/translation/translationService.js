@@ -1,7 +1,7 @@
 var translation = []
 var path = 'http://localhost/restApi/rest/getTranslation.php?language='
 var websiteHeaderKeys = ["headerCountdown", "headerDay", "headerHour", "headerMinutes", "headerSeconds", "headerStarts", "headerEnds"]
-var overviewSelectorKeys = ["homeBtn", "distanceBtn", "ergoBtn", "clubRankingBtn", "participantRankingBtn", "loginBtn"]
+var overviewSelectorKeys = ["homeBtn", "distanceBtn", "ergoBtn", "clubRankingBtn", "participantRankingBtn", "loginBtn", "logoutBtn"]
 var homeViewKeys = ["homeHeadline", "homeTextOne", "homeTextTwo", "homeTextThree"]
 var ergoChallengeKeys = ["ergoHeadline", "ergoSubheadlineOne", "ergoTextOne", "ergoSubheadlineTwo", "ergoTextTwo", "session", "ergoSubheadlineThree", "ergoTextThree", "ergoSubheadlineFour", "ergoTextFour", "ergoTextFourClasslist"]
 var clubRankingKeys = ["clubRankingHeadline", "rankingSubheadline", "rankingYear", "rankingResult", "rankingAll", "rankingSequence", "rankingSequenceContent", "rankingDownloadBtn", "clubRankingEmailNameBtn", "session"]

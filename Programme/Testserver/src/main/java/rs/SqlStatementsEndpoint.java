@@ -295,4 +295,14 @@ public class SqlStatementsEndpoint {
         System.out.println(email);
         return Json.createObjectBuilder().add("challengeStatus", "true").add("emailStatus", "schramm").build();
     }
+
+    @GET
+    @Path("/getDataByParticipant/{mail}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public JsonObject getDataByParticipant(@PathParam("mail")String email){
+        System.out.println("================================");
+        System.out.println("======Get Challenge Status======");
+        System.out.println(email);
+        return Json.createObjectBuilder().add("firstName", "Daniel").add("lastName", "Mazanek").add("birthday", "07-07-1999").add("weight", "68").add("gender", "m").add("club", "Donau Wien").build();
+    }
 }
