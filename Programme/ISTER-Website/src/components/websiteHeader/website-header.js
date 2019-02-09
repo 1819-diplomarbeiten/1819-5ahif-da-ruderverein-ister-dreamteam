@@ -2,17 +2,18 @@ import {LitElement, html} from '@polymer/lit-element'
 import TranslationService from '../../services/translation/translationService.js'
 import DataService from '../../services/rest/dataService.js';
 
+//Web Component for Website Header (Countdown + Flag Dropdown)
 export default class WebsiteHeader extends LitElement{
     static get properties(){
         return {
             translation: []
         }
     }
+
     constructor(){
         super();
         this.translation = []
         this.changeLanguage('german')
-
     }
 
     //gets called when a new language is selected, loads the new translation and sets it afterwards for this component
@@ -24,7 +25,9 @@ export default class WebsiteHeader extends LitElement{
     //manages the countdown at the top of the website
     countdown(){
         var data = DataService.get('challenge-time')
+
         setInterval(_ => {
+            //calculate time remaining
             var distance = data.time - new Date().getTime();
             
             // Time calculations for days, hours, minutes and seconds
@@ -44,6 +47,7 @@ export default class WebsiteHeader extends LitElement{
             else
                 startsEnds = this.translation["headerEnds"]
 
+            //refresh website countdown content
             this.shadowRoot.getElementById('countdown').innerHTML = `
                 <span><strong>${this.translation["headerCountdown"]} ${startsEnds} &rarr; </strong></span>${days}<span class="highlight"> ${this.translation["headerDay"]} </span>${hours}<span class="highlight"> ${this.translation["headerHour"]} </span>${minutes}<span class="highlight"> ${this.translation["headerMinutes"]} </span>${seconds}<span class="highlight"> ${this.translation["headerSeconds"]} </span>
                 `
@@ -60,7 +64,10 @@ export default class WebsiteHeader extends LitElement{
 
     render(){
         $(document).ready(() => { 
+            //start countdown
             this.countdown()
+
+            //set event for language change
             this.shadowRoot.getElementById('language').onchange = (event) => {
                 this.changeLanguage(event.target.value)
             }

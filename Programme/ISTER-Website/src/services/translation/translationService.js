@@ -12,12 +12,15 @@ var pdfKeys = ["pdfEmail", "pdfName", "pdfClub", "pdfShortcut", "pdfTotal", "pdf
 var loginKeys = ["male", "female", "firstName", "lastName", "birthday", "weight", "gender", "pdfClub", "loginHeader", "distanceSubmitBtn"]
 var currentLanguage = ''
 
+//service class for translation of website
 export default class TranslationService{
 
+    //returns the current selected language
     static getCurrentLanguage(){
         return currentLanguage
     }
 
+    //loads language into the service
     static loadTranslation(language){   
         currentLanguage = language
         const request = new XMLHttpRequest()
@@ -32,6 +35,7 @@ export default class TranslationService{
         }
     }
     
+    //with the string-param, the method returns only the specific translations needed
     static getTranslation(component){
         switch(component){
             case 'website-header':
@@ -60,6 +64,7 @@ export default class TranslationService{
         }
     }
 
+    //filters whole translation and returns shortened list
     static getSpecificTranslation(keys){
         var temp = []
         for(var i = 0; i < keys.length; i ++){

@@ -3,6 +3,7 @@ import DataService from '../../../../services/rest/dataService.js'
 import PdfService from '../../../../services/pdf/pdfService.js';
 import TranslationService from '../../../../services/translation/translationService.js'
 
+//Web Component for Menu Button "Club Ranking"
 export default class ClubRanking extends LitElement{
     static get properties(){
         return{
@@ -43,11 +44,12 @@ export default class ClubRanking extends LitElement{
     }
 
     //button is only displayed when a club is logged in
-    checkForEmailDistanceBtn(){
+    checkForEmailNameBtn(){
         if(this.getAttribute("isClub") == true)
             this.shadowRoot.getElementById('email-name-container').style.display = 'initial'
     }
 
+    //get all available years for dropdown
     getYearsDropdown(){
         var data = DataService.get('all-challenges')
         if(data != "failure"){
@@ -60,6 +62,7 @@ export default class ClubRanking extends LitElement{
             console.log("ERROR LOADING YEARS")
     }
 
+    //creates single option element with "year / year + 1" 
     createSingleOptionElem(year){
         var option = document.createElement('option')
         option.value = year
@@ -69,16 +72,12 @@ export default class ClubRanking extends LitElement{
 
     render(){
         $(document).ready(() => { 
-            this.checkForEmailDistanceBtn()
+            this.checkForEmailNameBtn()
+
+            //since we recreate the document, this method would get called again and again
             if(!this.methodEntered){
-                /*$("body").css("background-image", "url('../../../../../images/background/2017-1.jpg')")
-                        .css("filter", "blur(8px)")
-                        .css("-webkit-filter", "blur(8px)")
-                        .css("background-position", "center")
-                        .css("background-repeat", "no-repeat")
-                        .css("background-size", "cover")*/
-                this.methodEntered = true
                 this.getYearsDropdown()
+                this.methodEntered = true
             }
         }) 
         return html`

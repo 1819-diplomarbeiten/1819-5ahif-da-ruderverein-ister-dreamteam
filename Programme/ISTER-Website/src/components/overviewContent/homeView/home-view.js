@@ -1,6 +1,7 @@
 import {LitElement, html} from '@polymer/lit-element'
 import TranslationService from '../../../services/translation/translationService.js'
 
+//Web Component for Menu Button "Start"
 export default class HomeView extends LitElement{
     static get properties(){
         return{

@@ -2,6 +2,7 @@ import {LitElement, html, eventOptions} from '@polymer/lit-element'
 import DataService from '../../../services/rest/dataService.js'
 import TranslationService from '../../../services/translation/translationService.js'
 
+//Web Component for Data Form
 export default class DataForm extends LitElement{
     static get properties(){
         return{
@@ -23,32 +24,48 @@ export default class DataForm extends LitElement{
         this.translation = TranslationService.getTranslation('login-form')
     }
 
+    //checks if the data-form is called as edit or create
     checkIfCreateOrUpdate(){
+        
+        //check if firstName is passed as parameter, if yes it's called as edit
         if(this.getAttribute('firstName') != null){
             this.isCreate = false
             this.setDataInForm()
         }
+        else    
+            this.isCreate = true
+
+        return this.isCreate
     }
 
+    //called when data-form is opened as "edit" to set the field values with participant-data to edit
     setDataInForm(){
         this.shadowRoot.getElementById('firstName').value = this.getAttribute('firstName')
         this.shadowRoot.getElementById('lastName').value = this.getAttribute('lastName')
         this.shadowRoot.getElementById('weight').value = this.getAttribute('weight')
+        
+        //disable the birthday-content
         this.shadowRoot.getElementById('birthdayContent').style.display = 'none'
+
+        //when gender = male, radio buttons have to be turn overed
         if(this.getAttribute("gender") == "m"){
             this.shadowRoot.getElementById("male").checked = true
         }
+
         this.shadowRoot.getElementById('club').value = this.getAttribute("club")
     }
 
+    //fills dropdown list with current clubs from db
     fillClubDropdown(){
         var clubs = this.shadowRoot.getElementById('club')
         var data = DataService.get('all-clubs')
 
+        //create first empty option for no-club
         var option = document.createElement('option')
         option.innerHTML = ''
         clubs.appendChild(option)
 
+        //iterate through club-list and add as dropdown child
         for(var i = 0; i < data.length; i ++){
             option = document.createElement('option')
             option.innerHTML = data[i]
@@ -57,17 +74,18 @@ export default class DataForm extends LitElement{
         }
     }
 
+    //gets called when submit button is pressed
     submitBtnPressed(){
-        this.setValues()
+        this.setFieldValues()
 
-        //bean validation
+        //are fields valid?
         if(this.fieldsAreValid()){
-            if(this.isCreate)
-            //is a club selected?
+
+            //club also selected? (important for json)
             if(this.shadowRoot.getElementById('club').value == '')
                 DataService.post(JSON.parse('{"firstName":"' + this.firstName + '","lastName":"' + this.lastName + '","birthday":"' + this.birthday + '","weight":"' + this.weight + '","gender":"' + this.gender + '","club":"' + this.club + '","email":"' + gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail() + '"}'), "data-form")
             else
-                DataService.post(JSON.parse('{"firstName":"' + this.firstName + '","lastName":"' + this.lastName + '","birthday":"' + this.birthday + '","weight":"' + this.weight + '","gender":"' + this.gender + '","email":' + gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail() + '"}'), "data-form")
+                DataService.post(JSON.parse('{"firstName":"' + this.firstName + '","lastName":"' + this.lastName + '","birthday":"' + this.birthday + '","weight":"' + this.weight + '","gender":"' + this.gender + '","email":"' + gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail() + '"}'), "data-form")
         
             //fire event for component change
             let events = new CustomEvent("submitBtnPressed", {
@@ -77,12 +95,16 @@ export default class DataForm extends LitElement{
         }
     }
 
-    setValues(){
+    //load the values from html into the variables
+    setFieldValues(){
         this.firstName = this.shadowRoot.getElementById('firstName').value
         this.lastName = this.shadowRoot.getElementById('lastName').value
-        this.birthday = this.shadowRoot.getElementById('birthday').value
         this.weight = this.shadowRoot.getElementById('weight').value
         this.club = this.shadowRoot.getElementById('club').value
+
+        //check if we have to set the birthday ..
+        if(this.isCreate)
+            this.birthday = this.shadowRoot.getElementById('birthday').value
 
         if(this.shadowRoot.getElementById('male').checked)
             this.gender = 'm'
@@ -90,41 +112,58 @@ export default class DataForm extends LitElement{
             this.gender = 'f'
     }
 
+    //bean validation for fields
     fieldsAreValid(){
         var valid = true
+
+        //check if a first name is selected
         if(this.firstName == ''){
             this.shadowRoot.getElementById('firstName').style.borderColor = 'red'
             valid = false
-        }else
-        this.shadowRoot.getElementById('firstName').style.borderColor = ''
+        }   
+        else
+            this.shadowRoot.getElementById('firstName').style.borderColor = ''
 
+        //check if a last name is selected
         if(this.lastName == ''){
             this.shadowRoot.getElementById('lastName').style.borderColor = 'red'
             valid = false
-        }else
-        this.shadowRoot.getElementById('lastName').style.borderColor = ''
+        }
+        else
+            this.shadowRoot.getElementById('lastName').style.borderColor = ''
         
-        if(this.birthday == ''){
-            this.shadowRoot.getElementById('birthday').style.borderColor = 'red'
-            valid = false
-        }else
-        this.shadowRoot.getElementById('birthday').style.borderColor = ''
+        //do we have to check for birthday?
+        if(this.isCreate){
+
+            //check if a birthday is selected
+            if(this.birthday == ''){
+                this.shadowRoot.getElementById('birthday').style.borderColor = 'red'
+                valid = false
+            }
+            else
+                this.shadowRoot.getElementById('birthday').style.borderColor = ''
+        }
         
+        //check if valid weight is selected
         if(this.weight == '' || isNaN(this.weight)){
             this.shadowRoot.getElementById('weight').style.borderColor = 'red'
             valid = false
-        }else
-        this.shadowRoot.getElementById('weight').style.borderColor = ''
+        }
+        else
+            this.shadowRoot.getElementById('weight').style.borderColor = ''
 
         return valid
     }
 
     render(){
         $(document).ready(() => { 
+            //since we recreate the document, make sure we only fill and check 1 time
             if(this.entered == false){
                 this.fillClubDropdown()
-                $(this.shadowRoot.getElementById('birthday')).Zebra_DatePicker();
-                this.checkIfCreateOrUpdate()
+
+                if(this.checkIfCreateOrUpdate())
+                    $(this.shadowRoot.getElementById('birthday')).Zebra_DatePicker();
+
                 this.entered = true
             }
         })

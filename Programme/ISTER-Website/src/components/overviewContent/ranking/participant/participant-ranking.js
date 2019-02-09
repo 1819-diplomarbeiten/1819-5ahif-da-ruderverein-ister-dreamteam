@@ -3,6 +3,7 @@ import DataService from '../../../../services/rest/dataService.js'
 import PdfService from '../../../../services/pdf/pdfService.js'
 import TranslationService from '../../../../services/translation/translationService.js'
 
+//Web Component for Menu Button "Participants Ranking"
 export default class ParticipantRanking extends LitElement{
     static get properties(){
         return {
@@ -14,9 +15,9 @@ export default class ParticipantRanking extends LitElement{
             methodEntered: Boolean
         }
     }
+
     constructor(){
         super();
-        this.path = 'http://localhost/restApi/rest/';
         this.methodEntered = false
         this.translation = TranslationService.getTranslation('participant-ranking')
     }
@@ -47,10 +48,12 @@ export default class ParticipantRanking extends LitElement{
             PdfService.createPdfPerSessionPerCategories(data, this.dropDownYear, this.dropDownResult)
     }
 
+    //get all available years for dropdown
     getYearsDropdown(){
         var data = DataService.get('all-challenges')
         if(data != "failure"){
             var select = this.shadowRoot.getElementById('dropDownYear')
+
             for(var i = 0; i < data.length; i ++){
                 select.appendChild(this.createSingleOptionElem(data[i].year))
             }
@@ -59,6 +62,7 @@ export default class ParticipantRanking extends LitElement{
             console.log("ERROR LOADING YEARS")
     }
 
+    //creates single option element with "year / year + 1" 
     createSingleOptionElem(year){
         var option = document.createElement('option')
         option.value = year
@@ -68,12 +72,13 @@ export default class ParticipantRanking extends LitElement{
 
     render(){
         $(document).ready(() => { 
-            //however, this function gets called again when i add childen to the code, so therefore a boolean is needed
+            //since we recreate the document, this method would get called again and again
             if(!this.methodEntered){
                 this.methodEntered = true
                 this.getYearsDropdown()
             }
         }) 
+
         return html`
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href=/src/components/overviewContent/ranking/participant/styles.css></link>

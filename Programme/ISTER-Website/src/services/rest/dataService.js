@@ -1,6 +1,8 @@
+//path to backend
 var path = 'http://localhost/restApi/rest/'
 var pathTwo = 'http://localhost:8080/testserver/rs/sql/'
 
+//all extensions needed for communication with backend
 var emailExists = "emailExists.php"
 var clubDistanceExtension = "createResults.php"
 var participantDistanceExtension = "postPeriod.php"
@@ -18,7 +20,10 @@ var deleteSingleChallengeExtension = "blablabla"
 var dataFormExtension = "createParticipant.php"
 var allClubsExtension = "getAllClubs.php"
 var getDataExtension = "getDataByParticipant/"
+
 export default class DataService{
+    //post request
+    //json: data for body, msgType: to get right extension
     static post(json, msgType){
         fetch(this.getRealPath(msgType),
                 {
@@ -31,6 +36,8 @@ export default class DataService{
             )
     }
 
+    //put request
+    //json: data for body, msgType: to get right extension
     static put(json, msgType){
         fetch(this.getRealPath(msgType), {
                 method: "PUT",
@@ -41,6 +48,8 @@ export default class DataService{
             })
     }
 
+    //get request
+    //jsonParams: data for body, msgType: to get right extension
     static get(msgType, jsonParams){
         const request = new XMLHttpRequest()
         request.open("GET", this.getRealPath(msgType, jsonParams), false)
@@ -51,7 +60,8 @@ export default class DataService{
             return "failure"
     }
 
-    //david da musst du no oben den pfad umändern
+    //delete request
+    //jsonParams: data for body, msgType: to get right extension
     static delete(msgType, jsonParams){
         fetch(this.getRealPath(msgType), {
             method: "DELETE",
@@ -62,6 +72,7 @@ export default class DataService{
         })
     }
 
+    //creates the right path depending on msgType
     static getRealPath(msgType, jsonParams){
         switch(msgType){
             case "periods":

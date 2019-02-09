@@ -2,6 +2,7 @@ import {LitElement, html} from '@polymer/lit-element'
 import DataService from '../../services/rest/dataService.js'
 import TranslationService from '../../services/translation/translationService.js'
 
+//Web Component for Selector Toolbar (Banner, Menu Button, Login)
 export default class OverviewSelector extends LitElement{
     static get properties(){
         return {
@@ -16,12 +17,22 @@ export default class OverviewSelector extends LitElement{
 
     constructor(){
         super();
-        this.emailSchramm = 'schramm@gmail.com'
-        this.lastUsedContent = 'home'
-        this.translation = TranslationService.getTranslation('overview-selector')
-        this.lastLanguage = TranslationService.getCurrentLanguage()
-        this.startTranslationDetection()
 
+        //email from hr schramm
+        this.emailSchramm = 'schramm@gmail.com'
+
+        //set first content
+        this.lastUsedContent = 'home'
+
+        //load translation for this component
+        this.translation = TranslationService.getTranslation('overview-selector')
+
+        this.startTranslationDetection()
+        this.setLoginCallback()
+    }
+
+    //creates login-callback in case that page has to be closed
+    setLoginCallback(){
         document.addEventListener("submitBtnPressed", _ => {
             this.changeContent('home')
         })
@@ -55,8 +66,13 @@ export default class OverviewSelector extends LitElement{
 
     //checks in an 500ms interval if the language has changed, if so the website content gets refreshed
     startTranslationDetection(){
+        this.lastLanguage = TranslationService.getCurrentLanguage()
+
         setInterval(_ => {
+            //get current language
             var currentLanguage = TranslationService.getCurrentLanguage()
+
+            //has it changed since last time?
             if(currentLanguage != this.lastLanguage){
                 this.translation = TranslationService.getTranslation('overview-selector')
                 this.lastLanguage = currentLanguage
@@ -78,7 +94,7 @@ export default class OverviewSelector extends LitElement{
             this.shadowRoot.getElementById('htl').style.display = 'initial'
     }
 
-    //changes the website content
+    //sets the new page body content / component
     changeContent(content){
         this.lastUsedContent = content
         let mainComp = this.shadowRoot.getElementById('website-content')
@@ -123,23 +139,28 @@ export default class OverviewSelector extends LitElement{
         }
     }
 
-
+    //user wants to login
     manageLoginUsage(){
+        //wait until email is entered
         this.checkForEmail()
 
         var d = setInterval(_ => {
+            //is a challenge currently running?
             if(this.checkForDistanceBtn()){
+                //get club or participant distance selector
                 this.getDistanceSelector()
                 clearInterval(d)
             }
         }, 1000)
 
         var m = setInterval(_ => {
+            //check for challenge manager button
             if(this.checkForChallengeManagerBtn())
                 clearInterval(m)
         }, 1000)
     }
 
+    //check for challenge manager button
     checkForChallengeManagerBtn(){
         if(this.email != undefined){
             if(this.email == this.emailSchramm)

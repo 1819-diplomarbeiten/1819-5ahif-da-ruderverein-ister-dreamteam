@@ -35,14 +35,22 @@ export default class DistanceFormClub extends LitElement{
         var bytes = new Uint8Array(e.target.result);
         var length = bytes.byteLength;
 
+        //read binary
         for (var i = 0; i < length; i++) {
           binary += String.fromCharCode(bytes[i]);
         }
 
+        //get workbook
         var workbook = XLSX.read(binary, {type: 'binary', cellDates:true, cellStyles:true});
+
+        //iterate through sheets (hopefully it's just one)
         workbook.SheetNames.forEach(sheetName => {
+
+            //convert sheet to json
             var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
             var jsonObj = JSON.stringify(XL_row_object);
+
+            //check if excel can be sent to backend
             if(this.excelIsValid(XL_row_object) == false) {
                 this.shadowRoot.getElementById('notification').innerHTML = `${this.translation["distanceClubErrorThree"]}`
                 this.shadowRoot.getElementById('stepBackThree').style.display = 'initial'
@@ -63,7 +71,7 @@ export default class DistanceFormClub extends LitElement{
             return false
         }
 
-        //content check
+        //Rows check
         for(var i = 0; i < jsonObj.length; i ++){
             if(this.validateEmail(jsonObj[i].Email) == false || isNaN(jsonObj[i].Distance) == true || jsonObj[i].Distance == "")
                 return false
@@ -82,11 +90,13 @@ export default class DistanceFormClub extends LitElement{
     activate(toActivate){
         if(!this.uploaded) {
             switch(toActivate){
+                //"this is how the excel should look like"
                 case '1':
                     this.shadowRoot.getElementById('contentOne').style.display = 'initial'
                     this.shadowRoot.getElementById('contentTwo').style.display = 'none'
                     this.shadowRoot.getElementById('contentThree').style.display = 'none'
                     break
+                //"select excel"
                 case '2':
                     this.shadowRoot.getElementById('excelFile').value = null
                     this.shadowRoot.getElementById('excelFile').onchange = () => {this.setFileName()}
@@ -97,6 +107,7 @@ export default class DistanceFormClub extends LitElement{
                     this.shadowRoot.getElementById('excelNotification').innerHTML = ''
                     this.shadowRoot.getElementById('doneTwo').disabled = true
                     break
+                //upload to server
                 case '3':
                     this.shadowRoot.getElementById('contentOne').style.display = 'none'
                     this.shadowRoot.getElementById('contentTwo').style.display = 'none'

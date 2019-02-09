@@ -1,6 +1,7 @@
 import {LitElement, html} from '@polymer/lit-element'
 import DataService from '../../../services/rest/dataService.js';
 
+//Web Component for Menu Button "ChallengeManager"
 export default class ChallengeManager extends LitElement{
     static get properties(){
         return{
@@ -23,6 +24,7 @@ export default class ChallengeManager extends LitElement{
         this.datePickerLoaded = false
     }
 
+    //get all past / current challenges incl date
     getAllChallenges(){
         if(this.entered == false)
             this.challenges = DataService.get('all-challenges')
@@ -35,7 +37,7 @@ export default class ChallengeManager extends LitElement{
         
     }
 
-
+    //fill table with challenge data
     doTableFill(data){
         var tableBody = this.shadowRoot.getElementById('manageBody')
         for(var i = 0; i < data.length; i ++){
@@ -44,6 +46,7 @@ export default class ChallengeManager extends LitElement{
         }
     }
 
+    //transform json in right format for table
     transformJson(data){
         var newData = []
         for(var i = 0; i < data.length; i ++){
@@ -60,6 +63,7 @@ export default class ChallengeManager extends LitElement{
         return newData
     }
 
+    //create single challenge table row
     getTableContentRow(data){
         var tr = document.createElement('tr')
         tr.appendChild(this.createTdObject(data.year))
@@ -73,12 +77,14 @@ export default class ChallengeManager extends LitElement{
         return tr
     }
 
+    //called when date will get edited
     changeSessionDate(id, date){
         this.selectedValueId = id
         this.oldDate = date
         this.openPopup()
     }
 
+    //set single row cell on click so that we know with date we have to change
     setIdOnClick(id, mode, date){
         var x = setInterval(_ => {
             var elem = this.shadowRoot.getElementById(id)
@@ -96,6 +102,7 @@ export default class ChallengeManager extends LitElement{
         }, 10);
     }
     
+    //open popup for edit
     openPopup(){
         this.shadowRoot.getElementById('popup-field').style.display = 'initial';
         if(!this.datePickerLoaded){
@@ -104,17 +111,24 @@ export default class ChallengeManager extends LitElement{
         }
     }
 
+    //close popup
     closePopup(status){
         this.shadowRoot.getElementById('popup-field').style.display = 'none';
+    
+        //date should be saved
         if(status == 'save'){
             var newDate = this.shadowRoot.getElementById('popupInput').value
+
+            //reset content of cell
             this.shadowRoot.getElementById(this.selectedValueId).innerHTML = this.getTdContent('enabled', this.selectedValueId, this.intToDate(newDate))
-            var json = JSON.stringify({"oldDate": this.oldDate, "newDate": newDate})
-            DataService.put(json, 'session-date-update')
+            
+            //update session date at backend
+            DataService.put(JSON.stringify({"oldDate": this.oldDate, "newDate": newDate}), 'session-date-update')
             window.alert('Datum wurde in der Datenbank geupdatet')
         }
     }
 
+    //create single cell object
     createTdObject(date, id){
         var td = document.createElement('td')
         td.setAttribute('id', id)
@@ -133,6 +147,7 @@ export default class ChallengeManager extends LitElement{
         return td
     }
 
+    //return html for single cell
     getTdContent(mode, id, date){
         var content = ''
         switch(mode){
@@ -154,6 +169,7 @@ export default class ChallengeManager extends LitElement{
         return content
     }
 
+    //delete challenge
     deleteChallenge(id){
         var year = id.substring(0,4)
         if(window.confirm('Wollen Sie die Challenge vom Jahr ' + year + ' wirklich aus der Datenbank löschen?')){
@@ -166,6 +182,7 @@ export default class ChallengeManager extends LitElement{
         }
     }
 
+    //remove challenge from list
     deleteSpecificChallengeFromList(year){
         this.challenges = this.challenges.filter((value, index, arr) => {
             return value.year != year
@@ -174,6 +191,8 @@ export default class ChallengeManager extends LitElement{
 
     render(){
         $(document).ready(() => { 
+            
+            //since we recreate the document, this method would get called again and again
             if(this.entered == false){
                 this.setYears()
                 this.loadDatePicker('roundOne')
@@ -301,6 +320,7 @@ export default class ChallengeManager extends LitElement{
         `
     }
 
+    //returns if given param-date is in the past
     dateIsInPast(date){
         var today = new Date()
         var dd = today.getDate();
@@ -332,6 +352,7 @@ export default class ChallengeManager extends LitElement{
         }
     }
 
+    //convert plain date to "viewable-date"
     intToDate(date){
         var temp = date.split('-')
 
@@ -365,6 +386,7 @@ export default class ChallengeManager extends LitElement{
         }
     }
 
+    //convert "viewable-date" to plain date
     dateToInt(date){
         var temp = date.split(' ')
         temp[0] = temp[0].replace('.', '')
@@ -396,29 +418,39 @@ export default class ChallengeManager extends LitElement{
         }
     }
 
+    //check if email is syntactic ok
     validateEmail(email) {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(email).toLowerCase());
     }
     
+    //create new challenge
     createNewChallenge(){
+
+        //all fields filled?
         if(this.allValuesSelected() == false)
             this.shadowRoot.getElementById('notification').innerHTML = '<span class="error">Nicht alle Werte wurden ausgefüllt<span>'
         else {
             this.shadowRoot.getElementById('notification').innerHTML = ''
             DataService.post(this.createMsgJson(), "challenge")
 
+            //now we have to add it to the page AND check if we may update the existing but not started challenge (april to october)
             var usedIdex = 0
             var actualIndex = 0
+
+            //filter for challenges with same year as just created
             var challenge = this.challenges.filter((value, index, arr) => {
                 usedIdex = index
                 return value.year == this.shadowRoot.getElementById('dropDown').value
             })
+
+            //if we do find it, set the index at usedIndex so that we override the old challenge
             if(challenge[0] != undefined)
                 actualIndex = usedIdex
-            else
+            else //otherwise, we add it at the end of the list
                 actualIndex = this.challenges.length
 
+            //add new challenge to list
             this.challenges[actualIndex] = {
                 "year": this.shadowRoot.getElementById('dropDown').value,
                 "roundOne": this.shadowRoot.getElementById('roundOne').value,
@@ -428,25 +460,32 @@ export default class ChallengeManager extends LitElement{
                 "roundFive": this.shadowRoot.getElementById('roundFive').value,
                 "roundSix": this.shadowRoot.getElementById('roundSix').value,
             }
+
+            //clear challenge table and refill it
             this.clearCreatorContainer()
             this.shadowRoot.getElementById('manageBody').innerHTML = ''
             this.getAllChallenges()
+
             window.alert('Challenge erstellt')
         }
     }
 
+    //create json for 6 round dates
     createMsgJson(){
         return JSON.parse("{\"roundOne\":\"" + this.shadowRoot.getElementById('roundOne').value + "\",\"roundTwo\":\"" + this.shadowRoot.getElementById('roundTwo').value + "\",\"roundThree\":\"" + this.shadowRoot.getElementById('roundThree').value + "\",\"roundFour\":\"" + this.shadowRoot.getElementById('roundFour').value + "\",\"roundFive\":\"" + this.shadowRoot.getElementById('roundFive').value + "\",\"roundSix\":\"" + this.shadowRoot.getElementById('roundSix').value + "\",\"year\":\"" + this.shadowRoot.getElementById('dropDown').value + "\"}")
     }
 
+    //returns if all fields have a valid value
     allValuesSelected(){
         return this.shadowRoot.getElementById('roundOne').value != "" && this.shadowRoot.getElementById('roundTwo').value != "" && this.shadowRoot.getElementById('roundThree').value != "" && this.shadowRoot.getElementById('roundFour').value != "" && this.shadowRoot.getElementById('roundFive').value != "" && this.shadowRoot.getElementById('roundSix').value != "" && this.shadowRoot.getElementById('dropDown').value != ""
     }
 
+    //transforms input field to datepicker-field
     loadDatePicker(round, date){
         $(this.shadowRoot.getElementById(round)).Zebra_DatePicker({direction: 1, disabled_dates:['* * * 0,1,2,3,5,6']});
     }
  
+    //set years in dropdown list
     setYears(){
         if(this.shadowRoot.getElementById('dropDown').length == 0)
         {
@@ -461,6 +500,7 @@ export default class ChallengeManager extends LitElement{
         }
     }
 
+    //changes visibility status of single part (Challenges bearbeiten, Challenges erstellen, Beweisbild suchen)
     changeStatus(idToSet){
         var elem = this.shadowRoot.getElementById(idToSet)
         if(elem.style.display == 'none')
@@ -469,6 +509,7 @@ export default class ChallengeManager extends LitElement{
             this.shadowRoot.getElementById(idToSet).style.display = 'none'
     }
 
+    //check for valid input params
     validateInputParams(){
         var errorString = ''
         this.email = this.shadowRoot.getElementById('email').value
@@ -483,20 +524,24 @@ export default class ChallengeManager extends LitElement{
         return errorString
     }
 
+    //search for evidence pic
     searchEvidencePic(){
         var errorString = this.validateInputParams()
+        //if all params valid, let's search, otherwise display error
         if(errorString == '')
             this.getSearch()
         else
             this.shadowRoot.getElementById('PicNotification').innerHTML = '<span class="error">' + errorString + '</span>'
     }
 
+    //search for picture in backend
     getSearch(){
         var data = DataService.get('evidence-pic', JSON.parse('{"email":"' + this.email + '","year":"' + this.year + '","session":"' + this.session + '"}'))
         if(data != "failure") {
+            //display not found if it's not found
             if(data.picture == "notFound")
                 this.shadowRoot.getElementById('PicNotification').innerHTML = '<span class="error">Kein Beweisbild gefunden</span>'
-            else{
+            else{ //otherwise download the file and clear the container afterwars
                 this.download(this.dataURItoBlob(data.picture), data.name + ".png")
                 this.shadowRoot.getElementById('searchForEvidencePic').style.display = 'none'
                 this.clearPictureContainer()
@@ -506,12 +551,14 @@ export default class ChallengeManager extends LitElement{
             this.shadowRoot.getElementById('PicNotification').innerHTML = '<span class="error">Connection failed</span>'
     }
 
+    //clear input fields
     clearPictureContainer(){
         this.shadowRoot.getElementById('email').value = ''
         this.shadowRoot.getElementById('year').value = ''
         this.shadowRoot.getElementById('session').value = ''
     }
 
+    //clear challenge creation fields
     clearCreatorContainer(){
         this.shadowRoot.getElementById('roundOne').value = this.shadowRoot.getElementById('roundOne').defaultValue
         this.shadowRoot.getElementById('roundTwo').value = this.shadowRoot.getElementById('roundTwo').defaultValue
@@ -522,6 +569,7 @@ export default class ChallengeManager extends LitElement{
         this.shadowRoot.getElementById('notification').innerHTML = ''
     }
 
+    //convert dataURI to blob
     dataURItoBlob(dataURI) {
         var byteString = atob(dataURI.split(',')[1]);
         var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
@@ -535,6 +583,7 @@ export default class ChallengeManager extends LitElement{
         return new Blob([ab], {type: mimeString});
     }
 
+    //download the picture
     download(data, filename) {
         var file = new Blob([data]);
         if (window.navigator.msSaveOrOpenBlob)

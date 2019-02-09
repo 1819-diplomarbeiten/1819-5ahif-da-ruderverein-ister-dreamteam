@@ -2,6 +2,7 @@ import {LitElement, html} from '@polymer/lit-element'
 import DataService from '../../../services/rest/dataService.js'
 import TranslationService from '../../../services/translation/translationService.js'
 
+//Web Component for Menu Button "Ergo Challenge"
 export default class ErgoChallenge extends LitElement{
     static get properties(){
         return{
@@ -52,7 +53,8 @@ export default class ErgoChallenge extends LitElement{
 
     render(){
         $(document).ready(() => { 
-            //however, this function gets called again when i add childen to the code, so therefore a boolean is needed
+            
+            //since we recreate the document, this method would get called again and again
             if(!this.methodEntered){
                 this.counter = 1
                 this.methodEntered = true

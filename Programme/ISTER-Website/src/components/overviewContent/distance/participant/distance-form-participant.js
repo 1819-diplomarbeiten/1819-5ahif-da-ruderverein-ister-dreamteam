@@ -25,14 +25,15 @@ export default class DistanceFormParticipant extends LitElement{
         //gets called when var file is ready 
         fileReader.onload = event => {
             this.evidencePic = event.target.result
-            this.manage(this.evidencePic)
+            this.postPeriod(this.evidencePic)
         };
 
+        //get file
         var file = this.shadowRoot.getElementById('evidencePic').files[0]
 
         //check if evidence picture is selected, depending on that preparing POST with(out) pic
         if(file == undefined)
-            this.manage(null)
+            this.postPeriod(null)
         else
             fileReader.readAsDataURL(file);   
     }
@@ -67,11 +68,13 @@ export default class DistanceFormParticipant extends LitElement{
     activate(toActivate){
         if(!this.uploaded) {
             switch(toActivate){
+                //"Enter your reached distance"
                 case '1':
                     this.shadowRoot.getElementById('contentOne').style.display = 'initial'
                     this.shadowRoot.getElementById('contentTwo').style.display = 'none'
                     this.shadowRoot.getElementById('contentThree').style.display = 'none'
                     break
+                //"choose your proof photo"
                 case '2':
                     if(this.validDistance()){
                         this.shadowRoot.getElementById('contentOne').style.display = 'none'
@@ -80,6 +83,7 @@ export default class DistanceFormParticipant extends LitElement{
                         this.shadowRoot.getElementById('stepBackThree').style.display = 'none'
                     }
                     break
+                //upload to server
                 case '3':
                     this.shadowRoot.getElementById('contentOne').style.display = 'none'
                     this.shadowRoot.getElementById('contentTwo').style.display = 'none'
@@ -94,6 +98,7 @@ export default class DistanceFormParticipant extends LitElement{
         $(document).ready(() => { 
             this.shadowRoot.getElementById('evidencePic').onchange = () => {this.setFileName()}
         }) 
+
         return html`
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="/src/components/overviewContent/distance/participant/styles.css">
