@@ -10,7 +10,8 @@ export default class OverviewSelector extends LitElement{
             lastUsedContent: '',
             email: '',
             emailStatus: '',
-            emailSchramm: ''
+            emailSchramm: '',
+            distanceSelector: ''
         }
     }
 
@@ -30,7 +31,7 @@ export default class OverviewSelector extends LitElement{
         this.setLoginCallback()
     }
 
-    //add event listener in case that page has to be closed
+    //add event listener in case the login page has to be closed
     setLoginCallback(){
         document.addEventListener("submitBtnPressed", _ => {
             this.changeContent('home')
@@ -40,7 +41,11 @@ export default class OverviewSelector extends LitElement{
     //add event listener for language changes
     setTranslationChangedCallback(){
         document.addEventListener("languageChanged", _ => {
+
+            //get new translation for this component
             this.translation = TranslationService.getTranslation('overview-selector')
+
+            //refresh the website body content because of the new language
             this.changeContent(this.lastUsedContent)
         })
     }
@@ -60,44 +65,42 @@ export default class OverviewSelector extends LitElement{
 
     //sets the new page body content / component
     changeContent(content){
-        
         this.lastUsedContent = content
-        let mainComp = this.shadowRoot.getElementById('website-content')
+        let websiteContent = this.shadowRoot.getElementById('website-content')
         this.checkForHtlLogo()
 
         //remove current childen
-        while (mainComp.firstChild) {
-            mainComp.removeChild(mainComp.firstChild);
+        while (websiteContent.firstChild) {
+            websiteContent.removeChild(websiteContent.firstChild);
         }
 
         //Set the next active component
         switch(content){
             case 'participant':
-                mainComp.innerHTML = `<participant-ranking></participant-ranking>`
+                websiteContent.innerHTML = `<participant-ranking></participant-ranking>`
                 break
             case 'club':
-                mainComp.innerHTML = `<club-ranking isClub="${this.emailStatus == content}"></club-ranking>`
+                websiteContent.innerHTML = `<club-ranking isClub="${this.emailStatus == content}"></club-ranking>`
                 break
             case 'distance':
-                var distance = this.getDistanceSelector()
-                mainComp.innerHTML = `<${distance}></${distance}>`
+                websiteContent.innerHTML = `<${this.distanceSelector}></${this.distanceSelector}>`
                 break
             case 'home':
-                mainComp.innerHTML = `<home-view></home-view>`
+                websiteContent.innerHTML = `<home-view></home-view>`
                 break
             case 'ergo':
-                mainComp.innerHTML = `<ergo-challenge></ergo-challenge>`
+                websiteContent.innerHTML = `<ergo-challenge></ergo-challenge>`
                 break
             case 'login':
                 this.manageLoginUsage()
-                mainComp.innerHTML = `<login-form></login-form>`
+                websiteContent.innerHTML = `<login-form></login-form>`
                 break
             case 'challenge-manager':
-                mainComp.innerHTML = `<challenge-manager></challenge-manager>`
+                websiteContent.innerHTML = `<challenge-manager></challenge-manager>`
                 break
             case 'edit':
                 var data = DataService.get('data-participant', JSON.parse('{"email":"' + this.email + '"}'))
-                mainComp.innerHTML = `<data-form firstName="${data.firstName}" lastName="${data.lastName}" birthday="${data.birthday}" weight="${data.weight}" gender="${data.gender}" club="${data.club}"></data-form>`
+                websiteContent.innerHTML = `<data-form firstName="${data.firstName}" lastName="${data.lastName}" birthday="${data.birthday}" weight="${data.weight}" gender="${data.gender}" club="${data.club}"></data-form>`
                 break
             default:
                 break
@@ -111,14 +114,14 @@ export default class OverviewSelector extends LitElement{
             //is a user logged in?
             if(gapi.auth2.getAuthInstance() != null && gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile() != null){
 
-                //get email
+                //load email in local variable
                 this.email = gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail()
 
                 //fire event that email has arrived
-                let events = new CustomEvent("emailArrived", {
-                    bubbles: true
-                })
-                document.dispatchEvent(events);
+                document.dispatchEvent(
+                    new CustomEvent("emailArrived", {
+                        bubbles: true
+                }));
 
                 clearInterval(x)
             }
@@ -146,6 +149,7 @@ export default class OverviewSelector extends LitElement{
         //get email from oauth2
         this.getEmail()
 
+        //by listener we get informed when the email has arrived
         document.addEventListener("emailArrived", _ => {
 
             //enable edit button
@@ -170,6 +174,8 @@ export default class OverviewSelector extends LitElement{
         if(data.challengeStatus == "true"){
             this.shadowRoot.getElementById('distanceBtn').style.display = 'initial'
             this.emailStatus = data.emailStatus
+
+            this.setDistanceSelectors()
         }
         else
             this.shadowRoot.getElementById('distanceBtn').style.display = 'none'
@@ -177,13 +183,15 @@ export default class OverviewSelector extends LitElement{
     }
 
     //checks which distance formular has to be displayed
-    getDistanceSelector(){
-        if(this.emailStatus == 'participant' || this.emailStatus == 'schramm'){
+    setDistanceSelectors(){
+        if(this.emailStatus == 'participant' || this.emailStatus == 'schramm') {
+            this.distanceSelector = 'distance-form-participant'
+
+            //when participant or hr. schramm is logged in, we also have to enable the participant ranking button
             this.shadowRoot.getElementById('participantRankingBtn').style.display = 'initial'
-            return 'distance-form-participant'
         }
         else
-            return 'distance-form-club'
+            this.distanceSelector = 'distance-form-club'
         
     }
 
@@ -195,7 +203,7 @@ export default class OverviewSelector extends LitElement{
             <div class ="background">
                 <p class="banner"><strong>Ergo Challenge ISTER Linz</strong></p>
             
-                <div class="test">
+                <div class="login-group">
                     <div class="btn-group mr-2" role="group" aria-label="First group">
                     <button type="button" class="btn btn-primary custom-color login-align" @click="${() => this.changeContent('login')}"><p class="text">${this.translation["loginBtn"]}</p></button>
                     </div>

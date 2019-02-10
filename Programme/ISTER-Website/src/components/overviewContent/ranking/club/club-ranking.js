@@ -9,7 +9,6 @@ export default class ClubRanking extends LitElement{
         return{
             dropDownYear: Number,
             dropDownSequence: String,
-            path: String,
             translation: [],
             methodEntered: Boolean
         }

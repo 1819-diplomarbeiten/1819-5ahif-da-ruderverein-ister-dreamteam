@@ -20,6 +20,7 @@ var deleteSingleChallengeExtension = "blablabla"
 var dataFormExtension = "createParticipant.php"
 var allClubsExtension = "getAllClubs.php"
 var getDataExtension = "getDataByParticipant/"
+var getTranslationExtension = "getTranslation.php"
 
 export default class DataService{
     //post request
@@ -72,7 +73,7 @@ export default class DataService{
         })
     }
 
-    //creates the right path depending on msgType
+    //creates the right path depending on msgType and path params
     static getRealPath(msgType, jsonParams){
         switch(msgType){
             case "periods":
@@ -109,6 +110,8 @@ export default class DataService{
                 return path + allClubsExtension
             case "data-participant":
                 return pathTwo + getDataExtension + jsonParams.email
+            case "translation":
+                return path + getTranslationExtension + "?language=" + jsonParams.language
             default:
                 break
         }

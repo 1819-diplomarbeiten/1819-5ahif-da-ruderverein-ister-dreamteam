@@ -161,6 +161,7 @@ export default class DataForm extends LitElement{
             if(this.entered == false){
                 this.fillClubDropdown()
 
+                //birthday only pickable at first login
                 if(this.checkIfCreateOrUpdate())
                     $(this.shadowRoot.getElementById('birthday')).Zebra_DatePicker();
 

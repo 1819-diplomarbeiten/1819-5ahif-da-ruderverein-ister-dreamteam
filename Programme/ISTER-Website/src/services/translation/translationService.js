@@ -1,5 +1,6 @@
-var translation = []
-var path = 'http://localhost/restApi/rest/getTranslation.php?language='
+import DataService from '../rest/dataService.js'
+
+//keys for component and pdf creation
 var websiteHeaderKeys = ["headerCountdown", "headerDay", "headerHour", "headerMinutes", "headerSeconds", "headerStarts", "headerEnds"]
 var overviewSelectorKeys = ["homeBtn", "distanceBtn", "ergoBtn", "clubRankingBtn", "participantRankingBtn", "loginBtn", "logoutBtn"]
 var homeViewKeys = ["homeHeadline", "homeTextOne", "homeTextTwo", "homeTextThree"]
@@ -10,28 +11,20 @@ var clubDistanceKeys = ["distanceClubHeadlineOne", "distanceClubSubheadlineOne",
 var participantDistanceKeys = ["distanceSubmitBtn", "distanceBackBtn", "distanceHeadlineThree", "distanceParticipantHeadlineOne", "distance", "distanceParticipantErrorMsg", "distanceParticipantHeadlineTwo", "distanceParticipantSelectionTwo", "distanceParticipantSuccessThree"]
 var pdfKeys = ["pdfEmail", "pdfName", "pdfClub", "pdfShortcut", "pdfTotal", "pdfRating", "pdfRound", "pdfCat", "pdfMeter", "pdfAthletes", "rankingYear", "pdfClass", "male", "female", "categories", "resultPerWeekend", "pdfStatistics", "pdfParticipantCount", "pdfParticipant"]
 var loginKeys = ["male", "female", "firstName", "lastName", "birthday", "weight", "gender", "pdfClub", "loginHeader", "distanceSubmitBtn"]
+var currentTranslation = []
 
 //service class for translation of website
 export default class TranslationService{
 
     //loads language into the service
     static loadTranslation(language){   
-        const request = new XMLHttpRequest()
-        request.open("GET", path + language, false)
-        request.send(null)
-
-        if(request.status === 200){
-            translation = JSON.parse(request.responseText)
-        }
-        else{
-            console.log("Error while loading translation")
-        }
+        currentTranslation = DataService.get("translation", JSON.parse('{"language":"' + language + '"}'))
 
         //fire event that language has changed
-        let events = new CustomEvent("languageChanged", {
-            bubbles: true
-        })
-        document.dispatchEvent(events);
+        document.dispatchEvent(
+            new CustomEvent("languageChanged", {
+                bubbles: true
+        }));
     }
     
     //with the string-param, the method returns only the specific translations needed
@@ -68,7 +61,7 @@ export default class TranslationService{
         var temp = []
         for(var i = 0; i < keys.length; i ++){
             var key = keys[i]
-            var value = translation[keys[i]]
+            var value = currentTranslation[keys[i]]
             temp[key] = value
         }
         return temp

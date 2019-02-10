@@ -7,7 +7,6 @@ import TranslationService from '../../../../services/translation/translationServ
 export default class ParticipantRanking extends LitElement{
     static get properties(){
         return {
-            path: String,
             dropDownYear: Number,
             dropDownResult: Number,
             dropDownSequence: String,
