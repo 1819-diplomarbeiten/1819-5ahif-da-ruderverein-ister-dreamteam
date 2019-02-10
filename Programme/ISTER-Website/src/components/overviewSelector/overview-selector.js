@@ -18,7 +18,7 @@ export default class OverviewSelector extends LitElement{
         super();
 
         //email from hr schramm
-        this.emailSchramm = 'schramm@gmail.com'
+        this.emailSchramm = 'daniel.maz99@gmail.com'
 
         //set first "default" content
         this.lastUsedContent = 'home'
@@ -44,38 +44,6 @@ export default class OverviewSelector extends LitElement{
             this.changeContent(this.lastUsedContent)
         })
     }
-
-    
-
-    //sets interval and waits until auth2 content is not null
-    checkForEmail(){
-        var x = setInterval(_ => {
-            console.log('email da?')
-            if(gapi.auth2.getAuthInstance() != null && gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile() != null){
-                this.email = gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail()
-                this.emailHasArrived()
-                //this.email = this.emailSchramm
-                this.shadowRoot.getElementById('editBtn').style.display = 'initial'
-                this.checkForLogout()
-                clearInterval(x)
-            }
-        }, 500)
-    }
-
-    //checks for when the user logs out and disables all dependable components
-    checkForLogout(){
-        var x = setInterval(_ =>{
-            console.log('Logout?')
-            //if(der user hat sich ausgeloggt)
-            if(false){
-                this.shadowRoot.getElementById('participantRankingBtn').style.display = 'none'
-                this.shadowRoot.getElementById('challengeManagerBtn').style.display = 'none'
-                this.shadowRoot.getElementById('distanceBtn').style.display = 'none'
-                console.log('seaaas')
-                clearInterval(x)
-            }
-        }, 1000)
-    }
     
     //redirect to ister website
     changeWebsite(){
@@ -92,6 +60,7 @@ export default class OverviewSelector extends LitElement{
 
     //sets the new page body content / component
     changeContent(content){
+        
         this.lastUsedContent = content
         let mainComp = this.shadowRoot.getElementById('website-content')
         this.checkForHtlLogo()
@@ -135,41 +104,76 @@ export default class OverviewSelector extends LitElement{
         }
     }
 
-    emailHasArrived(){
-        
+    //sets interval and waits until auth2 content is not null
+    getEmail(){
+        var x = setInterval(_ => {
+
+            //is a user logged in?
+            if(gapi.auth2.getAuthInstance() != null && gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile() != null){
+
+                //get email
+                this.email = gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail()
+
+                //fire event that email has arrived
+                let events = new CustomEvent("emailArrived", {
+                    bubbles: true
+                })
+                document.dispatchEvent(events);
+
+                clearInterval(x)
+            }
+        }, 500)
+    }
+
+    //checks for when the user logs out and disables all dependable components
+    checkForLogout(){
+        var x = setInterval(_ =>{
+            console.log('Logout?')
+            //if(der user hat sich ausgeloggt)
+            if(false){
+                this.shadowRoot.getElementById('participantRankingBtn').style.display = 'none'
+                this.shadowRoot.getElementById('challengeManagerBtn').style.display = 'none'
+                this.shadowRoot.getElementById('distanceBtn').style.display = 'none'
+                console.log('seaaas')
+                clearInterval(x)
+            }
+        }, 1000)
     }
 
     //user wants to login
     manageLoginUsage(){
-        //wait until email is entered
-        this.checkForEmail()
 
-        var d = setInterval(_ => {
-            //is a challenge currently running?
-            if(this.checkForDistanceBtn()){
-                //get club or participant distance selector
-                this.getDistanceSelector()
-                clearInterval(d)
-            }
-        }, 1000)
+        //get email from oauth2
+        this.getEmail()
 
-        var m = setInterval(_ => {
-            //check for challenge manager button
-            if(this.checkForChallengeManagerBtn())
-                clearInterval(m)
-        }, 1000)
+        document.addEventListener("emailArrived", _ => {
+
+            //enable edit button
+            this.shadowRoot.getElementById('editBtn').style.display = 'initial'
+    
+            this.checkForLogout()
+            this.checkForDistanceBtn()
+            this.checkForChallengeManagerBtn()
+        })
     }
 
     //checks if challenge manager button has to be enabled
     checkForChallengeManagerBtn(){
-        if(this.email != undefined){
-            if(this.email == this.emailSchramm)
-                this.shadowRoot.getElementById('challengeManagerBtn').style.display = 'initial'
-            return true
+        if(this.email == this.emailSchramm)
+            this.shadowRoot.getElementById('challengeManagerBtn').style.display = 'initial'
+    }
+    
+    //check if there is a challenge running
+    checkForDistanceBtn(){
+        var data = DataService.get('challenge-status', JSON.parse('{"email":"' + this.email + '"}'))
+
+        if(data.challengeStatus == "true"){
+            this.shadowRoot.getElementById('distanceBtn').style.display = 'initial'
+            this.emailStatus = data.emailStatus
         }
-        else{
-            return false
-        }
+        else
+            this.shadowRoot.getElementById('distanceBtn').style.display = 'none'
+        
     }
 
     //checks which distance formular has to be displayed
@@ -181,26 +185,6 @@ export default class OverviewSelector extends LitElement{
         else
             return 'distance-form-club'
         
-    }
-
-    //check if there is a challenge running
-    checkForDistanceBtn(){
-        if(this.email != undefined){
-            var data = DataService.get('challenge-status', JSON.parse('{"email":"' + this.email + '"}'))
-            if(data.challengeStatus == "true"){
-                this.shadowRoot.getElementById('distanceBtn').style.display = 'initial'
-                this.emailStatus = data.emailStatus
-                return true
-            }
-            else{
-                this.shadowRoot.getElementById('distanceBtn').style.display = 'none'
-                return false
-            }
-        }
-        else{
-            this.shadowRoot.getElementById('distanceBtn').style.display = 'none'
-            return false
-        }
     }
 
     render(){
