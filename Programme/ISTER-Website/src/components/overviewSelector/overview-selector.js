@@ -7,7 +7,6 @@ export default class OverviewSelector extends LitElement{
     static get properties(){
         return {
             translation: [],
-            lastLanguage: '',
             lastUsedContent: '',
             email: '',
             emailStatus: '',
@@ -21,29 +20,41 @@ export default class OverviewSelector extends LitElement{
         //email from hr schramm
         this.emailSchramm = 'schramm@gmail.com'
 
-        //set first content
+        //set first "default" content
         this.lastUsedContent = 'home'
 
         //load translation for this component
         this.translation = TranslationService.getTranslation('overview-selector')
 
-        this.startTranslationDetection()
+        this.setTranslationChangedCallback()
         this.setLoginCallback()
     }
 
-    //creates login-callback in case that page has to be closed
+    //add event listener in case that page has to be closed
     setLoginCallback(){
         document.addEventListener("submitBtnPressed", _ => {
             this.changeContent('home')
         })
     }
 
+    //add event listener for language changes
+    setTranslationChangedCallback(){
+        document.addEventListener("languageChanged", _ => {
+            this.translation = TranslationService.getTranslation('overview-selector')
+            this.changeContent(this.lastUsedContent)
+        })
+    }
+
+    
+
     //sets interval and waits until auth2 content is not null
     checkForEmail(){
         var x = setInterval(_ => {
+            console.log('email da?')
             if(gapi.auth2.getAuthInstance() != null && gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile() != null){
                 this.email = gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail()
-                this.email = this.emailSchramm
+                this.emailHasArrived()
+                //this.email = this.emailSchramm
                 this.shadowRoot.getElementById('editBtn').style.display = 'initial'
                 this.checkForLogout()
                 clearInterval(x)
@@ -51,8 +62,10 @@ export default class OverviewSelector extends LitElement{
         }, 500)
     }
 
+    //checks for when the user logs out and disables all dependable components
     checkForLogout(){
         var x = setInterval(_ =>{
+            console.log('Logout?')
             //if(der user hat sich ausgeloggt)
             if(false){
                 this.shadowRoot.getElementById('participantRankingBtn').style.display = 'none'
@@ -62,23 +75,6 @@ export default class OverviewSelector extends LitElement{
                 clearInterval(x)
             }
         }, 1000)
-    }
-
-    //checks in an 500ms interval if the language has changed, if so the website content gets refreshed
-    startTranslationDetection(){
-        this.lastLanguage = TranslationService.getCurrentLanguage()
-
-        setInterval(_ => {
-            //get current language
-            var currentLanguage = TranslationService.getCurrentLanguage()
-
-            //has it changed since last time?
-            if(currentLanguage != this.lastLanguage){
-                this.translation = TranslationService.getTranslation('overview-selector')
-                this.lastLanguage = currentLanguage
-                this.changeContent(this.lastUsedContent)
-            }
-        }, 500);
     }
     
     //redirect to ister website
@@ -139,6 +135,10 @@ export default class OverviewSelector extends LitElement{
         }
     }
 
+    emailHasArrived(){
+        
+    }
+
     //user wants to login
     manageLoginUsage(){
         //wait until email is entered
@@ -160,7 +160,7 @@ export default class OverviewSelector extends LitElement{
         }, 1000)
     }
 
-    //check for challenge manager button
+    //checks if challenge manager button has to be enabled
     checkForChallengeManagerBtn(){
         if(this.email != undefined){
             if(this.email == this.emailSchramm)

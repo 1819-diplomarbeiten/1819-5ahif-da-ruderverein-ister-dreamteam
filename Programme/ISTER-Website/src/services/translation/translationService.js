@@ -10,19 +10,12 @@ var clubDistanceKeys = ["distanceClubHeadlineOne", "distanceClubSubheadlineOne",
 var participantDistanceKeys = ["distanceSubmitBtn", "distanceBackBtn", "distanceHeadlineThree", "distanceParticipantHeadlineOne", "distance", "distanceParticipantErrorMsg", "distanceParticipantHeadlineTwo", "distanceParticipantSelectionTwo", "distanceParticipantSuccessThree"]
 var pdfKeys = ["pdfEmail", "pdfName", "pdfClub", "pdfShortcut", "pdfTotal", "pdfRating", "pdfRound", "pdfCat", "pdfMeter", "pdfAthletes", "rankingYear", "pdfClass", "male", "female", "categories", "resultPerWeekend", "pdfStatistics", "pdfParticipantCount", "pdfParticipant"]
 var loginKeys = ["male", "female", "firstName", "lastName", "birthday", "weight", "gender", "pdfClub", "loginHeader", "distanceSubmitBtn"]
-var currentLanguage = ''
 
 //service class for translation of website
 export default class TranslationService{
 
-    //returns the current selected language
-    static getCurrentLanguage(){
-        return currentLanguage
-    }
-
     //loads language into the service
     static loadTranslation(language){   
-        currentLanguage = language
         const request = new XMLHttpRequest()
         request.open("GET", path + language, false)
         request.send(null)
@@ -33,6 +26,12 @@ export default class TranslationService{
         else{
             console.log("Error while loading translation")
         }
+
+        //fire event that language has changed
+        let events = new CustomEvent("languageChanged", {
+            bubbles: true
+        })
+        document.dispatchEvent(events);
     }
     
     //with the string-param, the method returns only the specific translations needed
