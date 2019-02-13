@@ -283,6 +283,17 @@ class Query
         return $arr;
 
     }
+
+    function getChallengeIdFromStartDate($date){
+        global $db;
+        global $query;
+
+        $sql = $db->prepare("SELECT challenge_id from challenge where start_date = :date");
+        $sql->bindValue(':oldDate', $date, PDO::PARAM_STR);
+        $result = json_decode($query->buildJson("challenge_id", "id", $sql), true);
+        return $result['id'];
+
+    }
     public function __construct($db)
     {
         $this->conn = $db;

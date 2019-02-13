@@ -23,27 +23,37 @@ $challenge4 = new Challenge($db);
 $challenge5 = new Challenge($db);
 $challenge6 = new Challenge($db);
 
+if($_SERVER["REQUEST_METHOD"] == "POST" && $_SERVER["CONTENT_TYPE"] == "application/json") {
+
+    $test2 = $_POST['roundOne'];
 // get posted data
-$data = json_decode(file_get_contents("php://input"), true);
-$test = $data['roundOne'];
-
-$challenge1 -> start_date = $data['roundOne'];
-$challenge2 -> start_date = $data['roundTwo'];
-$challenge3 -> start_date = $data['roundThree'];
-$challenge4 -> start_date = $data['roundFour'];
-$challenge5 -> start_date = $data['roundFive'];
-$challenge6 -> start_date = $data['roundSix'];
-$challenge1 -> challenge_id = 10000 + $data['year'];
-$challenge2 -> challenge_id = 20000 + $data['year'];
-$challenge3 -> challenge_id = 30000 + $data['year'];
-$challenge4 -> challenge_id = 40000 + $data['year'];
-$challenge5 -> challenge_id = 50000 + $data['year'];
-$challenge6 -> challenge_id = 60000 + $data['year'];
+    $data = file_get_contents('php://input');
+    $data = json_decode($data, true);
 
 
-$challenge1->create();
-$challenge2->create();
-$challenge3->create();
-$challenge4->create();
-$challenge5->create();
-$challenge6->create();
+    $challenge1->start_date = $data['object']['roundOne'];
+    $challenge2->start_date = $data['object']['roundTwo'];
+    $challenge3->start_date = $data['object']['roundThree'];
+    $challenge4->start_date = $data['object']['roundFour'];
+    $challenge5->start_date = $data['object']['roundFive'];
+    $challenge6->start_date = $data['object']['roundSix'];
+    $challenge1->challenge_id = 10000 + $data['object']['year'];
+    $challenge2->challenge_id = 20000 + $data['object']['year'];
+    $challenge3->challenge_id = 30000 + $data['object']['year'];
+    $challenge4->challenge_id = 40000 + $data['object']['year'];
+    $challenge5->challenge_id = 50000 + $data['object']['year'];
+    $challenge6->challenge_id = 60000 + $data['object']['year'];
+
+
+    $challenge1->create();
+    $challenge2->create();
+    $challenge3->create();
+    $challenge4->create();
+    $challenge5->create();
+    $challenge6->create();
+}
+else{
+    echo "OPTIONS";
+}
+
+echo $data;

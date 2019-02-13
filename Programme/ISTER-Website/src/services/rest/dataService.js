@@ -5,7 +5,7 @@ var pathTwo = 'http://localhost:8080/testserver/rs/sql/'
 //all extensions needed for communication with backend
 var emailExists = "emailExists.php"
 var clubDistanceExtension = "createResults.php"
-var participantDistanceExtension = "postPeriod.php"
+var participantDistanceExtension = "createResult.php"
 var challengeCreationExtension = "createChallenges.php"
 var participantRankingExtension = "bestFourDistancesParticipants.php"
 var clubRankingExtension = "bestFourDistancesClubs/"
@@ -26,10 +26,14 @@ export default class DataService{
     //post request
     //json: data for body, msgType: to get right extension
     static post(json, msgType){
+        console.log(this.getRealPath(msgType))
+        console.log(json)
         fetch(this.getRealPath(msgType),
                 {
                     method: "POST",
-                    body: json,
+                    body: JSON.stringify({
+                        "object": json
+                      }),
                     headers: {
                         "Content-Type": "application/json"
                     }

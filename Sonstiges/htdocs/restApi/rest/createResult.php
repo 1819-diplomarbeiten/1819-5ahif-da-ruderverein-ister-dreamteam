@@ -12,19 +12,22 @@ include_once '../config/database.php';
 // instantiate product object
 include_once '../model/result.php';
 
+include_once'../queries/Query.php';
+
 $database = new Database();
 $db = $database->getConnection();
+$query = new Query($db);
 
 $result = new Result($db);
 
 // get posted data
-$data = json_decode(file_get_contents("php://input"));
+$data = file_get_contents('php://input');
+$data = json_decode($data, true);
 
 // set product property values
-$result->result_id = $data->result_id;
-$result->challenge_id = $data->challenge_id;
-$result->distance = $data->distance;
-$result->participant_email = $data->participant_email;
+$result->challenge_id = $query->getCurrentChallengeId();
+$result->distance = $data['object']['distance'];
+$result->participant_email = $data['object']['email'];
 
 // create the product
 if($result->create()){

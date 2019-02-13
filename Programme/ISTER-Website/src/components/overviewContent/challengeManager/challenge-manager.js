@@ -354,6 +354,7 @@ export default class ChallengeManager extends LitElement{
 
     //convert plain date to "viewable-date"
     intToDate(date){
+        console.log(date);
         var temp = date.split('-')
 
         switch(parseInt(temp[1])){
@@ -431,9 +432,9 @@ export default class ChallengeManager extends LitElement{
         if(this.allValuesSelected() == false)
             this.shadowRoot.getElementById('notification').innerHTML = '<span class="error">Nicht alle Werte wurden ausgefüllt<span>'
         else {
-            this.shadowRoot.getElementById('notification').innerHTML = ''
             DataService.post(this.createMsgJson(), "challenge")
-
+            this.shadowRoot.getElementById('notification').innerHTML = ''
+            
             //now we have to add it to the page AND check if we may update the existing but not started challenge (april to october)
             var usedIdex = 0
             var actualIndex = 0
@@ -466,12 +467,14 @@ export default class ChallengeManager extends LitElement{
             this.shadowRoot.getElementById('manageBody').innerHTML = ''
             this.getAllChallenges()
 
-            window.alert('Challenge erstellt')
+            //window.alert('Challenge erstellt')
+            
         }
     }
 
     //create json for 6 round dates
     createMsgJson(){
+        console.log(JSON.parse("{\"roundOne\":\"" + this.shadowRoot.getElementById('roundOne').value + "\",\"roundTwo\":\"" + this.shadowRoot.getElementById('roundTwo').value + "\",\"roundThree\":\"" + this.shadowRoot.getElementById('roundThree').value + "\",\"roundFour\":\"" + this.shadowRoot.getElementById('roundFour').value + "\",\"roundFive\":\"" + this.shadowRoot.getElementById('roundFive').value + "\",\"roundSix\":\"" + this.shadowRoot.getElementById('roundSix').value + "\",\"year\":\"" + this.shadowRoot.getElementById('dropDown').value + "\"}"))
         return JSON.parse("{\"roundOne\":\"" + this.shadowRoot.getElementById('roundOne').value + "\",\"roundTwo\":\"" + this.shadowRoot.getElementById('roundTwo').value + "\",\"roundThree\":\"" + this.shadowRoot.getElementById('roundThree').value + "\",\"roundFour\":\"" + this.shadowRoot.getElementById('roundFour').value + "\",\"roundFive\":\"" + this.shadowRoot.getElementById('roundFive').value + "\",\"roundSix\":\"" + this.shadowRoot.getElementById('roundSix').value + "\",\"year\":\"" + this.shadowRoot.getElementById('dropDown').value + "\"}")
     }
 
