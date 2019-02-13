@@ -256,6 +256,33 @@ class Query
         return $data;
 
     }
+
+    function getEmailStatus($email){
+        global $db;
+        global $query;
+
+        $arr = Array();
+
+        $sql = $db->prepare("SELECT * from Participant where email = :email");
+        $sql->bindValue(':email', $email, PDO::PARAM_STR);
+        $result = json_decode($query->buildJson("email", "e", $sql), true);
+        if($result == null){
+            $sql = $db->prepare("SELECT * from Club where email = :email");
+            $sql->bindValue(':email', $email, PDO::PARAM_STR);
+            $result = json_decode($query->buildJson("email", "e", $sql), true);
+            if($result != null){
+                $arr['emailStatus'] = "club";
+            }
+        }
+        else{
+            $arr['emailStatus'] = "participant";
+            if($result[0]['e'] == "davipoin@gmail.com"){
+                $arr['emailStatus'] = "schramm";
+            }
+        }
+        return $arr;
+
+    }
     public function __construct($db)
     {
         $this->conn = $db;

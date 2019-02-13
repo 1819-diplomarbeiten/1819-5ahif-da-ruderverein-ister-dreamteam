@@ -22,7 +22,7 @@ $query = new Query($db);
 
 $year = $_GET['year'];
 $sequence = $_GET['sequence'];
-$result = $_GET['result'];
+
 
 
 $sqlSessionResults = $db->prepare("SELECT club.name AS clubLong, sum(distance) AS distance, club, challenge_id 
