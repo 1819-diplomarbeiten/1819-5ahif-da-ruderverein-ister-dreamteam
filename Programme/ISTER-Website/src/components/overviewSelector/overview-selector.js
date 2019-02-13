@@ -20,7 +20,7 @@ export default class OverviewSelector extends LitElement{
         super();
 
         //email from hr schramm
-        this.emailSchramm = 'davipoin@gmail.com'
+        this.emailSchramm = 'daniel.maz99@gmail.com'
 
         //set first "default" content
         this.lastUsedContent = 'home'
@@ -103,6 +103,8 @@ export default class OverviewSelector extends LitElement{
                 var data = DataService.get('data-participant', JSON.parse('{"email":"' + this.email + '"}'))
                 websiteContent.innerHTML = `<data-form firstName="${data.firstName}" lastName="${data.lastName}" birthday="${data.birthday}" weight="${data.weight}" gender="${data.gender}" club="${data.club}"></data-form>`
                 break
+            case 'data-form':
+                websiteContent.innerHTML = `<data-form></data-form>`
             default:
                 break
         }
@@ -129,21 +131,6 @@ export default class OverviewSelector extends LitElement{
         }, 500)
     }
 
-    //checks for when the user logs out and disables all dependable components
-    checkForLogout(){
-        var x = setInterval(_ =>{
-            console.log('Logout?')
-            //if(der user hat sich ausgeloggt)
-            if(false){
-                this.shadowRoot.getElementById('participantRankingBtn').style.display = 'none'
-                this.shadowRoot.getElementById('challengeManagerBtn').style.display = 'none'
-                this.shadowRoot.getElementById('distanceBtn').style.display = 'none'
-                console.log('seaaas')
-                clearInterval(x)
-            }
-        }, 1000)
-    }
-
     //user wants to login
     manageLoginUsage(){
 
@@ -156,10 +143,17 @@ export default class OverviewSelector extends LitElement{
             //enable edit button
             this.shadowRoot.getElementById('editBtn').style.display = 'initial'
     
-            this.checkForLogout()
             this.checkForDistanceBtn()
+            this.checkForParticipantRanking()
             this.checkForChallengeManagerBtn()
         })
+    }
+
+    //checks if participant ranking button has to be enabled
+    checkForParticipantRanking(){
+        console.log(this.emailStatus)
+        if(this.emailStatus == "participant")
+            this.shadowRoot.getElementById('participantRankingBtn').style.display = 'initial'
     }
 
     //checks if challenge manager button has to be enabled
@@ -171,11 +165,10 @@ export default class OverviewSelector extends LitElement{
     //check if there is a challenge running
     checkForDistanceBtn(){
         var data = DataService.get('challenge-status', JSON.parse('{"email":"' + this.email + '"}'))
-
+        console.log(data)
         if(data.challengeStatus == "true"){
             this.shadowRoot.getElementById('distanceBtn').style.display = 'initial'
             this.emailStatus = data.emailStatus
-
             this.setDistanceSelectors()
         }
         else
@@ -195,26 +188,27 @@ export default class OverviewSelector extends LitElement{
             this.distanceSelector = 'distance-form-club'
         
     }
+
     _handleSignInEvent(e){
-        let mainComp = this.shadowRoot.getElementById('website-content')
-        let elem = null
         var email = gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail()
-        console.log(JSON.parse('{"email":"' + email + '"}'))
-        
+
         if(DataService.get("email-exists", JSON.parse('{"email":"' + email + '"}')) == false){
-            elem = document.createElement('data-form')
-            while (mainComp.firstChild) {
-                mainComp.removeChild(mainComp.firstChild);
-            }
-            mainComp.appendChild(elem)
+            this.changeContent('data-form')
+        }
+        else{
+            //nach testen this.changeContent ('home')
+            this.changeContent('data-form')
         }
         this.manageLoginUsage()
     }
+
+    //checks for when the user logs out and disables all dependable components
     _handleSignOutEvent(e){
         this.shadowRoot.getElementById('participantRankingBtn').style.display = 'none'
         this.shadowRoot.getElementById('challengeManagerBtn').style.display = 'none'
         this.shadowRoot.getElementById('distanceBtn').style.display = 'none'
         this.shadowRoot.getElementById('editBtn').style.display = 'none'
+        this.changeContent('home')
     }
 
     render(){
