@@ -91,6 +91,7 @@ public class JsonArrayCreator {
         }
         fullObject.add("categoryTable", categoryTableArray);
 
+
         return fullObject.build();
     }
 

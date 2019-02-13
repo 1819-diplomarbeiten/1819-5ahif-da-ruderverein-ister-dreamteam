@@ -141,6 +141,7 @@ public class SqlStatementsEndpoint {
         System.out.println(year + "  " + "  " + sequence);
         //JsonArray jsonValues = new JsonArrayCreator().GetJsonArrayClubs();
         JsonObject jsonValues = new JsonArrayCreator().GetJsonArrayClubsNew();
+        System.out.println(jsonValues);
         return jsonValues;
     }
 

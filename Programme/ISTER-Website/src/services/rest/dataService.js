@@ -9,11 +9,11 @@ var participantDistanceExtension = "postPeriod.php"
 var challengeCreationExtension = "createChallenges.php"
 var participantRankingExtension = "bestFourDistancesParticipants.php"
 var clubRankingExtension = "bestFourDistancesClubs/"
-var challengeSessionsExtension = "getChallenge/"
+var challengeSessionsExtension = "getChallenges.php"
 var emailNameExtension = "getEmailNameReference"
 var allChallengesExtension = "getallchallenges.php"
 var actualChallengeTimeExtension = "actualchallengetime.php"
-var challengeStatusExtension = "challengeStatus"
+var challengeStatusExtension = "getEmailStatus.php"
 var picSearchExtension = "picSearch/"
 var updateSessionDateExtension = "updateSessionDate/"
 var deleteSingleChallengeExtension = "blablabla"
@@ -55,8 +55,9 @@ export default class DataService{
         const request = new XMLHttpRequest()
         request.open("GET", this.getRealPath(msgType, jsonParams), false)
         request.send(null)
-        if(request.status === 200)
+        if(request.status === 200){
             return JSON.parse(request.responseText)
+        }
         else
             return "failure"
     }
@@ -87,7 +88,7 @@ export default class DataService{
             case "club-ranking":
                 return pathTwo + clubRankingExtension + jsonParams.year + "/" + jsonParams.sequence    
             case "challenge-sessions":
-                return pathTwo + challengeSessionsExtension + jsonParams.actualYear
+                return path + challengeSessionsExtension + "?year=" + jsonParams.actualYear
             case "email-name":
                 return pathTwo + emailNameExtension
             case "all-challenges":
@@ -97,7 +98,7 @@ export default class DataService{
             case "challenge-time":
                 return path + actualChallengeTimeExtension
             case "challenge-status":
-                return pathTwo + challengeStatusExtension + "/" + jsonParams.email
+                return path + challengeStatusExtension + "?email=" + jsonParams.email
             case "session-date-update":
                 return pathTwo + updateSessionDateExtension
             case "delete-single-challenge":

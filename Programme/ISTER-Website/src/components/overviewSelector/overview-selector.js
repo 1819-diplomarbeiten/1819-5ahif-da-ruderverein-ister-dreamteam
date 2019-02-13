@@ -1,6 +1,7 @@
 import {LitElement, html} from '@polymer/lit-element'
 import DataService from '../../services/rest/dataService.js'
 import TranslationService from '../../services/translation/translationService.js'
+import LoginForm from '../overviewContent/loginForm/login.js'
 
 //Web Component for Selector Toolbar (Banner, Menu Button, Login)
 export default class OverviewSelector extends LitElement{
@@ -19,7 +20,7 @@ export default class OverviewSelector extends LitElement{
         super();
 
         //email from hr schramm
-        this.emailSchramm = 'daniel.maz99@gmail.com'
+        this.emailSchramm = 'davipoin@gmail.com'
 
         //set first "default" content
         this.lastUsedContent = 'home'
@@ -93,7 +94,7 @@ export default class OverviewSelector extends LitElement{
                 break
             case 'login':
                 this.manageLoginUsage()
-                websiteContent.innerHTML = `<login-form></login-form>`
+                
                 break
             case 'challenge-manager':
                 websiteContent.innerHTML = `<challenge-manager></challenge-manager>`
@@ -194,18 +195,40 @@ export default class OverviewSelector extends LitElement{
             this.distanceSelector = 'distance-form-club'
         
     }
+    _handleSignInEvent(e){
+        let mainComp = this.shadowRoot.getElementById('website-content')
+        let elem = null
+        var email = gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail()
+        console.log(JSON.parse('{"email":"' + email + '"}'))
+        
+        if(DataService.get("email-exists", JSON.parse('{"email":"' + email + '"}')) == false){
+            elem = document.createElement('data-form')
+            while (mainComp.firstChild) {
+                mainComp.removeChild(mainComp.firstChild);
+            }
+            mainComp.appendChild(elem)
+        }
+        this.manageLoginUsage()
+    }
+    _handleSignOutEvent(e){
+        this.shadowRoot.getElementById('participantRankingBtn').style.display = 'none'
+        this.shadowRoot.getElementById('challengeManagerBtn').style.display = 'none'
+        this.shadowRoot.getElementById('distanceBtn').style.display = 'none'
+        this.shadowRoot.getElementById('editBtn').style.display = 'none'
+    }
 
     render(){
         return html`
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
             <link rel="stylesheet" type="text/css" href="/src/components/overviewSelector/styles.css"></link>
+            <link rel="import" href="../../../../bower_components/google-signin/google-signin.html">
             <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
             <div class ="background">
                 <p class="banner"><strong>Ergo Challenge ISTER Linz</strong></p>
             
                 <div class="login-group">
                     <div class="btn-group mr-2" role="group" aria-label="First group">
-                    <button type="button" class="btn btn-primary custom-color login-align" @click="${() => this.changeContent('login')}"><p class="text">${this.translation["loginBtn"]}</p></button>
+                    <google-signin id="signinBtn" client-id="863083094018-90dqbb2kvkiaog6tugmd5gagr7kgf483.apps.googleusercontent.com" @google-signin-success="${(e) => this._handleSignInEvent(e)}"" @google-signed-out="${(e) => this._handleSignOutEvent(e)}"></google-signin>
                     </div>
                     <div class="btn-group mr-2" role="group" aria-label="Second group">
                     <button id="editBtn" style="display:none" type="button" class="btn btn-primary custom-color login-align" @click="${() => this.changeContent('edit')}"><p class="text"><i class="fas fa-cogs"></i></p></button>
