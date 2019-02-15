@@ -315,4 +315,13 @@ public class SqlStatementsEndpoint {
         System.out.println("===========Data Form===========");
         System.out.println(json);
     }
+
+    @PUT
+    @Path("/changeDistance")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void changeDistance(final JsonObject json) {
+        System.out.println("===============================");
+        System.out.println("========Change Distance========");
+        System.out.println(json);
+    }
 }

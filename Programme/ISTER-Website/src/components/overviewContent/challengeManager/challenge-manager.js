@@ -14,7 +14,9 @@ export default class ChallengeManager extends LitElement{
             selectedValueId: String,
             oldDate: String,
             entered: Boolean,
-            datePickerLoaded: Boolean
+            datePickerLoaded: Boolean,
+            oldDistance: String,
+            newDistance: String
         }
     }
 
@@ -317,7 +319,86 @@ export default class ChallengeManager extends LitElement{
             <button class="btn btn-primary custom-size" @click="${() => this.searchEvidencePic()}">Suchen</button>
             <p id="PicNotification"></p>
         </div>  
+
+        <h2 class="header-border" @click="${() => this.changeStatus('changeDistance')}"><strong>Distanz ändern</strong></h2>
+        <div id="changeDistance" style="display:none">
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-sm"><strong>Email</strong></span>
+                </div>
+                <input id="emailDistance" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+            </div>
+            <br>
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-sm"><strong>Jahr</strong></span>
+                </div>
+                <input id="yearDistance" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+            </div>
+            <br>
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-sm"><strong>Session</strong></span>
+                </div>
+                <input id="sessionDistance" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+            </div>
+            <br>
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-sm"><strong>Alte Distanz</strong></span>
+                </div>
+                <input id="oldValueDistance" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+            </div>
+            <br>
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroup-sizing-sm"><strong>Neue Distanz</strong></span>
+                </div>
+                <input id="newValueDistance" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+            </div>
+            <br>
+            <button class="btn btn-primary custom-size" @click="${() => this.changeDistanceOnBackend()}">Ändern</button>
+            <br>
+            <p id="distanceNotification"></p>
+        </div>  
         `
+    }
+
+    //method gets called from html, changes specific distance from participant
+    changeDistanceOnBackend(){
+        var errors = this.validateChangeDistanceInputParams()
+        if(errors == ""){
+            DataService.put(this.getUpdateDistanceJson(), 'change-distance')
+            this.shadowRoot.getElementById('distanceNotification').innerHTML = ``
+        }
+        else
+            this.shadowRoot.getElementById('distanceNotification').innerHTML = `<span class="error">${errors}</span>`
+    }
+
+    validateChangeDistanceInputParams(){
+        var errorString = ''
+        this.email = this.shadowRoot.getElementById('emailDistance').value
+        this.year = this.shadowRoot.getElementById('yearDistance').value
+        this.session = this.shadowRoot.getElementById('sessionDistance').value
+        this.oldDistance = this.shadowRoot.getElementById('oldValueDistance').value
+        this.newDistance = this.shadowRoot.getElementById('newValueDistance').value
+
+        if(this.validateEmail(this.email) == false)
+            errorString += 'Ungültige Email; '
+        if(isNaN(this.year) || this.year == "")
+            errorString += 'Ungültiges Jahr; '
+        if(isNaN(this.session) || this.session == "")
+            errorString += 'Ungültige Session;'
+        if(isNaN(this.session) || this.session == "")
+            errorString += 'Ungültige alte Distanz;'
+        if(isNaN(this.session) || this.session == "")
+            errorString += 'Ungültige neue Distanz'
+        return errorString
+    }
+
+    //returns json object for distance update
+    getUpdateDistanceJson(){
+        return JSON.parse('{"email":"' + this.shadowRoot.getElementById('emailDistance').value + '","year":"' + this.shadowRoot.getElementById('yearDistance').value + '","session":"' + this.shadowRoot.getElementById('sessionDistance').value + '","oldValue":"' + this.shadowRoot.getElementById('oldValueDistance').value + '","newValue":"' + this.shadowRoot.getElementById('newValueDistance').value + '"}')
     }
 
     //returns if given param-date is in the past
@@ -354,7 +435,6 @@ export default class ChallengeManager extends LitElement{
 
     //convert plain date to "viewable-date"
     intToDate(date){
-        console.log(date);
         var temp = date.split('-')
 
         switch(parseInt(temp[1])){
@@ -503,7 +583,7 @@ export default class ChallengeManager extends LitElement{
         }
     }
 
-    //changes visibility status of single part (Challenges bearbeiten, Challenges erstellen, Beweisbild suchen)
+    //changes visibility status of single part (Challenges bearbeiten, Challenges erstellen, Beweisbild suchen, Distanz ändern)
     changeStatus(idToSet){
         var elem = this.shadowRoot.getElementById(idToSet)
         if(elem.style.display == 'none')
@@ -513,7 +593,7 @@ export default class ChallengeManager extends LitElement{
     }
 
     //check for valid input params
-    validateInputParams(){
+    validatePictureInputParams(){
         var errorString = ''
         this.email = this.shadowRoot.getElementById('email').value
         this.year = this.shadowRoot.getElementById('year').value
@@ -529,7 +609,7 @@ export default class ChallengeManager extends LitElement{
 
     //search for evidence pic
     searchEvidencePic(){
-        var errorString = this.validateInputParams()
+        var errorString = this.validatePictureInputParams()
         //if all params valid, let's search, otherwise display error
         if(errorString == '')
             this.getSearch()

@@ -96,7 +96,7 @@ export default class DataForm extends LitElement{
     //gets called when submit button is pressed
     submitBtnPressed(){
         this.setFieldValues()
-        
+
         //are fields valid?
         if(this.fieldsAreValid()){
 
@@ -374,14 +374,14 @@ export default class DataForm extends LitElement{
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroup-sizing-sm"><strong>${this.translation["longname"]} longnameNoTranslation *</strong></span>
                         </div>
-                        <input id="nameLong" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" style="width:170px;text-align:right">
+                        <input id="nameLong" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" style="width:150px">
                     </div>
                     <br>
                     <div class="input-group input-group-sm mb-3">   
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="inputGroup-sizing-sm"><strong>${this.translation["pdfShortcut"]} *</strong></span>
                         </div>
-                        <input id="nameShort" type="text" class="form-control" aria-label="Small" maxlength="4" aria-describedby="inputGroup-sizing-sm" style="width:170px;text-align:right">
+                        <input id="nameShort" type="text" class="form-control" aria-label="Small" maxlength="4" aria-describedby="inputGroup-sizing-sm" style="width:50px;text-align:right">
                     </div>
                 </div>
                 <div id="existingClub" style="display:none">

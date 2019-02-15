@@ -21,7 +21,7 @@ var dataFormExtension = "postDataForm"
 var allClubsExtension = "getAllClubs.php"
 var getDataExtension = "getDataByParticipant/"
 var getTranslationExtension = "getTranslation.php"
-
+var changeDistanceExtension = "changeDistance"
 export default class DataService{
     //post request
     //json: data for body, msgType: to get right extension
@@ -44,7 +44,9 @@ export default class DataService{
     static put(json, msgType){
         fetch(this.getRealPath(msgType), {
                 method: "PUT",
-                body: json,
+                body: JSON.stringify({
+                    "object": json
+                  }),
                 headers: {
                     "content-type": "application/json"
                 }
@@ -67,10 +69,12 @@ export default class DataService{
 
     //delete request
     //jsonParams: data for body, msgType: to get right extension
-    static delete(msgType, jsonParams){
+    static delete(msgType, json){
         fetch(this.getRealPath(msgType), {
             method: "DELETE",
-            body: jsonParams,
+            body: JSON.stringify({
+                "object": json
+              }),
             headers: {
                 "content-type": "application/json"
             }
@@ -118,6 +122,8 @@ export default class DataService{
                 return path + getTranslationExtension + "?language=" + jsonParams.language
             case "all-clubs-reduced":
                 return path + allClubsExtension
+            case "change-distance":
+                return pathTwo + changeDistanceExtension
             default:
                 break
         }
