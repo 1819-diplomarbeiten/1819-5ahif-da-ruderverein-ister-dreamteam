@@ -44,7 +44,7 @@ export default class ClubRanking extends LitElement{
 
     //button is only displayed when a club is logged in
     checkForEmailNameBtn(){
-        if(this.getAttribute("isClub") == true)
+        if(this.getAttribute("isClub") == "true")
             this.shadowRoot.getElementById('email-name-container').style.display = 'initial'
     }
 

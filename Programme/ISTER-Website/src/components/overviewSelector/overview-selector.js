@@ -36,6 +36,10 @@ export default class OverviewSelector extends LitElement{
     setLoginCallback(){
         document.addEventListener("submitBtnPressed", _ => {
             this.changeContent('home')
+            
+            //enable edit button if participant logged in
+            if(this.emailStatus != 'club')
+                this.shadowRoot.getElementById('editBtn').style.display = 'initial'
         })
     }
 
@@ -139,10 +143,6 @@ export default class OverviewSelector extends LitElement{
 
         //by listener we get informed when the email has arrived
         document.addEventListener("emailArrived", _ => {
-
-            //enable edit button
-            this.shadowRoot.getElementById('editBtn').style.display = 'initial'
-    
             this.checkForDistanceBtn()
             this.checkForParticipantRanking()
             this.checkForChallengeManagerBtn()
@@ -151,7 +151,6 @@ export default class OverviewSelector extends LitElement{
 
     //checks if participant ranking button has to be enabled
     checkForParticipantRanking(){
-        console.log(this.emailStatus)
         if(this.emailStatus == "participant")
             this.shadowRoot.getElementById('participantRankingBtn').style.display = 'initial'
     }
@@ -165,7 +164,7 @@ export default class OverviewSelector extends LitElement{
     //check if there is a challenge running
     checkForDistanceBtn(){
         var data = DataService.get('challenge-status', JSON.parse('{"email":"' + this.email + '"}'))
-        console.log(data)
+
         if(data.challengeStatus == "true"){
             this.shadowRoot.getElementById('distanceBtn').style.display = 'initial'
             this.emailStatus = data.emailStatus

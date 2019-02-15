@@ -304,6 +304,15 @@ public class SqlStatementsEndpoint {
         System.out.println("================================");
         System.out.println("======Get Challenge Status======");
         System.out.println(email);
-        return Json.createObjectBuilder().add("firstName", "Daniel").add("lastName", "Mazanek").add("birthday", "07-07-1999").add("weight", "68").add("gender", "m").add("club", "Donau Wien").build();
+        return Json.createObjectBuilder().add("firstName", "Daniel").add("lastName", "Mazanek").add("birthday", "07-07-1999").add("weight", "70").add("gender", "m").add("club", "Donau Wien").build();
+    }
+
+    @POST
+    @Path("/postDataForm")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void dataForm(final JsonObject json){
+        System.out.println("===============================");
+        System.out.println("===========Data Form===========");
+        System.out.println(json);
     }
 }
