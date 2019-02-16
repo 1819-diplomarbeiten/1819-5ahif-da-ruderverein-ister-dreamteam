@@ -294,7 +294,7 @@ public class SqlStatementsEndpoint {
         System.out.println("================================");
         System.out.println("======Get Challenge Status======");
         System.out.println(email);
-        return Json.createObjectBuilder().add("challengeStatus", "true").add("emailStatus", "schramm").build();
+        return Json.createObjectBuilder().add("challengeStatus", "true").add("emailStatus", "participant").build();
     }
 
     @GET
