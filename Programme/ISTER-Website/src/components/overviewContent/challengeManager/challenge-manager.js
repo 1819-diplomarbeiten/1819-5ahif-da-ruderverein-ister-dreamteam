@@ -27,9 +27,9 @@ export default class ChallengeManager extends LitElement{
     }
 
     //get all past / current challenges incl date
-    getAllChallenges(){
+    async getAllChallenges(){
         if(this.entered == false)
-            this.challenges = DataService.get('all-challenges')
+            this.challenges = await DataService.get('all-challenges')
         if(this.challenges != "failure"){
             var data = this.transformJson(this.challenges)
             this.doTableFill(data)
@@ -370,6 +370,7 @@ export default class ChallengeManager extends LitElement{
         if(errors == ""){
             DataService.put(this.getUpdateDistanceJson(), 'change-distance')
             this.shadowRoot.getElementById('distanceNotification').innerHTML = ``
+            window.alert('Distanz wurde geupdatet')
         }
         else
             this.shadowRoot.getElementById('distanceNotification').innerHTML = `<span class="error">${errors}</span>`
@@ -618,8 +619,8 @@ export default class ChallengeManager extends LitElement{
     }
 
     //search for picture in backend
-    getSearch(){
-        var data = DataService.get('evidence-pic', JSON.parse('{"email":"' + this.email + '","year":"' + this.year + '","session":"' + this.session + '"}'))
+    async getSearch(){
+        let data = await DataService.get('evidence-pic', JSON.parse('{"email":"' + this.email + '","year":"' + this.year + '","session":"' + this.session + '"}'))
         if(data != "failure") {
             //display not found if it's not found
             if(data.picture == "notFound")

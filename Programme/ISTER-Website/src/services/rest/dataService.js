@@ -23,6 +23,7 @@ var getDataExtension = "getDataByParticipant/"
 var getTranslationExtension = "getTranslation.php"
 var changeDistanceExtension = "changeDistance"
 export default class DataService{
+
     //post request
     //json: data for body, msgType: to get right extension
     static post(json, msgType){
@@ -55,7 +56,7 @@ export default class DataService{
 
     //get request
     //jsonParams: data for body, msgType: to get right extension
-    static get(msgType, jsonParams){
+    /*static get(msgType, jsonParams){
         const request = new XMLHttpRequest()
         request.open("GET", this.getRealPath(msgType, jsonParams), false)
         request.send(null)
@@ -65,6 +66,11 @@ export default class DataService{
         }
         else
             return "failure"
+    }*/
+
+    static async get(msgType, jsonParams){
+        return await fetch(this.getRealPath(msgType, jsonParams))
+                        .then(resp => resp.json())
     }
 
     //delete request

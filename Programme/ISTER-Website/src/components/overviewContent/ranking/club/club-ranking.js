@@ -21,11 +21,11 @@ export default class ClubRanking extends LitElement{
     }
 
     //gets called from user per button-click, manages creation of pdf club
-    getDistances(){
+    async getDistances(){
         this.dropDownYear = this.shadowRoot.getElementById('dropDownYear').value
         this.dropDownSequence = this.shadowRoot.getElementById('dropDownSequence').value
 
-        var data = DataService.get("club-ranking", JSON.parse('{"year":"' + this.dropDownYear + '","sequence":"' + this.dropDownSequence + '"}'))
+        let data = await DataService.get("club-ranking", JSON.parse('{"year":"' + this.dropDownYear + '","sequence":"' + this.dropDownSequence + '"}'))
 
         if(data != "failure")
             PdfService.createPdfClub(data, this.dropDownYear)
@@ -34,8 +34,8 @@ export default class ClubRanking extends LitElement{
     }
 
     //gets called from user per button-click, manages creation of email name reference list
-    getEmailNameList(){
-        var data = DataService.get("email-name")
+    async getEmailNameList(){
+        let data = await DataService.get("email-name")
         if(data != "failure")
             PdfService.createEmailName(data)
         else
@@ -49,8 +49,8 @@ export default class ClubRanking extends LitElement{
     }
 
     //get all available years for dropdown
-    getYearsDropdown(){
-        var data = DataService.get('all-challenges')
+    async getYearsDropdown(){
+        let data = await DataService.get('all-challenges')
         if(data != "failure"){
             var select = this.shadowRoot.getElementById('dropDownYear')
             for(var i = 0; i < data.length; i ++){

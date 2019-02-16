@@ -69,7 +69,7 @@ export default class OverviewSelector extends LitElement{
     }
 
     //sets the new page body content / component
-    changeContent(content){
+    async changeContent(content){
         this.lastUsedContent = content
         let websiteContent = this.shadowRoot.getElementById('website-content')
         this.checkForHtlLogo()
@@ -104,7 +104,7 @@ export default class OverviewSelector extends LitElement{
                 websiteContent.innerHTML = `<challenge-manager></challenge-manager>`
                 break
             case 'edit':
-                var data = DataService.get('data-participant', JSON.parse('{"email":"' + this.email + '"}'))
+                let data = await DataService.get('data-participant', JSON.parse('{"email":"' + this.email + '"}'))
                 websiteContent.innerHTML = `<data-form firstName="${data.firstName}" lastName="${data.lastName}" birthday="${data.birthday}" weight="${data.weight}" gender="${data.gender}" club="${data.club}"></data-form>`
                 break
             case 'data-form':
@@ -142,16 +142,21 @@ export default class OverviewSelector extends LitElement{
         this.getEmail()
 
         //by listener we get informed when the email has arrived
-        document.addEventListener("emailArrived", _ => {
-            this.checkForDistanceBtn()
-            this.checkForParticipantRanking()
-            this.checkForChallengeManagerBtn()
+        document.addEventListener("emailArrived", () => {
+            this.startChecking()
         })
     }
 
+    //since we want to program async, we have to outsource the code from event listener
+    async startChecking(){
+        await this.checkForDistanceBtn()
+        await this.checkForParticipantRanking()
+        await this.checkForChallengeManagerBtn()
+    }
+
     //checks if participant ranking button has to be enabled
-    checkForParticipantRanking(){
-        if(this.emailStatus == "participant")
+    async checkForParticipantRanking(){
+        if(this.emailStatus == "participant" || this.emailStatus == "schramm")
             this.shadowRoot.getElementById('participantRankingBtn').style.display = 'initial'
     }
 
@@ -162,8 +167,8 @@ export default class OverviewSelector extends LitElement{
     }
     
     //check if there is a challenge running
-    checkForDistanceBtn(){
-        var data = DataService.get('challenge-status', JSON.parse('{"email":"' + this.email + '"}'))
+    async checkForDistanceBtn(){
+        let data = await DataService.get('challenge-status', JSON.parse('{"email":"' + this.email + '"}'))
 
         if(data.challengeStatus == "true"){
             this.shadowRoot.getElementById('distanceBtn').style.display = 'initial'
@@ -179,19 +184,18 @@ export default class OverviewSelector extends LitElement{
     setDistanceSelectors(){
         if(this.emailStatus == 'participant' || this.emailStatus == 'schramm') {
             this.distanceSelector = 'distance-form-participant'
-
-            //when participant or hr. schramm is logged in, we also have to enable the participant ranking button
-            this.shadowRoot.getElementById('participantRankingBtn').style.display = 'initial'
         }
         else
             this.distanceSelector = 'distance-form-club'
         
     }
 
-    _handleSignInEvent(e){
+    async _handleSignInEvent(e){
         var email = gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail()
 
-        if(DataService.get("email-exists", JSON.parse('{"email":"' + email + '"}')) == false){
+        let emailExists = await DataService.get("email-exists", JSON.parse('{"email":"' + email + '"}'))
+
+        if(!emailExists){
             this.changeContent('data-form')
         }
         else{

@@ -17,14 +17,14 @@ export default class WebsiteHeader extends LitElement{
     }
 
     //gets called when a new language is selected, loads the new translation and sets it afterwards for this component
-    changeLanguage(language){
-        TranslationService.loadTranslation(language)
+    async changeLanguage(language){
+        await TranslationService.loadTranslation(language)
         this.translation = TranslationService.getTranslation('website-header')
     }
 
     //manages the countdown at the top of the website
-    countdown(){
-        var data = DataService.get('challenge-time')
+    async countdown(){
+        var data = await DataService.get('challenge-time')
 
         setInterval(_ => {
             //calculate time remaining

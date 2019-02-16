@@ -22,12 +22,12 @@ export default class ParticipantRanking extends LitElement{
     }
 
     //get the data from service and call pdf-manage method
-    getDistances(){
+    async getDistances(){
         this.dropDownYear = this.shadowRoot.getElementById('dropDownYear').value
         this.dropDownResult = this.shadowRoot.getElementById('dropDownResult').value
         this.dropDownSequence = this.shadowRoot.getElementById('dropDownSequence').value
 
-        var data = DataService.get('participant-ranking', JSON.parse('{"year":"' + this.dropDownYear + '","result":"' + this.dropDownResult + '","sequence":"' + this.dropDownSequence + '"}'))
+        var data = await DataService.get('participant-ranking', JSON.parse('{"year":"' + this.dropDownYear + '","result":"' + this.dropDownResult + '","sequence":"' + this.dropDownSequence + '"}'))
 
         if(data != "failure")
             this.managePdfCreation(data)
@@ -48,8 +48,8 @@ export default class ParticipantRanking extends LitElement{
     }
 
     //get all available years for dropdown
-    getYearsDropdown(){
-        var data = DataService.get('all-challenges')
+    async getYearsDropdown(){
+        var data = await DataService.get('all-challenges')
         if(data != "failure"){
             var select = this.shadowRoot.getElementById('dropDownYear')
 

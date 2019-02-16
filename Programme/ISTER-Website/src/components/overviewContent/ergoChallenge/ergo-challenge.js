@@ -27,8 +27,8 @@ export default class ErgoChallenge extends LitElement{
     }
 
     //gets actual session dates from service and adds it to page
-    getChallengeSessions(){
-        var data = DataService.get('challenge-sessions', JSON.parse('{"actualYear":"' + this.getChallengeYear() + '"}'))
+    async getChallengeSessions(){
+        let data = await DataService.get('challenge-sessions', JSON.parse('{"actualYear":"' + this.getChallengeYear() + '"}'))
         this.appendChildTo(data.roundOne)
         this.appendChildTo(data.roundTwo)
         this.appendChildTo(data.roundThree)

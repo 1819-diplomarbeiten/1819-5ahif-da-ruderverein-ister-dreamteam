@@ -17,8 +17,8 @@ var currentTranslation = []
 export default class TranslationService{
 
     //loads language into the service
-    static loadTranslation(language){   
-        currentTranslation = DataService.get("translation", JSON.parse('{"language":"' + language + '"}'))
+    static async loadTranslation(language){   
+        currentTranslation = await DataService.get("translation", JSON.parse('{"language":"' + language + '"}'))
 
         //fire event that language has changed
         document.dispatchEvent(

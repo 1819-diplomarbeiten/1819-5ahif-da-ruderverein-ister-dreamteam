@@ -68,13 +68,13 @@ export default class DataForm extends LitElement{
     }
 
     //fills dropdown list with current clubs from db
-    fillClubDropdown(selectMenue){
+    async fillClubDropdown(selectMenue){
         var clubs = this.shadowRoot.getElementById(selectMenue)
-        var data = ''
+        let data = ''
 
         //check which dropdown content to create
         if(selectMenue == "club"){
-            data = DataService.get('all-clubs')
+            data = await DataService.get('all-clubs')
 
             //create first empty option for no-club
             var option = document.createElement('option')
@@ -82,7 +82,7 @@ export default class DataForm extends LitElement{
             clubs.appendChild(option)
         }
         else
-            data = DataService.get('all-clubs-reduced')
+            data = await DataService.get('all-clubs-reduced')
 
         //iterate through club-list and add as dropdown child
         for(var i = 0; i < data.length; i ++){
@@ -335,7 +335,7 @@ export default class DataForm extends LitElement{
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-sm"><strong>${this.translation["weight"]} (kg) *</strong></span>
                     </div>
-                    <input id="weight" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                    <input id="weight" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" style="width:50px">
                 </div>
                 <br>
                 <div id=genders">

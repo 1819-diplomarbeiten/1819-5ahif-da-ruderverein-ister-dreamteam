@@ -1,12 +1,10 @@
 import {LitElement, html, eventOptions} from '@polymer/lit-element'
 import DataService from '../../../services/rest/dataService.js'
-import TranslationService from '../../../services/translation/translationService.js'
 
 export default class LoginForm extends LitElement{
     
     constructor(){
         super();
-        this.translation = TranslationService.getTranslation('overview-selector')
     }
 
     ready(){
@@ -28,13 +26,14 @@ export default class LoginForm extends LitElement{
         `
     }
 
-    static _handleSignInEvent(e){
+    static async _handleSignInEvent(e){
+        console.log('hellooooo, i am entering this method')
         let mainComp = this.shadowRoot.getElementById('website-content')
         let elem = null
         var email = gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail()
         console.log(JSON.parse('{"email":"' + this.email + '"}'))
-        
-        if(DataService.get("email-exists", JSON.parse('{"email":"' + email + '"}')) == false){
+        let emailExists = await DataService.get("email-exists", JSON.parse('{"email":"' + email + '"}'))
+        if(!emailExists){
             elem = document.createElement('data-form')
             while (mainComp.firstChild) {
                 mainComp.removeChild(mainComp.firstChild);
