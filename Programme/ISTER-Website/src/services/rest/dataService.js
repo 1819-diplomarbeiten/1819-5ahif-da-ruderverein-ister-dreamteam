@@ -55,6 +55,8 @@ export default class DataService{
     }
 
     static async get(msgType, jsonParams){
+        console.log('dataServce -->' + msgType)
+
         return await fetch(this.getRealPath(msgType, jsonParams))
                         .then(resp => {
                             if(resp.status == 200)
@@ -129,19 +131,5 @@ export default class DataService{
             default:
                 break
         }
-    }
-    
-    //get request
-    //jsonParams: data for body, msgType: to get right extension
-    static getTranslation(jsonParams){
-        const request = new XMLHttpRequest()
-        request.open("GET", this.getRealPath("translation", jsonParams), false)
-        request.send(null)
-
-        if(request.status === 200){
-            return JSON.parse(request.responseText)
-        }
-        else
-            return "failure"
     }
 }

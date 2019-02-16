@@ -11,14 +11,14 @@ var clubDistanceKeys = ["distanceClubHeadlineOne", "distanceClubSubheadlineOne",
 var participantDistanceKeys = ["distanceSubmitBtn", "distanceBackBtn", "distanceHeadlineThree", "distanceParticipantHeadlineOne", "distance", "distanceParticipantErrorMsg", "distanceParticipantHeadlineTwo", "distanceParticipantSelectionTwo", "distanceParticipantSuccessThree"]
 var pdfKeys = ["pdfEmail", "pdfName", "pdfClub", "pdfShortcut", "pdfTotal", "pdfRating", "pdfRound", "pdfCat", "pdfMeter", "pdfAthletes", "rankingYear", "pdfClass", "male", "female", "categories", "resultPerWeekend", "pdfStatistics", "pdfParticipantCount", "pdfParticipant"]
 var loginKeys = ["male", "female", "firstName", "lastName", "birthday", "weight", "gender", "pdfClub", "loginHeader", "distanceSubmitBtn", "pdfParticipant", "pdfShortcut", "existingClub", "createClub", "registerAs", "longname", "editHeader"]
-var currentTranslation = []
+let currentTranslation = []
 
 //service class for translation of website
 export default class TranslationService{
 
     //loads language into the service
-    static loadTranslation(language){   
-        currentTranslation = DataService.getTranslation(JSON.parse('{"language":"' + language + '"}'))
+    static async loadTranslation(language){   
+        currentTranslation = await DataService.get('translation', JSON.parse('{"language":"' + language + '"}'))
 
         if(currentTranslation != "failure"){       
             //fire event that language has changed

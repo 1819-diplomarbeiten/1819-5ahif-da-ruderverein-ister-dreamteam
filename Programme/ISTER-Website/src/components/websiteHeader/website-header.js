@@ -6,19 +6,21 @@ import DataService from '../../services/rest/dataService.js';
 export default class WebsiteHeader extends LitElement{
     static get properties(){
         return {
-            translation: []
+            translation: [],
+            entered: Boolean
         }
     }
 
     constructor(){
         super();
         this.translation = []
+        this.entered = false
         this.changeLanguage('german')
     }
 
     //gets called when a new language is selected, loads the new translation and sets it afterwards for this component
-    changeLanguage(language){
-        TranslationService.loadTranslation(language)
+    async changeLanguage(language){
+        await TranslationService.loadTranslation(language)
         this.translation = TranslationService.getTranslation('website-header')
     }
 
@@ -69,12 +71,18 @@ export default class WebsiteHeader extends LitElement{
 
     render(){
         $(document).ready(() => { 
-            //start countdown
-            this.countdown()
 
-            //set event for language change
-            this.shadowRoot.getElementById('language').onchange = (event) => {
-                this.changeLanguage(event.target.value)
+            //make sure we only enter 1 time
+            if(!this.entered){
+
+                //start countdown
+                this.countdown()
+
+                //set event for language change
+                this.shadowRoot.getElementById('language').onchange = (event) => {
+                    this.changeLanguage(event.target.value)
+                }
+                this.entered = true
             }
         })
         return html`

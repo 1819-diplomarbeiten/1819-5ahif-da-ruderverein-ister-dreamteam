@@ -376,6 +376,7 @@ export default class ChallengeManager extends LitElement{
             this.shadowRoot.getElementById('distanceNotification').innerHTML = `<span class="error">${errors}</span>`
     }
 
+    //check field values for change distance view
     validateChangeDistanceInputParams(){
         var errorString = ''
         this.email = this.shadowRoot.getElementById('emailDistance').value
