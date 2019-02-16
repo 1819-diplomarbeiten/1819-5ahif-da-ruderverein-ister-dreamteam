@@ -54,24 +54,19 @@ export default class DataService{
             })
     }
 
-    //get request
-    //jsonParams: data for body, msgType: to get right extension
-    /*static get(msgType, jsonParams){
-        const request = new XMLHttpRequest()
-        request.open("GET", this.getRealPath(msgType, jsonParams), false)
-        request.send(null)
-
-        if(request.status === 200){
-            return JSON.parse(request.responseText)
-        }
-        else
-            return "failure"
-    }*/
-
     static async get(msgType, jsonParams){
         return await fetch(this.getRealPath(msgType, jsonParams))
+                        .then(resp => {
+                            if(resp.status == 200)
+                                return resp
+                            else
+                                return "failure"
+                        })
                         .then(resp => resp.json())
-                        .catch(err => "failure")
+                        .catch(err => {
+                            console.log(err)
+                            return "failure"
+                        })
     }
 
     //delete request
@@ -134,5 +129,19 @@ export default class DataService{
             default:
                 break
         }
+    }
+    
+    //get request
+    //jsonParams: data for body, msgType: to get right extension
+    static getTranslation(jsonParams){
+        const request = new XMLHttpRequest()
+        request.open("GET", this.getRealPath("translation", jsonParams), false)
+        request.send(null)
+
+        if(request.status === 200){
+            return JSON.parse(request.responseText)
+        }
+        else
+            return "failure"
     }
 }
