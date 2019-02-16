@@ -56,8 +56,11 @@ export default class OverviewSelector extends LitElement{
     }
     
     //redirect to ister website
-    changeWebsite(){
-        window.location.replace('http://www.ister.at/Ister1/')
+    changeWebsite(type){
+        if(type == 'ISTER')
+            window.location.replace('http://www.ister.at/Ister1/')
+        else if(type == 'MAIN')
+            window.location.replace('http://ergo-challenge.ister.at/')
     }
 
     //disable htl-logo if home view component is not displayed
@@ -200,7 +203,7 @@ export default class OverviewSelector extends LitElement{
         
     }
 
-    async _handleSignInEvent(e){
+    async handleSignInEvent(e){
         var email = gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail()
 
         let emailExists = await DataService.get("email-exists", JSON.parse('{"email":"' + email + '"}'))
@@ -220,7 +223,7 @@ export default class OverviewSelector extends LitElement{
     }
 
     //checks for when the user logs out and disables all dependable components
-    _handleSignOutEvent(e){
+    handleSignOutEvent(e){
         this.shadowRoot.getElementById('participantRankingBtn').style.display = 'none'
         this.shadowRoot.getElementById('challengeManagerBtn').style.display = 'none'
         this.shadowRoot.getElementById('distanceBtn').style.display = 'none'
@@ -239,7 +242,7 @@ export default class OverviewSelector extends LitElement{
             
                 <div class="login-group">
                     <div class="btn-group mr-2" role="group" aria-label="First group">
-                    <google-signin id="signinBtn" client-id="863083094018-90dqbb2kvkiaog6tugmd5gagr7kgf483.apps.googleusercontent.com" @google-signin-success="${(e) => this._handleSignInEvent(e)}"" @google-signed-out="${(e) => this._handleSignOutEvent(e)}"></google-signin>
+                    <google-signin id="signinBtn" client-id="863083094018-90dqbb2kvkiaog6tugmd5gagr7kgf483.apps.googleusercontent.com" @google-signin-success="${(e) => this.handleSignInEvent(e)}"" @google-signed-out="${(e) => this.handleSignOutEvent(e)}"></google-signin>
                     </div>
                     <div class="btn-group mr-2" role="group" aria-label="Second group">
                     <button id="editBtn" style="display:none" type="button" class="btn btn-primary custom-color login-align" @click="${() => this.changeContent('edit')}"><p class="text"><i class="fas fa-cogs"></i></p></button>
@@ -257,7 +260,8 @@ export default class OverviewSelector extends LitElement{
                     </div>
                     <div class="btn-group mr-2" role="group" aria-label="Third group">
                         <button id="distanceBtn" type="button" class="btn btn-primary custom-color" style="display:none" @click="${() => this.changeContent('distance')}"><p class="text">${this.translation["distanceBtn"]}</p></button>
-                        <button type="button" class="btn btn-primary custom-color" @click="${() => this.changeWebsite()}"><p class="text">LRV Ister</p></button>
+                        <button type="button" class="btn btn-primary custom-color" @click="${() => this.changeWebsite('ISTER')}"><p class="text">LRV Ister</p></button>
+                        <button type="button" class="btn btn-primary custom-color" @click="${() => this.changeWebsite('MAIN')}"><p class="text">${this.translation["mainpageBtn"]}HauptseitNOTRANS</p></button>
                     </div>
                     <div class="btn-group mr-2" role="group" aria-label="Fourth group">
                         <button id="challengeManagerBtn"type="button" class="btn btn-primary custom-color" @click="${() => this.changeContent('challenge-manager')}" style="display:none"><p class="text">Challenge Manager</p></button>
