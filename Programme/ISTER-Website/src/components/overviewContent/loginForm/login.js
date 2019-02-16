@@ -33,7 +33,8 @@ export default class LoginForm extends LitElement{
         var email = gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail()
         console.log(JSON.parse('{"email":"' + this.email + '"}'))
         let emailExists = await DataService.get("email-exists", JSON.parse('{"email":"' + email + '"}'))
-        if(!emailExists){
+        
+        if(emailExists != "failure" && !emailExists){
             elem = document.createElement('data-form')
             while (mainComp.firstChild) {
                 mainComp.removeChild(mainComp.firstChild);

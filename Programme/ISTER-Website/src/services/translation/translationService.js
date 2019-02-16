@@ -20,11 +20,16 @@ export default class TranslationService{
     static async loadTranslation(language){   
         currentTranslation = await DataService.get("translation", JSON.parse('{"language":"' + language + '"}'))
 
-        //fire event that language has changed
-        document.dispatchEvent(
-            new CustomEvent("languageChanged", {
-                bubbles: true
-        }));
+        if(currentTranslation != "failure"){       
+            //fire event that language has changed
+            document.dispatchEvent(
+                new CustomEvent("languageChanged", {
+                    bubbles: true
+            }));
+        }
+        else{
+            window.alert('CONNECTION ERROR')
+        }
     }
     
     //with the string-param, the method returns only the specific translations needed

@@ -29,12 +29,18 @@ export default class ErgoChallenge extends LitElement{
     //gets actual session dates from service and adds it to page
     async getChallengeSessions(){
         let data = await DataService.get('challenge-sessions', JSON.parse('{"actualYear":"' + this.getChallengeYear() + '"}'))
-        this.appendChildTo(data.roundOne)
-        this.appendChildTo(data.roundTwo)
-        this.appendChildTo(data.roundThree)
-        this.appendChildTo(data.roundFour)
-        this.appendChildTo(data.roundFive)
-        this.appendChildTo(data.roundSix)
+        
+        if(data != "failure"){       
+            this.appendChildTo(data.roundOne)
+            this.appendChildTo(data.roundTwo)
+            this.appendChildTo(data.roundThree)
+            this.appendChildTo(data.roundFour)
+            this.appendChildTo(data.roundFive)
+            this.appendChildTo(data.roundSix)
+        }
+        else{
+            window.alert('CONNECTION ERROR')
+        }
     }
 
     //prepares single row data

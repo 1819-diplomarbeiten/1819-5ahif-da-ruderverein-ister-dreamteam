@@ -58,7 +58,7 @@ export default class ClubRanking extends LitElement{
             }
         }
         else
-            console.log("ERROR LOADING YEARS")
+            window.alert("ERROR LOADING YEARS")
     }
 
     //creates single option element with "year / year + 1" 

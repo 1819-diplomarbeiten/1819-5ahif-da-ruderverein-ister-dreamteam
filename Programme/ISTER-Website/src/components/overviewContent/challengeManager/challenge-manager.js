@@ -35,7 +35,7 @@ export default class ChallengeManager extends LitElement{
             this.doTableFill(data)
         }
         else
-            console.log('connection failed')
+            window.alert('connection failed')
         
     }
 

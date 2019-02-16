@@ -26,7 +26,8 @@ export default class WebsiteHeader extends LitElement{
     async countdown(){
         var data = await DataService.get('challenge-time')
 
-        setInterval(_ => {
+        if(data != "failure"){
+            setInterval(_ => {
             //calculate time remaining
             var distance = data.time - new Date().getTime();
             
@@ -51,7 +52,11 @@ export default class WebsiteHeader extends LitElement{
             this.shadowRoot.getElementById('countdown').innerHTML = `
                 <span><strong>${this.translation["headerCountdown"]} ${startsEnds} &rarr; </strong></span>${days}<span class="highlight"> ${this.translation["headerDay"]} </span>${hours}<span class="highlight"> ${this.translation["headerHour"]} </span>${minutes}<span class="highlight"> ${this.translation["headerMinutes"]} </span>${seconds}<span class="highlight"> ${this.translation["headerSeconds"]} </span>
                 `
-        }, 994);
+            }, 995);
+        }
+        else
+            window.alert('CONNECTION ERROR')
+        
     }
 
     //add styling zeros if necessary

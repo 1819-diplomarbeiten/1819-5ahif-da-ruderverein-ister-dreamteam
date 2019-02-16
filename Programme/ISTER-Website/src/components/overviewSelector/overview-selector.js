@@ -69,7 +69,7 @@ export default class OverviewSelector extends LitElement{
     }
 
     //sets the new page body content / component
-    async changeContent(content){
+    changeContent(content){
         this.lastUsedContent = content
         let websiteContent = this.shadowRoot.getElementById('website-content')
         this.checkForHtlLogo()
@@ -98,20 +98,27 @@ export default class OverviewSelector extends LitElement{
                 break
             case 'login':
                 this.manageLoginUsage()
-                
                 break
             case 'challenge-manager':
                 websiteContent.innerHTML = `<challenge-manager></challenge-manager>`
                 break
             case 'edit':
-                let data = await DataService.get('data-participant', JSON.parse('{"email":"' + this.email + '"}'))
-                websiteContent.innerHTML = `<data-form firstName="${data.firstName}" lastName="${data.lastName}" birthday="${data.birthday}" weight="${data.weight}" gender="${data.gender}" club="${data.club}"></data-form>`
+                this.handleEditUsage()
                 break
             case 'data-form':
                 websiteContent.innerHTML = `<data-form></data-form>`
             default:
                 break
         }
+    }
+
+    async handleEditUsage(){
+        let data = await DataService.get('data-participant', JSON.parse('{"email":"' + this.email + '"}'))
+        
+        if(data != "failure")
+            websiteContent.innerHTML = `<data-form firstName="${data.firstName}" lastName="${data.lastName}" birthday="${data.birthday}" weight="${data.weight}" gender="${data.gender}" club="${data.club}"></data-form>`
+        else
+            window.alert('CONNECTION ERROR')
     }
 
     //sets interval and waits until auth2 content is not null
@@ -170,14 +177,17 @@ export default class OverviewSelector extends LitElement{
     async checkForDistanceBtn(){
         let data = await DataService.get('challenge-status', JSON.parse('{"email":"' + this.email + '"}'))
 
-        if(data.challengeStatus == "true"){
-            this.shadowRoot.getElementById('distanceBtn').style.display = 'initial'
-            this.emailStatus = data.emailStatus
-            this.setDistanceSelectors()
+        if(data != "failure"){     
+            if(data.challengeStatus == "true"){
+                this.shadowRoot.getElementById('distanceBtn').style.display = 'initial'
+                this.emailStatus = data.emailStatus
+                this.setDistanceSelectors()
+            }
+            else
+                this.shadowRoot.getElementById('distanceBtn').style.display = 'none'
         }
         else
-            this.shadowRoot.getElementById('distanceBtn').style.display = 'none'
-        
+            window.alert('CONNECTION ERROR')
     }
 
     //checks which distance formular has to be displayed
@@ -195,14 +205,18 @@ export default class OverviewSelector extends LitElement{
 
         let emailExists = await DataService.get("email-exists", JSON.parse('{"email":"' + email + '"}'))
 
-        if(!emailExists){
-            this.changeContent('data-form')
+        if(emailExists != "failure"){          
+            if(!emailExists){
+                this.changeContent('data-form')
+            }
+            else{
+                //nach testen this.changeContent ('home')
+                this.changeContent('data-form')
+            }
+            this.manageLoginUsage()
         }
-        else{
-            //nach testen this.changeContent ('home')
-            this.changeContent('data-form')
-        }
-        this.manageLoginUsage()
+        else
+            window.alert('CONNECTION ERROR')
     }
 
     //checks for when the user logs out and disables all dependable components

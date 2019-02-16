@@ -84,12 +84,18 @@ export default class DataForm extends LitElement{
         else
             data = await DataService.get('all-clubs-reduced')
 
-        //iterate through club-list and add as dropdown child
-        for(var i = 0; i < data.length; i ++){
-            option = document.createElement('option')
-            option.innerHTML = data[i]
-            option.value = data[i]
-            clubs.appendChild(option)
+        if(data != "failure"){       
+
+            //iterate through club-list and add as dropdown child
+            for(var i = 0; i < data.length; i ++){
+                option = document.createElement('option')
+                option.innerHTML = data[i]
+                option.value = data[i]
+                clubs.appendChild(option)
+            }
+        }
+        else{
+            window.alert('CONNECTION ERROR')
         }
     }
 
