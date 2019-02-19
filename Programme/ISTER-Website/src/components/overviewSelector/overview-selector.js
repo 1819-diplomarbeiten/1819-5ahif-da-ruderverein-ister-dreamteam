@@ -12,7 +12,8 @@ export default class OverviewSelector extends LitElement{
             email: '',
             emailStatus: '',
             emailSchramm: '',
-            distanceSelector: ''
+            distanceSelector: '',
+            isEdit: Boolean
         }
     }
 
@@ -34,10 +35,21 @@ export default class OverviewSelector extends LitElement{
 
     //add event listener in case the login page has to be closed
     setLoginCallback(){
-        document.addEventListener("submitBtnPressed", _ => {
+        document.addEventListener("submitBtnPressed", () => {
+            this.changeContent('home')
+
+            //enable all buttons
+            this.changeButtonsBarClickablity()
+            
+            //display edit button if participant logged in
+            if(this.emailStatus != 'club')
+                this.shadowRoot.getElementById('editBtn').style.display = 'initial'
+        })
+
+        document.addEventListener("submitBtnPressedEdit", () => {
             this.changeContent('home')
             
-            //enable edit button if participant logged in
+            //display edit button if participant logged in
             if(this.emailStatus != 'club')
                 this.shadowRoot.getElementById('editBtn').style.display = 'initial'
         })
@@ -106,7 +118,7 @@ export default class OverviewSelector extends LitElement{
                 websiteContent.innerHTML = `<challenge-manager></challenge-manager>`
                 break
             case 'edit':
-                this.handleEditUsage()
+                this.handleEditUsage(websiteContent)
                 break
             case 'data-form':
                 websiteContent.innerHTML = `<data-form></data-form>`
@@ -115,7 +127,7 @@ export default class OverviewSelector extends LitElement{
         }
     }
 
-    async handleEditUsage(){
+    async handleEditUsage(websiteContent){
         let data = await DataService.get('data-participant', JSON.parse('{"email":"' + this.email + '"}'))
         
         if(data != "failure")
@@ -204,6 +216,8 @@ export default class OverviewSelector extends LitElement{
     }
 
     async handleSignInEvent(e){
+        this.changeButtonsBarClickablity()
+
         var email = gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail()
 
         let emailExists = await DataService.get("email-exists", JSON.parse('{"email":"' + email + '"}'))
@@ -229,6 +243,27 @@ export default class OverviewSelector extends LitElement{
         this.shadowRoot.getElementById('distanceBtn').style.display = 'none'
         this.shadowRoot.getElementById('editBtn').style.display = 'none'
         this.changeContent('home')
+
+        //check if buttons bar is still disabled
+        if(this.shadowRoot.getElementById('homeBtn').disabled)
+            this.changeButtonsBarClickablity()
+    }
+
+    //check visibilty of buttons bar and change it
+    changeButtonsBarClickablity(){
+        var state = false
+
+        if(!this.shadowRoot.getElementById('homeBtn').disabled)
+            state = true
+
+        this.shadowRoot.getElementById('homeBtn').disabled = state
+        this.shadowRoot.getElementById('ergoBtn').disabled = state
+        this.shadowRoot.getElementById('clubBtn').disabled = state
+        this.shadowRoot.getElementById('participantRankingBtn').disabled = state
+        this.shadowRoot.getElementById('distanceBtn').disabled = state
+        this.shadowRoot.getElementById('isterBtn').disabled = state
+        this.shadowRoot.getElementById('mainBtn').disabled = state
+        this.shadowRoot.getElementById('challengeManagerBtn').disabled = state
     }
 
     render(){
@@ -241,7 +276,7 @@ export default class OverviewSelector extends LitElement{
                 <p class="banner"><strong>Ergo Challenge ISTER Linz</strong></p>
             
                 <div class="login-group">
-                    <div class="btn-group mr-2" role="group" aria-label="First group">
+                    <div class="btn-group mr-2" role="group" aria-label="First group" id="testBla">
                     <google-signin id="signinBtn" client-id="863083094018-90dqbb2kvkiaog6tugmd5gagr7kgf483.apps.googleusercontent.com" @google-signin-success="${(e) => this.handleSignInEvent(e)}"" @google-signed-out="${(e) => this.handleSignOutEvent(e)}"></google-signin>
                     </div>
                     <div class="btn-group mr-2" role="group" aria-label="Second group">
@@ -251,20 +286,20 @@ export default class OverviewSelector extends LitElement{
 
                 <div class="btn-toolbar componentSelection" role="toolbar" aria-label="Toolbar with button groups">
                     <div class="btn-group mr-2" role="group" aria-label="First group">
-                        <button type="button" class="btn btn-primary custom-color" @click="${() => this.changeContent('home')}"><p class="text">${this.translation["homeBtn"]}</p></button>
-                        <button type="button" class="btn btn-primary custom-color" @click="${() => this.changeContent('ergo')}"><p class="text">${this.translation["ergoBtn"]}</p></button>
+                        <button id="homeBtn" type="button" class="btn btn-primary custom-color" @click="${() => this.changeContent('home')}"><p class="text">${this.translation["homeBtn"]}</p></button>
+                        <button id="ergoBtn" type="button" class="btn btn-primary custom-color" @click="${() => this.changeContent('ergo')}"><p class="text">${this.translation["ergoBtn"]}</p></button>
                     </div>
                     <div class="btn-group mr-2" role="group" aria-label="Second group">
-                        <button type="button" class="btn btn-primary custom-color" @click="${() => this.changeContent('club')}"><p class="text">${this.translation["clubRankingBtn"]}</p></button>
+                        <button id="clubBtn" type="button" class="btn btn-primary custom-color" @click="${() => this.changeContent('club')}"><p class="text">${this.translation["clubRankingBtn"]}</p></button>
                         <button id="participantRankingBtn" type="button" class="btn btn-primary custom-color" @click="${() => this.changeContent('participant')}" style="display:none"><p class="text">${this.translation["participantRankingBtn"]}</p></button>
                     </div>
                     <div class="btn-group mr-2" role="group" aria-label="Third group">
                         <button id="distanceBtn" type="button" class="btn btn-primary custom-color" style="display:none" @click="${() => this.changeContent('distance')}"><p class="text">${this.translation["distanceBtn"]}</p></button>
-                        <button type="button" class="btn btn-primary custom-color" @click="${() => this.changeWebsite('ISTER')}"><p class="text">LRV Ister</p></button>
-                        <button type="button" class="btn btn-primary custom-color" @click="${() => this.changeWebsite('MAIN')}"><p class="text">${this.translation["mainpageBtn"]}HauptseitNOTRANS</p></button>
+                        <button id="isterBtn" type="button" class="btn btn-primary custom-color" @click="${() => this.changeWebsite('ISTER')}"><p class="text">LRV Ister</p></button>
+                        <button id="mainBtn" type="button" class="btn btn-primary custom-color" @click="${() => this.changeWebsite('MAIN')}"><p class="text">${this.translation["mainpageBtn"]}HauptseitNOTRANS</p></button>
                     </div>
                     <div class="btn-group mr-2" role="group" aria-label="Fourth group">
-                        <button id="challengeManagerBtn"type="button" class="btn btn-primary custom-color" @click="${() => this.changeContent('challenge-manager')}" style="display:none"><p class="text">Challenge Manager</p></button>
+                        <button id="challengeManagerBtn" type="button" class="btn btn-primary custom-color" @click="${() => this.changeContent('challenge-manager')}" style="display:none"><p class="text">Challenge Manager</p></button>
                     </div>
                 </div>
             </div>

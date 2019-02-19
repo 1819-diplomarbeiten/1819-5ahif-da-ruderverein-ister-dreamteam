@@ -56,12 +56,12 @@ export default class DistanceFormClub extends LitElement{
                 this.shadowRoot.getElementById('stepBackThree').style.display = 'initial'
             }
             else {
-                this.executePost(jsonObj)
+                this.executePut(jsonObj)
             }
         })
     }
 
-    async executePost(jsonObj){
+    async executePut(jsonObj){
         var response = await DataService.post(jsonObj, "periods")
 
         if(response == "success")

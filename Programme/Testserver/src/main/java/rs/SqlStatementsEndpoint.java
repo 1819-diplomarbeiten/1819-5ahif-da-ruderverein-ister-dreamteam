@@ -312,7 +312,7 @@ public class SqlStatementsEndpoint {
         System.out.println("================================");
         System.out.println("======Get Challenge Status======");
         System.out.println(email);
-        return Json.createObjectBuilder().add("challengeStatus", "true").add("emailStatus", "club").build();
+        return Json.createObjectBuilder().add("challengeStatus", "true").add("emailStatus", "schramm").build();
     }
 
     @GET
@@ -325,13 +325,14 @@ public class SqlStatementsEndpoint {
         return Json.createObjectBuilder().add("firstName", "Daniel").add("lastName", "Mazanek").add("birthday", "07-07-1999").add("weight", "70").add("gender", "m").add("club", "Donau Wien").build();
     }
 
-    @POST
+    @PUT
     @Path("/postDataForm")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void dataForm(final JsonObject json){
+    public Response dataForm(final JsonObject json){
         System.out.println("===============================");
         System.out.println("===========Data Form===========");
         System.out.println(json);
+        return Response.ok().build();
     }
 
     @PUT

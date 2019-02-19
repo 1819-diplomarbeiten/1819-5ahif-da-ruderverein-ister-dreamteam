@@ -135,11 +135,21 @@ export default class DataForm extends LitElement{
         let response = await DataService.put(json, "data-form")
 
         if(response == "success"){
+
             //fire event for component change
-            let events = new CustomEvent("submitBtnPressed", {
-                bubbles: true
-            })
-            document.dispatchEvent(events);
+            if(this.isCreate){
+                let events = new CustomEvent("submitBtnPressed", {
+                    bubbles: true
+                })
+                document.dispatchEvent(events);
+            }
+            else{
+                let events = new CustomEvent("submitBtnPressedEdit", {
+                    bubbles: true
+                })
+                document.dispatchEvent(events);
+            }
+            
         }
         else
             window.alert('ERROR')
@@ -186,6 +196,10 @@ export default class DataForm extends LitElement{
                 this.fillClubDropdown('club')
                 this.fillClubDropdown('clubReduced')
 
+                //set first formular
+                this.shadowRoot.getElementById('participant').checked = true
+                this.creationTypeSelected('participantCreateEdit', 'clubAssignment')
+
                 //birthday only pickable at first creation
                 if(this.checkIfCreateOrUpdate())
                     $(this.shadowRoot.getElementById('birthday')).Zebra_DatePicker();
@@ -205,12 +219,12 @@ export default class DataForm extends LitElement{
                 </div>
                 <br>
                 <div class="custom-control custom-radio">
-                    <input type="radio" class="custom-control-input" id="clubs" name="clubOrParticipant" @click="${() => this.creationTypeSelected('clubAssignment', 'participantCreateEdit')}">
-                    <label class="custom-control-label" for="clubs">${this.translation["pdfClub"]}</label>
-                </div>
-                <div class="custom-control custom-radio">
                     <input type="radio" class="custom-control-input" id="participant" name="clubOrParticipant" @click="${() => this.creationTypeSelected('participantCreateEdit', 'clubAssignment')}">
                     <label class="custom-control-label" for="participant">${this.translation["pdfParticipant"]}</label>
+                </div>
+                <div class="custom-control custom-radio">
+                    <input type="radio" class="custom-control-input" id="clubs" name="clubOrParticipant" @click="${() => this.creationTypeSelected('clubAssignment', 'participantCreateEdit')}">
+                    <label class="custom-control-label" for="clubs">${this.translation["pdfClub"]}</label>
                 </div>
             </div>
 

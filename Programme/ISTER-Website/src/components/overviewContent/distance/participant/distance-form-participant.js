@@ -25,22 +25,18 @@ export default class DistanceFormParticipant extends LitElement{
         //gets called when var file is ready 
         fileReader.onload = event => {
             this.evidencePic = event.target.result
-            this.postPeriod(this.evidencePic)
+            this.putPeriod()
         };
 
         //get file
         var file = this.shadowRoot.getElementById('evidencePic').files[0]
 
-        //check if evidence picture is selected, depending on that preparing POST with(out) pic
-        if(file == undefined)
-            this.postPeriod(null)
-        else
-            fileReader.readAsDataURL(file);   
+        fileReader.readAsDataURL(file);   
     }
 
     //POST per Service
-    async postPeriod(evidencePic){
-        let response = await DataService.post(JSON.parse("{\"distance\":" + this.distance + ",\"evidencePic\":\"" + evidencePic + "\",\"email\":\"" + gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail() + "\"}"), "period")
+    async putPeriod(){
+        let response = await DataService.post(JSON.parse("{\"distance\":" + this.distance + ",\"evidencePic\":\"" + this.evidencePic + "\",\"email\":\"" + gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail() + "\"}"), "period")
         if(response == "success")
             this.shadowRoot.getElementById('waiting').innerHTML = `${this.translation["distanceParticipantSuccessThree"]}!`
         else
@@ -64,6 +60,7 @@ export default class DistanceFormParticipant extends LitElement{
 
     //displays filename beneath selection button
     setFileName(){
+        this.shadowRoot.getElementById('doneTwo').disabled = false
         this.shadowRoot.getElementById('picNotification').innerHTML = this.shadowRoot.getElementById('evidencePic').files[0].name
     }
 
@@ -139,7 +136,7 @@ export default class DistanceFormParticipant extends LitElement{
                 
                 <p id="picNotification"></p>
                 <div class="btn-group" role="group">
-                    <button id="doneTwo" type="submit" class="btn btn-primary custom-color" @click="${() => this.activate('3')}">${this.translation["distanceSubmitBtn"]}</button>
+                    <button id="doneTwo" disabled type="submit" class="btn btn-primary custom-color" @click="${() => this.activate('3')}">${this.translation["distanceSubmitBtn"]}</button>
                     <button type="submit" class="btn btn-primary custom-color-reverse" @click="${() => this.activate('1')}">${this.translation["distanceBackBtn"]}</button><br><br>
                 </div>
             </div>
