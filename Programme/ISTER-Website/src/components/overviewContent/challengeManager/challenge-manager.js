@@ -125,9 +125,16 @@ export default class ChallengeManager extends LitElement{
             this.shadowRoot.getElementById(this.selectedValueId).innerHTML = this.getTdContent('enabled', this.selectedValueId, this.intToDate(newDate))
             
             //update session date at backend
-            DataService.put(JSON.stringify({"oldDate": this.oldDate, "newDate": newDate}), 'session-date-update')
-            window.alert('Datum wurde in der Datenbank geupdatet')
+            this.executeSessionPost(newDate)
         }
+    }
+
+    async executeSessionPost(newDate){
+        let response = await DataService.post(JSON.stringify({"oldDate": this.oldDate, "newDate": newDate}), 'session-date-update')
+        if(response == "success")
+            window.alert('Datum wurde in der Datenbank geupdatet')
+        else
+            window.alert('Fehler beim hochladen')
     }
 
     //create single cell object
@@ -172,15 +179,25 @@ export default class ChallengeManager extends LitElement{
     }
 
     //delete challenge
-    deleteChallenge(id){
+    async deleteChallenge(id){
         var year = id.substring(0,4)
         if(window.confirm('Wollen Sie die Challenge vom Jahr ' + year + ' wirklich aus der Datenbank löschen?')){
-            window.alert('Challenge von ' + year + ' gelöscht')
             console.log('DataService delete hier auskommentiert')
-            //DataService.delete('delete-single-challenge', id)
-            this.deleteSpecificChallengeFromList(year)
-            this.shadowRoot.getElementById('manageBody').innerHTML = ''
-            this.getAllChallenges()
+            /*
+            let response = await DataService.delete('delete-single-challenge', id)
+
+            if(response == "success"){
+
+                //stuff that the list on frontend is correct
+                this.deleteSpecificChallengeFromList(year)
+                this.shadowRoot.getElementById('manageBody').innerHTML = ''
+                this.getAllChallenges()
+
+                window.alert('Challenge von ' + year + ' gelöscht')
+            }
+            else
+                window.alert('Fehler beim löschen')
+            */
         }
     }
 
@@ -368,12 +385,20 @@ export default class ChallengeManager extends LitElement{
     changeDistanceOnBackend(){
         var errors = this.validateChangeDistanceInputParams()
         if(errors == ""){
-            DataService.put(this.getUpdateDistanceJson(), 'change-distance')
+            this.executeDistancePost()
             this.shadowRoot.getElementById('distanceNotification').innerHTML = ``
-            window.alert('Distanz wurde geupdatet')
         }
         else
             this.shadowRoot.getElementById('distanceNotification').innerHTML = `<span class="error">${errors}</span>`
+    }
+
+    async executeDistancePost(){
+        var response = await DataService.post(this.getUpdateDistanceJson(), 'change-distance')
+        if(response == "success")
+            window.alert('Distanz wurde geupdatet')
+        else
+            window.alert('Fehler beim hochladen')
+        this.shadowRoot.getElementById('distanceNotification').innerHTML = ``
     }
 
     //check field values for change distance view
@@ -506,16 +531,27 @@ export default class ChallengeManager extends LitElement{
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(email).toLowerCase());
     }
+
+    async executeChallengePut(){
+        var response = await DataService.put(this.createMsgJson(), "challenge")
+
+        if(response == "success")
+            window.alert('Erfolgreich hochgeladen!')
+        else
+            window.alert('Fehler beim hochladen!')
+
+        this.shadowRoot.getElementById('notification').innerHTML = ''
+        this.uploaded = true
+    }
     
     //create new challenge
-    createNewChallenge(){
+    async createNewChallenge(){
 
         //all fields filled?
         if(this.allValuesSelected() == false)
             this.shadowRoot.getElementById('notification').innerHTML = '<span class="error">Nicht alle Werte wurden ausgefüllt<span>'
         else {
-            DataService.post(this.createMsgJson(), "challenge")
-            this.shadowRoot.getElementById('notification').innerHTML = ''
+            this.executeChallengePut()
             
             //now we have to add it to the page AND check if we may update the existing but not started challenge (april to october)
             var usedIdex = 0
@@ -556,7 +592,6 @@ export default class ChallengeManager extends LitElement{
 
     //create json for 6 round dates
     createMsgJson(){
-        console.log(JSON.parse("{\"roundOne\":\"" + this.shadowRoot.getElementById('roundOne').value + "\",\"roundTwo\":\"" + this.shadowRoot.getElementById('roundTwo').value + "\",\"roundThree\":\"" + this.shadowRoot.getElementById('roundThree').value + "\",\"roundFour\":\"" + this.shadowRoot.getElementById('roundFour').value + "\",\"roundFive\":\"" + this.shadowRoot.getElementById('roundFive').value + "\",\"roundSix\":\"" + this.shadowRoot.getElementById('roundSix').value + "\",\"year\":\"" + this.shadowRoot.getElementById('dropDown').value + "\"}"))
         return JSON.parse("{\"roundOne\":\"" + this.shadowRoot.getElementById('roundOne').value + "\",\"roundTwo\":\"" + this.shadowRoot.getElementById('roundTwo').value + "\",\"roundThree\":\"" + this.shadowRoot.getElementById('roundThree').value + "\",\"roundFour\":\"" + this.shadowRoot.getElementById('roundFour').value + "\",\"roundFive\":\"" + this.shadowRoot.getElementById('roundFive').value + "\",\"roundSix\":\"" + this.shadowRoot.getElementById('roundSix').value + "\",\"year\":\"" + this.shadowRoot.getElementById('dropDown').value + "\"}")
     }
 

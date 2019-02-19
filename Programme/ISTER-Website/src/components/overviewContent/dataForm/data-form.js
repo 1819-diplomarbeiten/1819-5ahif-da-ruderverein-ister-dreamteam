@@ -113,26 +113,36 @@ export default class DataForm extends LitElement{
 
                 //club also selected? (important for json)
                 if(this.shadowRoot.getElementById('club').value != '')
-                    DataService.post(JSON.parse('{"firstName":"' + this.firstName + '","msgType":"' + 'participantWithClub' + '","lastName":"' + this.lastName + '","birthday":"' + this.birthday + '","weight":"' + this.weight + '","gender":"' + this.gender + '","club":"' + this.club + '","email":"' + gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail() + '"}'), "data-form")
+                    this.executePut(JSON.parse('{"firstName":"' + this.firstName + '","msgType":"' + 'participantWithClub' + '","lastName":"' + this.lastName + '","birthday":"' + this.birthday + '","weight":"' + this.weight + '","gender":"' + this.gender + '","club":"' + this.club + '","email":"' + gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail() + '"}'))
                 else
-                    DataService.post(JSON.parse('{"firstName":"' + this.firstName + '","msgType":"' + 'participantWithoutClub' + '","lastName":"' + this.lastName + '","birthday":"' + this.birthday + '","weight":"' + this.weight + '","gender":"' + this.gender + '","email":"' + gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail() + '"}'), "data-form")
+                    this.executePut(JSON.parse('{"firstName":"' + this.firstName + '","msgType":"' + 'participantWithoutClub' + '","lastName":"' + this.lastName + '","birthday":"' + this.birthday + '","weight":"' + this.weight + '","gender":"' + this.gender + '","email":"' + gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail() + '"}'))
             }
             else {
 
                 //existing club
                 if(this.isClubCreation)
-                    DataService.post(JSON.parse('{"clubLong":"' + this.nameLong + '","msgType":"' + 'clubNew' + '","clubShort":"' + this.nameShort + '","email":"' + gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail() + '"}'), "data-form")
+                    this.executePut(JSON.parse('{"clubLong":"' + this.nameLong + '","msgType":"' + 'clubNew' + '","clubShort":"' + this.nameShort + '","email":"' + gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail() + '"}'))
                 //new club
                 else
-                    DataService.post(JSON.parse('{"club":"' + this.club + '","msgType":"' + 'clubExisting' + '","email":"' + gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail() + '"}'), "data-form")
+                    this.executePut(JSON.parse('{"club":"' + this.club + '","msgType":"' + 'clubExisting' + '","email":"' + gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail() + '"}'))
             }
             
+            
+        }
+    }
+
+    async executePut(json){
+        let response = await DataService.put(json, "data-form")
+
+        if(response == "success"){
             //fire event for component change
             let events = new CustomEvent("submitBtnPressed", {
                 bubbles: true
             })
             document.dispatchEvent(events);
         }
+        else
+            window.alert('ERROR')
     }
 
     //enable / disable   club / participant registration view

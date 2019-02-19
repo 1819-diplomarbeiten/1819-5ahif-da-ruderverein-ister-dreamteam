@@ -39,9 +39,12 @@ export default class DistanceFormParticipant extends LitElement{
     }
 
     //POST per Service
-    postPeriod(evidencePic){
-        DataService.post(JSON.parse("{\"distance\":" + this.distance + ",\"evidencePic\":\"" + evidencePic + "\",\"email\":\"" + gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail() + "\"}"), "period")
-        this.shadowRoot.getElementById('waiting').innerHTML = `${this.translation["distanceParticipantSuccessThree"]}!`
+    async postPeriod(evidencePic){
+        let response = await DataService.post(JSON.parse("{\"distance\":" + this.distance + ",\"evidencePic\":\"" + evidencePic + "\",\"email\":\"" + gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail() + "\"}"), "period")
+        if(response == "success")
+            this.shadowRoot.getElementById('waiting').innerHTML = `${this.translation["distanceParticipantSuccessThree"]}!`
+        else
+            this.shadowRoot.getElementById('waiting').innerHTML = `Fehler beim Hochladen NOTRANSLATION!`
         this.shadowRoot.getElementById('notification').innerHTML = ''
         this.uploaded = true
     }
@@ -146,7 +149,7 @@ export default class DistanceFormParticipant extends LitElement{
             </div>
             <div class="horizontal-line"></div><br>
             <div id="contentThree" style="display:none">
-                <h3 id="waiting"><strong>Waiting ...</strong></h3>
+                <h3 id="waiting"><strong>Waiting NOTRANSLATION...</strong></h3>
                 <p id="notification"></p>
                 <button id="stepBackThree" style="display:none" type="submit" class="btn btn-primary custom-color-reverse" @click="${() => this.activate('2')}">${this.translation["distanceBackBtn"]}</button>
             </div>

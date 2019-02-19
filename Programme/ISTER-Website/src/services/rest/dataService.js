@@ -26,8 +26,8 @@ export default class DataService{
 
     //post request
     //json: data for body, msgType: to get right extension
-    static post(json, msgType){
-        fetch(this.getRealPath(msgType),
+    static async post(json, msgType){
+        return await fetch(this.getRealPath(msgType),
                 {
                     method: "POST",
                     body: JSON.stringify({
@@ -38,12 +38,22 @@ export default class DataService{
                     }
                 }
             )
+            .then(resp => {
+                if(resp.status != 200)
+                    return "failure"
+                else
+                    return "success"
+            })
+            .catch(err => {
+                console.log(err)
+                return "failure"
+            })
     }
 
     //put request
     //json: data for body, msgType: to get right extension
-    static put(json, msgType){
-        fetch(this.getRealPath(msgType), {
+    static async put(json, msgType){
+        return await fetch(this.getRealPath(msgType), {
                 method: "PUT",
                 body: JSON.stringify({
                     "object": json
@@ -52,11 +62,21 @@ export default class DataService{
                     "content-type": "application/json"
                 }
             })
+            .then(resp => {
+                if(resp.status != 200)
+                    return "failure"
+                else
+                    return "success"
+            })
+            .catch(err => {
+                console.log(err)
+                return "failure"
+            })
     }
 
+    //get request
+    //jsonParams: data for body, msgType: to get right extension
     static async get(msgType, jsonParams){
-        console.log('dataServce -->' + msgType)
-
         return await fetch(this.getRealPath(msgType, jsonParams))
                         .then(resp => {
                             if(resp.status == 200)
@@ -73,8 +93,8 @@ export default class DataService{
 
     //delete request
     //jsonParams: data for body, msgType: to get right extension
-    static delete(msgType, json){
-        fetch(this.getRealPath(msgType), {
+    static async delete(msgType, json){
+        return await fetch(this.getRealPath(msgType), {
             method: "DELETE",
             body: JSON.stringify({
                 "object": json
@@ -82,6 +102,16 @@ export default class DataService{
             headers: {
                 "content-type": "application/json"
             }
+        })
+        .then(resp => {
+            if(resp.status != 200)
+                return "failure"
+            else
+                return "success"
+        })
+        .catch(err => {
+            console.log(err)
+            return "failure"
         })
     }
 

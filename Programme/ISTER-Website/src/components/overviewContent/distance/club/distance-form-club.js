@@ -56,16 +56,26 @@ export default class DistanceFormClub extends LitElement{
                 this.shadowRoot.getElementById('stepBackThree').style.display = 'initial'
             }
             else {
-                DataService.post(jsonObj, "periods")
-                this.shadowRoot.getElementById('waiting').innerHTML = `${this.translation["distanceClubSuccessThree"]}!`
-                this.shadowRoot.getElementById('notification').innerHTML = ''
-                this.uploaded = true
+                this.executePost(jsonObj)
             }
         })
     }
 
+    async executePost(jsonObj){
+        var response = await DataService.post(jsonObj, "periods")
+
+        if(response == "success")
+            this.shadowRoot.getElementById('waiting').innerHTML = `${this.translation["distanceClubSuccessThree"]}!`
+        else
+            this.shadowRoot.getElementById('waiting').innerHTML = `Fehler beim Hochladen NOTRANSLATION!`
+
+        this.shadowRoot.getElementById('notification').innerHTML = ''
+        this.uploaded = true
+    }
+
     //checks the structure of the excel (header, valid distance, valid email)
     excelIsValid(jsonObj){
+
         //Header name check
         if(jsonObj[0].Distance == undefined || jsonObj[0].Email == undefined){
             return false

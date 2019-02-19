@@ -3,6 +3,7 @@ package rs;
 import javax.json.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -34,10 +35,15 @@ public class SqlStatementsEndpoint {
     @POST
     @Path("/postPeriod")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void postPeriod(final JsonObject msg){
+    public Response postPeriod(final JsonObject msg){
         System.out.println("================================");
         System.out.println("===========Post Period==========");
-        System.out.println(msg.getInt("distance") + "  " + msg.getJsonString("evidencePic").getString());
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return Response.ok().build();
     }
 
     @GET
@@ -93,22 +99,34 @@ public class SqlStatementsEndpoint {
     @POST
     @Path("/postChallenge")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void postChallenge(final JsonObject msg){
+    public Response postChallenge(final JsonObject msg){
         System.out.println("================================");
         System.out.println("===========Post Challenge==========");
-        System.out.println(msg.getString("year") + "  " + msg.getString("roundOne") + "  " + msg.getString("roundTwo") + "  " + msg.getString("roundThree") + "  " + msg.getString("roundFour") + "  " + msg.getString("roundFive") + "  " + msg.getString("roundSix"));
+        //System.out.println(msg.getString("year") + "  " + msg.getString("roundOne") + "  " + msg.getString("roundTwo") + "  " + msg.getString("roundThree") + "  " + msg.getString("roundFour") + "  " + msg.getString("roundFive") + "  " + msg.getString("roundSix"));
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return Response.ok().build();
     }
 
     @POST
     @Path("/postPeriods")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void postPeriods(final JsonArray periods){
+    public Response postPeriods(final JsonArray periods){
         System.out.println("================================");
         System.out.println("===========Post Periods=========");
-        for (int i = 0; i < periods.size(); i++) {
+        /*for (int i = 0; i < periods.size(); i++) {
             JsonObject period = periods.getJsonObject(i);
             System.out.println(period.getInt("Distance") + "  " + period.getString("Email"));
+        }*/
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+        return Response.ok().build();
     }
 
     @GET
@@ -294,7 +312,7 @@ public class SqlStatementsEndpoint {
         System.out.println("================================");
         System.out.println("======Get Challenge Status======");
         System.out.println(email);
-        return Json.createObjectBuilder().add("challengeStatus", "true").add("emailStatus", "participant").build();
+        return Json.createObjectBuilder().add("challengeStatus", "true").add("emailStatus", "club").build();
     }
 
     @GET
