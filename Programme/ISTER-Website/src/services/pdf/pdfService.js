@@ -242,6 +242,7 @@ export default class PdfService{
         }
 
         //create last row and create table
+        console.log(result)
         rows = this.getDistanceFootnoteArray(rows, result.distanceFootnoteTable, resultDistanceTable.length)
         doc.autoTable(columns, rows, this.getStandardPdfAutotableOptions(35, 9, 7));
         return doc;
@@ -249,6 +250,8 @@ export default class PdfService{
 
     //create last row of distance table
     static getDistanceFootnoteArray(rows, result, startIndex){
+        console.log(rows)
+        console.log(result)
         rows[startIndex] = { }
         rows[startIndex + 1] = {
             "clubLong": translation["pdfParticipantCount"] + " " + translation["pdfTotal"],
@@ -358,11 +361,11 @@ export default class PdfService{
         return {
             "participation": participation,
             "roundOne": row.roundOne,
-            "roundTwo": row.roundOne,
-            "roundThree": row.roundOne,
-            "roundFour": row.roundOne,
-            "roundFive": row.roundOne,
-            "roundSix": row.roundOne,
+            "roundTwo": row.roundTwo,
+            "roundThree": row.roundThree,
+            "roundFour": row.roundFour,
+            "roundFive": row.roundFive,
+            "roundSix": row.roundSix,
             "count": this.calculateTotal(row)
         }
     }
