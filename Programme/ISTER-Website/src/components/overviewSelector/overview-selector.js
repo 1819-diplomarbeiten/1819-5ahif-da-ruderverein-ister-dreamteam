@@ -78,7 +78,7 @@ export default class OverviewSelector extends LitElement{
     //disable htl-logo if home view component is not displayed
     checkForHtlLogo(){
         if(this.lastUsedContent != 'home')
-            this.shadowRoot.getElementById('htl').style.display = 'none'
+            this.shadowRoot.getElementById('htl').style.display = 'initial'
         else
             this.shadowRoot.getElementById('htl').style.display = 'initial'
     }
@@ -306,7 +306,7 @@ export default class OverviewSelector extends LitElement{
             <div id="website-content" class="body-container">
                 <home-view></home-view>
             </div>
-            <img id="htl" src="images/htl-leonding.jpg" width="100" height="16" class="image-htl">
+            <img id="htl" src="images/htl-leonding.jpg" width="150" height="24" class="image-htl">
             `
     }
 }

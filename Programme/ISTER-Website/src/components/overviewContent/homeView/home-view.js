@@ -18,6 +18,7 @@ export default class HomeView extends LitElement{
         return html`
             <link rel="stylesheet" type="text/css" href="/src/components/overviewContent/homeView/styles.css"></link>
             <h1><strong>${this.translation["homeHeadline"]}</strong></h1>
+            <br>
             <div class="body-container">
                 <img src="images/homeView.jpg" width="650" height="433" class="image">
                 <div class="text-container">

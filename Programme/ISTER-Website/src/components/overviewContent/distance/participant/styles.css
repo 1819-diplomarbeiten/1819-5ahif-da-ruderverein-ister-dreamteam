@@ -54,15 +54,6 @@ div.horizontal-line{
     background-color: #35424A;
     border-color: #35424A;
 }
-.dropzone {
-    background: white;
-    border-radius: 5px;
-    border: 2px dashed rgb(0, 135, 247);
-    border-image: none;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-}
 span.error{
     color: red;
     font-size: 12px;
@@ -74,8 +65,8 @@ div.body-content{
 div.background-image {
     position: fixed;
     left: -3%;
-    margin-top: -1%;
-    z-index: 1;
+    margin-top: -5%;
+    z-index: -1;
     background-image: url("../../../../../images/background/homepage_003.jpg");
     display: block;
     width: 103%;

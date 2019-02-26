@@ -5,7 +5,7 @@
     margin-top: -2%;
 }
 
-@media only screen and (max-width: 990px){
+@media only screen and (max-width: 1200px){
     .body-container{
         flex-direction: column
     }
@@ -20,12 +20,4 @@
 }
 .lineSeparator{
     line-height: 2.7
-}
-.image-htl{
-    float: right;
-    margin-top: 20%;
-    margin-left: -2%
-}
-.image{
-    margin-top: 2%
 }

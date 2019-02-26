@@ -54,8 +54,8 @@ p.text{
 }
 .image-htl{
     position: absolute;
-    top: 85%;
-    right: 10px;
+    top: 10%;
+    left: 44%;
 }
 @media only screen and (max-width: 1200px){
     .componentSelection{

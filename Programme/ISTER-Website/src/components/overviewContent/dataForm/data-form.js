@@ -136,6 +136,16 @@ export default class DataForm extends LitElement{
 
         if(response == "success"){
 
+            //tell our user that it was a success
+            if(this.isCreate){         
+                //eigentlich: window.alert(this.translation["registerSuccess"])
+                window.alert('Erfolgreich registriert!NOTRANSLATION')
+            }
+            else {
+                //eigentlich: window.alert(this.translation["editSuccess"])
+                window.alert('Erfolgreich bearbeitet!NOTRANSLATION')
+            }
+
             //fire event for component change
             if(this.isCreate){
                 let events = new CustomEvent("submitBtnPressed", {
@@ -152,7 +162,7 @@ export default class DataForm extends LitElement{
             
         }
         else
-            window.alert('ERROR')
+            window.alert('CONNECTION ERROR')
     }
 
     //enable / disable   club / participant registration view
@@ -201,8 +211,10 @@ export default class DataForm extends LitElement{
                 this.creationTypeSelected('participantCreateEdit', 'clubAssignment')
 
                 //birthday only pickable at first creation
-                if(this.checkIfCreateOrUpdate())
+                if(this.checkIfCreateOrUpdate()){
+                    console.log('hi')
                     $(this.shadowRoot.getElementById('birthday')).Zebra_DatePicker();
+                }
 
                 this.entered = true
             }
@@ -248,7 +260,7 @@ export default class DataForm extends LitElement{
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-sm"><strong>${this.translation["birthday"]} *</strong></span>
                     </div>
-                    <input id="birthday" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" style="width:90px;text-align:right">
+                    <input id="birthday" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" style="width:190px;text-align:right">
                 </div>
                 <br>
                 <div class="input-group input-group-sm mb-3">
@@ -317,7 +329,7 @@ export default class DataForm extends LitElement{
                 </div>
             </div>
             <br>
-            <button id="submitBtn" type="submit" style="display:none" class="btn btn-primary custom-color" @click="${() => this.submitBtnPressed()}">${this.translation["distanceSubmitBtn"]}</button>
+            <button id="submitBtn" type="submit" style="display:none" class="btn btn-primary custom-color" @click="${() => this.submitBtnPressed()}">${this.translation["saveBtn"]}SpeichernNOTRANS</button>
             <br>
             <br>
         `
