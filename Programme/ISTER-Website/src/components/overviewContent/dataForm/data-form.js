@@ -113,7 +113,7 @@ export default class DataForm extends LitElement{
 
                 //club also selected? (important for json)
                 if(this.shadowRoot.getElementById('club').value != '')
-                    this.executePut(JSON.parse('{"firstName":"' + this.firstName + '","msgType":"' + 'participantWithClub' + '","lastName":"' + this.lastName + '","birthday":"' + this.birthday + '","weight":"' + this.weight + '","gender":"' + this.gender + '","club":"' + this.club + '","email":"' + gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail() + '"}'))
+                    this.executePut(JSON.parse('{"firstName":"' + this.firstName + '","msgType":"' + 'participantWithClub' + '","lastName":"' + this.lastName + '","birthday":"' + this.birthday + '","weight":"' + this.weight + '","gender":"' + this.gender + '","club":"' + this.club + '","":"' + gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail() + '"}'))
                 else
                     this.executePut(JSON.parse('{"firstName":"' + this.firstName + '","msgType":"' + 'participantWithoutClub' + '","lastName":"' + this.lastName + '","birthday":"' + this.birthday + '","weight":"' + this.weight + '","gender":"' + this.gender + '","email":"' + gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail() + '"}'))
             }
@@ -222,12 +222,12 @@ export default class DataForm extends LitElement{
         return html`
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
             <link rel="stylesheet" type="text/css" href="/src/components/overviewContent/dataForm/styles.css">
-            <h1 id="componentsEditHeader" style="display:none">${this.translation["editHeader"]}Persönliche Daten bearbeitenNoTranslation<br></h1>
+            <h1 id="componentsEditHeader" style="display:none">${this.translation["editHeader"]}<br></h1>
             <h1 id="componentsStandardHeader">${this.translation["loginHeader"]}</h1>
             <div id="creationType">
                 <br>
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-sm"><strong>${this.translation["registerAs"]}Registrieren alsNoTranslation</strong></span>
+                    <span class="input-group-text" id="inputGroup-sizing-sm"><strong>${this.translation["registerAs"]}</strong></span>
                 </div>
                 <br>
                 <div class="custom-control custom-radio">
@@ -297,8 +297,8 @@ export default class DataForm extends LitElement{
             <div id="clubAssignment" style="display:none">
                 <div id="createOrTakeover">
                     <br>
-                    <label class="radio-inline"><input type="radio" checked name="optradio" @click="${() => this.setClubRegistrationContent('createClub', 'existingClub')}">${this.translation["createClub"]}Neuen Club erstellenNoTranslation</label>
-                    <label class="radio-inline"><input type="radio" name="optradio" @click="${() => this.setClubRegistrationContent('existingClub', 'createClub')}">${this.translation["existingClub"]}Vorhandenen übernehmenNoTranslation</label>
+                    <label class="radio-inline"><input type="radio" checked name="optradio" @click="${() => this.setClubRegistrationContent('createClub', 'existingClub')}">${this.translation["createClub"]}</label>
+                    <label class="radio-inline"><input type="radio" name="optradio" @click="${() => this.setClubRegistrationContent('existingClub', 'createClub')}">${this.translation["existingClub"]}</label>
                 </div>
                 <div id="createClub">
                     <div class="input-group input-group-sm mb-3">

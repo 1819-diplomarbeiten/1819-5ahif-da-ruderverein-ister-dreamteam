@@ -21,7 +21,7 @@ export default class OverviewSelector extends LitElement{
         super();
 
         //email from hr schramm
-        this.emailSchramm = 'daniel.maz99@gmail.com'
+        this.emailSchramm = 'davipoin@gmail.com'
 
         //set first "default" content
         this.lastUsedContent = 'home'
@@ -191,6 +191,7 @@ export default class OverviewSelector extends LitElement{
     //check if there is a challenge running
     async checkForDistanceBtn(){
         let data = await DataService.get('challenge-status', JSON.parse('{"email":"' + this.email + '"}'))
+        console.log(data);
 
         if(data != "failure"){     
             if(data.challengeStatus == "true"){
@@ -227,8 +228,8 @@ export default class OverviewSelector extends LitElement{
                 this.changeContent('data-form')
             }
             else{
-                //nach testen this.changeContent ('home')
-                this.changeContent('data-form')
+                this.changeContent ('home')
+                //this.changeContent('data-form')
             }
             this.manageLoginUsage()
         }
@@ -253,8 +254,8 @@ export default class OverviewSelector extends LitElement{
     changeButtonsBarClickablity(){
         var state = false
 
-        if(!this.shadowRoot.getElementById('homeBtn').disabled)
-            state = true
+        //if(!this.shadowRoot.getElementById('homeBtn').disabled)
+           // state = true
 
         this.shadowRoot.getElementById('homeBtn').disabled = state
         this.shadowRoot.getElementById('ergoBtn').disabled = state
@@ -296,7 +297,7 @@ export default class OverviewSelector extends LitElement{
                     <div class="btn-group mr-2" role="group" aria-label="Third group">
                         <button id="distanceBtn" type="button" class="btn btn-primary custom-color" style="display:none" @click="${() => this.changeContent('distance')}"><p class="text">${this.translation["distanceBtn"]}</p></button>
                         <button id="isterBtn" type="button" class="btn btn-primary custom-color" @click="${() => this.changeWebsite('ISTER')}"><p class="text">LRV Ister</p></button>
-                        <button id="mainBtn" type="button" class="btn btn-primary custom-color" @click="${() => this.changeWebsite('MAIN')}"><p class="text">${this.translation["mainpageBtn"]}HauptseitNOTRANS</p></button>
+                        <button id="mainBtn" type="button" class="btn btn-primary custom-color" @click="${() => this.changeWebsite('MAIN')}"><p class="text">${this.translation["mainpageBtn"]}</p></button>
                     </div>
                     <div class="btn-group mr-2" role="group" aria-label="Fourth group">
                         <button id="challengeManagerBtn" type="button" class="btn btn-primary custom-color" @click="${() => this.changeContent('challenge-manager')}" style="display:none"><p class="text">Challenge Manager</p></button>

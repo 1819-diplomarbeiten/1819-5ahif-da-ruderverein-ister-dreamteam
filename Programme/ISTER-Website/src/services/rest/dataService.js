@@ -8,20 +8,20 @@ var clubDistanceExtension = "createResults.php"
 var participantDistanceExtension = "createResult.php"
 var challengeCreationExtension = "createChallenges.php"
 var participantRankingExtension = "bestFourDistancesParticipants.php"
-var clubRankingExtension = "bestFourDistancesClubs/"
+var clubRankingExtension = "bestFourDistancesClubs.php"
 var challengeSessionsExtension = "getChallenges.php"
-var emailNameExtension = "getEmailNameReference"
+var emailNameExtension = "getEmailNameReference.php"
 var allChallengesExtension = "getallchallenges.php"
 var actualChallengeTimeExtension = "actualchallengetime.php"
-var challengeStatusExtension = "challengeStatus/"
+var challengeStatusExtension = "getEmailStatus.php"
 var picSearchExtension = "picSearch/"
-var updateSessionDateExtension = "updateSessionDate/"
-var deleteSingleChallengeExtension = "blablabla"
+var updateSessionDateExtension = "updateSessionDate.php"
+var deleteSingleChallengeExtension = "deleteChallenges.php"
 var dataFormExtension = "postDataForm"
 var allClubsExtension = "getAllClubs.php"
 var getDataExtension = "getDataByParticipant/"
 var getTranslationExtension = "getTranslation.php"
-var changeDistanceExtension = "changeDistance"
+var changeDistanceExtension = "changeDistance.php"
 export default class DataService{
 
     //post request
@@ -30,9 +30,7 @@ export default class DataService{
         return await fetch(this.getRealPath(msgType),
                 {
                     method: "POST",
-                    body: JSON.stringify({
-                        "object": json
-                      }),
+                    body: json,
                     headers: {
                         "Content-Type": "application/json"
                     }
@@ -55,9 +53,7 @@ export default class DataService{
     static async put(json, msgType){
         return await fetch(this.getRealPath(msgType), {
                 method: "PUT",
-                body: JSON.stringify({
-                    "object": json
-                  }),
+                body: json,
                 headers: {
                     "content-type": "application/json"
                 }
@@ -127,11 +123,11 @@ export default class DataService{
             case "participant-ranking":
                 return path + participantRankingExtension + "?year=" + jsonParams.year + "&result=" + jsonParams.result + "&sequence=" + jsonParams.sequence
             case "club-ranking":
-                return pathTwo + clubRankingExtension + jsonParams.year + "/" + jsonParams.sequence    
+                return path + clubRankingExtension + "?year=" + jsonParams.year + "&sequence=" + jsonParams.sequence    
             case "challenge-sessions":
                 return path + challengeSessionsExtension + "?year=" + jsonParams.actualYear
             case "email-name":
-                return pathTwo + emailNameExtension
+                return path + emailNameExtension
             case "all-challenges":
                 return path + allChallengesExtension
             case "evidence-pic":
@@ -139,11 +135,11 @@ export default class DataService{
             case "challenge-time":
                 return path + actualChallengeTimeExtension
             case "challenge-status":
-                return pathTwo + challengeStatusExtension + jsonParams.email
+                return path + challengeStatusExtension + "?email=" + jsonParams.email
             case "session-date-update":
-                return pathTwo + updateSessionDateExtension
+                return path + updateSessionDateExtension
             case "delete-single-challenge":
-                return pathTwo + deleteSingleChallengeExtension
+                return path + deleteSingleChallengeExtension + "?year=" + jsonParams.year
             case "email-exists":
                 return path + emailExists + "?email=" +jsonParams.email
             case "data-form":
@@ -157,7 +153,7 @@ export default class DataService{
             case "all-clubs-reduced":
                 return path + allClubsExtension
             case "change-distance":
-                return pathTwo + changeDistanceExtension
+                return path + changeDistanceExtension
             default:
                 break
         }

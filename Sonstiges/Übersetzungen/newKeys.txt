@@ -1,0 +1,10 @@
+birthday: Geburtsdatum
+createClub: Neuen Club erstellen
+editHeader: Persönliche Daten bearbeiten
+firstName: Vorname
+gender: Geschlecht
+lastName: Nachname
+longname: Clubname
+registerAs: Registrieren als
+weight: Gewicht
+mainPageBtn: Hauptseite

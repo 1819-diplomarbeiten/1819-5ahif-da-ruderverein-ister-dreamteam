@@ -130,6 +130,7 @@ export default class ChallengeManager extends LitElement{
     }
 
     async executeSessionPost(newDate){
+        console.log(JSON.stringify({"oldDate": this.oldDate, "newDate": newDate}));
         let response = await DataService.post(JSON.stringify({"oldDate": this.oldDate, "newDate": newDate}), 'session-date-update')
         if(response == "success")
             window.alert('Datum wurde in der Datenbank geupdatet')
@@ -183,6 +184,7 @@ export default class ChallengeManager extends LitElement{
         var year = id.substring(0,4)
         if(window.confirm('Wollen Sie die Challenge vom Jahr ' + year + ' wirklich aus der Datenbank löschen?')){
             console.log('DataService delete hier auskommentiert')
+            console.log(id)
             /*
             let response = await DataService.delete('delete-single-challenge', id)
 
@@ -393,6 +395,7 @@ export default class ChallengeManager extends LitElement{
     }
 
     async executeDistancePost(){
+        
         var response = await DataService.post(this.getUpdateDistanceJson(), 'change-distance')
         if(response == "success")
             window.alert('Distanz wurde geupdatet')
@@ -425,7 +428,7 @@ export default class ChallengeManager extends LitElement{
 
     //returns json object for distance update
     getUpdateDistanceJson(){
-        return JSON.parse('{"email":"' + this.shadowRoot.getElementById('emailDistance').value + '","year":"' + this.shadowRoot.getElementById('yearDistance').value + '","session":"' + this.shadowRoot.getElementById('sessionDistance').value + '","oldValue":"' + this.shadowRoot.getElementById('oldValueDistance').value + '","newValue":"' + this.shadowRoot.getElementById('newValueDistance').value + '"}')
+        return JSON.stringify({"email": this.shadowRoot.getElementById('emailDistance').value ,"year":this.shadowRoot.getElementById('yearDistance').value ,"session": this.shadowRoot.getElementById('sessionDistance').value ,"oldValue":this.shadowRoot.getElementById('oldValueDistance').value,"newValue": + this.shadowRoot.getElementById('newValueDistance').value })
     }
 
     //returns if given param-date is in the past
@@ -592,7 +595,7 @@ export default class ChallengeManager extends LitElement{
 
     //create json for 6 round dates
     createMsgJson(){
-        return JSON.parse("{\"roundOne\":\"" + this.shadowRoot.getElementById('roundOne').value + "\",\"roundTwo\":\"" + this.shadowRoot.getElementById('roundTwo').value + "\",\"roundThree\":\"" + this.shadowRoot.getElementById('roundThree').value + "\",\"roundFour\":\"" + this.shadowRoot.getElementById('roundFour').value + "\",\"roundFive\":\"" + this.shadowRoot.getElementById('roundFive').value + "\",\"roundSix\":\"" + this.shadowRoot.getElementById('roundSix').value + "\",\"year\":\"" + this.shadowRoot.getElementById('dropDown').value + "\"}")
+        return JSON.stringify({"roundOne": this.shadowRoot.getElementById('roundOne').value ,"roundTwo": this.shadowRoot.getElementById('roundTwo').value,"roundThree":this.shadowRoot.getElementById('roundThree').value,"roundFour": this.shadowRoot.getElementById('roundFour').value ,"roundFive": this.shadowRoot.getElementById('roundFive').value ,"roundSix": this.shadowRoot.getElementById('roundSix').value,"year": this.shadowRoot.getElementById('dropDown').value })
     }
 
     //returns if all fields have a valid value
