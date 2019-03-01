@@ -328,10 +328,9 @@ public class SqlStatementsEndpoint {
     @PUT
     @Path("/postDataForm")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response dataForm(final JsonObject json){
+    public Response dataForm(final JsonArray json){
         System.out.println("===============================");
         System.out.println("===========Data Form===========");
-        System.out.println(json);
         return Response.ok().build();
     }
 

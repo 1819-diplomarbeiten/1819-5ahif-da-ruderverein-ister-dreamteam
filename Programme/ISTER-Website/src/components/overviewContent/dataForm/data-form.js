@@ -304,7 +304,7 @@ export default class DataForm extends LitElement{
                     <div class="input-group input-group-sm mb-3">
                         <br>
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-sm"><strong>${this.translation["longname"]}ClubnameNoTranslation *</strong></span>
+                            <span class="input-group-text" id="inputGroup-sizing-sm"><strong>${this.translation["longname"]} *</strong></span>
                         </div>
                         <input id="nameLong" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" style="width:150px">
                     </div>

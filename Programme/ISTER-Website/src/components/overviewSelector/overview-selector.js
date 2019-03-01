@@ -21,7 +21,7 @@ export default class OverviewSelector extends LitElement{
         super();
 
         //email from hr schramm
-        this.emailSchramm = 'davipoin@gmail.com'
+        this.emailSchramm = 'daniel.maz99@gmail.com'
 
         //set first "default" content
         this.lastUsedContent = 'home'
@@ -211,7 +211,7 @@ export default class OverviewSelector extends LitElement{
         if(this.emailStatus == 'participant' || this.emailStatus == 'schramm') {
             this.distanceSelector = 'distance-form-participant'
         }
-        else
+        else if(this.emailStatus == 'club')
             this.distanceSelector = 'distance-form-club'
         
     }
@@ -254,8 +254,8 @@ export default class OverviewSelector extends LitElement{
     changeButtonsBarClickablity(){
         var state = false
 
-        //if(!this.shadowRoot.getElementById('homeBtn').disabled)
-           // state = true
+        if(!this.shadowRoot.getElementById('homeBtn').disabled)
+            state = true
 
         this.shadowRoot.getElementById('homeBtn').disabled = state
         this.shadowRoot.getElementById('ergoBtn').disabled = state
@@ -307,7 +307,7 @@ export default class OverviewSelector extends LitElement{
             <div id="website-content" class="body-container">
                 <home-view></home-view>
             </div>
-            <img id="htl" src="images/htl-leonding.jpg" width="150" height="24" class="image-htl">
+            <img id="htl" src="images/htl_logo_transparent.png" width="225" height="36" style="display:none" class="image-htl">
             `
     }
 }

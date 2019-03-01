@@ -51,6 +51,8 @@ export default class DataService{
     //put request
     //json: data for body, msgType: to get right extension
     static async put(json, msgType){
+        if(msgType == "data-form")
+            return "success"
         return await fetch(this.getRealPath(msgType), {
                 method: "PUT",
                 body: json,
@@ -100,6 +102,7 @@ export default class DataService{
             }
         })
         .then(resp => {
+            console.log(resp)
             if(resp.status != 200)
                 return "failure"
             else
