@@ -67,7 +67,7 @@ export default class DistanceFormClub extends LitElement{
         if(response == "success")
             this.shadowRoot.getElementById('waiting').innerHTML = `${this.translation["distanceClubSuccessThree"]}!`
         else
-            this.shadowRoot.getElementById('waiting').innerHTML = `Fehler beim Hochladen NOTRANSLATION!`
+            this.shadowRoot.getElementById('waiting').innerHTML = `${this.translation["uploadDistanceFail"]}Fehler beim Hochladen NOTRANSLATION!`
 
         this.shadowRoot.getElementById('notification').innerHTML = ''
         this.uploaded = true
@@ -165,12 +165,12 @@ export default class DistanceFormClub extends LitElement{
                             </tr>
                             <tr>
                                 <td>2</td>
-                                <td>your.email@gmail.com</td>
+                                <td>some.email@gmail.com</td>
                                 <td>6789</td>
                             </tr>
                             <tr>
                                 <td>3</td>
-                                <td>another.email@gmx.at</td>
+                                <td>another.email@gmail.com</td>
                                 <td>7870</td>
                             </tr>
                         </tbody>

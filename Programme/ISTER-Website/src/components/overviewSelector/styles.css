@@ -53,9 +53,9 @@ p.text{
     border-color: #35424A;
 }
 .image-htl{
+    right: 1rem;
     position: absolute;
-    top: 10%;
-    left: 44%;
+    top: 46%;
 }
 @media only screen and (max-width: 1200px){
     .componentSelection{

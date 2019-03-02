@@ -1,7 +1,6 @@
 import {LitElement, html} from '@polymer/lit-element'
 import DataService from '../../services/rest/dataService.js'
 import TranslationService from '../../services/translation/translationService.js'
-import LoginForm from '../overviewContent/loginForm/login.js'
 
 //Web Component for Selector Toolbar (Banner, Menu Button, Login)
 export default class OverviewSelector extends LitElement{
@@ -164,7 +163,7 @@ export default class OverviewSelector extends LitElement{
         this.getEmail()
 
         //by listener we get informed when the email has arrived
-        document.addEventListener("emailArrived", () => {
+        document.addEventListener("submitBtnPressed", () => {
             this.startChecking()
         })
     }
@@ -191,7 +190,6 @@ export default class OverviewSelector extends LitElement{
     //check if there is a challenge running
     async checkForDistanceBtn(){
         let data = await DataService.get('challenge-status', JSON.parse('{"email":"' + this.email + '"}'))
-        console.log(data);
 
         if(data != "failure"){     
             if(data.challengeStatus == "true"){
@@ -275,13 +273,14 @@ export default class OverviewSelector extends LitElement{
             <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
             <div class ="background">
                 <p class="banner"><strong>Ergo Challenge ISTER Linz</strong></p>
+                <img id="htl" src="images/htl_logo_transparent.png" width="225" height="36" class="image-htl">
             
                 <div class="login-group">
                     <div class="btn-group mr-2" role="group" aria-label="First group" id="testBla">
                     <google-signin id="signinBtn" client-id="863083094018-90dqbb2kvkiaog6tugmd5gagr7kgf483.apps.googleusercontent.com" @google-signin-success="${(e) => this.handleSignInEvent(e)}"" @google-signed-out="${(e) => this.handleSignOutEvent(e)}"></google-signin>
                     </div>
                     <div class="btn-group mr-2" role="group" aria-label="Second group">
-                    <button id="editBtn" style="display:none" type="button" class="btn btn-primary custom-color login-align" @click="${() => this.changeContent('edit')}"><p class="text"><i class="fas fa-cogs"></i></p></button>
+                    <button id="editBtn" style="display:none" type="button" class="btn btn-primary custom-color login-align" @click="${() => this.changeContent('edit')}"><p class="text"><i class="glyphicon glyphicon-user"></i></p></button>
                     </div>
                 </div>
 
@@ -307,7 +306,6 @@ export default class OverviewSelector extends LitElement{
             <div id="website-content" class="body-container">
                 <home-view></home-view>
             </div>
-            <img id="htl" src="images/htl_logo_transparent.png" width="225" height="36" style="display:none" class="image-htl">
             `
     }
 }

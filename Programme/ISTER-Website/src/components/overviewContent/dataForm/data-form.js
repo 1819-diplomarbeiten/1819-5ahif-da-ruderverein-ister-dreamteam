@@ -138,28 +138,23 @@ export default class DataForm extends LitElement{
 
             //tell our user that it was a success
             if(this.isCreate){         
-                //eigentlich: window.alert(this.translation["registerSuccess"])
-                window.alert('Erfolgreich registriert!NOTRANSLATION')
-            }
-            else {
-                //eigentlich: window.alert(this.translation["editSuccess"])
-                window.alert('Erfolgreich bearbeitet!NOTRANSLATION')
-            }
-
-            //fire event for component change
-            if(this.isCreate){
+                window.alert(this.translation["registerSuccess"] + 'Erfolgreich registriert!NOTRANSLATION')
+                
+                //fire create event for component change
                 let events = new CustomEvent("submitBtnPressed", {
                     bubbles: true
                 })
                 document.dispatchEvent(events);
             }
-            else{
+            else {
+                window.alert(this.translation["editSuccess"] + 'Erfolgreich bearbeitet!NOTRANSLATION')
+                
+                //fire edit event for component change
                 let events = new CustomEvent("submitBtnPressedEdit", {
                     bubbles: true
                 })
                 document.dispatchEvent(events);
             }
-            
         }
         else
             window.alert('CONNECTION ERROR')
@@ -210,11 +205,7 @@ export default class DataForm extends LitElement{
                 this.shadowRoot.getElementById('participant').checked = true
                 this.creationTypeSelected('participantCreateEdit', 'clubAssignment')
 
-                //birthday only pickable at first creation
-                if(this.checkIfCreateOrUpdate()){
-                    console.log('hi')
-                    $(this.shadowRoot.getElementById('birthday')).Zebra_DatePicker();
-                }
+                /this.checkIfCreateOrUpdate()
 
                 this.entered = true
             }
@@ -258,7 +249,7 @@ export default class DataForm extends LitElement{
                 <div class="input-group input-group-sm mb-3" id="birthdayContent">
                     <br>
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-sm"><strong>${this.translation["birthday"]} *</strong></span>
+                        <span class="input-group-text" id="inputGroup-sizing-sm"><strong>${this.translation["birthday"]} (YYYY-MM-DD)*</strong></span>
                     </div>
                     <input id="birthday" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" style="width:190px;text-align:right">
                 </div>
@@ -335,6 +326,33 @@ export default class DataForm extends LitElement{
         `
     }
 
+    birthdayIsValid(birthday){
+        
+        //is empty?
+        if(birthday == '')
+            return false
+
+        var temp = birthday.split('-')
+
+        //right format?
+        if(temp == undefined || temp.length != 3)
+            return false
+
+        //check years length + only number and no one's born earlier than 1900
+        if(temp[0].length != 4 || isNaN(parseInt(temp[0])) || parseInt(temp[0]) < 1900)
+            return false
+
+        //check months length + only number and between 1-12
+        if(temp[1].length != 2 || isNaN(parseInt(temp[1])) || parseInt(temp[1]) < 1 || parseInt(temp[1]) > 12)
+            return false
+        
+        //check months length + only number and between 1-12
+        if(temp[2].length != 2 || isNaN(parseInt(temp[2])) || parseInt(temp[2]) < 1 || parseInt(temp[2]) > 31)
+            return false
+
+        return true
+    }
+
     
     //load the values from html into the variables
     setFieldValues(){
@@ -372,10 +390,9 @@ export default class DataForm extends LitElement{
     //bean validation input fields
     fieldsAreValid(){
         var valid = true
-
         //validate participant field
         if(!this.isClub){
-
+            console.log()
             //check if a first name is selected
             if(this.firstName == ''){
                 this.shadowRoot.getElementById('firstName').style.borderColor = 'red'
@@ -391,12 +408,12 @@ export default class DataForm extends LitElement{
             }
             else
                 this.shadowRoot.getElementById('lastName').style.borderColor = ''
-            
+
             //do we have to check for birthday?
             if(this.isCreate){
 
-                //check if a birthday is selected
-                if(this.birthday == ''){
+                //check if a birthday is valid
+                if(!this.birthdayIsValid(this.birthday)){
                     this.shadowRoot.getElementById('birthday').style.borderColor = 'red'
                     valid = false
                 }

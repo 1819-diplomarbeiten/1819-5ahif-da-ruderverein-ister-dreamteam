@@ -107,7 +107,7 @@ export default class ClubRanking extends LitElement{
             <input type ="button" value="${this.translation["rankingDownloadBtn"]}" class="btn btn-primary custom-color" @click="${() => this.getDistances()}"></input>
             <p id="notification"></p>
             <div id="email-name-container" style="display:none">
-                <p>------------------------</p>
+                <br>
                 <input type ="button" value="${this.translation["clubRankingEmailNameBtn"]}" class="btn btn-primary custom-color" style="width:210px" @click="${() => this.getEmailNameList()}">
                 </input><p id="notificationEmailName"></p>
             </div>
