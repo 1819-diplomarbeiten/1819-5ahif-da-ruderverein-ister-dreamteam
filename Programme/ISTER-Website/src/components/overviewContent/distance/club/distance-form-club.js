@@ -67,7 +67,7 @@ export default class DistanceFormClub extends LitElement{
         if(response == "success")
             this.shadowRoot.getElementById('waiting').innerHTML = `${this.translation["distanceClubSuccessThree"]}!`
         else
-            this.shadowRoot.getElementById('waiting').innerHTML = `${this.translation["uploadDistanceFail"]}Fehler beim Hochladen NOTRANSLATION!`
+            this.shadowRoot.getElementById('waiting').innerHTML = `${this.translation["uploadDistanceFail"]}`
 
         this.shadowRoot.getElementById('notification').innerHTML = ''
         this.uploaded = true

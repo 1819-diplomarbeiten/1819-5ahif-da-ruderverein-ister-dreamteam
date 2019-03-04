@@ -20,7 +20,7 @@ export default class OverviewSelector extends LitElement{
         super();
 
         //email from hr schramm
-        this.emailSchramm = 'daniel.maz99@gmail.com'
+        this.emailSchramm = 'davipoin@gmail.com'
 
         //set first "default" content
         this.lastUsedContent = 'home'
@@ -183,14 +183,15 @@ export default class OverviewSelector extends LitElement{
 
     //checks if challenge manager button has to be enabled
     checkForChallengeManagerBtn(){
+        this.email = gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail()
         if(this.email == this.emailSchramm)
             this.shadowRoot.getElementById('challengeManagerBtn').style.display = 'initial'
     }
     
     //check if there is a challenge running
     async checkForDistanceBtn(){
-        let data = await DataService.get('challenge-status', JSON.parse('{"email":"' + this.email + '"}'))
-
+        let email = gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail()
+        let data = await DataService.get('challenge-status', JSON.parse('{"email":"' + email + '"}'))
         if(data != "failure"){     
             if(data.challengeStatus == "true"){
                 this.shadowRoot.getElementById('distanceBtn').style.display = 'initial'
@@ -207,6 +208,7 @@ export default class OverviewSelector extends LitElement{
     //checks which distance formular has to be displayed
     setDistanceSelectors(){
         if(this.emailStatus == 'participant' || this.emailStatus == 'schramm') {
+            this.shadowRoot.getElementById('editBtn').style.display = 'initial'
             this.distanceSelector = 'distance-form-participant'
         }
         else if(this.emailStatus == 'club')
@@ -227,6 +229,8 @@ export default class OverviewSelector extends LitElement{
             }
             else{
                 this.changeContent ('home')
+                this.startChecking()
+                this.changeButtonsBarClickablity()
                 //this.changeContent('data-form')
             }
             this.manageLoginUsage()

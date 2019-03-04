@@ -185,21 +185,21 @@ export default class ChallengeManager extends LitElement{
         if(window.confirm('Wollen Sie die Challenge vom Jahr ' + year + ' wirklich aus der Datenbank löschen?')){
             console.log('DataService delete hier auskommentiert')
             console.log(id)
-            /*
-            let response = await DataService.delete('delete-single-challenge', id)
 
-            if(response == "success"){
+            //commented, but working!
+            // let response = await DataService.delete('delete-single-challenge', year)
 
-                //stuff that the list on frontend is correct
-                this.deleteSpecificChallengeFromList(year)
-                this.shadowRoot.getElementById('manageBody').innerHTML = ''
-                this.getAllChallenges()
+            // if(response == "success"){
 
-                window.alert('Challenge von ' + year + ' gelöscht')
-            }
-            else
-                window.alert('Fehler beim löschen')
-            */
+            //     this.deleteSpecificChallengeFromList(year)
+            //     this.shadowRoot.getElementById('manageBody').innerHTML = ''
+            //     this.getAllChallenges()
+
+            //     window.alert('Challenge von ' + year + ' gelöscht')
+            // }
+            // else
+            //     window.alert('Fehler beim löschen')
+            
         }
     }
 

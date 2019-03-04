@@ -40,7 +40,7 @@ export default class DistanceFormParticipant extends LitElement{
         if(response == "success")
             this.shadowRoot.getElementById('waiting').innerHTML = `${this.translation["distanceParticipantSuccessThree"]}!`
         else
-            this.shadowRoot.getElementById('waiting').innerHTML = `${this.translation["uploadDistanceFail"]}Fehler beim Hochladen NOTRANSLATION!`
+            this.shadowRoot.getElementById('waiting').innerHTML = `${this.translation["uploadDistanceFail"]}`
         this.shadowRoot.getElementById('notification').innerHTML = ''
         this.uploaded = true
     }
@@ -146,7 +146,7 @@ export default class DistanceFormParticipant extends LitElement{
             </div>
             <div class="horizontal-line"></div><br>
             <div id="contentThree" style="display:none">
-                <h3 id="waiting"><strong>${this.translation["waiting"]}Waiting NOTRANSLATION...</strong></h3>
+                <h3 id="waiting"><strong>${this.translation["waiting"]}</strong></h3>
                 <p id="notification"></p>
                 <button id="stepBackThree" style="display:none" type="submit" class="btn btn-primary custom-color-reverse" @click="${() => this.activate('2')}">${this.translation["distanceBackBtn"]}</button>
             </div>

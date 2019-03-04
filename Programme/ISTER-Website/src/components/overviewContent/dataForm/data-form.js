@@ -113,18 +113,18 @@ export default class DataForm extends LitElement{
 
                 //club also selected? (important for json)
                 if(this.shadowRoot.getElementById('club').value != '')
-                    this.executePut(JSON.parse('{"firstName":"' + this.firstName + '","msgType":"' + 'participantWithClub' + '","lastName":"' + this.lastName + '","birthday":"' + this.birthday + '","weight":"' + this.weight + '","gender":"' + this.gender + '","club":"' + this.club + '","":"' + gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail() + '"}'))
+                    this.executePut(JSON.stringify({"firstName":this.firstName,"msgType":"participantWithClub","lastName":this.lastName,"birthday":this.birthday,"weight":this.weight,"gender":this.gender,"club":this.club,"email": gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail()}))
                 else
-                    this.executePut(JSON.parse('{"firstName":"' + this.firstName + '","msgType":"' + 'participantWithoutClub' + '","lastName":"' + this.lastName + '","birthday":"' + this.birthday + '","weight":"' + this.weight + '","gender":"' + this.gender + '","email":"' + gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail() + '"}'))
+                    this.executePut(JSON.stringify({"firstName":this.firstName,"msgType":"participantWithoutClub","lastName":this.lastName,"birthday":this.birthday,"weight":this.weight,"gender":this.gender,"email":gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail()}))
             }
             else {
 
                 //existing club
                 if(this.isClubCreation)
-                    this.executePut(JSON.parse('{"clubLong":"' + this.nameLong + '","msgType":"' + 'clubNew' + '","clubShort":"' + this.nameShort + '","email":"' + gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail() + '"}'))
+                    this.executePut(JSON.stringify({"clubLong":this.nameLong,"msgType": 'clubNew' ,"clubShort":this.nameShort,"email":gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail() }))
                 //new club
                 else
-                    this.executePut(JSON.parse('{"club":"' + this.club + '","msgType":"' + 'clubExisting' + '","email":"' + gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail() + '"}'))
+                    this.executePut(JSON.stringify({"club":this.club,"msgType":'clubExisting',"email":gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail()}))
             }
             
             
@@ -132,13 +132,14 @@ export default class DataForm extends LitElement{
     }
 
     async executePut(json){
+        console.log("hallo")
         let response = await DataService.put(json, "data-form")
 
         if(response == "success"){
 
             //tell our user that it was a success
             if(this.isCreate){         
-                window.alert(this.translation["registerSuccess"] + 'Erfolgreich registriert!NOTRANSLATION')
+                window.alert(this.translation["registerSuccess"])
                 
                 //fire create event for component change
                 let events = new CustomEvent("submitBtnPressed", {
@@ -147,7 +148,7 @@ export default class DataForm extends LitElement{
                 document.dispatchEvent(events);
             }
             else {
-                window.alert(this.translation["editSuccess"] + 'Erfolgreich bearbeitet!NOTRANSLATION')
+                window.alert(this.translation["editSuccess"])
                 
                 //fire edit event for component change
                 let events = new CustomEvent("submitBtnPressedEdit", {
@@ -320,7 +321,7 @@ export default class DataForm extends LitElement{
                 </div>
             </div>
             <br>
-            <button id="submitBtn" type="submit" style="display:none" class="btn btn-primary custom-color" @click="${() => this.submitBtnPressed()}">${this.translation["saveBtn"]}SpeichernNOTRANS</button>
+            <button id="submitBtn" type="submit" style="display:none" class="btn btn-primary custom-color" @click="${() => this.submitBtnPressed()}">${this.translation["saveBtn"]}</button>
             <br>
             <br>
         `

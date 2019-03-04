@@ -17,11 +17,12 @@ var challengeStatusExtension = "getEmailStatus.php"
 var picSearchExtension = "picSearch/"
 var updateSessionDateExtension = "updateSessionDate.php"
 var deleteSingleChallengeExtension = "deleteChallenges.php"
-var dataFormExtension = "postDataForm"
+var dataFormExtension = "createParticipant.php"
 var allClubsExtension = "getAllClubs.php"
-var getDataExtension = "getDataByParticipant/"
+var getDataExtension = "getDataByParticipant.php"
 var getTranslationExtension = "getTranslation.php"
 var changeDistanceExtension = "changeDistance.php"
+var allClubsReduced = "getClubsWithoutAdmin.php"
 export default class DataService{
 
     //post request
@@ -51,8 +52,6 @@ export default class DataService{
     //put request
     //json: data for body, msgType: to get right extension
     static async put(json, msgType){
-        if(msgType == "data-form")
-            return "success"
         return await fetch(this.getRealPath(msgType), {
                 method: "PUT",
                 body: json,
@@ -142,19 +141,19 @@ export default class DataService{
             case "session-date-update":
                 return path + updateSessionDateExtension
             case "delete-single-challenge":
-                return path + deleteSingleChallengeExtension + "?year=" + jsonParams.year
+                return path + deleteSingleChallengeExtension + "?year=" + jsonParams
             case "email-exists":
                 return path + emailExists + "?email=" +jsonParams.email
             case "data-form":
-                return pathTwo + dataFormExtension
+                return path + dataFormExtension
             case "all-clubs":
                 return path + allClubsExtension
             case "data-participant":
-                return pathTwo + getDataExtension + jsonParams.email
+                return path + getDataExtension + "?email=" + jsonParams.email
             case "translation":
                 return path + getTranslationExtension + "?language=" + jsonParams.language
             case "all-clubs-reduced":
-                return path + allClubsExtension
+                return path + allClubsReduced
             case "change-distance":
                 return path + changeDistanceExtension
             default:

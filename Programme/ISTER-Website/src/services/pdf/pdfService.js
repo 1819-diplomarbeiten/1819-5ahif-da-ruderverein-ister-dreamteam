@@ -109,7 +109,8 @@ export default class PdfService{
             var pClass = result[i].pClass
             var columns = this.getSessionColumns(round, pClass)
             var rows = []
-            for(var j = 0; j < result[i].results.length;j++){
+            for(var j = 0; j < result[i].results.length && result[i].results != null;j++){
+                
                 rows[j] = {"position": j + 1,
                 "name": result[i].results[j].lastName + " " + result[i].results[j].firstName, 
                 "gender": result[i].results[j].gender,
