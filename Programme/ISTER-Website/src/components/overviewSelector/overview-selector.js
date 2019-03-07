@@ -41,7 +41,7 @@ export default class OverviewSelector extends LitElement{
             this.changeButtonsBarClickablity()
             
             //display edit button if participant logged in
-            if(this.emailStatus != 'club')
+            if(this.emailStatus == 'participant' || this.emailStatus == 'schramm')
                 this.shadowRoot.getElementById('editBtn').style.display = 'initial'
         })
 
