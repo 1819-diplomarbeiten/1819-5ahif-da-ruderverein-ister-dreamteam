@@ -27,8 +27,10 @@ export default class ClubRanking extends LitElement{
 
         let data = await DataService.get("club-ranking", JSON.parse('{"year":"' + this.dropDownYear + '","sequence":"' + this.dropDownSequence + '"}'))
 
-        if(data != "failure")
+        if(data != "failure"){
             PdfService.createPdfClub(data, this.dropDownYear)
+            this.shadowRoot.getElementById('notification').innerHTML = ''
+        }
         else
             this.shadowRoot.getElementById('notification').innerHTML = 'connection failed'
     }
@@ -36,8 +38,10 @@ export default class ClubRanking extends LitElement{
     //gets called from user per button-click, manages creation of email name reference list
     async getEmailNameList(){
         let data = await DataService.get("email-name")
-        if(data != "failure")
+        if(data != "failure"){
             PdfService.createEmailName(data)
+            this.shadowRoot.getElementById('notificationEmailName').innerHTML = ''
+        }
         else
             this.shadowRoot.getElementById('notificationEmailName').innerHTML = 'connection failed'
     }

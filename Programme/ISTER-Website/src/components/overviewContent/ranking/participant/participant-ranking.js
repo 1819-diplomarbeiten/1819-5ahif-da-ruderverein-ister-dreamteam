@@ -29,8 +29,10 @@ export default class ParticipantRanking extends LitElement{
 
         var data = await DataService.get('participant-ranking', JSON.parse('{"year":"' + this.dropDownYear + '","result":"' + this.dropDownResult + '","sequence":"' + this.dropDownSequence + '"}'))
 
-        if(data != "failure")
+        if(data != "failure"){
             this.managePdfCreation(data)
+            this.shadowRoot.getElementById('notification').innerHTML = ''
+        }
         else
             this.shadowRoot.getElementById('notification').innerHTML = 'connection failed'
     }

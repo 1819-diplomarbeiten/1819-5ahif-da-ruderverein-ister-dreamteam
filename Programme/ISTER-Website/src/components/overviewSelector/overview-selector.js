@@ -74,19 +74,10 @@ export default class OverviewSelector extends LitElement{
             window.location.replace('http://ergo-challenge.ister.at/')
     }
 
-    //disable htl-logo if home view component is not displayed
-    checkForHtlLogo(){
-        if(this.lastUsedContent != 'home')
-            this.shadowRoot.getElementById('htl').style.display = 'initial'
-        else
-            this.shadowRoot.getElementById('htl').style.display = 'initial'
-    }
-
     //sets the new page body content / component
     changeContent(content){
         this.lastUsedContent = content
         let websiteContent = this.shadowRoot.getElementById('website-content')
-        this.checkForHtlLogo()
 
         //remove current childen
         while (websiteContent.firstChild) {

@@ -76,6 +76,7 @@ export default class DataService{
     static async get(msgType, jsonParams){
         return await fetch(this.getRealPath(msgType, jsonParams))
                         .then(resp => {
+                            console.log(resp)
                             if(resp.status == 200)
                                 return resp
                             else

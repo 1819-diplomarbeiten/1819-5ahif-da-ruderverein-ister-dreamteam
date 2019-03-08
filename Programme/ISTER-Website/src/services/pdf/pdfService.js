@@ -133,6 +133,7 @@ export default class PdfService{
 
     //gets called for club creation
     static createPdfClub(result, year){
+        console.log(result)
         var doc = new jsPDF()
         this.checkForTranslation()
 
