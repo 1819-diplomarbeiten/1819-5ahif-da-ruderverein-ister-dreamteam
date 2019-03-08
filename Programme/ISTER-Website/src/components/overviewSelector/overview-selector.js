@@ -20,7 +20,7 @@ export default class OverviewSelector extends LitElement{
         super();
 
         //email from hr schramm
-        this.emailSchramm = 'daniel.maz99@gmail.com'
+        this.emailSchramm = 'hans@gmail.com'
 
         //set first "default" content
         this.lastUsedContent = 'home'
@@ -43,13 +43,16 @@ export default class OverviewSelector extends LitElement{
             //display edit button if participant logged in
             if(this.emailStatus == 'participant' || this.emailStatus == 'schramm')
                 this.shadowRoot.getElementById('editBtn').style.display = 'initial'
+            else
+                this.shadowRoot.getElementById('editBtn').style.display = 'none'
+
         })
 
         document.addEventListener("submitBtnPressedEdit", () => {
             this.changeContent('home')
             
             //display edit button if participant logged in
-            if(this.emailStatus != 'club')
+            if(this.emailStatus == 'participant' || this.emailStatus == 'schramm')
                 this.shadowRoot.getElementById('editBtn').style.display = 'initial'
         })
     }
