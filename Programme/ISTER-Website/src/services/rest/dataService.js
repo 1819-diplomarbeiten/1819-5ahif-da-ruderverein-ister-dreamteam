@@ -76,7 +76,6 @@ export default class DataService{
     static async get(msgType, jsonParams){
         return await fetch(this.getRealPath(msgType, jsonParams))
                         .then(resp => {
-                            console.log(resp)
                             if(resp.status == 200)
                                 return resp
                             else
@@ -102,7 +101,6 @@ export default class DataService{
             }
         })
         .then(resp => {
-            console.log(resp)
             if(resp.status != 200)
                 return "failure"
             else
@@ -147,7 +145,7 @@ export default class DataService{
                 return path + emailExists + "?email=" +jsonParams.email
             case "data-form":
                 return path + dataFormExtension
-            case "all-clubs":
+            case "all-clubs": 
                 return path + allClubsExtension
             case "data-participant":
                 return path + getDataExtension + "?email=" + jsonParams.email

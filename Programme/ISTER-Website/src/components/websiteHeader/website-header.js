@@ -27,7 +27,6 @@ export default class WebsiteHeader extends LitElement{
     //manages the countdown at the top of the website
     async countdown(){
         let data = await DataService.get('challenge-time')
-        console.log(data)
 
         if(data != "failure"){
             setInterval(_ => {
