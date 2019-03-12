@@ -1,29 +1,49 @@
 birthday:
 Geburtsdatum
+Fecha de Nac.
+Rodjendan
 
 createClub: 
 Neuen Club erstellen
+Crear nuevo club
+Novi club sastaviti
 
 editHeader: 
 Persönliche Daten bearbeiten
+Editar datos personales
+Privatne podace obraditi
 
 firstName: 
 Vorname
+Primer nombre
+ime
 
 gender: 
 Geschlecht
+Sexo
+Rod
 
 lastName: 
 Nachname
+Apellido
+Prezime
 
 longname: 
 Clubname
+Nombre Club
+Ime kluba
 
 registerAs: 
 Registrieren als
+Registrarse como
+Registrirati kao
 
 weight: 
 Gewicht
+Peso
+Tezina
 
 mainPageBtn: 
 Hauptseite
+Página principal
+Glavna strana

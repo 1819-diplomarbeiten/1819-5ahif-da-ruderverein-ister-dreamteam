@@ -132,7 +132,6 @@ export default class DataForm extends LitElement{
     }
 
     async executePut(json){
-        console.log("hallo")
         let response = await DataService.put(json, "data-form")
 
         if(response == "success"){
@@ -252,7 +251,7 @@ export default class DataForm extends LitElement{
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-sm"><strong>${this.translation["birthday"]} (YYYY-MM-DD)*</strong></span>
                     </div>
-                    <input id="birthday" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" style="width:190px;text-align:right">
+                    <input id="birthday" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" style="width:180px">
                 </div>
                 <br>
                 <div class="input-group input-group-sm mb-3">

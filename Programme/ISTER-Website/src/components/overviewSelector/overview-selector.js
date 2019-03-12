@@ -20,7 +20,7 @@ export default class OverviewSelector extends LitElement{
         super();
 
         //email from hr schramm
-        this.emailSchramm = 'hans@gmail.com'
+        this.emailSchramm = 'daniel.maz99@gmail.com'
 
         //set first "default" content
         this.lastUsedContent = 'home'

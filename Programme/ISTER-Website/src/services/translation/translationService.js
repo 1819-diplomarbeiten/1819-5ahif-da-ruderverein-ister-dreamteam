@@ -20,7 +20,8 @@ export default class TranslationService{
     static async loadTranslation(language){   
         currentTranslation = await DataService.get('translation', JSON.parse('{"language":"' + language + '"}'))
 
-        if(currentTranslation != "failure"){       
+        if(currentTranslation != "failure"){     
+              
             //fire event that language has changed
             document.dispatchEvent(
                 new CustomEvent("languageChanged", {
