@@ -12,16 +12,21 @@ include_once '../config/database.php';
 // instantiate product object
 include_once '../model/participant.php';
 include_once '../queries/Query.php';
+include_once '../../vendor/autoload.php';
 
 $database = new Database();
 $db = $database->getConnection();
 $query = new Query($db);
+$idToken = $_GET['idtoken'];
 
-if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS'){
+if($query->getUserRights($idToken) != 'participant' && $query->getUserRights($idToken) != 'schramm'){
+    http_response_code(401);
+}else {
+    if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
-}
-else{
-    $email = $_GET['email'];
-    $result = $query->getParticipantData($email);
-    echo json_encode($result);
+    } else {
+        $email = $_GET['email'];
+        $result = $query->getParticipantData($email);
+        echo json_encode($result);
+    }
 }

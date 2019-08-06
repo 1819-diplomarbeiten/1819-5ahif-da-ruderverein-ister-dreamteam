@@ -9,6 +9,8 @@ header('Access-Control-Allow-Credentials: true');
 // include database and object files
 include_once '../config/Database.php';
 include_once '../queries/Query.php';
+include_once '../../vendor/autoload.php';
+
 
 $database = new Database();
 $db = $database->getConnection();
@@ -17,26 +19,60 @@ $query = new Query($db);
 $year = $_GET['year'];
 $sequence = $_GET['sequence'];
 $result = $_GET['result'];
+$idToken = $_GET['idtoken'];
+if($query->getUserRights($idToken) != 'participant' && $query->getUserRights($idToken) != 'schramm'){
+    http_response_code(401);
+}else {
+    try {
+        if ($result == "0" && $sequence != 'Categories') {
+            $data = generateBasicJson();
+        }
 
-if ($result == "0" && $sequence != 'Categories') {
-    $data = generateBasicJson();
+        if ($result > 0 && $sequence != 'Categories') {
+            $data = generateAdvancedJson();
+        }
+
+        if ($result == 0 && $sequence == 'Categories') {
+            $data = generateBasicJson();
+            $data = generateClassArrays($data);
+
+        }
+
+        if ($result > 0 && $sequence == 'Categories') {
+            $data = generateAdvancedJson();
+            $data = generateClassArrays($data);
+        }
+    } catch (Throwable $t) {
+        http_response_code(500);
+    }
+
+
+
+
+
+
+
+    if ($sequence == 'Alphabetic') {
+        usort($data, "sort_by_name");
+
+    }
+
+
+
+    if ($sequence == "TopDown") {
+        usort($data, "sort_by_result");
+    }
+
+
+
+    if (isset($data)) {
+        /*    convert data to json */
+        $json = json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+
+
+    echo $json;
 }
-
-if ($result > 0 && $sequence != 'Categories') {
-    $data = generateAdvancedJson();
-}
-
-if ($result == 0 && $sequence == 'Categories') {
-    $data = generateBasicJson();
-    $data = generateClassArrays($data);
-
-}
-
-if ($result > 0 && $sequence == 'Categories') {
-    $data = generateAdvancedJson();
-    $data = generateClassArrays($data);
-}
-
 function generateBasicJson()
 {
     global $query;
@@ -57,7 +93,7 @@ function generateBasicJson()
         $bestFour = (json_decode($query->getBestFourDistances($e['email'], $year), true))[0]['bestFourDistances'];
         $data[count($data) - 1]['bestFourDistances'] = $bestFour;
         $data[count($data) - 1]['pClass'] = json_decode($query->getPClass($e['email'], $year), true)[0]['pClass'];
-        if($distance['roundOne'] == 0 && $distance['roundTwo'] == 0 && $distance['roundThree'] == 0 && $distance['roundFour'] == 0 && $distance['roundFive'] == 0 && $distance['roundSix'] == 0){
+        if ($distance['roundOne'] == 0 && $distance['roundTwo'] == 0 && $distance['roundThree'] == 0 && $distance['roundFour'] == 0 && $distance['roundFive'] == 0 && $distance['roundSix'] == 0) {
             array_pop($data);
         }
 
@@ -85,7 +121,13 @@ function generateAdvancedJson()
             $data[count($data) - 1]['pClass'] = json_decode($query->getPClass($e['email'], $year), true)[0]['pClass'];
         }
     }
-    return $data;
+    if (isset($data)) {
+        return $data;
+    } else {
+        http_response_code(500);
+        return null;
+    }
+
 
 }
 
@@ -131,60 +173,44 @@ function generateClassArrays($data)
         }
     }
     $data = $query->getAllPClass();
-    if(isset($schArray))
-    $data[0]['results'] = $schArray;
-    if(isset($jbArray))
-    $data[1]['results'] = $jbArray;
-    if(isset($jaArray))
-    $data[2]['results'] = $jaArray;
-    if(isset($u23Array))
-    $data[3]['results'] = $u23Array;
-    if(isset($senArray))
-    $data[4]['results'] = $senArray;
-    if(isset($aArray))
-    $data[5]['results'] = $aArray;
-    if(isset($bArray))
-    $data[6]['results'] = $bArray;
-    if(isset($cArray))
-    $data[7]['results'] = $cArray;
-    if(isset($dArray))
-    $data[8]['results'] = $dArray;
-    if(isset($eArray))
-    $data[9]['results'] = $eArray;
+    if (isset($schArray))
+        $data[0]['results'] = $schArray;
+    if (isset($jbArray))
+        $data[1]['results'] = $jbArray;
+    if (isset($jaArray))
+        $data[2]['results'] = $jaArray;
+    if (isset($u23Array))
+        $data[3]['results'] = $u23Array;
+    if (isset($senArray))
+        $data[4]['results'] = $senArray;
+    if (isset($aArray))
+        $data[5]['results'] = $aArray;
+    if (isset($bArray))
+        $data[6]['results'] = $bArray;
+    if (isset($cArray))
+        $data[7]['results'] = $cArray;
+    if (isset($dArray))
+        $data[8]['results'] = $dArray;
+    if (isset($eArray))
+        $data[9]['results'] = $eArray;
 
-    foreach($data as &$d){
-        usort($d['results'],'sort_by_result');
+    foreach ($data as &$d) {
+        usort($d['results'], 'sort_by_result');
     }
     return $data;
 }
 
-if ($sequence == 'Alphabetic') {
-    usort($data, "sort_by_name");
-
-}
-
 function sort_by_name($a, $b)
 {
-    return strcmp($a["lastName"],$b["lastName"]);
+    return strcmp($a["lastName"], $b["lastName"]);
 }
 
-if($sequence == "TopDown"){
-    usort($data, "sort_by_result");
-}
 function sort_by_result($a, $b)
 {
     global $result;
-    if($result == 0){
+    if ($result == 0) {
         return $a["bestFourDistances"] < $b["bestFourDistances"];
-    }
-    else{
+    } else {
         return $a['round'] < $b['round'];
     }
 }
-
-
-if (isset($data)) {
-    /*    convert data to json */
-    $json = json_encode($data, JSON_UNESCAPED_UNICODE);
-}
-echo $json;

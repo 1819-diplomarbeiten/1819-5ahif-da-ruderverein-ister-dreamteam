@@ -48,7 +48,7 @@ export default class DistanceFormClub extends LitElement{
 
             //convert sheet to json
             var XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
-            var jsonObj = JSON.stringify(XL_row_object);
+            var jsonObj = JSON.stringify({"data": XL_row_object, "idToken": gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token});
 
             //check if excel can be sent to backend
             if(this.excelIsValid(XL_row_object) == false) {
@@ -62,6 +62,7 @@ export default class DistanceFormClub extends LitElement{
     }
 
     async executePut(jsonObj){
+        
         var response = await DataService.post(jsonObj, "periods")
 
         if(response == "success")

@@ -9,6 +9,7 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 // include database and object files
 include_once '../config/database.php';
 include_once '../model/Challenge.php';
+include_once '../../vendor/autoload.php';
 
 // get database connection
 $database = new Database();
@@ -26,18 +27,22 @@ $challenge->challenge_id = $data->challenge_id;
 // set product property values
 $challenge->start_date = $data->start_date;
 $challenge->end_date = $data->end_date;
+$idToken = $data->idtoken;
 
+
+if($query->getUserRights($idToken) != 'schramm'){
+    http_response_code(401);
+}else {
 // update the product
-if($challenge->update()){
-    echo '{';
-    echo '"message": "Challenge was updated."';
-    echo '}';
-}
-
-// if unable to update the product, tell the user
-else{
-    echo '{';
-    echo '"message": "Unable to update Challenge."';
-    echo '}';
+    if ($challenge->update()) {
+        echo '{';
+        echo '"message": "Challenge was updated."';
+        echo '}';
+    } // if unable to update the product, tell the user
+    else {
+        echo '{';
+        echo '"message": "Unable to update Challenge."';
+        echo '}';
+    }
 }
 ?>

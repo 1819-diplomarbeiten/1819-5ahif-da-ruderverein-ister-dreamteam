@@ -13,10 +13,12 @@ include_once '../config/database.php';
 include_once '../model/result.php';
 
 include_once'../queries/Query.php';
+include_once '../../vendor/autoload.php';
 
 $database = new Database();
 $db = $database->getConnection();
 $query = new Query($db);
+
 
 $result = new Result($db);
 
@@ -24,22 +26,36 @@ $result = new Result($db);
 $data = file_get_contents('php://input');
 $data = json_decode($data, true);
 
+$rights=$query->getUserRights($data['idToken']);
+if($query->getUserRights($data['idToken']) != 'participant' && $query->getUserRights($data['idToken']) != 'schramm'){
+    http_response_code(401);
+}
+else {
+
+
+
 // set product property values
-$result->challenge_id = $query->getCurrentChallengeId();
-$result->distance = $data['object']['distance'];
-$result->participant_email = $data['object']['email'];
+    $result->challenge_id = $query->getCurrentChallengeId();
+    $result->distance = $data['distance'];
+    $result->participant_email = $data['email'];
+    $result->image = $data['evidencePic'];
+    if($query->resultAlreadyExists($query->getCurrentChallengeId(), $data['email']) != null) {
+        $result->result_id = $query->resultAlreadyExists($query->getCurrentChallengeId(), $result->participant_email);
+        $result->update();
+    }else{
+        if ($result->create()) {
+            echo '{';
+            echo '"message": "Result was created."';
+            echo '}';
+        } // if unable to create the product, tell the user
+        else {
+            echo '{';
+            echo '"message": "Unable to create Result."';
+            echo '}';
+        }
+    }
 
 // create the product
-if($result->create()){
-    echo '{';
-    echo '"message": "Result was created."';
-    echo '}';
-}
 
-// if unable to create the product, tell the user
-else{
-    echo '{';
-    echo '"message": "Unable to create Result."';
-    echo '}';
 }
 ?>

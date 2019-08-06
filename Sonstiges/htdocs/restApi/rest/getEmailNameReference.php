@@ -8,11 +8,22 @@ header('Access-Control-Allow-Credentials: true');
 // include database and object files
 include_once '../config/Database.php';
 include_once '../queries/Query.php';
+include_once '../../vendor/autoload.php';
 
 $database = new Database();
 $db = $database->getConnection();
 $query = new Query($db);
 
-$data = $query->getEmailNameReference();
+$idToken = $_GET['idtoken'];
+$clubEmail = $_GET['club'];
 
-echo json_encode($data);
+
+
+if($query->getUserRights($idToken) != 'club' && $query->getUserRights($idToken) != 'schramm'){
+    http_response_code(401);
+}else {
+
+    $data = $query->getEmailNameReference($clubEmail);
+
+    echo json_encode($data);
+}

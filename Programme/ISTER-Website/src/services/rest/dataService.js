@@ -60,7 +60,7 @@ export default class DataService{
                 }
             })
             .then(resp => {
-                if(resp.status != 200)
+                if(resp.status != 201)
                     return "failure"
                 else
                     return "success"
@@ -77,6 +77,7 @@ export default class DataService{
         return await fetch(this.getRealPath(msgType, jsonParams))
                         .then(resp => {
                             if(resp.status == 200)
+                
                                 return resp
                             else
                                 return "failure"
@@ -93,9 +94,7 @@ export default class DataService{
     static async delete(msgType, json){
         return await fetch(this.getRealPath(msgType), {
             method: "DELETE",
-            body: JSON.stringify({
-                "object": json
-              }),
+            body: json,
             headers: {
                 "content-type": "application/json"
             }
@@ -122,15 +121,15 @@ export default class DataService{
             case "challenge":
                 return path + challengeCreationExtension
             case "participant-ranking":
-                return path + participantRankingExtension + "?year=" + jsonParams.year + "&result=" + jsonParams.result + "&sequence=" + jsonParams.sequence
+                return path + participantRankingExtension + "?year=" + jsonParams.year + "&result=" + jsonParams.result + "&sequence=" + jsonParams.sequence + "&idtoken=" + gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token
             case "club-ranking":
-                return path + clubRankingExtension + "?year=" + jsonParams.year + "&sequence=" + jsonParams.sequence    
+                return path + clubRankingExtension + "?year=" + jsonParams.year + "&sequence=" + jsonParams.sequence 
             case "challenge-sessions":
                 return path + challengeSessionsExtension + "?year=" + jsonParams.actualYear
             case "email-name":
-                return path + emailNameExtension
+                return path + emailNameExtension + "?club=" + jsonParams.club + "&idtoken=" + jsonParams.idtoken
             case "all-challenges":
-                return path + allChallengesExtension
+                return path + allChallengesExtension + "?idtoken=" + jsonParams.idtoken
             case "evidence-pic":
                 return pathTwo + picSearchExtension + jsonParams.email + '/' + jsonParams.year + '/' + jsonParams.session
             case "challenge-time":
@@ -148,13 +147,15 @@ export default class DataService{
             case "all-clubs": 
                 return path + allClubsExtension
             case "data-participant":
-                return path + getDataExtension + "?email=" + jsonParams.email
+                return path + getDataExtension + "?email=" + jsonParams.email + "&idtoken=" + jsonParams.idtoken
             case "translation":
                 return path + getTranslationExtension + "?language=" + jsonParams.language
             case "all-clubs-reduced":
                 return path + allClubsReduced
             case "change-distance":
                 return path + changeDistanceExtension
+            case "send-token":
+                return path + "oauthtest.php"
             default:
                 break
         }

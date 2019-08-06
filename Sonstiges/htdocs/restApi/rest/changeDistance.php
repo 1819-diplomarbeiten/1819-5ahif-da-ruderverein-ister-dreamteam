@@ -9,6 +9,9 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 include_once '../config/database.php';
 include_once '../model/Result.php';
 include_once '../queries/Query.php';
+include_once '../../vendor/autoload.php';
+
+
 
 // get database connection
 $database = new Database();
@@ -20,12 +23,17 @@ $result = new Result($db);
 $data = file_get_contents('php://input');
 $data = html_entity_decode($data);
 $data = json_decode($data, true);
+$idToken = $data['idtoken'];
 
-$resultId = $query->getResultId((int) $data['session']*10000+ (int)$data['year'], $data['email']);
+if($query->getUserRights($idToken) != 'schramm'){
+    http_response_code(401);
+}else {
+    $resultId = $query->getResultId((int)$data['session'] * 10000 + (int)$data['year'], $data['email']);
 
-$result->result_id = $resultId;
-$result->distance = $data['newValue'];
+    $result->result_id = (int)$resultId;
+    $result->distance = (int)$data['newValue'];
 
-$result->update();
+    $result->update();
 
-return "halo";
+    return "halo";
+}

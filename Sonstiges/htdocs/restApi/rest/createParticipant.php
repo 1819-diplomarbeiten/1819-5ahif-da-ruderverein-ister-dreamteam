@@ -20,7 +20,7 @@ $db = $database->getConnection();
 $query = new Query($db);
 
 if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
-
+    echo "test";
 } else {
     $participant = new Participant($db);
 
@@ -56,14 +56,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
         if ($query->getParticipantData($participant->email) == null) {
             if ($participant->create()) {
-                echo '{';
-                echo '"message": "Participant was created."';
-                echo '}';
-            } // if unable to create the product, tell the user
+                http_response_code (201);
+            }
             else {
-                echo '{';
-                echo '"message": "Unable to create Participant."';
-                echo '}';
+                http_response_code(500);
             }
         } else {
             $participant->update();

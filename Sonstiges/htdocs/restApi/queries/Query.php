@@ -208,8 +208,8 @@ class Query
         global $query;
 
         $sql = $db->prepare("SELECT (UNIX_TIMESTAMP(MIN(start_date))*1000) FROM challenge WHERE start_date > curdate()");
-        $test = json_decode($query->buildJson("(UNIX_TIMESTAMP(MIN(start_date))*1000)", "milliseconds", $sql), true);
-        return $test[0]['milliseconds'];
+        $result = json_decode($query->buildJson("(UNIX_TIMESTAMP(MIN(start_date))*1000)", "milliseconds", $sql), true);
+        return $result[0]['milliseconds'];
 
     }
 
@@ -219,8 +219,8 @@ class Query
         global $query;
 
         $sql = $db->prepare("SELECT (UNIX_TIMESTAMP(MIN(end_date))*1000) FROM challenge WHERE end_date > curdate()");
-        $test = json_decode($query->buildJson("(UNIX_TIMESTAMP(MIN(end_date))*1000)", "milliseconds", $sql), true);
-        return $test[0]['milliseconds'];
+        $result = json_decode($query->buildJson("(UNIX_TIMESTAMP(MIN(end_date))*1000)", "milliseconds", $sql), true);
+        return $result[0]['milliseconds'];
     }
 
     function emailExists($email)
@@ -623,12 +623,13 @@ class Query
         return (int)$result[0]['id'];
     }
 
-    function getEmailNameReference(){
+    function getEmailNameReference($club){
         global $db;
         global $query;
 
-        $sql = $db->prepare("SELECT email, CONCAT(first_name,' ', last_name) from participant");
-        $result = json_decode($query->buildJson("CONCAT(first_name,' ', last_name)", "name", $sql), true);
+        $sql = $db->prepare("SELECT DISTINCT(p.email), CONCAT(p.first_name,' ', p.last_name) from participant, club join participant as p on p.club = club.contraction where club.email = :club ");
+        $sql->bindValue(':club', $club, PDO::PARAM_STR);
+        $result = json_decode($query->buildJson("CONCAT(p.first_name,' ', p.last_name)", "name", $sql), true);
         return $result;
     }
 
@@ -707,6 +708,17 @@ class Query
         }
         return (int)$data[0];
 
+    }
+
+    function getUserRights($id_token){
+        $CLIENT_ID = "863083094018-90dqbb2kvkiaog6tugmd5gagr7kgf483.apps.googleusercontent.com";
+        $client = new Google_Client(['client_id' => $CLIENT_ID]);  // Specify the CLIENT_ID of the app that accesses the backend
+        $payload = $client->verifyIdToken($id_token);
+        if ($payload) {
+            return $this->getEmailStatus($payload['email'])['emailStatus'];
+        } else {
+            return "invalid";
+        }
     }
 
 

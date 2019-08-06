@@ -20,7 +20,7 @@ export default class OverviewSelector extends LitElement{
         super();
 
         //email from hr schramm
-        this.emailSchramm = 'daniel.maz99@gmail.com'
+        this.emailSchramm = 'davipoin@gmail.com'
 
         //set first "default" content
         this.lastUsedContent = 'home'
@@ -50,7 +50,6 @@ export default class OverviewSelector extends LitElement{
 
         document.addEventListener("submitBtnPressedEdit", () => {
             this.changeContent('home')
-            
             //display edit button if participant logged in
             if(this.emailStatus == 'participant' || this.emailStatus == 'schramm')
                 this.shadowRoot.getElementById('editBtn').style.display = 'initial'
@@ -121,7 +120,7 @@ export default class OverviewSelector extends LitElement{
     }
 
     async handleEditUsage(websiteContent){
-        let data = await DataService.get('data-participant', JSON.parse('{"email":"' + this.email + '"}'))
+        let data = await DataService.get('data-participant', JSON.parse('{"email":"' + this.email + '","idtoken":"' + gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token + '"}'))
         
         if(data != "failure")
             websiteContent.innerHTML = `<data-form firstName="${data.firstName}" lastName="${data.lastName}" birthday="${data.birthday}" weight="${data.weight}" gender="${data.gender}" club="${data.club}"></data-form>`
@@ -171,6 +170,9 @@ export default class OverviewSelector extends LitElement{
 
     //checks if participant ranking button has to be enabled
     async checkForParticipantRanking(){
+        let email = gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail()
+        let data = await DataService.get('challenge-status', JSON.parse('{"email":"' + email + '"}'))
+        this.emailStatus = data.emailStatus
         if(this.emailStatus == "participant" || this.emailStatus == "schramm")
             this.shadowRoot.getElementById('participantRankingBtn').style.display = 'initial'
     }
@@ -186,7 +188,9 @@ export default class OverviewSelector extends LitElement{
     async checkForDistanceBtn(){
         let email = gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail()
         let data = await DataService.get('challenge-status', JSON.parse('{"email":"' + email + '"}'))
+        console.log(data)
         if(data != "failure"){     
+            this.shadowRoot.getElementById('editBtn').style.display = 'initial'
             if(data.challengeStatus == "true"){
                 this.shadowRoot.getElementById('distanceBtn').style.display = 'initial'
                 this.emailStatus = data.emailStatus
@@ -201,8 +205,10 @@ export default class OverviewSelector extends LitElement{
 
     //checks which distance formular has to be displayed
     setDistanceSelectors(){
+        console.log(this.emailStatus)
         if(this.emailStatus == 'participant' || this.emailStatus == 'schramm') {
-            this.shadowRoot.getElementById('editBtn').style.display = 'initial'
+            
+            
             this.distanceSelector = 'distance-form-participant'
         }
         else if(this.emailStatus == 'club')
@@ -215,6 +221,8 @@ export default class OverviewSelector extends LitElement{
 
         var email = gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail()
 
+        DataService.post( gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token,"send-token")
+        console.log("haloo")
         let emailExists = await DataService.get("email-exists", JSON.parse('{"email":"' + email + '"}'))
 
         if(emailExists != "failure"){          

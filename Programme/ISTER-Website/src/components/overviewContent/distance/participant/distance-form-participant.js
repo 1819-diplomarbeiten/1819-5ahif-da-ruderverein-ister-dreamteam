@@ -25,18 +25,19 @@ export default class DistanceFormParticipant extends LitElement{
         //gets called when var file is ready 
         fileReader.onload = event => {
             this.evidencePic = event.target.result
+            console.log(this.evidencePic)
             this.putPeriod()
         };
 
         //get file
         var file = this.shadowRoot.getElementById('evidencePic').files[0]
 
-        fileReader.readAsDataURL(file);   
+        fileReader.readAsDataURL(file)
     }
 
     //POST per Service
     async putPeriod(){
-        let response = await DataService.post(JSON.parse("{\"distance\":" + this.distance + ",\"evidencePic\":\"" + this.evidencePic + "\",\"email\":\"" + gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail() + "\"}"), "period")
+        let response = await DataService.post(JSON.stringify({"distance":this.distance,"evidencePic":this.evidencePic,"email":gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail(),"idToken":gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token}), "period")
         if(response == "success")
             this.shadowRoot.getElementById('waiting').innerHTML = `${this.translation["distanceParticipantSuccessThree"]}!`
         else

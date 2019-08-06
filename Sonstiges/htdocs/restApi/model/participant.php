@@ -128,7 +128,7 @@ class Participant
         $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
         $stmt->bindValue(':first_name', $this->first_name, PDO::PARAM_STR);
         $stmt->bindValue(':last_name', $this->last_name, PDO::PARAM_STR);
-        if (!$this->dob == "undefined")
+        if ($this->dob != "undefined")
             $stmt->bindValue(':dob', $this->dob, PDO::PARAM_STR);
 
         $stmt->bindValue(':gender', $this->gender, PDO::PARAM_STR);

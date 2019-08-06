@@ -24,7 +24,6 @@ $year = $_GET['year'];
 $sequence = $_GET['sequence'];
 
 
-
 $sqlSessionResults = $db->prepare("SELECT club.name AS clubLong, sum(distance) AS distance, club, challenge_id 
                                     from result inner join participant on result.participant_email = participant.email 
                                     inner join club on participant.club = club.contraction 

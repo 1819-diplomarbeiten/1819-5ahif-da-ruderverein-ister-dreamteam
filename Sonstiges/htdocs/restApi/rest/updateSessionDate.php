@@ -9,6 +9,7 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 include_once '../config/database.php';
 include_once '../model/Challenge.php';
 include_once '../queries/Query.php';
+include_once '../../vendor/autoload.php';
 
 // get database connection
 $database = new Database();
@@ -27,12 +28,19 @@ $id = $query->getChallengeIdFromStartDate($data['oldDate']);
 
 $challenge->challenge_id = $id;
 $challenge->start_date = $data['newDate'];
-$challenge->end_date = $data['newDate'];
+$idToken = $data['idtoken'];
 
-if(isset($id)){
-    header('HTTP/1.1 200 OK');
-}
-
-else{
-    header('HTTP/1.1 500 Internal Server Error');
+if($query->getUserRights($idToken) != 'schramm'){
+    http_response_code(401);
+}else {
+    if ($challenge->update()) {
+        echo '{';
+        echo '"message": "Result was updated."';
+        echo '}';
+    } // if unable to update the product, tell the user
+    else {
+        echo '{';
+        echo '"message": "Unable to update Result."';
+        echo '}';
+    }
 }

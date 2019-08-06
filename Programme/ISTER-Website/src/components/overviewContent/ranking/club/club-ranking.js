@@ -37,7 +37,7 @@ export default class ClubRanking extends LitElement{
 
     //gets called from user per button-click, manages creation of email name reference list
     async getEmailNameList(){
-        let data = await DataService.get("email-name", JSON.parse('{"club":"' + gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail() + '"}'))
+        let data = await DataService.get("email-name", JSON.parse('{"club":"' + gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail() +  '","idtoken":"' + gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token + '"}'))
         if(data != "failure"){
             PdfService.createEmailName(data)
             this.shadowRoot.getElementById('notificationEmailName').innerHTML = ''

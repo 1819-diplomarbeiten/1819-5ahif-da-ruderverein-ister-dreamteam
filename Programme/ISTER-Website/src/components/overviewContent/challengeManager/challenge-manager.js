@@ -1,6 +1,7 @@
 import {LitElement, html} from '@polymer/lit-element'
 import DataService from '../../../services/rest/dataService.js';
 
+
 //Web Component for Menu Button "ChallengeManager"
 export default class ChallengeManager extends LitElement{
     static get properties(){
@@ -29,7 +30,7 @@ export default class ChallengeManager extends LitElement{
     //get all past / current challenges incl date
     async getAllChallenges(){
         if(this.entered == false)
-            this.challenges = await DataService.get('all-challenges')
+            this.challenges = await DataService.get('all-challenges', JSON.parse('{"idtoken":"'+ gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token + '"}'))
         if(this.challenges != "failure"){
             var data = this.transformJson(this.challenges)
             this.doTableFill(data)
@@ -131,7 +132,7 @@ export default class ChallengeManager extends LitElement{
 
     async executeSessionPost(newDate){
         console.log(JSON.stringify({"oldDate": this.oldDate, "newDate": newDate}));
-        let response = await DataService.post(JSON.stringify({"oldDate": this.oldDate, "newDate": newDate}), 'session-date-update')
+        let response = await DataService.post(JSON.stringify({"oldDate": this.oldDate, "newDate": newDate, "idtoken": gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token }), 'session-date-update')
         if(response == "success")
             window.alert('Datum wurde in der Datenbank geupdatet')
         else
@@ -183,22 +184,20 @@ export default class ChallengeManager extends LitElement{
     async deleteChallenge(id){
         var year = id.substring(0,4)
         if(window.confirm('Wollen Sie die Challenge vom Jahr ' + year + ' wirklich aus der Datenbank löschen?')){
-            console.log('DataService delete hier auskommentiert')
-            console.log(id)
+            
 
-            //commented, but working!
-            // let response = await DataService.delete('delete-single-challenge', year)
+            let response = await DataService.delete('delete-single-challenge', JSON.stringify({"year": year, "idtoken": gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token }))
 
-            // if(response == "success"){
+            if(response == "success"){
 
-            //     this.deleteSpecificChallengeFromList(year)
-            //     this.shadowRoot.getElementById('manageBody').innerHTML = ''
-            //     this.getAllChallenges()
+                this.deleteSpecificChallengeFromList(year)
+                this.shadowRoot.getElementById('manageBody').innerHTML = ''
+                this.getAllChallenges()
 
-            //     window.alert('Challenge von ' + year + ' gelöscht')
-            // }
-            // else
-            //     window.alert('Fehler beim löschen')
+                window.alert('Challenge von ' + year + ' gelöscht')
+            }
+            else
+                window.alert('Fehler beim löschen')
             
         }
     }
@@ -428,7 +427,8 @@ export default class ChallengeManager extends LitElement{
 
     //returns json object for distance update
     getUpdateDistanceJson(){
-        return JSON.stringify({"email": this.shadowRoot.getElementById('emailDistance').value ,"year":this.shadowRoot.getElementById('yearDistance').value ,"session": this.shadowRoot.getElementById('sessionDistance').value ,"oldValue":this.shadowRoot.getElementById('oldValueDistance').value,"newValue": + this.shadowRoot.getElementById('newValueDistance').value })
+        console.log(gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token)
+        return JSON.stringify({"email": this.shadowRoot.getElementById('emailDistance').value ,"year":this.shadowRoot.getElementById('yearDistance').value ,"session": this.shadowRoot.getElementById('sessionDistance').value ,"oldValue":this.shadowRoot.getElementById('oldValueDistance').value,"newValue": + this.shadowRoot.getElementById('newValueDistance').value, "idtoken": gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token})
     }
 
     //returns if given param-date is in the past
@@ -595,7 +595,7 @@ export default class ChallengeManager extends LitElement{
 
     //create json for 6 round dates
     createMsgJson(){
-        return JSON.stringify({"roundOne": this.shadowRoot.getElementById('roundOne').value ,"roundTwo": this.shadowRoot.getElementById('roundTwo').value,"roundThree":this.shadowRoot.getElementById('roundThree').value,"roundFour": this.shadowRoot.getElementById('roundFour').value ,"roundFive": this.shadowRoot.getElementById('roundFive').value ,"roundSix": this.shadowRoot.getElementById('roundSix').value,"year": this.shadowRoot.getElementById('dropDown').value })
+        return JSON.stringify({"roundOne": this.shadowRoot.getElementById('roundOne').value ,"roundTwo": this.shadowRoot.getElementById('roundTwo').value,"roundThree":this.shadowRoot.getElementById('roundThree').value,"roundFour": this.shadowRoot.getElementById('roundFour').value ,"roundFive": this.shadowRoot.getElementById('roundFive').value ,"roundSix": this.shadowRoot.getElementById('roundSix').value,"year": this.shadowRoot.getElementById('dropDown').value,"idToken": gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token })
     }
 
     //returns if all fields have a valid value
