@@ -72,6 +72,7 @@ class Result
                 " . $this->table_name . "
             SET
                 distance = :distance
+                image = :image
             WHERE
                 result_id = :result_id";
 
@@ -83,6 +84,7 @@ class Result
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":distance", $this->distance);
         $stmt->bindParam(":result_id", $this->result_id);
+        $stmt->bindParam(":image", $this->image);
 
 
         // execute the query

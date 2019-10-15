@@ -710,6 +710,20 @@ class Query
 
     }
 
+    function getImage($challengeId, $email){
+        global $db;
+
+        $sql = $db->prepare("SELECT image from result where participant_email =:email AND challenge_id=:challenge_id");
+        $sql->bindValue(':email',$email,PDO::PARAM_STR);
+        $sql->bindValue(':challenge_id',$challengeId,PDO::PARAM_INT);
+        $sql->execute();
+        while ($row = $sql->fetch(PDO::FETCH_ASSOC)) {
+            $data[] = $row['image'];
+        }
+        return $data[0];
+
+    }
+
     function getUserRights($id_token){
         $CLIENT_ID = "863083094018-90dqbb2kvkiaog6tugmd5gagr7kgf483.apps.googleusercontent.com";
         $client = new Google_Client(['client_id' => $CLIENT_ID]);  // Specify the CLIENT_ID of the app that accesses the backend
