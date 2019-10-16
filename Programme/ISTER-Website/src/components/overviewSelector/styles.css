@@ -58,12 +58,13 @@ p.text{
     top: 46%;
 }
 @media only screen and (max-width: 1200px){
+
     .componentSelection{
         position: absolute;
         margin-left: 2%;
         float: left;
         bottom: 8px;
-        justify-content: center
+        justify-content: center;
     }
     .custom-color{
         color: #FAFAFA;
@@ -76,11 +77,22 @@ p.text{
     }
 }
 @media only screen and(min-width: 800px){
+
     .componentSelection{
         position: absolute;
         margin-left: 2%;
         float: left;
         bottom: 18px;
         justify-content: center
+    }
+}
+
+@media (max-width: 515px) {
+    div.background{
+        top:16%;
+        height: 32%;
+    }
+    div.body-container{
+        top: 48%;
     }
 }

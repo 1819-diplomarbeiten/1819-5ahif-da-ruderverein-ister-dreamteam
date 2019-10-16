@@ -20,7 +20,7 @@ export default class HomeView extends LitElement{
             <h1><strong>${this.translation["homeHeadline"]}</strong></h1>
             <br>
             <div class="body-container">
-                <img src="images/homeView.jpg" width="650" height="433" class="image">
+                <img id="imageHome" src="images/homeView.jpg" width="650" height="433" class="image">
                 <div class="text-container">
                     <p class="lineSeparator">${this.translation["homeTextOne"]}</p>  
                     

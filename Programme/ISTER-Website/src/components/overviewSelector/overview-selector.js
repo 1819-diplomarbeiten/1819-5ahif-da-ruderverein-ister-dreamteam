@@ -222,7 +222,7 @@ export default class OverviewSelector extends LitElement{
         var email = gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail()
 
         DataService.post( gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token,"send-token")
-        console.log("haloo")
+        
         let emailExists = await DataService.get("email-exists", JSON.parse('{"email":"' + email + '"}'))
 
         if(emailExists != "failure"){          

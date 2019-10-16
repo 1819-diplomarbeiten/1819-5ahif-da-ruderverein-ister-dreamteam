@@ -1,6 +1,8 @@
 //path to backend
 var path = 'http://localhost/restApi/rest/'
 var pathTwo = 'http://localhost:8080/testserver/rs/sql/'
+//var path = 'http://192.168.0.22:8080/restApi/rest/'
+//var pathTwo = 'http://192.168.0.22:8080/testserver/rs/sql/'
 
 //all extensions needed for communication with backend
 var emailExists = "emailExists.php"

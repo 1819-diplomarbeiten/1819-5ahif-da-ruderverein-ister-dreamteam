@@ -5,6 +5,17 @@
     margin-top: -2%;
 }
 
+#imageHome{
+    width: 650px;
+    height: 433px;
+}
+
+@media(max-width: 650px){
+    #imageHome{
+        width: 100%;
+    }
+}
+
 @media only screen and (max-width: 1200px){
     .body-container{
         flex-direction: column
