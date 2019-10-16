@@ -2,6 +2,7 @@ import {LitElement, html} from '@polymer/lit-element'
 import DataService from '../../../../services/rest/dataService.js'
 import TranslationService from '../../../../services/translation/translationService.js'
 
+
 export default class DistanceFormParticipant extends LitElement{
     static get properties(){
         return{
@@ -25,8 +26,8 @@ export default class DistanceFormParticipant extends LitElement{
         //gets called when var file is ready 
         fileReader.onload = event => {
             this.evidencePic = event.target.result
-            console.log(this.evidencePic)
-            this.putPeriod()
+            this.resizebase64(this.evidencePic, 300, 300);
+            
         };
 
         //get file
@@ -35,8 +36,47 @@ export default class DistanceFormParticipant extends LitElement{
         fileReader.readAsDataURL(file)
     }
 
+    resizebase64(base64, maxWidth, maxHeight){
+
+        
+          // Create and initialize two canvas
+          var canvas = document.createElement("canvas");
+          var ctx = canvas.getContext("2d");
+          var canvasCopy = document.createElement("canvas");
+          var copyContext = canvasCopy.getContext("2d");
+        
+          // Create original image
+          var img = new Image();
+          img.src = base64;
+
+          img.onload = event => {
+            var ratio = 1;
+            if(img.width > maxWidth)
+              ratio = maxWidth / img.width;
+            else if(img.height > maxHeight)
+              ratio = maxHeight / img.height;
+          
+            // Draw original image in second canvas
+            canvasCopy.width = img.width;
+            canvasCopy.height = img.height;
+            copyContext.drawImage(img, 0, 0);
+          
+            // Copy and resize second canvas to first canvas
+            canvas.width = img.width * ratio;
+            canvas.height = img.height * ratio;
+            ctx.drawImage(canvasCopy, 0, 0, canvasCopy.width, canvasCopy.height, 0, 0, canvas.width, canvas.height);
+          
+            this.evidencePic = canvas.toDataURL();
+            this.putPeriod()
+          }
+        
+          
+        }
+    
+
     //POST per Service
     async putPeriod(){
+        console.log(this.evidencePic)
         let response = await DataService.post(JSON.stringify({"distance":this.distance,"evidencePic":this.evidencePic,"email":gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail(),"idToken":gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().id_token}), "period")
         if(response == "success")
             this.shadowRoot.getElementById('waiting').innerHTML = `${this.translation["distanceParticipantSuccessThree"]}!`

@@ -16,7 +16,7 @@ var emailNameExtension = "getEmailNameReference.php"
 var allChallengesExtension = "getallchallenges.php"
 var actualChallengeTimeExtension = "actualchallengetime.php"
 var challengeStatusExtension = "getEmailStatus.php"
-var picSearchExtension = "picSearch/"
+var picSearchExtension = "searchImage.php"
 var updateSessionDateExtension = "updateSessionDate.php"
 var deleteSingleChallengeExtension = "deleteChallenges.php"
 var dataFormExtension = "createParticipant.php"
@@ -133,7 +133,7 @@ export default class DataService{
             case "all-challenges":
                 return path + allChallengesExtension + "?idtoken=" + jsonParams.idtoken
             case "evidence-pic":
-                return pathTwo + picSearchExtension + jsonParams.email + '/' + jsonParams.year + '/' + jsonParams.session
+                return path + picSearchExtension + "?email=" + jsonParams.email + "&year=" + jsonParams.year + "&session=" + jsonParams.session
             case "challenge-time":
                 return path + actualChallengeTimeExtension
             case "challenge-status":
