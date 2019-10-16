@@ -132,7 +132,7 @@ export default class DataService{
             case "email-name":
                 return path + emailNameExtension + "?club=" + jsonParams.club + "&idtoken=" + jsonParams.idtoken
             case "all-challenges":
-                return path + allChallengesExtension //+ "?idtoken=" + jsonParams.idtoken
+                return path + allChallengesExtension + "?idtoken=" + jsonParams.idtoken
             case "evidence-pic":
                 return path + picSearchExtension + "?email=" + jsonParams.email + "&year=" + jsonParams.year + "&session=" + jsonParams.session
             case "challenge-time":
