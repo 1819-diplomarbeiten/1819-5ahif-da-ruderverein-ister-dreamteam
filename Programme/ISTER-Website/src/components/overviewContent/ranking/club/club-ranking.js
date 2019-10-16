@@ -32,7 +32,7 @@ export default class ClubRanking extends LitElement{
             this.shadowRoot.getElementById('notification').innerHTML = ''
         }
         else
-            this.shadowRoot.getElementById('notification').innerHTML = 'connection failed'
+            this.shadowRoot.getElementById('notification').innerHTML = `${this.translation["dataFail"]}`
     }
 
     //gets called from user per button-click, manages creation of email name reference list
@@ -43,7 +43,7 @@ export default class ClubRanking extends LitElement{
             this.shadowRoot.getElementById('notificationEmailName').innerHTML = ''
         }
         else
-            this.shadowRoot.getElementById('notificationEmailName').innerHTML = 'connection failed'
+            this.shadowRoot.getElementById('notificationEmailName').innerHTML = `${this.translation["dataFail"]}`
     }
 
     //button is only displayed when a club is logged in
@@ -55,6 +55,8 @@ export default class ClubRanking extends LitElement{
     //get all available years for dropdown
     async getYearsDropdown(){
         let data = await DataService.get('all-challenges')
+        console.log('hi')
+        console.log(data)
         if(data != "failure"){
             var select = this.shadowRoot.getElementById('dropDownYear')
             for(var i = 0; i < data.length; i ++){

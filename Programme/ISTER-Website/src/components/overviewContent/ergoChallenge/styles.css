@@ -29,3 +29,24 @@ div.background-image {
     -ms-filter: blur(5px);
     filter: grayscale(80%) blur(5px) opacity(60%);
 }
+
+@media (max-width: 515px) {
+    div.background-image {
+        position: absolute;
+        left: -3%;
+        top: 0%;
+        z-index: 1;
+        background-image: url("../../../../images/background/2017-volker.JPG");
+        display: block;
+        width: 103%;
+        height: 100%;
+        background-position-x: 70%;
+        background-position-y: 30%;
+      
+        -webkit-filter: blur(5px);
+        -moz-filter: blur(5px);
+        -o-filter: blur(5px);
+        -ms-filter: blur(5px);
+        filter: grayscale(80%) blur(5px) opacity(60%);
+    }
+}

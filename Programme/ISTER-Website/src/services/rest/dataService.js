@@ -1,6 +1,6 @@
 //path to backend
 var path = 'http://localhost/restApi/rest/'
-var pathTwo = 'http://localhost:8080/testserver/rs/sql/'
+
 //var path = 'http://192.168.0.22:8080/restApi/rest/'
 //var pathTwo = 'http://192.168.0.22:8080/testserver/rs/sql/'
 
@@ -46,6 +46,7 @@ export default class DataService{
                     return "success"
             })
             .catch(err => {
+                console.log(msgType)
                 console.log(err)
                 return "failure"
             })
@@ -131,7 +132,7 @@ export default class DataService{
             case "email-name":
                 return path + emailNameExtension + "?club=" + jsonParams.club + "&idtoken=" + jsonParams.idtoken
             case "all-challenges":
-                return path + allChallengesExtension + "?idtoken=" + jsonParams.idtoken
+                return path + allChallengesExtension //+ "?idtoken=" + jsonParams.idtoken
             case "evidence-pic":
                 return path + picSearchExtension + "?email=" + jsonParams.email + "&year=" + jsonParams.year + "&session=" + jsonParams.session
             case "challenge-time":

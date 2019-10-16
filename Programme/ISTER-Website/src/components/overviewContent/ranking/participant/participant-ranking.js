@@ -34,7 +34,7 @@ export default class ParticipantRanking extends LitElement{
             this.shadowRoot.getElementById('notification').innerHTML = ''
         }
         else
-            this.shadowRoot.getElementById('notification').innerHTML = 'connection failed'
+            this.shadowRoot.getElementById('notification').innerHTML = `${this.translation["dataFail"]}`
     }
 
     //manage the 4 types of participant pdf creation
