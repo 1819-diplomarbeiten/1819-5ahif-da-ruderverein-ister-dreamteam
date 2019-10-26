@@ -63,7 +63,7 @@ export default class DataService{
                 }
             })
             .then(resp => {
-                if(resp.status != 201)
+                if(resp.status != 200)
                     return "failure"
                 else
                     return "success"
@@ -132,7 +132,7 @@ export default class DataService{
             case "email-name":
                 return path + emailNameExtension + "?club=" + jsonParams.club + "&idtoken=" + jsonParams.idtoken
             case "all-challenges":
-                return path + allChallengesExtension + "?idtoken=" + jsonParams.idtoken
+                return path + allChallengesExtension
             case "evidence-pic":
                 return path + picSearchExtension + "?email=" + jsonParams.email + "&year=" + jsonParams.year + "&session=" + jsonParams.session
             case "challenge-time":

@@ -302,7 +302,7 @@ class Query
             $arr['emailStatus'] = "participant";
 
         }
-        if ($email == "davipoin@gmail.com") {
+        if ($email == "davipoin@gmail.com" || $email == "daniel.maz99@gmail.com") {
             $arr['emailStatus'] = "schramm";
         }
         return $arr;

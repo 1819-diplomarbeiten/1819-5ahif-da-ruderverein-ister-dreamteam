@@ -19,7 +19,7 @@ $db = $database->getConnection();
 $query = new Query($db);
 $idToken = $_GET['idtoken'];
 
-if($query->getUserRights($idToken) != 'participant' && $query->getUserRights($idToken) != 'schramm'){
+if($query->getUserRights($idToken) != 'participant' && $query->getUserRights($idToken) != 'schramm' && $query->getUserRights($idToken) != 'club'){
     http_response_code(401);
 }else {
     if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
