@@ -53,7 +53,8 @@ export default class OverviewSelector extends LitElement{
             //display edit button if participant logged in
             if(this.emailStatus == 'participant' || this.emailStatus == 'schramm')
                 this.shadowRoot.getElementById('editBtn').style.display = 'initial'
-        
+            else
+                this.shadowRoot.getElementById('editBtn').style.display = 'none'
         })
     }
 
@@ -190,8 +191,11 @@ export default class OverviewSelector extends LitElement{
         let email = gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail()
         let data = await DataService.get('challenge-status', JSON.parse('{"email":"' + email + '"}'))
 
-        if(data != "failure"){     
-            this.shadowRoot.getElementById('editBtn').style.display = 'initial'
+        if(data != "failure"){  
+            if(this.emailStatus == "participant" || this.emailStatus == "schramm")   
+                this.shadowRoot.getElementById('editBtn').style.display = 'initial'
+            else
+                this.shadowRoot.getElementById('editBtn').style.display = 'none'
             if(data.challengeStatus == "true"){
                 this.shadowRoot.getElementById('distanceBtn').style.display = 'initial'
                 this.emailStatus = data.emailStatus
@@ -234,7 +238,6 @@ export default class OverviewSelector extends LitElement{
                 this.changeContent ('home')
                 this.startChecking()
                 this.changeButtonsBarClickablity()
-                //this.changeContent('data-form')
             }
             this.manageLoginUsage()
         }
