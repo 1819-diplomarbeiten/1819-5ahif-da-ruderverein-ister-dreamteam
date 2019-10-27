@@ -63,7 +63,7 @@ export default class DataService{
                 }
             })
             .then(resp => {
-                if(resp.status != 200)
+                if(resp.status != 200 && resp.status != 201)
                     return "failure"
                 else
                     return "success"
