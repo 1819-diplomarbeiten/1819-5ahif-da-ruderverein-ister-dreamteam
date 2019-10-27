@@ -20,7 +20,7 @@ export default class OverviewSelector extends LitElement{
         super();
 
         //email from hr schramm
-        this.emailSchramm = 'davipoin@gmail.com'
+        this.emailSchramm = 'schramm@nomail.com'
 
         //set first "default" content
         this.lastUsedContent = 'home'
@@ -53,6 +53,7 @@ export default class OverviewSelector extends LitElement{
             //display edit button if participant logged in
             if(this.emailStatus == 'participant' || this.emailStatus == 'schramm')
                 this.shadowRoot.getElementById('editBtn').style.display = 'initial'
+        
         })
     }
 
@@ -188,7 +189,7 @@ export default class OverviewSelector extends LitElement{
     async checkForDistanceBtn(){
         let email = gapi.auth2.getAuthInstance()['currentUser'].get().getBasicProfile().getEmail()
         let data = await DataService.get('challenge-status', JSON.parse('{"email":"' + email + '"}'))
-        console.log(data)
+
         if(data != "failure"){     
             this.shadowRoot.getElementById('editBtn').style.display = 'initial'
             if(data.challengeStatus == "true"){

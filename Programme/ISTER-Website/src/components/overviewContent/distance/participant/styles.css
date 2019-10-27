@@ -63,7 +63,7 @@ div.body-content{
     z-index: 2;
 }
 div.background-image {
-    position: fixed;
+    position: absolute;
     left: -3%;
     margin-top: -5%;
     z-index: -1;

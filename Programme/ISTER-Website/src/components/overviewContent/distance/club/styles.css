@@ -57,7 +57,7 @@ div.body-content{
     z-index: 2;
 }
 div.background-image {
-    position: fixed;
+    position: absolute;
     left: -3%;
     margin-top: -1%;
     z-index: 1;
@@ -72,10 +72,4 @@ div.background-image {
     -o-filter: blur(5px);
     -ms-filter: blur(5px);
     filter: grayscale(80%) blur(5px) opacity(60%);
-}
-@media(max-width: 515px)
-{
-    div.background-image{
-        top:48%;
-    }
 }
