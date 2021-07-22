@@ -34,7 +34,7 @@
     "popper.js": "^1.14.6",
     "resize-base64": "^1.0.12",
     "select2": "^3.5.1",
-    "xlsx": "^0.14.1",
+    "xlsx": "^0.17.0",
     "zebra_datepicker": "^1.9.12"
   },
   "devDependencies": {
