@@ -33,7 +33,7 @@
     "polymer-cli": "^1.9.5",
     "popper.js": "^1.14.6",
     "resize-base64": "^1.0.12",
-    "select2": "^3.5.1",
+    "select2": "^4.0.6",
     "xlsx": "^0.14.1",
     "zebra_datepicker": "^1.9.12"
   },
